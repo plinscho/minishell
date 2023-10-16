@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I./include
 LDFLAGS = -lreadline
 
 SRC = main.c
@@ -12,7 +12,8 @@ OBJ = $(SRC:.c=.o)
 all: Makefile $(NAME) 
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $^ -o $(NAME) $(LDFLAGS)
+	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:
 	rm -f $(OBJ)

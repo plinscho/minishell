@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
+#include "include/minishell.h"
 
 int main(void)
 {
@@ -9,7 +6,7 @@ int main(void)
 
 	while (1)
 	{
-		input = readline("Minishell_> ");
+		input = readline("Minishell> ");
 		if (!input)
 			break ;
 		printf("your line: %s\n", input);
