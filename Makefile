@@ -40,7 +40,7 @@ clean:
 fclean: clean
 	@$(MAKE) -sC $(LIB_PATH) fclean
 	@rm -f $(NAME)
-	@printf "\nRemoved $(NAME).\n"
+	@printf "[MINISH] Removed $(NAME).\n"
 
 re: fclean all
 
