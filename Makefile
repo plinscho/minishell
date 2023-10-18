@@ -4,7 +4,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 LDFLAGS = -lreadline
 LIB_PATH = include/libft
-MINI_H = include/minishell.h
 LIBFT = $(LIB_PATH)/libft.a
 
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
@@ -15,12 +14,9 @@ SRC = src/main.c \
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "Compiling ...$<\n"
 	@mkdir -p $(@D)
-	gcc $(CFLAGS) -c $< -o $@ -I$(LIB_PATH)
 
-DEPS = $(SCR:.c=.d)
 -include $(DEPS)
 
-all: $(NAME) $(LIBFT)
 
 $(LIBFT):
 	@printf "Checking libft Now :D\n"
