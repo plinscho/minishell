@@ -10,22 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+#include "../include/minishell.h"
 
-t_lexer *lexer(int argc, char **argv)
+t_lexer *lexer(char *input)
 {
     t_lexer *list;
+    t_lexer *new;
     int i;
 
     i = -1;
     list = NULL;
-    while (++i < argc)
+    new = NULL;
+    while (input[++i])
     {
-        
+        if (input[i] == ' ')
+        {
+            new = lex_new(NULL, 0);
+            while (input[i] == ' ')
+                i++;
+        }
     }
 }
 
-int main(int argc, char **argv)
+/*int main(int argc, char **argv)
 {
     t_lexer *list;
     int i;
@@ -39,4 +46,4 @@ int main(int argc, char **argv)
         list == list->next; 
     }
 
-}
+}*/

@@ -12,14 +12,15 @@
 
 #include "../include/lexer.h"
 
-t_lexer	*ft_lstnew(char *content, int token)
+t_lexer	*lex_new(char *content, int token)
 {
 	t_lexer	*new_node;
 
-	new_list = malloc(sizeof(t_list));
-	if (!new_list)
+	new_node = malloc(sizeof(t_lexer));
+	if (!new_node)
 		return (NULL);
-	new_list -> content = content;
-	new_list -> next = NULL;
-	return (new_list);
+	new_node -> cont = content;
+	new_node -> token = token;
+	new_node -> next = NULL;
+	return (new_node);
 }

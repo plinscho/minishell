@@ -32,8 +32,22 @@ typedef struct s_lexer
     struct s_lexer  *next;
 } t_lexer;
 
-t_lexer *lexer(int argc, char **argv); //creates the lexer list with tokens
+/***** lexer.c -   *****/
+t_lexer *lexer(char *input); //creates the lexer list with tokens
 
+/***** lexer_utils.c -   *****/
+t_lexer	*lex_new(char *content, int token);
 
+/* The list of tokens:
+0 = space; - content is null
+1 = word;
+2 = ' single quotes string;
+3 = " double quotes string; 
+4 = < infile redirection; - content is null
+5 = > outfile redirection; - content is null
+6 = << heredoc sign; - content is a KEYWORD
+7 = >> outfile append redirection; - content is null
+8 = | pipe; - content is null
+*/
 
 #endif
