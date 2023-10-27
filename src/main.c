@@ -9,7 +9,7 @@ int main(void)
     while (1)
     {
         input = readline("minishell> ");
-        if (!input || *input != '\0') // in case we recieved an empty line
+        if (!input || *input == '\0') // in case we recieved an empty line
             break;
 		printf("[MAIN]You entered: %s\n\n", input);
         lex_list = lexer(input);
