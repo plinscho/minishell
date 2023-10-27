@@ -12,6 +12,30 @@
 
 #include "../include/minishell.h"
 
+t_lexer *read_redirection(char *in, int *i)
+{
+    int j;
+
+    j = 0;
+    if (in[j] == '<' && in[j + 1] != '<') // the case of < input file
+        return (lex_new(NULL, 4));
+    else if (in[j] == '>' && in[j + 1] != '>') // the case of > output file
+        return (lex_new(NULL, 5));
+    else if (in[j] == '<' && in[j + 1] == '<') // the case of << heredoc
+    {
+        *i++;
+        return (lex_new(NULL, 6));
+    }
+    else if (in[j] == '<' && in[j + 1] == '<') // the case of >> append
+    {    
+        *i++;
+        return (lex_new(NULL, 7));
+    }
+    else if (in[j] == '|')
+        return (lex_new(NULL, 8));
+    return (NULL);
+}
+
 t_lexer *lexer(char *input)
 {
     t_lexer *list;
@@ -25,10 +49,13 @@ t_lexer *lexer(char *input)
     {
         if (input[i] == ' ')
         {
-            new = lex_new(NULL, 0);
-            while (input[i] == ' ')
+            while (input[i + 1] && input[i + 1] == ' ')
                 i++;
+            new = lex_new(NULL, 0);
         }
+        else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
+            new = read_redirection(&input[i], &i);
+        
     }
 }
 
