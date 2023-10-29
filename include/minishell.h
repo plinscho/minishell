@@ -19,5 +19,8 @@ void	signal_mgr();
 //		ENV
 char	**cpy_env(char **og_env); //dont forget to free it!!!
 char	*ft_getenv(char *var, char **env);
+void	populate_env(char **env_cpy, char **og_env);
+size_t	env_variables(char **og_env);
+
 
 #endif
