@@ -29,8 +29,13 @@ void	char_an(const char *full_cmd);
 
 //		SIGNALS
 void	signal_mgr();
+
 void	signal_init(void);
 void	signal_int(int sig);
 void	signal_quit(int sig);
+
+//		ENV
+char	**cpy_env(char **og_env); //dont forget to free it!!!
+char	*ft_getenv(char *var, char **env);
 
 #endif
