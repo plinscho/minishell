@@ -51,7 +51,7 @@ char	*ft_substr_quotes(char *s, int start, int len, int i); //check if it trims 
 1 = word;
 2 = ' single quotes string;
 3 = " double quotes string; 
-4 = < infile redirection; - content is null
+4 = < infile redirection; - content is nullcheckout 
 5 = > outfile redirection; - content is null
 6 = << heredoc sign; - content is null
 7 = >> outfile append redirection; - content is null
