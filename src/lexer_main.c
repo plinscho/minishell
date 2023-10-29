@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 18:33:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:41:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ t_lexer *read_redirection(char *in, int *i)
     return (NULL);
 }
 
+
+/*	P: what happens with the "" and ''? There is no case where the program saves the
+	token into the list. Or if the input has '\' we have to ingnore the next character.
+	We need to consider these cases before tokenizing.
+*/
 t_lexer *lexer(char *input)
 {
     t_lexer *list;
@@ -58,14 +63,14 @@ t_lexer *lexer(char *input)
         
     }
 }
-
-/*int main(int argc, char **argv)
+/*
+int main(int argc, char **argv)
 {
     t_lexer *list;
     int i;
 
     i == 1;
-    list = lexer(argc, argv);
+    list = lexer(argv[1]);
     while (list)
     {
         printf("node 1 -- content: %s, type; %i\n", list->cont, list->token); //erase
@@ -73,4 +78,5 @@ t_lexer *lexer(char *input)
         list == list->next; 
     }
 
-}*/
+}
+*/
