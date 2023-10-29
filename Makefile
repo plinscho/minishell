@@ -17,6 +17,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 -include $(DEPS)
 
+all: $(LIBFT) $(NAME) Makefile
 
 $(LIBFT):
 	@printf "Checking libft Now :D\n"
