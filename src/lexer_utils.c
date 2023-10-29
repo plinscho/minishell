@@ -62,7 +62,7 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	temp -> next = new;
 }
 
-char	*ft_substr_slash(char *s, int start, int len, int i)
+char	*ft_substr_quotes(char *s, int start, int len, int i)
 {
 	char	*m;
 	int		new_len;
@@ -70,7 +70,7 @@ char	*ft_substr_slash(char *s, int start, int len, int i)
 	new_len = len;
 	while (++i < (len - 1) && s[i + start + 1])
 	{
-		if (s[i + start] == '\\' && s[i + start + 1] == '\"')
+		if (s[i + start] == '\'' || s[i + start] == '\"')
 			new_len--;
 	}
 	i = 0;
@@ -79,7 +79,7 @@ char	*ft_substr_slash(char *s, int start, int len, int i)
 		return (NULL);
 	while (i < new_len && s[i + start])
 	{
-		if (s[i + start] == '\\' && s[i + start + 1] == '\"')
+		if (s[i + start] == '\'' || s[i + start] == '\"')
 			start++;
 		else
 		{
