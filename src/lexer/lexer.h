@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:34:27 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 18:35:29 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:40:36 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
-# include "./libft/libft.h"
+# include "../../include/libft/libft.h"
 
 typedef struct s_lexer
 {

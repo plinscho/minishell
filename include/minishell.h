@@ -2,8 +2,9 @@
     #define MINISHELL_H
 
 #include "libft/libft.h"
-#include "lexer.h"
-#include "signals.h"
+#include "../src/lexer/lexer.h"
+#include "../src/signals/signals.h"
+#include "../src/parser/parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
