@@ -3,30 +3,43 @@
 
 #include "libft/libft.h"
 #include "../src/lexer/lexer.h"
-#include "../src/signals/signals.h"
 #include "../src/parser/parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
-//	We can create a struct where we store the head of all
-//	the other lists, so we only pass one argument (t_mini)
-//	and at the same time pass all the lists
-//	
+//	STRUCTS:
+
+typedef struct s_envlst
+{
+	char				*env_full;
+	char				*env_val;
+	char				*env_key;
+	struct s_envlist	*next;
+}t_env;
+
 typedef struct s_mini
 {
-	t_lexer	*head;
-//	add other structs
+	t_lexer	**lst_lex;
+	t_env	**lst_env;
+//	Add other structs
 
-	char 	**env_cpy;	
+	char 	**og_env;	
 
 }t_mini;
 
 //FUNCTIONS
 
-//		INPUT
-void	char_an(const char *full_cmd);
+//		LEXER
+
+//		PARSER
+
+//	ENV_LIST
+t_env	**env_head(char **og_env);
+t_env	*envnode_new(char *env);
+void	env_del(t_env **head);
+
 
 //		SIGNALS
 void	signal_mgr();
