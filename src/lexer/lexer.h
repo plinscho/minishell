@@ -23,7 +23,8 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../../include/minishell.h"
+# include "../../include/libft/libft.h"
+//# include "../../include/minishell.h"
 
 typedef struct s_lexer
 {
@@ -44,7 +45,7 @@ t_lexer *read_space(char *in, int *i);
 int	lex_clean(t_lexer **lst, char **in); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
-char	*ft_substr_quotes(char *s, int start, int len, int i); //check if it trims slashes like bash
+char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
 
 /* The list of tokens:
 0 = space; - content is null

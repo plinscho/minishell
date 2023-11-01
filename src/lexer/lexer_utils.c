@@ -62,28 +62,30 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	temp -> next = new;
 }
 
-char	*ft_substr_quotes(char *s, int start, int len, int i)
+char	*ft_substr_quotes(char *s, char q, int len, int i)
 {
 	char	*m;
 	int		new_len;
+//	int		start;
 
 	new_len = len;
-	while (++i < (len - 1) && s[i + start + 1])
+//	start = 0;
+	while (++i < (len - 1) && s[i + 1])
 	{
-		if (s[i + start] == '\'' || s[i + start] == '\"')
+		if (s[i] == q)
 			new_len--;
 	}
 	i = 0;
 	m = (char *) malloc(new_len + 1);
 	if (m == 0)
 		return (NULL);
-	while (i < new_len && s[i + start])
+	while (i < new_len && s[i])
 	{
-		if (s[i + start] == '\'' || s[i + start] == '\"')
-			start++;
+		if (s[i] == q)
+			s++;
 		else
 		{
-			m[i] = s[start + i];
+			m[i] = s[i];
 			i++;
 		}
 	}
