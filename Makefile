@@ -4,12 +4,25 @@ CFLAGS = -Wall -Wextra -Werror
 
 LDFLAGS = -lreadline
 LIB_PATH = include/libft
-LIBFT = $(LIB_PATH)/libft.a
+MINI_H = include/minishell.h
+LIBFT_H = $(LIB_PATH)/libft.a
 
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+#BUILTINS
+#LEXER
+#PARSER
+#EXECUTOR
+#EXPANSER
+
+ENV = enl_lst env 
+
+
+
+
 SRC = src/main.c \
 		src/input/input.c \
-		src/signals/signals.c
+		src/signals/signals.c 
+
+OBJ = $(SRC:c=o)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "Compiling ...$<\n"
@@ -17,13 +30,13 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 -include $(DEPS)
 
-all: $(LIBFT) $(NAME) Makefile
+all: $(LIBFT_H) $(NAME) Makefile
 
-$(LIBFT):
+$(LIBFT_H):
 	@printf "Checking libft Now :D\n"
 	@$(MAKE) -sC $(LIB_PATH)
 
-$(NAME): $(MINI_H) $(LIBFT) $(OBJ)
+$(NAME): $(MINI_H) $(LIBFT_H) $(OBJ)
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -I$(LIB_PATH) -L$(LIB_PATH) \
 	-lft $(LDFLAGS)
