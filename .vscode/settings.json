@@ -1,5 +1,21 @@
+"configurations": [
+	{
+		"name": "Linux",
+		"includePath": [
+			"${workspaceFolder}/**",
+			"/usr/include"
+		],
+		"defines": [],
+		"compilerPath": "/usr/bin/gcc",
+		"cStandard": "gnu17",
+		"cppStandard": "gnu++14",
+		"intelliSenseMode": "gcc-x64"
+	}
+],
+
 {
     "files.associations": {
-        "lexer.h": "c"
-    }
+		"lexer.h": "c",
+		"minishell.h": "c"
+	}
 }

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 19:01:37 by nzhuzhle         ###   ########.fr       */
+/*   Created: 2023/10/29 17:00:51 by nzhuzhle          #+#    #+#             */
+/*   Updated: 2023/10/29 19:50:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-t_lexer	*lex_new(char *content, int token)
-{
-	t_lexer	*new_node;
+# include "../../include/minishell.h"
+# include "../lexer/lexer.h"
 
-	new_node = malloc(sizeof(t_lexer));
-	if (!new_node)
-		return (NULL);
-	new_node -> cont = content;
-	new_node -> token = token;
-	new_node -> next = NULL;
-	return (new_node);
-}
+#endif
