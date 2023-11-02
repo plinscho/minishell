@@ -16,8 +16,10 @@ int main(int argc, char **argv, char **envp)
 {
     char    *input = NULL;
 	t_lexer *lex_list = NULL;
+	t_pipe	*parse = NULL;
+	t_hd	*hd = NULL;
 	char	**cp_env = NULL; 
-   int i;
+	int i;
 
 	if (argc != 1 && argv[0])
 		return (1);
@@ -29,16 +31,19 @@ int main(int argc, char **argv, char **envp)
 		input = readline("minishell> ");  
         if (!input) // in case we recieved an empty line
             break;
+		if (ft_here_doc(input, &hd))
+			return (1); // exit code malloc error
 //		printf("[MAIN]You entered: %s\n\n", input);
 		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
+		
 		i = 1;
-    	while (lex_list)
+    	/*while (lex_list)
     	{
 			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
        	 	i++;
         	lex_list = lex_list->next; 
-    	}
+    	}*/
 	}
 	lex_clean(&lex_list, &input);
 	return (0);

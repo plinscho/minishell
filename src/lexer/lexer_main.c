@@ -30,7 +30,8 @@ t_lexer *read_word(char *in, int *i)
 	char	q;
 
 	j = 0;
-	while (in[j] && (in[j] != ' ' &in[j] != '\'' && in[j] != '\"'))
+	while (in[j] && in[j] != ' ' && in[j] != '\'' && in[j] != '\"' \
+	&& check_chr(in[j]))
 		j++;
 	if (in[j] && (in[j] == '\'' || in[j] == '\"'))
 	{
@@ -121,7 +122,7 @@ int lexer(char *input, t_lexer **head)
 	return (0);
 }
 
-int main(int argc, char **argv, char **envp)
+/*int main(int argc, char **argv, char **envp)
 {
     char    *input = NULL;
 	t_lexer *lex_list = NULL;
@@ -151,4 +152,4 @@ int main(int argc, char **argv, char **envp)
 	}
 	lex_clean(&lex_list, &input);
 	return (0);
-}
+}*/

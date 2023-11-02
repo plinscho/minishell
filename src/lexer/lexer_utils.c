@@ -92,3 +92,11 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 	m[i] = '\0';
 	return (m);
 }
+
+int	check_chr(char c)
+{
+	if ((c > 32 && c < 59) || c == '=' || (c > 62 && c < 124 && c != 96) \
+	|| (c > 124 && c < 127))
+		return (1);
+	return (0);
+}

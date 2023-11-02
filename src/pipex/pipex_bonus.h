@@ -39,7 +39,7 @@ typedef struct s_struct
 	int		exit_status;
 	int		here_doc;
 	char	*str_doc;
-	int		in_fd;
+	int		in_fd; 
 	int		out_fd;
 	int		fd[2];
 	char	**paths;
