@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/02 16:29:51 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:33:55 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*get_key(char *og_env)
 	while (og_env[i] != '=')
 		i++;
 	key = ft_strndup(og_env, i);
-	printf("key: %s\n", key);		//Remove printf
 	return (key);
 }
 
@@ -47,33 +46,38 @@ char	*get_val(char *og_env)
 		og_env++;
 	og_env++;
 	val = ft_strdup(og_env);
-	printf("val: %s\n", val);		//remove printf
 	return (val);
 }
 
-//	This function gets the original adress of the env variables
-//	and makes a copy of them in the env_cpy variable, which is then
-//	returned.
-t_env	**env_head(char **og_env)
+void	print_env(t_env *head)
 {
-	t_env			**head = NULL;
-	t_env			**tmp = NULL;
-	unsigned int	i;
-			
-	head = (t_env **)malloc(sizeof(t_env *) * env_variables(og_env) + 1);
-	if (!head)
-		return (NULL);			// manage error.
+	t_env	*tmp;
+	int		i;
+
 	tmp = head;
-	
-//	I might change how its done, because its not a linked list, but an
-//	array of nodes. All the "next" are pointing to null.
 	i = 0;
-	while (og_env[i] != NULL)
+	while (tmp)
 	{
-		head[i] = envnode_new(og_env[i]);
+		ft_printf("Node[%d]\nkey: %s\nval: %s\n\n", i, tmp->env_key, tmp->env_val);
+		tmp = tmp->next;
 		i++;
 	}
-	head[i] = NULL;
-	head = tmp;
-	return (head);
 }
+
+int		get_env(t_mini *sh, char **env)
+{
+	t_env			*env_lst = NULL;
+	unsigned int	i;
+
+	if (!(env_lst = malloc(sizeof(t_env))))
+		return (1);
+	sh->lst_env = env_lst;
+	i = 0;
+	while (env && env[i])
+	{
+		ft_envadd_back(&env_lst, envnode_new(env[i]));
+		i++;
+	}
+	return (0);
+}
+

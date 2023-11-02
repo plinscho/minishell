@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I include/ -I include/libft/
+CFLAGS = -Wall -Wextra -Werror -g -I include/ -I include/libft/
 
 LDFLAGS = -lreadline
 LIB_PATH = include/libft
@@ -35,13 +35,12 @@ $(LIBFT_H):
 	@$(MAKE) -sC $(LIB_PATH)
 
 $(NAME): $(HEADER) $(LIBFT_H) $(OBJ)
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -L libft -lft $(LDFLAGS)
+	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -L include/libft -lft $(LDFLAGS)
 	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:
 	@$(MAKE) -sC $(LIB_PATH) clean
-	@rm -rf $(OBJDIR)
+	@rm -rf $(OBJ)
 	@printf "[MINIS] Removed objects.\n"
 
 fclean: clean
