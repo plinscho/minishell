@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_lst.c                                          :+:      :+:    :+:   */
+/*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 18:23:56 by plinscho          #+#    #+#             */
-/*   Updated: 2023/10/31 21:00:43 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/02 16:34:56 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 t_env	*envnode_new(char *env)
 {
@@ -25,7 +25,6 @@ t_env	*envnode_new(char *env)
 	new_list->next = NULL;
 	return (new_list);
 }
-
 
 void	env_del(t_env **head)
 {

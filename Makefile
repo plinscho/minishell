@@ -1,45 +1,42 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I include/ -I include/libft/
 
 LDFLAGS = -lreadline
 LIB_PATH = include/libft
-MINI_H = include/minishell.h
+HEADER = include/minishell.h
 LIBFT_H = $(LIB_PATH)/libft.a
 
 #BUILTINS
-#LEXER
 #PARSER
 #EXECUTOR
 #EXPANSER
 
-ENV = enl_lst env 
+MAIN = main
+LEXER = lexer_main lexer_utils
+ENV = env env_list
 
 
+SRC = $(addsuffix .c, $(addprefix src/env/, $(ENV))) \
+	  $(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) \
+  	  $(addsuffix .c, $(addprefix src/main/, $(MAIN)))
 
-
-SRC = src/main.c \
-		src/input/input.c \
-		src/signals/signals.c 
 
 OBJ = $(SRC:c=o)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@printf "Compiling ...$<\n"
-	@mkdir -p $(@D)
+%.o: %.c
+	@printf "Rolling minishell objects...\r" $@
+	@${CC} ${CFLAGS} -c $< -o $@
 
--include $(DEPS)
-
-all: $(LIBFT_H) $(NAME) Makefile
+all: $(LIBFT_H) Makefile $(NAME)
 
 $(LIBFT_H):
 	@printf "Checking libft Now :D\n"
 	@$(MAKE) -sC $(LIB_PATH)
 
-$(NAME): $(MINI_H) $(LIBFT_H) $(OBJ)
+$(NAME): $(HEADER) $(LIBFT_H) $(OBJ)
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -I$(LIB_PATH) -L$(LIB_PATH) \
-	-lft $(LDFLAGS)
+	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -L libft -lft $(LDFLAGS)
 	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:
