@@ -64,6 +64,9 @@ char	*keyword_hd(char *in, int *i);
 int		save_hd(char *key, char *str);
 int		free_hd(t_hd **hd, int err); // returns -2 if malloc fails, -1 if fd fails
 
+/***** here_doc_utils.c - dealing with here_doc list  *****/
+void	hd_add(t_hd **lst, t_hd *new);
+
 
 /* The list of tokens:
 0 = space; - content is null
