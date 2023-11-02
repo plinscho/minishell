@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/02 18:33:55 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:56:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		get_env(t_mini *sh, char **env)
 		return (1);
 	sh->lst_env = env_lst;
 	i = 0;
-	while (env && env[i])
+	while (env[i])
 	{
 		ft_envadd_back(&env_lst, envnode_new(env[i]));
 		i++;

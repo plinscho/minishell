@@ -17,15 +17,15 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	sh_init(&sh);
 	get_env(&sh, env);
-	print_env(sh.lst_env);
-    while (1)
+    while (1 == 1)
     {
         input = readline("kebab> ");
 		printf("\n[MAIN]\ninput: %s\n\n", input);
-        if (!input || *input != '\0') // in case we recieved an empty line
+        if (!input) // in case we recieved an empty line
             break;
 		if (lexer(input, sh.lst_lex)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
+		print_lexer(*sh.lst_lex);
         if (input || *input)
             add_history(input);
         free(input);

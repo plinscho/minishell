@@ -82,6 +82,7 @@ int		lex_clean(t_lexer **lst); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, int start, int len, int i); //check if it trims slashes like bash
+void	print_lexer(t_lexer *lex_list);
 
 //		PARSER
 

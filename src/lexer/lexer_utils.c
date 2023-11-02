@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/02 17:24:08 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:54:12 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,15 @@ char	*ft_substr_quotes(char *s, int start, int len, int i)
 	}
 	m[i] = '\0';
 	return (m);
+}
+
+void	print_lexer(t_lexer *lex_list)
+{
+	int i = 0;
+	while (lex_list)
+    	{
+			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+       	 	i++;
+        	lex_list = lex_list->next; 
+    	}
 }
