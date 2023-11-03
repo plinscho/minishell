@@ -26,3 +26,18 @@ void	hd_add(t_hd **lst, t_hd *new)
 		temp = temp -> next;
 	temp -> next = new;
 }
+
+int	ft_longer(char *str, char *key)
+{
+	int	len;
+
+//	printf("in ft_longer: str - %zu, key - %zu\n", ft_strlen(str), ft_strlen(key)); //erase
+	if (ft_strlen(str) > ft_strlen(key))
+		len = ft_strlen(str);
+	else
+	{
+		len = ft_strlen(key);
+	}
+//	printf("in ft_longer: len -  %i\n", len); //erase
+	return (len);
+}

@@ -19,13 +19,14 @@ int	ft_here_doc(char *in, t_hd **hd)
 
 	i = 0;
 	if (!ft_strnstr(in, "<<", ft_strlen(in)))
-		return ;
-	while (in[i] > 0)
+		return (0);
+	while (in[i])
 	{
 		i = find_hd(in, 0);
-		if (!i)
+		if (i <= 0)
 			return (0);
 		in = in + i;
+	//	printf("str after <<: %s\n", in); //erase
 		new = malloc(sizeof(t_hd));
 		if (!new)
 			return (free_hd(hd, -2));
@@ -34,9 +35,9 @@ int	ft_here_doc(char *in, t_hd **hd)
 		new->str = keyword_hd(in, &i);
 		if (!new->str)
 			return (free_hd(hd, -2));
-		new->hd = save_hd(new->str, NULL);
-		if (new->hd < 0)
-			return (free_hd(hd, new->hd));
+		new->fd = save_hd(new->str, NULL);
+		if (new->fd < 0)
+			return (free_hd(hd, new->fd));
 	}
 	return (0);
 }
@@ -77,6 +78,7 @@ char	*keyword_hd(char *in, int *i)
 	while (in[j] && in[j] != ' ' && in[j] != '\'' && in[j] != '\"' \
 	&& check_chr(in[j]))
 		j++;
+//	printf("in keyword: stop letter: %c\n", in[j]); //erase
 	if (in[j] && (in[j] == '\'' || in[j] == '\"'))
 	{
 		q = in[j];
@@ -88,7 +90,7 @@ char	*keyword_hd(char *in, int *i)
 		cont = ft_substr_quotes(in, q, j, -1);
 	}
 	else
-		cont = ft_substr(in, 0, j - 1);
+		cont = ft_substr(in, 0, j);
 	if (!cont)
 		return (NULL);
 	*i += j;
@@ -101,17 +103,25 @@ int	save_hd(char *key, char *str)
 
 	if (pipe(hd) < -1)
 		return (-1);
+//	printf("in save hd: key -  %s\n", key); //erase
+//	write(1, key, ft_strlen(key)); //erase
 	while (42)
 	{
-		write(1, "> ", 2);
 		str = readline("> ");
 		if (!str)
 			return (-2);
-		else if (!ft_strncmp(str, key, ft_strlen(str) - 1) && \
+		else if (!ft_strncmp(str, key, ft_longer(str, key)) && \
 				(ft_strncmp(str, "\n", 1)))
+		{
+	//		printf("in 1st cmp: str -  %s\n", str); //erase
 			break ;
+		}
+			
 		else if (!ft_strncmp(str, "\n", 1) && (*key == '\0'))
 			break ;
+	//	write(1, "in heredoc: ", 12); //erase
+	//	write(1, str, ft_strlen(str)); //erase
+	//	write(1, "\n", 1); //erase
 		write(hd[1], str, ft_strlen(str));
 		free(str);
 		str = NULL;

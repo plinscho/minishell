@@ -1,6 +1,7 @@
 {
     "files.associations": {
 		"lexer.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"ostream": "c"
 	}
 }

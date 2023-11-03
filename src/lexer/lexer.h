@@ -38,7 +38,7 @@ typedef struct s_lexer
 /* heredoc list  -  do not forget to free if any syntax error found! */
 typedef struct s_hd
 {
-	int		hd; // file descriptor
+	int		fd; // file descriptor
 	char	*str; // string you get in heredoc to compare it with the key word
 	struct s_hd	*next;
 }	t_hd;
@@ -66,6 +66,7 @@ int		free_hd(t_hd **hd, int err); // returns -2 if malloc fails, -1 if fd fails
 
 /***** here_doc_utils.c - dealing with here_doc list  *****/
 void	hd_add(t_hd **lst, t_hd *new);
+int		ft_longer(char *str, char *key);
 
 
 /* The list of tokens:

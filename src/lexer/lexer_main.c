@@ -42,12 +42,13 @@ t_lexer *read_word(char *in, int *i)
 		while (in[j] && in[j + 1] && in[j + 1] != ' ')
 			j++;
 		cont = ft_substr_quotes(in, q, j, -1);
+		(*i)++;
 	}
 	else
-		cont = ft_substr(in, 0, j - 1);
+		cont = ft_substr(in, 0, j);
 	if (!cont)
 		return (NULL);
-	*i += j;
+	*i += j - 1;
 	return (lex_new(cont, 1));
 }
 
@@ -122,10 +123,11 @@ int lexer(char *input, t_lexer **head)
 	return (0);
 }
 
-/*int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
     char    *input = NULL;
 	t_lexer *lex_list = NULL;
+	t_hd	*hd = NULL;
 //	char	**cp_env = NULL; 
     int i;
 
@@ -139,17 +141,26 @@ int lexer(char *input, t_lexer **head)
 		input = readline("minishell> ");  
         if (!input) // in case we recieved an empty line
             break;
-		printf("[MAIN]You entered: %s\n\n", input);
+		if (ft_here_doc(input, &hd))
+			return (1); // exit code malloc error
+//		printf("[MAIN]You entered: %s\n\n", input);
 		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
 		i = 1;
     	while (lex_list)
     	{
-			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+			printf("lexer node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
        	 	i++;
         	lex_list = lex_list->next; 
     	}
+/*		i = 1;
+		while (hd)
+    	{
+			printf("hd node %i -- key: %s, fd: %i\n", i, hd->str, hd->fd); //erase
+       	 	i++;
+        	hd = hd->next; 
+    	}*/
 	}
 	lex_clean(&lex_list, &input);
 	return (0);
-}*/
+}

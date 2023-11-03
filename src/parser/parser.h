@@ -13,7 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "../../include/minishell.h"
+//# include "../../include/minishell.h"
 # include "../lexer/lexer.h"
 
 /* a list with all the files names with redirections */
