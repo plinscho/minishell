@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 19:01:37 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:34:14 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../include/minishell.h"
 
-int	lex_clean(t_lexer **lst, char **in)
+int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 
@@ -25,9 +25,6 @@ int	lex_clean(t_lexer **lst, char **in)
 		*lst = temp;
 	}
 	*lst = NULL;
-	if (*in)
-		free(*in);
-	*in = NULL;
 	return (1);
 }
 

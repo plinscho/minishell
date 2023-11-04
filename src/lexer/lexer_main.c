@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 18:33:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:34:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../include/minishell.h"
 
 t_lexer *read_space(char *in, int *i)
 {
@@ -123,16 +123,8 @@ int lexer(char *input, t_lexer **head)
 
 int main(int argc, char **argv, char **envp)
 {
-    char    *input = NULL;
 	t_lexer *lex_list = NULL;
-//	char	**cp_env = NULL; 
-    int i;
 
-	if (argc != 1 && argv[0])
-		return (1);
-//	cp_env = cpy_env(envp);
-//	if (!cp_env)
-//		return (1);
 	while (42)
 	{
 		input = readline("minishell> ");  
@@ -141,7 +133,7 @@ int main(int argc, char **argv, char **envp)
 		printf("[MAIN]You entered: %s\n\n", input);
 		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
-		i = 1;
+		int i = 1;
     	while (lex_list)
     	{
 			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase

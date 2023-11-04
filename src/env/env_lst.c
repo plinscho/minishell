@@ -6,11 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:23:56 by plinscho          #+#    #+#             */
-/*   Updated: 2023/10/31 21:00:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:29:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../include/minishell.h"
 
 t_env	*envnode_new(char *env)
 {
