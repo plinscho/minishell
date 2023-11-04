@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_lst.c                                          :+:      :+:    :+:   */
+/*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD:src/env/env_lst.c
 /*   Created: 2023/10/31 18:23:56 by plinscho          #+#    #+#             */
 /*   Updated: 2023/11/01 23:29:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+=======
+/*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/02 18:34:28 by plinscho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+>>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd:src/env/env_list.c
 
 t_env	*envnode_new(char *env)
 {
@@ -26,50 +35,42 @@ t_env	*envnode_new(char *env)
 	return (new_list);
 }
 
-
-void	env_del(t_env **head)
+void	env_del(t_env *head)
 {
 	t_env	*tmp_node = NULL;
-	t_env	*node = NULL;
+	t_env	*prev_node = NULL;
 
-	tmp_node = *head; 
+	tmp_node = head;
 	while (tmp_node)
 	{
 		
 		free(tmp_node->env_key);
 		free(tmp_node->env_val);
 		free(tmp_node->env_full);
-		node = tmp_node;
+		prev_node = tmp_node;
 		tmp_node = tmp_node->next;
-		free(node);
+		free(prev_node);
 	}
+	
 }
 
-/*
-t_env	*ft_lstlast(t_env *lst)
+void	ft_envadd_back(t_env **lst, t_env *new)
 {
-	if (lst)
-		while (lst -> next)
-			lst = lst -> next;
-	return (lst);
-}
-
-void	ft_lstadd_front(t_env **lst, t_env *new)
-{
-	new -> next = *lst;
-	*lst = new;
-}
-
-void	ft_lstadd_back(t_env **lst, t_env *new)
-{
-	t_env	*tmp_node;
+	t_env	*tmp_node = NULL;
 
 	if (!*lst)
 	{
 		*lst = new;
 		return ;
 	}
-	tmp_node = ft_lstlast(*lst);
+	tmp_node = ft_envlast(*lst);
 	tmp_node -> next = new;
 }
-*/
+
+t_env	*ft_envlast(t_env *lst)
+{
+	if (lst)
+		while (lst->next)
+			lst = lst->next;
+	return (lst);
+}

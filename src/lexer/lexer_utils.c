@@ -6,16 +6,26 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/01 23:34:14 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+=======
+/*   Updated: 2023/11/02 18:54:12 by plinscho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+>>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd
 
 int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 
+	if (!lst)
+		return (EXIT_FAILURE);
 	while (*lst)
 	{
 		temp = (*lst) -> next;
@@ -88,4 +98,15 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 	}
 	m[i] = '\0';
 	return (m);
+}
+
+void	print_lexer(t_lexer *lex_list)
+{
+	int i = 0;
+	while (lex_list)
+    	{
+			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+       	 	i++;
+        	lex_list = lex_list->next; 
+    	}
 }
