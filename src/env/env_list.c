@@ -5,21 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:src/env/env_lst.c
-/*   Created: 2023/10/31 18:23:56 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/01 23:29:24 by plinscho         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../include/minishell.h"
-=======
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/02 18:34:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:43:08 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
->>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd:src/env/env_list.c
 
 t_env	*envnode_new(char *env)
 {

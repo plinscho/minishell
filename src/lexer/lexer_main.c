@@ -6,19 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/01 23:34:06 by plinscho         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../include/minishell.h"
-=======
-/*   Updated: 2023/11/02 17:00:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:43:56 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
->>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd
 
 t_lexer *read_space(char *in, int *i)
 {
@@ -132,12 +124,8 @@ int lexer(char *input, t_lexer **head)
 int main(int argc, char **argv, char **envp)
 {
 	t_lexer *lex_list = NULL;
-<<<<<<< HEAD
-
-=======
 	char	**cp_env = NULL; 
  
->>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd
 	while (42)
 	{
 		input = readline("minishell> ");  
@@ -147,15 +135,9 @@ int main(int argc, char **argv, char **envp)
 		
 		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
-<<<<<<< HEAD
 		int i = 1;
-=======
 		i = 1;
->>>>>>> 4772314bf21fd092f3342fbc5e46abb45f02d7bd
-    	while (lex_list)
-    	{
 			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
-       	 	i++;
         	lex_list = lex_list->next; 
     	}
 	}
