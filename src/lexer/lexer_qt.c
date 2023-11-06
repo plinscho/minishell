@@ -6,22 +6,20 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 19:32:09 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/03 21:05:48 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:55:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
 void	check_qt(char *str)
 {
 	unsigned int	i;
-	unsigned int	limit;
 	char			open;
 
 	i = 0;
 	open = 0;
-	limit = 1000;
-	while (str[i] && i < 1000)
+	while (str[i])
 	{
 		if (i > 0 && str[i - 1] == '\\')
 			;
