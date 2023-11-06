@@ -6,11 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 19:32:09 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/06 17:40:05 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:38:47 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
 //	Checks if there are quotes open. One of the firsts to check.
 int		check_qt(char *str)
@@ -37,37 +37,25 @@ int		check_qt(char *str)
 	return(open);
 }
 
-//	Checks if there are redirection errors.
-//	Function works after quotes check
-void		check_append_l(char *input, int *i, int *error)
+void		check_append(char *input, int *i, int *error)
 {
 	int	j;
 
-	j = 0;
-	while (input[i + j])
+	j = 2; // starting after the second '>'
+	while (input[j] && input[j] == ' ')	// Iterate spaces
+		j++;
+	while (input[j])
 	{
-		// check for the error
+		if (!(check_char(input[j])))
+			*error = 1;
 		j++;
 	}
-	return (0);
-}
-
-void		check_append_r(char *input, int *i, int *error)
-{
-	int j;
-
-	j = 0;
-	while (input[i + j])
-	{
-		//	check for the error
-		j++;
-	}
-	return (0);
+	return (*error);
 }
 
 void	check_pipes(char *input, int *i, char *error)
 {
-	
+	return ;
 }		
 
 int		check_syntax(char *input)
@@ -79,12 +67,10 @@ int		check_syntax(char *input)
 	error = 0;
 	while ((input[i]) && (error == 0))
 	{
-		if (input[i] == '<' && input[i + 1] == '<') //heredoc!!
-			check_append_l(input, &i, &error);
-		else if (input[i] == '>' && input[i + 1] == '>')
-			check_append_r(input, &i, &error);
+		if (input[i] == '>' && input[i + 1] == '>')
+			check_append(&input[i], &i, &error);
 		else if (input[i] == '|')
-			check_pipes(input, &i, &error);
+			check_pipes(&input[i], &i, &error);
 	}
 	if (error)
 		return (1);

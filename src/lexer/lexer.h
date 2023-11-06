@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:34:27 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/06 18:24:18 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:34:45 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../../include/libft/libft.h"
-//# include "../../include/minishell.h"
+# include "../../include/minishell.h"
 
 typedef struct s_lexer
 {
@@ -43,7 +42,7 @@ t_lexer *read_word(char *in, int *i);
 t_lexer *read_space(char *in, int *i);
 
 /**** lexer_utils.c -   ****/
-int	lex_clean(t_lexer **lst, char **in); // cleans the list and the input
+int		lex_clean(t_lexer **lst, char **in); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash

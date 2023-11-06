@@ -23,7 +23,7 @@ typedef struct s_mini
 	t_lexer	*lst_lex;  //change to lex_lst
 	t_env	*lst_env;  //change to env_lst
 	t_pipe  *pipe_lst;  //What we have in every child, more structs inside.
-	t_hd	*hd_lst;	 //Here_doc list. 
+//	t_hd	*hd_lst;	 //Here_doc list. 
 
 
 	int		exit;		 //int designed to exit the readline loop and finish the shell
@@ -33,8 +33,6 @@ typedef struct s_mini
 } t_mini;
 
 /*	TOKENS	*/
-
-
 
 /* The list of tokens:
 0 = space; - content is null
@@ -50,8 +48,8 @@ typedef struct s_mini
 
 //FUNCTIONS
 
-/*
-		ENV
+/*	ENV
+
 void	env_del(t_env *head);
 t_env	*envnode_new(char *env);
 void	ft_envadd_back(t_env **lst, t_env *new);
@@ -75,8 +73,6 @@ t_lexer	*lex_new(char *content, int token);  creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new);  adds a node to the list
 char	*ft_substr_quotes(char *s, int start, int len, int i); check if it trims slashes like bash
 void	print_lexer(t_lexer *lex_list);
-
-		PARSER
 
 		SIGNALS
 void	signal_mgr();

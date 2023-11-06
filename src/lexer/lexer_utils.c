@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/04 18:44:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:36:29 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,12 @@ void	print_lexer(t_lexer *lex_list)
        	 	i++;
         	lex_list = lex_list->next; 
     	}
+}
+
+int	check_chr(char c)
+{
+	if ((c > 32 && c < 60) || c == '=' || (c > 62 && c < 124) || \
+	(c > 124 && c < 127))
+		return (1);
+	return (0);
 }
