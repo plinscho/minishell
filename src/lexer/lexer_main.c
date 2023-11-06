@@ -123,7 +123,7 @@ int lexer(char *input, t_lexer **head)
 	return (0);
 }
 
-int main(int argc, char **argv, char **envp)
+/*int main(int argc, char **argv, char **envp)
 {
     char    *input = NULL;
 	t_lexer *lex_list = NULL;
@@ -153,14 +153,14 @@ int main(int argc, char **argv, char **envp)
        	 	i++;
         	lex_list = lex_list->next; 
     	}
-/*		i = 1;
+		i = 1;
 		while (hd)
     	{
 			printf("hd node %i -- key: %s, fd: %i\n", i, hd->str, hd->fd); //erase
        	 	i++;
         	hd = hd->next; 
-    	}*/
+    	}
 	}
 	lex_clean(&lex_list, &input);
 	return (0);
-}
+}*/
