@@ -6,15 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:34:27 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/01 23:37:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:24:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-
-/*
-
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -38,19 +35,20 @@ typedef struct s_lexer
     struct s_lexer  *next;
 } t_lexer;
 
-***** lexer.c -   ****
+/***** lexer.c -   ****/
 int		lexer(char *input, t_lexer **head); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 
 t_lexer *read_space(char *in, int *i);
 
-**** lexer_utils.c -   ****
+/**** lexer_utils.c -   ****/
 int	lex_clean(t_lexer **lst, char **in); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
 
+/*
  The list of tokens:
 0 = space; - content is null
 1 = word;
@@ -62,11 +60,7 @@ char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims sla
 7 = >> outfile append redirection; - content is null
 8 = | pipe; - content is null
 
-
-
-
 */
-
 
 #endif
 
