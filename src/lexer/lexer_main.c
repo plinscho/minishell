@@ -74,7 +74,7 @@ t_lexer *read_in_quotes(char *in, int *i)
 	
 }
 
-t_lexer *read_redirection(char *in, int *i)
+t_lexer *read_redirection(char *in, t_mini *sh, int *i)
 {
     int j;
 
@@ -94,11 +94,14 @@ t_lexer *read_redirection(char *in, int *i)
         return (lex_new(NULL, 7));
     }
     else if (in[j] == '|')
-        return (lex_new(NULL, 8));
-    return (NULL);
+	{
+		sh->pipes++;
+		return (lex_new(NULL, 8));
+	}
+	return (NULL);
 }
 
-int lexer(char *input, t_lexer **head)
+int lexer(char *input, t_mini **sh, t_lexer **head)
 {
     t_lexer *new;
     int i;
@@ -110,13 +113,13 @@ int lexer(char *input, t_lexer **head)
         if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
-            new = read_redirection(&input[i], &i);
+            new = read_redirection(&input[i], *sh, &i);
         else if (input[i] == '\'' || input[i] == '\"')
 			new = read_in_quotes(&input[i], &i);
 		else
 			new = read_word(&input[i], &i);
 		if (!new)
-			return (lex_clean(head, &input));
+			return (sh_clean(sh, 2));
 		else
 			lex_add(head, new);
     }

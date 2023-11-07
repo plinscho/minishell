@@ -1,42 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
+/*   Updated: 2023/11/07 17:03:07 by nzhuzhle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
-    #define MINISHELL_H
+# define MINISHELL_H
 
-#include "libft/libft.h"
-#include "../src/lexer/lexer.h"
-#include "../src/signals/signals.h"
-#include "../src/parser/parser.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include "libft/libft.h"
+# include "../src/lexer/lexer.h"
+# include "../src/signals/signals.h"
+# include "../src/parser/parser.h"
+# include "../src/lexer/lexer.h"
+# include "../src/env/env.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-//	We can create a struct where we store the head of all
-//	the other lists, so we only pass one argument (t_mini)
-//	and at the same time pass all the lists
-//	
+	//STRUCTS:
+
 typedef struct s_mini
 {
-	t_lexer	*head;
-//	add other structs
+	t_lexer	*lex_lst;  //change to lex_lst
+	t_env	*env_lst;  //change to env_lst
+	t_pipe  *pipe_lst;  //What we have in every child, more structs inside.
+	t_fd	*hd_lst;	 //Here_doc list. 
+	char	*input;		//what we receive by readline
+	int		exit;		 //int designed to exit the readline loop and finish the shell
+	int		pipes; 		 //How many pipes are there
+	char	**env;		 //the env double array used by the execv. Each time "export" is called, rebuild it
 
-	char 	**env_cpy;	
+} t_mini;
 
-}t_mini;
+/*	TOKENS	*/
 
-//FUNCTIONS
-
-//		INPUT
-void	char_an(const char *full_cmd);
-
-//		SIGNALS
-void	signal_mgr();
-
-void	signal_init(void);
-void	signal_int(int sig);
-void	signal_quit(int sig);
-
-//		ENV
-char	**cpy_env(char **og_env); //dont forget to free it!!!
-char	*ft_getenv(char *var, char **env);
+/* The list of tokens:
+0 = space; - content is null
+1 = word;
+2 = ' single quotes string;
+3 = " double quotes string; 
+4 = < infile redirection; - content is nullcheckout 
+5 = > outfile redirection; - content is null
+6 = << heredoc sign; - content is null
+7 = >> outfile append redirection; - content is null
+8 = | pipe; - content is null
+*/
 
 #endif

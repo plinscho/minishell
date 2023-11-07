@@ -12,9 +12,9 @@
 
 #include "lexer.h"
 
-void	hd_add(t_hd **lst, t_hd *new)
+void	hd_add(t_fd **lst, t_fd *new)
 {
-	t_hd	*temp;
+	t_fd	*temp;
 
 	if (!*lst)
 	{
@@ -25,6 +25,27 @@ void	hd_add(t_hd **lst, t_hd *new)
 	while (temp -> next)
 		temp = temp -> next;
 	temp -> next = new;
+}
+
+void	hd_clean(t_fd **hd)
+{
+	t_fd	*temp;
+	t_fd	*iter;
+
+	iter = *hd;
+	while (iter)
+	{
+		temp = iter;
+		iter = iter->next;
+		if (temp->str)
+		{
+			free(temp->str);
+			temp->str = NULL;
+		}
+		free(temp);
+		temp = NULL;
+	}
+	*hd = NULL;
 }
 
 int	ft_longer(char *str, char *key)

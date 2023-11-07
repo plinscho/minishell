@@ -2,6 +2,9 @@
     "files.associations": {
 		"lexer.h": "c",
 		"sstream": "c",
-		"ostream": "c"
+		"ostream": "c",
+		"readline.h": "c",
+		"__locale": "c",
+		"ios": "c"
 	}
 }

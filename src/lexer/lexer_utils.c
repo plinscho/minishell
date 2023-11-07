@@ -25,9 +25,6 @@ int	lex_clean(t_lexer **lst, char **in)
 		*lst = temp;
 	}
 	*lst = NULL;
-	if (*in)
-		free(*in);
-	*in = NULL;
 	return (1);
 }
 

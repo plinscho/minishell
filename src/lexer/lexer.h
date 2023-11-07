@@ -25,7 +25,7 @@
 # include <readline/history.h>
 # include "../../include/libft/libft.h"
 # include "../parser/parser.h"
-//# include "../../include/minishell.h"
+# include "../../include/minishell.h"
 
 typedef struct s_lexer
 {
@@ -35,39 +35,44 @@ typedef struct s_lexer
     struct s_lexer  *next;
 } t_lexer;
 
-/* heredoc list  -  do not forget to free if any syntax error found! */
-typedef struct s_hd
+/* a list with all the files names with redirections */
+typedef struct s_fd
 {
 	int		fd; // file descriptor
-	char	*str; // string you get in heredoc to compare it with the key word
-	struct s_hd	*next;
-}	t_hd;
+	int		type; // 4 - infile, 5 - outfile, 6 - here_doc, 7 - outfile append
+	char	*str; // keyword in heredoc, or the filename
+	struct s_fd	*next;
+}	t_fd;
 
-/***** lexer.c -   *****/
-int		lexer(char *input, t_lexer **head); //creates the lexer list with tokens
-t_lexer *read_redirection(char *in, int *i); //defines < > << >> <<< |
+/***** lexer_main.c - Main and the main lexer cases *****/
+int		lexer(char *input, t_mini **sh, t_lexer **head); //creates the lexer list with tokens
+t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 
 t_lexer *read_space(char *in, int *i);
 
-/***** lexer_utils.c -   *****/
-int	lex_clean(t_lexer **lst, char **in); // cleans the list and the input
+/***** lexer_utils.c - dealing with lexer lists *****/
+int	lex_clean(t_lexer **lst); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
 int		check_chr(char c);
 
-/***** here_doc.c - after checking unclosed quotes  *****/
-int		ft_here_doc(char *in, t_hd **hd);
+/***** here_doc.c - after checking unclosed quotes *****/
+int		ft_here_doc(t_mini **sh, char *in, t_fd **hd);
 int		find_hd(char *in, int i);
 char	*keyword_hd(char *in, int *i);
 int		save_hd(char *key, char *str);
-int		free_hd(t_hd **hd, int err); // returns -2 if malloc fails, -1 if fd fails
 
-/***** here_doc_utils.c - dealing with here_doc list  *****/
-void	hd_add(t_hd **lst, t_hd *new);
+/***** here_doc_utils.c - dealing with here_doc list *****/
+void	hd_add(t_fd **lst, t_fd *new);
+void		hd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
 int		ft_longer(char *str, char *key);
 
+/* Error codes:
+2 - malloc fails
+1 - fd fails
+*/
 
 /* The list of tokens:
 0 = space; - content is null

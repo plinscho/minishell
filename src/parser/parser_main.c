@@ -12,17 +12,36 @@
 
 #include "parser.h"
 
-int	parser(t_lexer *lex, t_hd *hd)
+int	parser(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
-	
+	t_pipe	*new;
+//	int		i;
+
+//	i = -1;
+	new = NULL;
+	while (lex)
+	{
+		new = malloc(sizeof(t_pipe));
+		if (!new)
+			return (sh_clean(sh, 2));
+		// here I should add the node to the struct
+		while (lex && lex->token != 8)
+			if (lex->token > 3 && lex->token < 8)
+				lex = parse_redir(//continue here);
+	}
+
+
 }
 
-/*int main(int argc, char **argv, char **envp)
+
+
+int main(int argc, char **argv, char **envp)
 {
     char    *input = NULL;
-	t_lexer *lex_list = NULL;
-	t_pipe	*parse = NULL;
-	t_hd	*hd = NULL;
+//	t_lexer *lex_list = NULL;
+//	t_pipe	*parse = NULL;
+//	t_hd	*hd = NULL;
+	t_mini	*sh;
 //	char	**cp_env = NULL; 
 //	int i;
 
@@ -31,26 +50,32 @@ int	parser(t_lexer *lex, t_hd *hd)
 //	cp_env = cpy_env(envp);
 //	if (!cp_env)
 //		return (1);
+	sh = malloc(sizeof(t_mini));
+	if (!sh)
+		return (1); // break the loop with the needed exit status
+	mini_init(sh); // parse the envp here????
 	while (42)
 	{
-		input = readline("minishell> ");  
-        if (!input) // in case we recieved an empty line
+		sh->input = readline("minishell> ");
+        if (!sh->input) // in case we recieved an empty line
             break;
-		if (ft_here_doc(input, &hd))
-			return (1); // exit code malloc error return (ft_error)
+//		Here we add a prelexer that will destroy the input str if any open quote and write the error message
+		if (ft_here_doc(&sh, sh->input, &(sh->hd_lst)))
+			break ; // break the loop code malloc error return (ft_error)
 //		printf("[MAIN]You entered: %s\n\n", input);
-		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
-			return (1); // we should clean the heredoc
+//		Here we add a prelexer that checks all the syntax errors and if there is anything except spaces
+		if (lexer(input, &sh, &(sh->lex_lst))) // it means that a malloc failed, my lex_clean cleaned input and list
+			break ; // we should clean the heredoc 
 //			i = 1;
-		if (parser(lex_list, hd))
-			return (1); //we should clean all
-    	while (lex_list)
+		if (parser(&sh, sh->lex_lst, &sh->hd_lst))
+			break ; //we should clean all - I do it in the parser + we should write an error message function 
+    	/*while (lex_list)
     	{
 			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
        	 	i++;
         	lex_list = lex_list->next; 
-    	}
+    	}*/
+		sh_clean(&sh, 0);
 	}
-	lex_clean(&lex_list, &input);
 	return (0);
-}*/
+}

@@ -12,10 +12,10 @@
 
 #include "lexer.h"
 
-int	ft_here_doc(char *in, t_hd **hd)
+int	ft_here_doc(t_mini **sh, char *in, t_fd **hd)
 {
 	int		i;
-	t_hd	*new;
+	t_fd	*new;
 
 	i = 0;
 	if (!ft_strnstr(in, "<<", ft_strlen(in)))
@@ -27,17 +27,18 @@ int	ft_here_doc(char *in, t_hd **hd)
 			return (0);
 		in = in + i;
 	//	printf("str after <<: %s\n", in); //erase
-		new = malloc(sizeof(t_hd));
+		new = malloc(sizeof(t_fd));
 		if (!new)
-			return (free_hd(hd, -2));
+			return (sh_clean(sh, 2));
 		new->next = NULL;
+		new->type = 6;
 		hd_add(hd, new);
 		new->str = keyword_hd(in, &i);
 		if (!new->str)
-			return (free_hd(hd, -2));
+			return (sh_clean(sh, 2));
 		new->fd = save_hd(new->str, NULL);
 		if (new->fd < 0)
-			return (free_hd(hd, new->fd));
+			return (sh_clean(sh, -(new->fd)));
 	}
 	return (0);
 }
@@ -131,26 +132,4 @@ int	save_hd(char *key, char *str)
 	str = NULL;
 	close(hd[1]);
 	return (hd[0]);
-}
-
-int	free_hd(t_hd **hd, int err)
-{
-	t_hd	*temp;
-	t_hd	*iter;
-
-	iter = *hd;
-	while (iter)
-	{
-		temp = iter;
-		iter = iter->next;
-		if (temp->str)
-		{
-			free(temp->str);
-			temp->str = NULL;
-		}
-		free(temp);
-		temp = NULL;
-	}
-	*hd = NULL;
-	return (err);
 }
