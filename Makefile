@@ -1,41 +1,57 @@
 NAME = minishell
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -I include/ 
 
 LDFLAGS = -lreadline
 LIB_PATH = include/libft
-LIBFT = $(LIB_PATH)/libft.a
+HEADER = include/minishell.h
+LIBFT_H = $(LIB_PATH)/libft.a
 
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
-SRC = src/main.c \
-		src/input/input.c \
-		src/signals/signals.c
+#BUILTINS
+#PARSER
+#EXECUTOR
+#EXPANSER
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@printf "Compiling ...$<\n"
-	@mkdir -p $(@D)
+LEXER = here_doc lexer_main lexer_utils
+ENV = env_lst env
+
+
+SRC = $(addsuffix .c, $(addprefix src/env/, $(ENV))) \
+	  $(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) \
+  	  $(addsuffix .c, $(addprefix src/main/, $(MAIN)))
+
+
+SRC = $(addsuffix .c, $(addprefix src/env/, $(ENV))) \
+	  $(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) \
+	  $(addsuffix .c, $(addprefix src/main/, $(MAIN))) \
+	  
+OBJ = $(SRC:c=o)
+
+all: $(LIBFT_H) $(NAME) Makefile
+
+%.o: %.c
+	@printf "Adding the sauce.. \r" $@
+	@${CC} ${CFLAGS} -c $< -o $@
 
 -include $(DEPS)
 
-all: $(LIBFT) $(NAME) Makefile
+$(NAME): $(MINI_H) $(LIBFT_H) $(OBJ)
+	@echo "Rolling the kebab..."
+	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) $(LDFLAGS) -L libft -lft
+	@printf "Compiled $(NAME) succesfully!\n"
 
-$(LIBFT):
+$(LIBFT_H):
 	@printf "Checking libft Now :D\n"
 	@$(MAKE) -sC $(LIB_PATH)
 
-$(NAME): $(MINI_H) $(LIBFT) $(OBJ)
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) -I$(LIB_PATH) -L$(LIB_PATH) \
-	-lft $(LDFLAGS)
-	@printf "Compiled $(NAME) succesfully!\n"
-
 clean:
 	@$(MAKE) -sC $(LIB_PATH) clean
-	@rm -rf $(OBJDIR)
+	@rm -rf $(OBJ)
 	@printf "[MINIS] Removed objects.\n"
 
-fclean: clean
+fclean:
 	@$(MAKE) -sC $(LIB_PATH) fclean
+	@rm -rf $(OBJDIR)
 	@rm -f $(NAME)
 	@printf "[MINISH] Removed $(NAME).\n"
 

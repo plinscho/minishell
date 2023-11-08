@@ -64,4 +64,8 @@ t_env	*ft_envlast(t_env *lst)
 		while (lst->next)
 			lst = lst->next;
 	return (lst);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

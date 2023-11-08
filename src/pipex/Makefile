@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+         #
+#    By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 17:34:16 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/10/05 18:25:26 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/11/08 22:47:04 by plinscho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

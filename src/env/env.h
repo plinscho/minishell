@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:57:47 by nzhuzhle          #+#    #+#             */
 /*   Updated: 2023/11/07 16:57:49 by nzhuzhle         ###   ########.fr       */
+=======
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/06 18:19:33 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/06 18:26:10 by plinscho         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +44,8 @@ t_env	*envnode_new(char *env);
 void	env_del(t_env *head);
 t_env	*ft_envlast(t_env *lst);
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> origin/main

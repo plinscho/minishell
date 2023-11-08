@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:34:27 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/29 19:49:45 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:34:45 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -23,8 +24,11 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+<<<<<<< HEAD
 # include "../../include/libft/libft.h"
 # include "../parser/parser.h"
+=======
+>>>>>>> origin/main
 # include "../../include/minishell.h"
 
 typedef struct s_lexer
@@ -35,6 +39,7 @@ typedef struct s_lexer
     struct s_lexer  *next;
 } t_lexer;
 
+<<<<<<< HEAD
 /* a list with all the files names with redirections */
 typedef struct s_fd
 {
@@ -47,12 +52,22 @@ typedef struct s_fd
 /***** lexer_main.c - Main and the main lexer cases *****/
 int		lexer(char *input, t_mini **sh, t_lexer **head); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
+=======
+/***** lexer.c -   ****/
+int		lexer(char *input, t_lexer **head); //creates the lexer list with tokens
+t_lexer *read_redirection(char *in, int *i); //defines < > << >> <<< |
+>>>>>>> origin/main
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 
 t_lexer *read_space(char *in, int *i);
 
+<<<<<<< HEAD
 /***** lexer_utils.c - dealing with lexer lists *****/
 int	lex_clean(t_lexer **lst); // cleans the list and the input
+=======
+/**** lexer_utils.c -   ****/
+int		lex_clean(t_lexer **lst, char **in); // cleans the list and the input
+>>>>>>> origin/main
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
@@ -74,7 +89,8 @@ int		ft_longer(char *str, char *key);
 1 - fd fails
 */
 
-/* The list of tokens:
+/*
+ The list of tokens:
 0 = space; - content is null
 1 = word;
 2 = ' single quotes string;
@@ -84,6 +100,8 @@ int		ft_longer(char *str, char *key);
 6 = << heredoc sign; - content is null
 7 = >> outfile append redirection; - content is null
 8 = | pipe; - content is null
+
 */
 
 #endif
+

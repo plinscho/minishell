@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/25 19:01:37 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:36:29 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
 int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 
+	if (!lst)
+		return (EXIT_FAILURE);
 	while (*lst)
 	{
 		temp = (*lst) -> next;
@@ -90,10 +92,28 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 	return (m);
 }
 
+<<<<<<< HEAD
+=======
+void	print_lexer(t_lexer *lex_list)
+{
+	int i = 0;
+	while (lex_list)
+    	{
+			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+       	 	i++;
+        	lex_list = lex_list->next; 
+    	}
+}
+
+>>>>>>> origin/main
 int	check_chr(char c)
 {
 	if ((c > 32 && c < 60) || c == '=' || (c > 62 && c < 124) || \
 	(c > 124 && c < 127))
 		return (1);
 	return (0);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main
