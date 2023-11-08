@@ -22,7 +22,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
-# include "./libft/libft.h"
+# include "../../include/libft/libft.h"
 
 # define DEF "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:"
 

@@ -12,6 +12,20 @@
 
 #include "parser.h"
 
+t_lexer	*parse_cmd(t_pipe **new, t_lexer *lex)
+{
+	//we should build a double array of strings until any redirection is met
+	//then in echo we will rebuild it
+}
+
+t_lexer	*parse_redir(t_pipe **new, t_lexer *lex, t_fd **hd)
+{
+	//we have 3 cases:
+	//1. its one of the < > >>
+	//2. its a heredoc
+	//3. its a word so we treat it as a <
+}
+
 int	parser(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
 	t_pipe	*new;
@@ -24,10 +38,18 @@ int	parser(t_mini **sh, t_lexer *lex, t_fd *hd)
 		new = malloc(sizeof(t_pipe));
 		if (!new)
 			return (sh_clean(sh, 2));
-		// here I should add the node to the struct
+		pipe_init(new);
+		pipe_add(&((*sh)->pipe_lst), new);
 		while (lex && lex->token != 8)
-			if (lex->token > 3 && lex->token < 8)
-				lex = parse_redir(//continue here);
+		{
+			if ((lex->token > 3 && lex->token < 8) || (new->cmd && \
+			lex->token > 0 && lex->token < 4))
+				lex = parse_redir(&new, lex, &hd);
+			else if (lex->token > 0 && lex->token < 4 && !new->cmd)
+				lex = parse_cmd(&new, lex);
+			else
+				lex = lex->next;
+		}
 	}
 
 

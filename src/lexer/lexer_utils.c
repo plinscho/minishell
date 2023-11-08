@@ -12,7 +12,7 @@
 
 #include "lexer.h"
 
-int	lex_clean(t_lexer **lst, char **in)
+int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 

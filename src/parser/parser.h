@@ -33,15 +33,19 @@ typedef struct s_pipe
 	int		out_fd;
 //	int		hd_flag; // do I need to know if there is a heredoc?
 	t_var	*vars; // a structure wih variables I'll need to use
-	struct s_pipe	*prev;
+//	struct s_pipe	*prev;
 	struct s_pipe	*next;
 
 }	t_pipe;
 
 /***** parser_main.c - the updated main with sh struct and  *****/
 int	parser(t_mini **sh, t_lexer *lex, t_fd *hd); // cleans all and returns 1 if malloc failed
+t_lexer	*parse_redir(t_pipe **new, t_lexer *lex, t_fd **hd);
+t_lexer	*parse_cmd(t_pipe **new, t_lexer *lex);
 
 /***** parser_utils.c - the updated main with sh struct and  *****/
+void	pipe_init(t_pipe *pip);
+void	pipe_add(t_pipe **lst, t_pipe *new);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 void	mini_init(t_mini *sh); // check with Paul
