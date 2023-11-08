@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:38:05 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/05 18:38:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:47:31 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
-# include "./libft/libft.h"
+# include "../../include/libft/libft.h"
 
 # define DEF "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:"
 
@@ -39,7 +39,7 @@ typedef struct s_struct
 	int		exit_status;
 	int		here_doc;
 	char	*str_doc;
-	int		in_fd;
+	int		in_fd; 
 	int		out_fd;
 	int		fd[2];
 	char	**paths;

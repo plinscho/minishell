@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+         #
+#    By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 17:34:16 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/10/05 18:25:26 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/11/08 22:47:04 by plinscho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,7 @@ SRC_BONUS = pipex_bonus.c aux_bonus.c errors_bonus.c parsing_bonus.c \
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 DEPS_BONUS = $(SRC_BONUS:.c=.d)
 
-SRC_LIBFT = ./libft/libft.a
-MAKE_LIBFT = make -C libft
+SRC_LIBFT = libft.a
 
 %.o: %.c Makefile
 	$(CC) $(FLAGS) -c $< -o $@
@@ -47,12 +46,10 @@ bonus:  make_lib .bonusp
 
 clean:
 	rm -f $(OBJ) $(DEPS) $(OBJ_BONUS) $(DEPS_BONUS)
-	$(MAKE_LIBFT) clean
 
 fclean: clean
 	rm -f $(NAME) 
 	rm -f .bonusp
-	$(MAKE_LIBFT) fclean
 
 re: fclean all
 
