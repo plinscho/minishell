@@ -6,11 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/04 18:43:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:21:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
 size_t	env_variables(char **og_env)
 {
