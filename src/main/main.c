@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **env)
     while (1)
     {
         input = readline("kebab> ");
-        if (!input || *input != '\0') // in case we recieved an empty line
+        if (!input || *input == '\0') // in case we recieved an empty line
             break;
 		printf("[MAIN]You entered: %s\n\n", input);
         free(input);

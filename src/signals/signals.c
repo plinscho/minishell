@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:32:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 00:17:11 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:45:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	signal_mgr()
 //	This function initializes everything to 0, so that no conflicts appear.
 void	signal_init(void)
 {
-	sig_list.sig_int = 0;
-	sig_list.sig_quit = 0;
-	sig_list.exit_code = 0;
-	sig_list.pid = 0;
+	return ;
 }
 
 void	signal_int(int sig)

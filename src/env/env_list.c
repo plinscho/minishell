@@ -5,79 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 00:08:08 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/10 00:39:38 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 
-size_t	env_variables(char **og_env)
+t_env	*envnode_new(char *env)
 {
-	size_t	env_cases;
+	t_env	*new_list;
+
+	new_list = malloc(sizeof(t_env));
+	if (!new_list)	// Manage errors??
+		return (NULL);
+	new_list->env_key = get_key(env);
+	new_list->env_val = get_val(env);
+	new_list->env_full = ft_strdup(env);
+	new_list->next = NULL;
+	return (new_list);
+}
+
+void	env_del(t_env *head)
+{
+	t_env	*tmp_node = NULL;
+	t_env	*prev_node = NULL;
+
+	tmp_node = head;
+	while (tmp_node)
+	{
+		
+		free(tmp_node->env_key);
+		free(tmp_node->env_val);
+		free(tmp_node->env_full);
+		prev_node = tmp_node;
+		tmp_node = tmp_node->next;
+		free(prev_node);
+	}
 	
-	env_cases = 0;
-	while (og_env[env_cases])
-		env_cases++;
-	return (env_cases);	
 }
 
-
-char	*get_key(char *og_env)
+void	ft_envadd_back(t_env **lst, t_env *new)
 {
-	unsigned int	i;
-	char			*key = NULL;
+	t_env	*tmp_node = NULL;
 
-	i = 0;
-	while (og_env[i] != '=')
-		i++;
-	key = ft_strndup(og_env, i);
-	return (key);
-}
-
-
-char	*get_val(char *og_env)
-{
-	unsigned int	i;
-	char			*val = NULL;
-
-	i = 0;
-	while (og_env[i] != '=')
-		og_env++;
-	og_env++;
-	val = ft_strdup(og_env);
-	return (val);
-}
-
-void	print_env(t_env *head)
-{
-	t_env	*tmp;
-	int		i;
-
-	tmp = head;
-	i = 0;
-	while (tmp)
+	if (!*lst)
 	{
-		ft_printf("Node[%d]\nkey: %s\nval: %s\n\n", i, tmp->env_key, tmp->env_val);
-		tmp = tmp->next;
-		i++;
+		*lst = new;
+		return ;
 	}
+	tmp_node = ft_envlast(*lst);
+	tmp_node -> next = new;
 }
 
-int		get_env(t_mini *sh, char **env)
+t_env	*ft_envlast(t_env *lst)
 {
-	t_env			*env_lst = NULL;
-	unsigned int	i;
-
-	if (!(env_lst = malloc(sizeof(t_env))))
-		return (1);
-	sh->env_lst = env_lst;
-	i = 0;
-	while (env[i])
-	{
-		ft_envadd_back(&env_lst, envnode_new(env[i]));
-		i++;
-	}
-	return (0);
+	if (lst)
+		while (lst->next)
+			lst = lst->next;
+	return (lst);
 }
