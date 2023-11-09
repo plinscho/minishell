@@ -1,57 +1,71 @@
 NAME = minishell
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -I include/ 
-
-LDFLAGS = -lreadline
-LIB_PATH = include/libft
 HEADER = include/minishell.h
-LIBFT_H = $(LIB_PATH)/libft.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -MMD -I include/
 
-#BUILTINS
-#PARSER
-#EXECUTOR
-#EXPANSER
+LIBFT = include/libft/libft.a
+RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
+LIBS = -L$(LIBFT) $(RDL)
+MAKE_LIBFT = make -C include/libft --no-print-directory
 
-LEXER = here_doc lexer_main lexer_utils
-ENV = env_lst env
+MAIN = src/main/main
 
-
-SRC = $(addsuffix .c, $(addprefix src/env/, $(ENV))) \
-	  $(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) \
-  	  $(addsuffix .c, $(addprefix src/main/, $(MAIN)))
+PARSER = src/parser/parser_main \
+			src/parser/parser_utils \
+			src/parser/initialize_sh \
 
 
-SRC = $(addsuffix .c, $(addprefix src/env/, $(ENV))) \
-	  $(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) \
-	  $(addsuffix .c, $(addprefix src/main/, $(MAIN))) \
-	  
-OBJ = $(SRC:c=o)
+LEXER = src/lexer/lexer_main \
+		src/lexer/lexer_utils \
+		src/lexer/heredoc \
+		src/lexer/heredoc_utils
 
-all: $(LIBFT_H) $(NAME) Makefile
+EXPANSER = src/expanser/expanser
+EXECUTOR = src/executor/executor
+ERRORS = src/errors/errors
+ENV = src/env/env src/env/env_list
+BUILTINS = src/builtins/cd
+SIGNALS = src/signals/signals
 
-%.o: %.c
-	@printf "Adding the sauce.. \r" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+SRC = $(addsuffix .c, $(PARSER)) \
+	  $(addsuffix .c, $(ENV)) \
+	  $(addsuffix .c, $(MAIN)) \
+	  $(addsuffix .c, $(BUILTINS)) \
+	  $(addsuffix .c, $(LEXER)) \
+	  $(addsuffix .c, $(EXPANSER)) \
+	  $(addsuffix .c, $(EXECUTOR)) \
+	  $(addsuffix .c, $(SIGNALS)) \
+	  $(addsuffix .c, $(ERRORS)) 
+
+#F_OBJ = obj/
+OBJ = $(addprefix $(F_OBJ), $(SRC:.c=.o))
+DEP = $(addprefix $(F_OBJ), $(SRC:.c=.d))
+
+all: make_lib $(NAME)
+
+make_lib:
+	$(MAKE_LIBFT)
 
 -include $(DEPS)
+%.o: %.c Makefile
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(MINI_H) $(LIBFT_H) $(OBJ)
-	@echo "Rolling the kebab..."
-	@$(CC) $(CFLAGS) -o ${NAME} $(OBJ) $(LDFLAGS) -L libft -lft
+#vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
+
+$(NAME): $(OBJ) ./$(LIBFT)
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(^) $(LIBS) -o ${NAME}
 	@printf "Compiled $(NAME) succesfully!\n"
 
-$(LIBFT_H):
-	@printf "Checking libft Now :D\n"
-	@$(MAKE) -sC $(LIB_PATH)
-
 clean:
-	@$(MAKE) -sC $(LIB_PATH) clean
-	@rm -rf $(OBJ)
+	$(MAKE_LIBFT) clean
+	@rm -rf $(OBJ) $(DEP)
+	@rm -rf $(F_OBJ)
 	@printf "[MINIS] Removed objects.\n"
 
-fclean:
-	@$(MAKE) -sC $(LIB_PATH) fclean
-	@rm -rf $(OBJDIR)
+fclean: clean
+	$(MAKE_LIBFT) fclean
 	@rm -f $(NAME)
 	@printf "[MINISH] Removed $(NAME).\n"
 

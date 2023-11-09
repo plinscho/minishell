@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/07 18:13:45 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:13:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 /* Here we initialize the struct for the first time and parse the environment???*/
 void	mini_init(t_mini *sh)

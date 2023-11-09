@@ -6,11 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/06 18:19:46 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:11:50 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
+
 
 t_lexer *read_space(char *in, int *i)
 {
@@ -119,26 +120,17 @@ int lexer(char *input, t_mini **sh, t_lexer **head)
 		else
 			new = read_word(&input[i], &i);
 		if (!new)
-<<<<<<< HEAD
 			return (sh_clean(sh, 2));
-=======
-			return (lex_clean(head));
->>>>>>> origin/main
 		else
 			lex_add(head, new);
     }
 	return (0);
 }
-<<<<<<< HEAD
 
 /*int main(int argc, char **argv, char **envp)
-=======
- /*
-int main(int argc, char **argv, char **envp)
->>>>>>> origin/main
 {
+    char    *input = NULL;
 	t_lexer *lex_list = NULL;
-<<<<<<< HEAD
 	t_hd	*hd = NULL;
 //	char	**cp_env = NULL; 
     int i;
@@ -148,35 +140,21 @@ int main(int argc, char **argv, char **envp)
 //	cp_env = cpy_env(envp);
 //	if (!cp_env)
 //		return (1);
-=======
-	char	**cp_env = NULL; 
- 
->>>>>>> origin/main
 	while (42)
 	{
 		input = readline("minishell> ");  
         if (!input) // in case we recieved an empty line
             break;
-<<<<<<< HEAD
 		if (ft_here_doc(input, &hd))
 			return (1); // exit code malloc error
 //		printf("[MAIN]You entered: %s\n\n", input);
-=======
-		printf("[MAIN]You entered: %s\n\n", input);
-		
->>>>>>> origin/main
 		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
 			return (1);
-		int i = 1;
 		i = 1;
-<<<<<<< HEAD
     	while (lex_list)
     	{
 			printf("lexer node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
        	 	i++;
-=======
-			printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
->>>>>>> origin/main
         	lex_list = lex_list->next; 
     	}
 		i = 1;
@@ -187,11 +165,6 @@ int main(int argc, char **argv, char **envp)
         	hd = hd->next; 
     	}
 	}
-	lex_clean(&lex_list);
+	lex_clean(&lex_list, &input);
 	return (0);
-<<<<<<< HEAD
 }*/
-=======
-}
-*/
->>>>>>> origin/main

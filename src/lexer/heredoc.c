@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_utils.c                                   :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/02 22:15:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:11:14 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../include/minishell.h"
+
 
 void	hd_add(t_fd **lst, t_fd *new)
 {
