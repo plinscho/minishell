@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 16:22:33 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:52:27 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,14 @@ void	sig_handler(int sig);
 int		get_env(t_mini *sh, char **env);
 char	*get_key(char *og_env);
 char	*get_val(char *og_env);
+int		env_converter(t_mini *sh);
 void	print_env(t_env *head);
 
 //	ENV_LIST
+int		allocate_env(t_mini *sh, size_t n);
 int		ft_envadd_back(t_env **lst, t_env *new);
 t_env	*envnode_new(char *env);
-void	env_del(t_env *head);
+void	env_del(t_mini *sh);
 t_env	*ft_envlast(t_env *lst);
 
 #endif

@@ -13,11 +13,18 @@
 
 static void	sh_init(t_mini *sh, char **env)
 {
-	sh->env = NULL;
-	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
-		env_del(sh->env_lst);
-	signals();
+	int	error;
 
+	error = 0;
+	sh->env = NULL;
+	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
+	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
+		error = 1;
+	print_env(sh->env_lst);
+
+	// WORKS UNTIL HERE
+	if (env_converter(sh) == -1) // malloc has failed in the char **.
+		error = 1;
 }
 
 int main(int argc, char **argv, char **env)

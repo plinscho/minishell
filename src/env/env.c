@@ -6,20 +6,25 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 16:39:03 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:53:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 
-size_t	env_variables(char **og_env)
+size_t	env_variables(t_env *head)
 {
+	t_env	*tmp = NULL;
 	size_t	env_cases;
 	
+	tmp = head;
 	env_cases = 0;
-	while (og_env[env_cases])
+	while (tmp)
+	{
 		env_cases++;
+		tmp = tmp->next;
+	}
 	return (env_cases);	
 }
 
@@ -50,20 +55,6 @@ char	*get_val(char *og_env)
 	return (val);
 }
 
-void	print_env(t_env *head)
-{
-	t_env	*tmp;
-	int		i;
-
-	tmp = head;
-	i = 0;
-	while (tmp)
-	{
-		ft_printf("Node[%d]\nkey: %s\nval: %s\n\n", i, tmp->env_key, tmp->env_val);
-		tmp = tmp->next;
-		i++;
-	}
-}
 
 int		get_env(t_mini *sh, char **env)
 {
@@ -78,4 +69,34 @@ int		get_env(t_mini *sh, char **env)
 		i++;
 	}
 	return (0);
+}
+
+int		env_converter(t_mini *sh)
+{
+	t_env			*tmp = NULL;
+	unsigned int	i;
+
+	i = 0;
+	tmp = sh->env_lst;
+	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
+		return (-1);
+	printf("Char **env copies succesfully!\n");
+	return (0);
+}
+
+
+void	print_env(t_env *head)
+{
+	t_env	*tmp;
+	int		i;
+
+	tmp = head;
+	i = 0;
+	while (tmp)
+	{
+		ft_printf("Node[%d] | %s\n", i, tmp->env_full);
+		tmp = tmp->next;
+		i++;
+	}
+	ft_printf("\n");
 }
