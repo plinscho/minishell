@@ -8,7 +8,8 @@ RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
 LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
-MAIN = src/main/main src/main/initialize_sh
+MAIN = src/main/main src/main/initialize_sh \
+src/main/main_dina
 
 PARSER = src/parser/parser_main \
 			src/parser/parser_utils \

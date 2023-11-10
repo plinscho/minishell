@@ -128,17 +128,17 @@ int		ft_longer(char *str, char *key);
 
 /***** parser_main.c - the updated main with sh struct and  *****/
 int	parser(t_mini **sh, t_lexer *lex, t_fd *hd, int check); // cleans all and returns 1 if malloc failed
-int	parse_redir(t_pipe *new, t_lexer **lex, t_fd **hd); //we have 3 cases:
+int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 3 cases:
 	//1. its one of the < > >>
 	//2. its a heredoc
 	//3. its a word so we treat it as a <
-int	parse_cmd(t_pipe *new, t_lexer **lex); //I dont clean the lex here! 
+int	parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
 
 
 /***** parser_utils.c - the updated main with sh struct and  *****/
 void	pipe_init(t_pipe *pip);
 void	pipe_add(t_pipe **lst, t_pipe *new);
-void	fd_init(t_fd *new, t_lexer **lex, int fd, int type);
+void	fd_init(t_fd *new, t_lexer *lex, int fd, int type);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 void	mini_init(t_mini *sh); // check with Paul

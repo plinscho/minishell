@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //	This is a globar variable, I put it here because
 //	we will need the information about the struct at all time
@@ -10,7 +10,7 @@
 	and we call the minishell function inside a loop that exits only
 	when we want to. 
 */
-int main(int argc, char **argv, char **env)
+/*int main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
@@ -26,4 +26,4 @@ int main(int argc, char **argv, char **env)
         free(input);
     }
     return (0);
-}
+}*/
