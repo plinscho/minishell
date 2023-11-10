@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 17:52:27 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:56:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	fd_init(t_fd *new, t_lexer **lex, int fd, int type);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 void	mini_init(t_mini *sh); // check with Paul
-int	sh_clean(t_mini **sh, int err); // checking with Paul
+int		sh_clean(t_mini **sh, int err); // checking with Paul
 
 //SIGNALS
 void	signals(void);
@@ -156,7 +156,7 @@ int		get_env(t_mini *sh, char **env);
 char	*get_key(char *og_env);
 char	*get_val(char *og_env);
 int		env_converter(t_mini *sh);
-void	print_env(t_env *head);
+void	print_env(t_env *head, char **env);
 
 //	ENV_LIST
 int		allocate_env(t_mini *sh, size_t n);

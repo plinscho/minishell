@@ -20,11 +20,11 @@ static void	sh_init(t_mini *sh, char **env)
 	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
 		error = 1;
-	print_env(sh->env_lst);
-
 	// WORKS UNTIL HERE
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		error = 1;
+	print_env(sh->env_lst, sh->env);
+
 }
 
 int main(int argc, char **argv, char **env)
@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **env)
 	sh_init(&sh, env);
 	while (1)
     {
-        input = readline("kebab> ");
+        input = readline("kebab$> ");
         if (!input || *input == '\0') // in case we recieved an empty line
             break;
 		printf("[MAIN]You entered: %s\n\n", input);

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 17:55:33 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:25:37 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,36 @@
 
 int		allocate_env(t_mini *sh, size_t n)
 {
+	char			**env_result = NULL;
 	t_env			*tmp = NULL;
 	unsigned int	i;
 	char			err;
-	char			**env_result;
 
 	tmp = sh->env_lst;
 	i = 0;
 	err = 0;
 	env_result = ft_calloc(n + 1, sizeof(char *));
+	if (!env_result)
+		return (-1);
+	sh->env = env_result;
+	printf("[allocate_env]\n");
 	while (i <= n && tmp != NULL)
 	{
 		env_result[i] = ft_strdup(tmp->env_full);
+//		printf("env[%d]: %s\n", i, env_result[i]);
 		if (!env_result[i])
 			err = -1;
 		tmp = tmp->next;
 		i++;
 	}
 	env_result[i] = NULL;
-	sh->env = env_result;
+	return (err);
+
+//	Create a function that frees the char **env
 	i = 0;
 	while (env_result[i])
 		free(env_result[i++]);
 	free(env_result[i]);
-	return (err);
 }
 
 t_env	*envnode_new(char *env)
@@ -46,7 +52,7 @@ t_env	*envnode_new(char *env)
 	t_env	*new_list;
 
 	new_list = malloc(sizeof(t_env));
-	if (!new_list)	// Manage errors??
+	if (!new_list)
 		return (NULL);
 	new_list->env_key = get_key(env);
 	new_list->env_val = get_val(env);

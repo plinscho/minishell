@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 17:53:17 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:09:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,30 @@ int		env_converter(t_mini *sh)
 }
 
 
-void	print_env(t_env *head)
+void	print_env(t_env *head, char **env)
 {
 	t_env	*tmp;
 	int		i;
 
 	tmp = head;
 	i = 0;
-	while (tmp)
+	if (tmp)
 	{
-		ft_printf("Node[%d] | %s\n", i, tmp->env_full);
-		tmp = tmp->next;
-		i++;
+		while (tmp)
+		{
+			ft_printf("Node[%d] | %s\n", i, tmp->env_full);
+			tmp = tmp->next;
+			i++;
+		}
+	}
+	if (*env)
+	{
+		i = 0;
+		while(env[i])
+		{
+			ft_printf("char_env[%d]: %s\n", i, env[i]);
+			i++;
+		}
 	}
 	ft_printf("\n");
 }
