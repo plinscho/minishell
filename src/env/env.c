@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 19:09:30 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:46:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_val(char *og_env)
 	while (og_env[i] != '=')
 		og_env++;
 	og_env++;
-	val = ft_strdup(og_env);
+	val = ft_strdup(og_env); // protect the ft_strdup
 	return (val);
 }
 

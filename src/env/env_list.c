@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 19:25:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:34:19 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		allocate_env(t_mini *sh, size_t n)
 	if (!env_result)
 		return (-1);
 	sh->env = env_result;
-	printf("[allocate_env]\n");
+	ft_printf("[allocate_env]\n");
 	while (i <= n && tmp != NULL)
 	{
 		env_result[i] = ft_strdup(tmp->env_full);
@@ -59,33 +59,6 @@ t_env	*envnode_new(char *env)
 	new_list->env_full = ft_strdup(env);
 	new_list->next = NULL;
 	return (new_list);
-}
-
-void	env_del(t_mini *sh)
-{
-	t_env	*tmp_node = NULL;
-	t_env	*prev_node = NULL;
-	char	**env_del = NULL;
-	int 	i;
-
-	i = 0;
-	env_del = sh->env;
-	tmp_node = sh->env_lst;
-	while (tmp_node)
-	{
-		free(tmp_node->env_key);
-		free(tmp_node->env_val);
-		free(tmp_node->env_full);
-		prev_node = tmp_node;
-		tmp_node = tmp_node->next;
-		free(prev_node);
-	}
-	while (env_del[i] != NULL)
-	{
-		free(env_del[i]);
-		i++;
-	}
-	free(sh->env);
 }
 
 int		ft_envadd_back(t_env **lst, t_env *new)

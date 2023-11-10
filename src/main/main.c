@@ -11,25 +11,35 @@
 	when we want to. 
 */
 
-static void	sh_init(t_mini *sh, char **env)
+void	sh_del(t_mini *sh)
+{
+	if (sh)
+		sh_clean(&sh, 0); 	// The 0 represent the error code. Check
+	free_env(sh);			// Only free it if sh->exit
+}
+
+void	sh_init(t_mini *sh, char **env)
 {
 	int	error;
 
 	error = 0;
 	sh->env = NULL;
+	sh->lex_lst = NULL;
+	sh->hd_lst = NULL;
+	sh->pipe_lst = NULL;
+	sh->input = NULL;
+	sh->exit = 0;
+	sh->pipes = 0;
 	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
 		error = 1;
-	// WORKS UNTIL HERE
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		error = 1;
-	print_env(sh->env_lst, sh->env);
-
 }
 
 int main(int argc, char **argv, char **env)
 {
-	t_mini	sh;
+	t_mini	sh = NULL;
 	char	*input = NULL;
 
 	(void)argc;
@@ -43,6 +53,9 @@ int main(int argc, char **argv, char **env)
 		printf("[MAIN]You entered: %s\n\n", input);
         free(input);
     }
+	if (input)
+		free(input);
+	sh_del(&sh);
     return (0);
 }
 

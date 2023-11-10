@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 18:56:10 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:02:49 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ typedef struct s_mini
 8 = | pipe; - content is null
 */
 
+/*	MAIN	*/
+void	sh_init(t_mini *sh, char **env);
+void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
+
 //LEXER
 /***** lexer_main.c - Main and the main lexer cases *****/
 int		lexer(char *input, t_mini **sh, t_lexer **head); //creates the lexer list with tokens
@@ -162,7 +166,11 @@ void	print_env(t_env *head, char **env);
 int		allocate_env(t_mini *sh, size_t n);
 int		ft_envadd_back(t_env **lst, t_env *new);
 t_env	*envnode_new(char *env);
-void	env_del(t_mini *sh);
 t_env	*ft_envlast(t_env *lst);
+
+// FREE
+void	free_env_lst(t_mini *sh);
+void	free_env_chr(t_mini *sh);
+void	free_env(t_mini *sh);
 
 #endif
