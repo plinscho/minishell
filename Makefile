@@ -8,12 +8,10 @@ RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
 LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
-MAIN = src/main/main
+MAIN = src/main/main src/main/initialize_sh
 
 PARSER = src/parser/parser_main \
 			src/parser/parser_utils \
-			src/parser/initialize_sh \
-
 
 LEXER = src/lexer/lexer_main \
 		src/lexer/lexer_utils \
@@ -37,8 +35,8 @@ SRC = $(addsuffix .c, $(PARSER)) \
 	  $(addsuffix .c, $(SIGNALS)) \
 	  $(addsuffix .c, $(ERRORS)) 
 
-#F_OBJ = obj/
-OBJ = $(addprefix $(F_OBJ), $(SRC:.c=.o))
+F_OBJ = obj/
+OBJ = $(patsubst src/%.c, $(F_OBJ)%.o, $(SRC))
 DEP = $(addprefix $(F_OBJ), $(SRC:.c=.d))
 
 all: make_lib $(NAME)
@@ -47,7 +45,7 @@ make_lib:
 	$(MAKE_LIBFT)
 
 -include $(DEPS)
-%.o: %.c Makefile
+$(F_OBJ)%.o: src/%.c Makefile
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
