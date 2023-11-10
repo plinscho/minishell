@@ -58,7 +58,6 @@ $(NAME): $(OBJ) ./$(LIBFT)
 
 clean:
 	$(MAKE_LIBFT) clean
-	@rm -rf $(OBJ) $(DEP)
 	@rm -rf $(F_OBJ)
 	@printf "[MINIS] Removed objects.\n"
 
