@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:03:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:22:33 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int		save_hd(char *key, char *str);
 
 /***** here_doc_utils.c - dealing with here_doc list *****/
 void	hd_add(t_fd **lst, t_fd *new);
-void		hd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
+void	hd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
 int		ft_longer(char *str, char *key);
 
 /* Error codes:
@@ -145,25 +145,11 @@ void	mini_init(t_mini *sh); // check with Paul
 int	sh_clean(t_mini **sh, int err); // checking with Paul
 
 //SIGNALS
+void	signals(void);
+void	sig_handler(int sig);
 
-/*
-	This structure is to maintain some order in the signals.
-	We have to keep in mind that we can exit the program
-	with the number of error we desire. We just take it from he struct
-*/
 
-typedef struct s_signal
-{
-	int		sig_int;
-	int		sig_quit;
-	int		exit_code;
-	pid_t	pid;
-}t_signal;
-
-//	This makes the sig_list variable accesible to other files.
-extern t_signal sig_list;
-
-//ENV
+/*	ENV		*/
 
 // env.c
 int		get_env(t_mini *sh, char **env);
@@ -172,7 +158,7 @@ char	*get_val(char *og_env);
 void	print_env(t_env *head);
 
 //	ENV_LIST
-void	ft_envadd_back(t_env **lst, t_env *new);
+int		ft_envadd_back(t_env **lst, t_env *new);
 t_env	*envnode_new(char *env);
 void	env_del(t_env *head);
 t_env	*ft_envlast(t_env *lst);

@@ -1,6 +1,6 @@
 NAME = minishell
 HEADER = include/minishell.h
-CC = cc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror -MMD -I include/
 
 LIBFT = include/libft/libft.a

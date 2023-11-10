@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 00:39:38 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:17:41 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,20 @@ void	env_del(t_env *head)
 	
 }
 
-void	ft_envadd_back(t_env **lst, t_env *new)
+int		ft_envadd_back(t_env **lst, t_env *new)
 {
 	t_env	*tmp_node = NULL;
 
+	if (!new)
+		return (0);	
 	if (!*lst)
 	{
 		*lst = new;
-		return ;
+		return (1);
 	}
 	tmp_node = ft_envlast(*lst);
 	tmp_node -> next = new;
+	return (1);
 }
 
 t_env	*ft_envlast(t_env *lst)

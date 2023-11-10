@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 00:07:29 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:39:03 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,14 @@ void	print_env(t_env *head)
 
 int		get_env(t_mini *sh, char **env)
 {
-	t_env			*env_lst = NULL;
 	unsigned int	i;
 
-	if (!(env_lst = malloc(sizeof(t_env))))
-		return (1);
-	sh->env_lst = env_lst;
+	sh->env_lst = NULL;
 	i = 0;
 	while (env[i])
 	{
-		ft_envadd_back(&env_lst, envnode_new(env[i]));
+		if (!(ft_envadd_back(&sh->env_lst, envnode_new(env[i]))))
+			return (-1);	// If malloc fails in new node it 
 		i++;
 	}
 	return (0);
