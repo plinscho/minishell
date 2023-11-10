@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD -I include/
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
-LIBS = -L$(LIBFT) $(RDL)
+LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
 MAIN = src/main/main
