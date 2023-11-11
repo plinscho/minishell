@@ -10,46 +10,6 @@
 	and we call the minishell function inside a loop that exits only
 	when we want to. 
 */
-
-void	sh_del(t_mini *sh)
-{
-	if (sh)
-		sh_clean(&sh, 0); 	// The 0 represent the error code. Check
-	free_env(sh);			// Only free it if sh->exit
-}
-
-int		sh_init(t_mini *sh, char **env)
-{
-
-	sh->env = NULL;
-	sh->lex_lst = NULL;
-	sh->hd_lst = NULL;
-	sh->pipe_lst = NULL;
-	sh->input = NULL;
-	sh->exit = 0;
-	sh->pipes = 0;
-	sh->power_on = 1;
-
-	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
-	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
-		return (1);
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		return (1);
-	return (0);
-}
-
-
-//	This fuinction is meant to erase the cases that input in wrong. Lexer and parser to begin with
-//	We can add more functions later.
-void	minishell(t_mini *sh, char *input)
-{
-	if (!input)
-		return ;
-	lexer(input, sh, &sh->lex_lst); 
-	sh->power_on = 0;
-
-}
-
 int main(int argc, char **argv, char **env)
 {
 	t_mini	sh;
@@ -74,4 +34,4 @@ int main(int argc, char **argv, char **env)
 		free(input);
 	sh_del(&sh);
     return (0);
-}
+}*/

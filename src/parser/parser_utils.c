@@ -33,6 +33,7 @@ void	pipe_add(t_pipe **lst, t_pipe *new)
 		temp = temp -> next;
 	temp -> next = new;
 }
+
 /* This function initializes the file descriptor node in 3 cases:
 1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of redirection, and then 
 the filename.
@@ -42,29 +43,30 @@ lex->token is the type of redirection, and then the keyword.
 the filename. 
 
 It also frees the used nodes */
-void	fd_init(t_fd *new, t_lexer **lex, int fd, int type)
+
+void	fd_init(t_fd *new, t_lexer *lex, int fd, int type)
 {
 	t_lexer	*temp;
 
-	temp = *lex;
+	temp = lex;
 	if (!type)
 	{
-		new->type = (*lex)->token;
-		*lex = (*lex)->next;
+		new->type = lex->token;
+		lex = lex->next;
 		free(temp);
-		temp = *lex;
-		if ((*lex)->token == 0)
+		temp = lex;
+		if (lex->token == 0)
 		{
-			*lex = (*lex)->next;
+			lex = lex->next;
 			free (temp);
-			temp = *lex;
+			temp = lex;
 		}
 	}
 	else
 		new->type = type;
-	new->str = (*lex)->cont;
+	new->str = lex->cont;
 	new->fd = fd;
 	new->next = NULL;
-	*lex = (*lex)->next;
+	lex = lex->next;
 	free(temp);
 }
