@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/11 19:08:40 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:39:08 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ char	*get_val(char *og_env)
 	return (val);
 }
 
+int		env_converter(t_mini *sh)
+{
+	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
+		return (-1);
+	return (0);
+}
 
 int		get_env(t_mini *sh, char **env)
 {
@@ -70,15 +76,6 @@ int		get_env(t_mini *sh, char **env)
 	}
 	return (0);
 }
-
-int		env_converter(t_mini *sh)
-{
-	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
-		return (-1);
-	printf("Char **env copies succesfully!\n");
-	return (0);
-}
-
 
 void	print_env(t_env *head, char **env)
 {

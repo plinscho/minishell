@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 19:50:25 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:12:52 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,51 +120,9 @@ int lexer(char *input, t_mini *sh, t_lexer **head)
 		else
 			new = read_word(&input[i], &i);
 		if (!new)
-			return (sh_clean(&sh, 2));
+			return (sh_clean(sh, 2));
 		else
 			lex_add(head, new);
     }
 	return (0);
 }
-
-/*int main(int argc, char **argv, char **envp)
-{
-    char    *input = NULL;
-	t_lexer *lex_list = NULL;
-	t_hd	*hd = NULL;
-//	char	**cp_env = NULL; 
-    int i;
-
-	if (argc != 1 && argv[0])
-		return (1);
-//	cp_env = cpy_env(envp);
-//	if (!cp_env)
-//		return (1);
-	while (42)
-	{
-		input = readline("minishell> ");  
-        if (!input) // in case we recieved an empty line
-            break;
-		if (ft_here_doc(input, &hd))
-			return (1); // exit code malloc error
-//		printf("[MAIN]You entered: %s\n\n", input);
-		if (lexer(input, &lex_list)) // it means that a malloc failed, my lex_clean cleaned input and list
-			return (1);
-		i = 1;
-    	while (lex_list)
-    	{
-			printf("lexer node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
-       	 	i++;
-        	lex_list = lex_list->next; 
-    	}
-		i = 1;
-		while (hd)
-    	{
-			printf("hd node %i -- key: %s, fd: %i\n", i, hd->str, hd->fd); //erase
-       	 	i++;
-        	hd = hd->next; 
-    	}
-	}
-	lex_clean(&lex_list, &input);
-	return (0);
-}*/
