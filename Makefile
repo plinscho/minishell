@@ -8,8 +8,7 @@ RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
 LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
-MAIN = src/main/main src/main/initialize_sh \
-src/main/main_dina
+MAIN = src/main/main src/main/initialize_sh
 
 PARSER = src/parser/parser_main \
 			src/parser/parser_utils \
@@ -22,7 +21,7 @@ LEXER = src/lexer/lexer_main \
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
 ERRORS = src/errors/errors
-ENV = src/env/env src/env/env_list
+ENV = src/env/env src/env/env_list src/env/free_env
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
 

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:11:50 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:50:25 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_lexer *read_redirection(char *in, t_mini *sh, int *i)
 	return (NULL);
 }
 
-int lexer(char *input, t_mini **sh, t_lexer **head)
+int lexer(char *input, t_mini *sh, t_lexer **head)
 {
     t_lexer *new;
     int i;
@@ -114,13 +114,13 @@ int lexer(char *input, t_mini **sh, t_lexer **head)
         if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
-            new = read_redirection(&input[i], *sh, &i);
+            new = read_redirection(&input[i], sh, &i);
         else if (input[i] == '\'' || input[i] == '\"')
 			new = read_in_quotes(&input[i], &i);
 		else
 			new = read_word(&input[i], &i);
 		if (!new)
-			return (sh_clean(sh, 2));
+			return (sh_clean(&sh, 2));
 		else
 			lex_add(head, new);
     }

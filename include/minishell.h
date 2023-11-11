@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:03:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:03:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ typedef struct s_mini
 	int		exit;		 //int designed to exit the readline loop and finish the shell
 	int		pipes; 		 //How many pipes are there
 	char	**env;		 //the env double array used by the execv. Each time "export" is called, rebuild it
+
+	char	power_on;
+	
 }	t_mini;
 
 /*	TOKENS	*/
@@ -93,9 +96,13 @@ typedef struct s_mini
 8 = | pipe; - content is null
 */
 
+/*	MAIN	*/
+int		sh_init(t_mini *sh, char **env);
+void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
+
 //LEXER
 /***** lexer_main.c - Main and the main lexer cases *****/
-int		lexer(char *input, t_mini **sh, t_lexer **head); //creates the lexer list with tokens
+int		lexer(char *input, t_mini *sh, t_lexer **head); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 
@@ -116,7 +123,7 @@ int		save_hd(char *key, char *str);
 
 /***** here_doc_utils.c - dealing with here_doc list *****/
 void	hd_add(t_fd **lst, t_fd *new);
-void		hd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
+void	hd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
 int		ft_longer(char *str, char *key);
 
 /* Error codes:
@@ -142,39 +149,31 @@ void	fd_init(t_fd *new, t_lexer *lex, int fd, int type);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 void	mini_init(t_mini *sh); // check with Paul
-int	sh_clean(t_mini **sh, int err); // checking with Paul
+int		sh_clean(t_mini **sh, int err); // checking with Paul
 
 //SIGNALS
+void	signals(void);
+void	sig_handler(int sig);
 
-/*
-	This structure is to maintain some order in the signals.
-	We have to keep in mind that we can exit the program
-	with the number of error we desire. We just take it from he struct
-*/
 
-typedef struct s_signal
-{
-	int		sig_int;
-	int		sig_quit;
-	int		exit_code;
-	pid_t	pid;
-}t_signal;
-
-//	This makes the sig_list variable accesible to other files.
-extern t_signal sig_list;
-
-//ENV
+/*	ENV		*/
 
 // env.c
 int		get_env(t_mini *sh, char **env);
 char	*get_key(char *og_env);
 char	*get_val(char *og_env);
-void	print_env(t_env *head);
+int		env_converter(t_mini *sh);
+void	print_env(t_env *head, char **env);
 
 //	ENV_LIST
-void	ft_envadd_back(t_env **lst, t_env *new);
+int		allocate_env(t_mini *sh, size_t n);
+int		ft_envadd_back(t_env **lst, t_env *new);
 t_env	*envnode_new(char *env);
-void	env_del(t_env *head);
 t_env	*ft_envlast(t_env *lst);
+
+// FREE
+void	free_env_lst(t_mini *sh);
+void	free_env_chr(t_mini *sh);
+void	free_env(t_mini *sh);
 
 #endif
