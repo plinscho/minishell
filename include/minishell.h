@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 20:03:10 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:21:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
 int		check_chr(char c);
+void	print_lexer(t_mini *sh);
+
 
 /***** here_doc.c - after checking unclosed quotes *****/
 int		ft_here_doc(t_mini **sh, char *in, t_fd **hd);
@@ -140,6 +142,8 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 3 ca
 	//2. its a heredoc
 	//3. its a word so we treat it as a <
 int	parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
+void	print_parser(t_mini *sh);
+
 
 
 /***** parser_utils.c - the updated main with sh struct and  *****/

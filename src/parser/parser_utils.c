@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:13:54 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:20:39 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,19 @@ void	fd_init(t_fd *new, t_lexer *lex, int fd, int type)
 	new->next = NULL;
 	lex = lex->next;
 	free(temp);
+}
+
+void	print_parser(t_mini *sh)
+{
+	t_pipe	*tmp = NULL;
+	int	i;
+
+	tmp = sh->pipe_lst;
+	i = 0;
+	while (tmp)
+   	{
+		printf("pipe %i -- cmd: %p, fd: %p\n", i, tmp->cmd, tmp->fd_lst);
+	 	i++;
+       	tmp = tmp->next; 
+    }
 }
