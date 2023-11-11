@@ -28,12 +28,26 @@ int		sh_init(t_mini *sh, char **env)
 	sh->input = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
+	sh->power_on = 1;
+
 	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
 		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
 	return (0);
+}
+
+
+//	This fuinction is meant to erase the cases that input in wrong. Lexer and parser to begin with
+//	We can add more functions later.
+void	minishell(t_mini *sh, char *input)
+{
+	if (!input)
+		return ;
+	lexer(input, sh, &sh->lex_lst); 
+	sh->power_on = 0;
+
 }
 
 int main(int argc, char **argv, char **env)
@@ -45,17 +59,19 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	if (sh_init(&sh, env))
 		return (1);
-	while (1)
+	while (sh.power_on) // Cointrolling the loop with sh->power_on, can be called anytime and exits.
     {
         input = readline("kebab$> ");
         if (!input || *input == '\0') // in case we recieved an empty line
             break;
 		printf("[MAIN]You entered: %s\n\n", input);
-        free(input);
+
+
+
+		minishell(&sh, input);
     }
 	if (input)
 		free(input);
 	sh_del(&sh);
     return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 19:20:41 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:03:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ typedef struct s_mini
 	int		exit;		 //int designed to exit the readline loop and finish the shell
 	int		pipes; 		 //How many pipes are there
 	char	**env;		 //the env double array used by the execv. Each time "export" is called, rebuild it
+
+	char	power_on;
+	
 }	t_mini;
 
 /*	TOKENS	*/
@@ -99,7 +102,7 @@ void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont w
 
 //LEXER
 /***** lexer_main.c - Main and the main lexer cases *****/
-int		lexer(char *input, t_mini **sh, t_lexer **head); //creates the lexer list with tokens
+int		lexer(char *input, t_mini *sh, t_lexer **head); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 
