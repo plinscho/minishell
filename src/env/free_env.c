@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 19:38:50 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:13:38 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ void	free_env_lst(t_mini *sh)
 {
 	t_env	*tmp_node = NULL;
 	t_env	*prev_node = NULL;
-	int 	i;
 
-	i = 0;
 	tmp_node = sh->env_lst;
 	while (tmp_node)
 	{
-		free(tmp_node->env_key);
-		free(tmp_node->env_val);
+		ft_memdel(tmp_node->env_key);
+		ft_memdel(tmp_node->env_val);
 		free(tmp_node->env_full);
 		prev_node = tmp_node;
 		tmp_node = tmp_node->next;

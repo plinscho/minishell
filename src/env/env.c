@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/10 19:46:13 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:08:40 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ int		get_env(t_mini *sh, char **env)
 
 int		env_converter(t_mini *sh)
 {
-	t_env			*tmp = NULL;
-	unsigned int	i;
-
-	i = 0;
-	tmp = sh->env_lst;
 	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
 		return (-1);
 	printf("Char **env copies succesfully!\n");

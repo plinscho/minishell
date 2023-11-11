@@ -18,11 +18,9 @@ void	sh_del(t_mini *sh)
 	free_env(sh);			// Only free it if sh->exit
 }
 
-void	sh_init(t_mini *sh, char **env)
+int		sh_init(t_mini *sh, char **env)
 {
-	int	error;
 
-	error = 0;
 	sh->env = NULL;
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
@@ -32,19 +30,21 @@ void	sh_init(t_mini *sh, char **env)
 	sh->pipes = 0;
 	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
-		error = 1;
+		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		error = 1;
+		return (1);
+	return (0);
 }
 
 int main(int argc, char **argv, char **env)
 {
-	t_mini	sh = NULL;
+	t_mini	sh;
 	char	*input = NULL;
 
 	(void)argc;
 	(void)argv;
-	sh_init(&sh, env);
+	if (sh_init(&sh, env))
+		return (1);
 	while (1)
     {
         input = readline("kebab$> ");

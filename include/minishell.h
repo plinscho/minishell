@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:02:59 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 20:02:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:20:41 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_mini
 */
 
 /*	MAIN	*/
-void	sh_init(t_mini *sh, char **env);
+int		sh_init(t_mini *sh, char **env);
 void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
 
 //LEXER
