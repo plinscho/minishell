@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/11 22:38:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:46:27 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont w
 //			--	--	LEXER	--	--
 
 // lexer_main.c - Main and the main lexer cases //
-int		lexer(char *input, t_mini *sh, t_lexer **head); //creates the lexer list with tokens
+int 	lexer(char *input, t_mini *sh); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i); 

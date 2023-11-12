@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 22:51:48 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:33:04 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	sh_init(t_mini *sh, char **env)
 		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
-	printf("#########################################\n");
+	printf("\nShell Initialized\n#########################################\n");
 	sh->power_on = 1;
 	return (0);
 }

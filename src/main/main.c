@@ -8,18 +8,19 @@
 int	minishell(t_mini *sh)
 {
 	char	*input = NULL;
-	(void)sh;
+	t_lexer	*lexer_lst = NULL;
 	input = readline("minishell$> ");
 	if (!input || *input == '\0')
 		return (1);
 	print_env(sh->env_lst, sh->env);
+	if (lexer(input, sh, &lexer_lst)) // it means that a malloc failed, my lex_clean cleaned input and list
+		return (1);	// we should clean the heredoc 
+	print_lexer(sh);
 //	if (ft_here_doc(sh, sh->input, &(sh->hd_lst)))
 //		return (1);	// break the loop code malloc error return (ft_error)
 
 //		Here we add a prelexer that checks all the syntax errors and if there is anything except spaces
 
-	if (lexer(sh->input, sh, &(sh->lex_lst))) // it means that a malloc failed, my lex_clean cleaned input and list
-		return (1);	// we should clean the heredoc 
 
 //	if (parser(&sh, sh->lex_lst, sh->hd_lst, 0))
 //		return (1); //we should clean all - I do it in the parser + we should write an error message function 
