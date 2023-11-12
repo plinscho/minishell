@@ -8,12 +8,12 @@
 int	minishell(t_mini *sh)
 {
 	char	*input = NULL;
-	t_lexer	*lexer_lst = NULL;
+	
 	input = readline("minishell$> ");
 	if (!input || *input == '\0')
 		return (1);
 	print_env(sh->env_lst, sh->env);
-	if (lexer(input, sh, &lexer_lst)) // it means that a malloc failed, my lex_clean cleaned input and list
+	if (lexer(input, sh)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc 
 	print_lexer(sh);
 //	if (ft_here_doc(sh, sh->input, &(sh->hd_lst)))
