@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/12 16:33:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:58:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /*  we initialize the struct for the first time and parse the environment???*/
 int	sh_init(t_mini *sh, char **env)
 {
+	int	error;
+	
 	sh->env	= NULL; 
 	sh->env_lst = NULL;
 	sh->lex_lst = NULL;
@@ -24,13 +26,16 @@ int	sh_init(t_mini *sh, char **env)
 	sh->exit = 0;
 	sh->pipes = 0;
 
+	error = 0;
 	signals(); 					// This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1) // Loads env into the shell. If malloc fails, delete it.
-		return (1);
+		error = 1;
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		return (1);
+		error = 1;
 	printf("\nShell Initialized\n#########################################\n");
 	sh->power_on = 1;
+	if (error)
+		sh->power_on = 0;
 	return (0);
 }
 

@@ -1,34 +1,39 @@
 #include "../../include/minishell.h"
 
 
-
-
-//	This fuinction is meant to erase the cases that input in wrong. Lexer and parser to begin with
-//	We can add more functions later.
+/*
+	This fucntion works as a collider of the shell parts.
+	We can manage the lexer, parser, env, etc from here.
+	If you return 1, the minishell will exit. if it's 0, it will give you a new readline
+	trough every loop, there is the sh_clean function.
+*/
 int	minishell(t_mini *sh)
 {
 	char	*input = NULL;
-	
+
 	input = readline("minishell$> ");
 	if (!input || *input == '\0')
 		return (1);
-	print_env(sh->env_lst, sh->env);
-	if (lexer(input, sh)) // it means that a malloc failed, my lex_clean cleaned input and list
-		return (1);	// we should clean the heredoc 
-	print_lexer(sh);
+
 //	if (ft_here_doc(sh, sh->input, &(sh->hd_lst)))
 //		return (1);	// break the loop code malloc error return (ft_error)
 
 //		Here we add a prelexer that checks all the syntax errors and if there is anything except spaces
 
+	if (lexer(input, sh)) // it means that a malloc failed, my lex_clean cleaned input and list
+		return (1);	// we should clean the heredoc --> do it in the sh_clean
+
+	print_env(sh->env_lst, sh->env);
+	print_lexer(sh);
+	
+
+
 
 //	if (parser(&sh, sh->lex_lst, sh->hd_lst, 0))
 //		return (1); //we should clean all - I do it in the parser + we should write an error message function 
 
-
-	//sh->power_on = 0;	//powers off the while and exits.
 	free(input);
-	return (0);
+	return (0);	
 }
 
 int main(int argc, char **argv, char **env)
