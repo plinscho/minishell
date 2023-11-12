@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:42:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:14:29 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,19 @@ int	check_chr(char c)
 	(c > 124 && c < 127))
 		return (1);
 	return (0);
+}
+
+void	print_lexer(t_mini *sh)
+{
+	t_lexer	*lex_list = NULL;
+	int	i;
+
+	i = 1;
+	lex_list = sh->lex_lst;
+	while (lex_list)
+    {
+		printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+	 	i++;
+      	lex_list = lex_list->next; 
+   	}
 }

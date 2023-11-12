@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:13:54 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:20:39 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	pipe_add(t_pipe **lst, t_pipe *new)
 		temp = temp -> next;
 	temp -> next = new;
 }
+
 /* This function initializes the file descriptor node in 3 cases:
 1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of redirection, and then 
 the filename.
@@ -42,29 +43,45 @@ lex->token is the type of redirection, and then the keyword.
 the filename. 
 
 It also frees the used nodes */
-void	fd_init(t_fd *new, t_lexer **lex, int fd, int type)
+
+void	fd_init(t_fd *new, t_lexer *lex, int fd, int type)
 {
 	t_lexer	*temp;
 
-	temp = *lex;
+	temp = lex;
 	if (!type)
 	{
-		new->type = (*lex)->token;
-		*lex = (*lex)->next;
+		new->type = lex->token;
+		lex = lex->next;
 		free(temp);
-		temp = *lex;
-		if ((*lex)->token == 0)
+		temp = lex;
+		if (lex->token == 0)
 		{
-			*lex = (*lex)->next;
+			lex = lex->next;
 			free (temp);
-			temp = *lex;
+			temp = lex;
 		}
 	}
 	else
 		new->type = type;
-	new->str = (*lex)->cont;
+	new->str = lex->cont;
 	new->fd = fd;
 	new->next = NULL;
-	*lex = (*lex)->next;
+	lex = lex->next;
 	free(temp);
+}
+
+void	print_parser(t_mini *sh)
+{
+	t_pipe	*tmp = NULL;
+	int	i;
+
+	tmp = sh->pipe_lst;
+	i = 0;
+	while (tmp)
+   	{
+		printf("pipe %i -- cmd: %p, fd: %p\n", i, tmp->cmd, tmp->fd_lst);
+	 	i++;
+       	tmp = tmp->next; 
+    }
 }

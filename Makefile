@@ -1,19 +1,17 @@
 NAME = minishell
 HEADER = include/minishell.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -I include/
+CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
-LIBS = -L$(LIBFT) $(RDL)
+LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
-MAIN = src/main/main
+MAIN = src/main/main src/main/initialize_sh
 
-PARSER = src/parser/parser_main \
+#PARSER = src/parser/parser_main \
 			src/parser/parser_utils \
-			src/parser/initialize_sh \
-
 
 LEXER = src/lexer/lexer_main \
 		src/lexer/lexer_utils \
@@ -23,7 +21,7 @@ LEXER = src/lexer/lexer_main \
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
 ERRORS = src/errors/errors
-ENV = src/env/env src/env/env_list
+ENV = src/env/env src/env/env_list src/env/free_env
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
 
@@ -37,8 +35,8 @@ SRC = $(addsuffix .c, $(PARSER)) \
 	  $(addsuffix .c, $(SIGNALS)) \
 	  $(addsuffix .c, $(ERRORS)) 
 
-#F_OBJ = obj/
-OBJ = $(addprefix $(F_OBJ), $(SRC:.c=.o))
+F_OBJ = obj/
+OBJ = $(patsubst src/%.c, $(F_OBJ)%.o, $(SRC))
 DEP = $(addprefix $(F_OBJ), $(SRC:.c=.d))
 
 all: make_lib $(NAME)
@@ -47,7 +45,7 @@ make_lib:
 	$(MAKE_LIBFT)
 
 -include $(DEPS)
-%.o: %.c Makefile
+$(F_OBJ)%.o: src/%.c Makefile
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -60,7 +58,6 @@ $(NAME): $(OBJ) ./$(LIBFT)
 
 clean:
 	$(MAKE_LIBFT) clean
-	@rm -rf $(OBJ) $(DEP)
 	@rm -rf $(F_OBJ)
 	@printf "[MINIS] Removed objects.\n"
 
