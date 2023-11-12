@@ -1,7 +1,7 @@
 NAME = minishell
 HEADER = include/minishell.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -I include/
+CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap

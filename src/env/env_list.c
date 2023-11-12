@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/11 22:47:24 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:21:31 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ int		allocate_env(t_mini *sh, size_t n)
 	env_result = ft_calloc(n + 1, sizeof(char *));
 	if (!env_result)
 		return (-1);
-	ft_printf("[allocate_env]\n");
 	while (i <= n && tmp != NULL)
 	{
 		env_result[i] = ft_strdup(tmp->env_full);
-		printf("env[%d]: %s\n", i, env_result[i]);
 		if (!env_result[i])
 			err = -1;
 		tmp = tmp->next;
@@ -41,11 +39,12 @@ int		allocate_env(t_mini *sh, size_t n)
 	i = 0;
 	
 //	Create a function that frees the char **env
-	while (env_result[i])
-		free(env_result[i++]);
-	free(env_result[i]);
+/*	while (env_result[i])
+		ft_memdel(env_result[i++]);
+	ft_memdel(env_result[i]);
 	
 	printf("Char ** allocated!\n");
+*/
 	return (err);
 
 }
