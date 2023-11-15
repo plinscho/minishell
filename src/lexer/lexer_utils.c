@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 21:14:29 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:42:42 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int	lex_clean(t_lexer **lst)
 	{
 		temp = (*lst) -> next;
 		if ((*lst) -> cont)
+		{
 			free((*lst) -> cont);
+			(*lst) -> cont = NULL;
+		}
 		free(*lst);
+		*lst = NULL;
 		*lst = temp;
 	}
 	*lst = NULL;
@@ -50,65 +54,11 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	{
 		*lst = new;
 		new -> prev = NULL;
-			return ;
+		return ;
 	}
 	temp = *lst;
 	while (temp -> next)
 		temp = temp -> next;
 	new -> prev = temp;
 	temp -> next = new;
-}
-
-char	*ft_substr_quotes(char *s, char q, int len, int i)
-{
-	char	*m;
-	int		new_len;
-//	int		start;
-
-	new_len = len;
-//	start = 0;
-	while (++i < (len - 1) && s[i + 1])
-	{
-		if (s[i] == q)
-			new_len--;
-	}
-	i = 0;
-	m = (char *) malloc(new_len + 1);
-	if (m == 0)
-		return (NULL);
-	while (i < new_len && s[i])
-	{
-		if (s[i] == q)
-			s++;
-		else
-		{
-			m[i] = s[i];
-			i++;
-		}
-	}
-	m[i] = '\0';
-	return (m);
-}
-
-int	check_chr(char c)
-{
-	if ((c > 32 && c < 60) || c == '=' || (c > 62 && c < 124) || \
-	(c > 124 && c < 127))
-		return (1);
-	return (0);
-}
-
-void	print_lexer(t_mini *sh)
-{
-	t_lexer	*lex_list = NULL;
-	int	i;
-
-	i = 1;
-	lex_list = sh->lex_lst;
-	while (lex_list)
-    {
-		printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
-	 	i++;
-      	lex_list = lex_list->next; 
-   	}
 }

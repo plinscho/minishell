@@ -6,14 +6,18 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 22:14:02 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:44:23 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-int	ft_here_doc(t_mini *sh, char *in, t_fd **hd)
+/*
+This function checks if there is a << heredoc sign in the string,
+if finds one - creates an fd node, adds it to the list, 
+parses the keyword, then calls a functin that will fill the node.
+*/
+int	ft_heredoc(t_mini *sh, char *in)
 {
 	int		i;
 	t_fd	*new;
@@ -33,8 +37,8 @@ int	ft_here_doc(t_mini *sh, char *in, t_fd **hd)
 			return (sh_clean(sh, 2));
 		new->next = NULL;
 		new->type = 6;
-		hd_add(hd, new);
-		new->str = keyword_hd(in, &i);
+		fd_add(&(sh->hd_lst), new);
+		new->str = keyword_hd(new, in, &i);
 		if (!new->str)
 			return (sh_clean(sh, 2));
 		new->fd = save_hd(new->str, NULL);
@@ -44,6 +48,13 @@ int	ft_here_doc(t_mini *sh, char *in, t_fd **hd)
 	return (0);
 }
 
+/*
+This function looks for the valid << sign in a string:
+not <, 
+not <<< or more, 
+not before the | or >, 
+not in the end of the string.
+*/
 int	find_hd(char *in, int i)
 {
 	while (in[i])
@@ -70,7 +81,13 @@ int	find_hd(char *in, int i)
 	return (i);
 }
 
-char	*keyword_hd(char *in, int *i)
+/* 
+This function parses and saves the keyword of the heredoc:
+all the valid characters that are not space, < OR > OR |,
+trims the quotes if finds them, 
+if any ' quotes are found changes the type of the node to 9 - for the expanser.
+*/
+char	*keyword_hd(t_fd *new, char *in, int *i)
 {
 	char	*cont;
 	int		j;
@@ -95,10 +112,21 @@ char	*keyword_hd(char *in, int *i)
 		cont = ft_substr(in, 0, j);
 	if (!cont)
 		return (NULL);
+	if (q == '\'')
+		new->type = 9;
 	*i += j;
 	return (cont);
 }
 
+/* 
+This function creates a pipe to save the heredoc content in it.
+The pipe is used as a buffer with a file descriptor to read from. 
+Then it opens a readline, we can fill it from standart input.
+It compares each line with the key word and if it's not the keyword 
+it saves the line in the buffer. 
+1. return (-1) - if pipe() error occures
+2. return (fd) - a file descriptor to read the content of the heredoc
+*/
 int	save_hd(char *key, char *str)
 {
 	int	hd[2];

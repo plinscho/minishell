@@ -12,8 +12,10 @@
 
 #include "../../include/minishell.h"
 
-
-void	hd_add(t_fd **lst, t_fd *new)
+/*
+This function adds an fd node add the back of the fd list 
+*/
+void	fd_add(t_fd **lst, t_fd *new)
 {
 	t_fd	*temp;
 
@@ -28,7 +30,11 @@ void	hd_add(t_fd **lst, t_fd *new)
 	temp -> next = new;
 }
 
-void	hd_clean(t_fd **hd)
+/* 
+This function cleans the fd list and closes the file descriptors 
+if they are bigger than 0 
+*/
+void	fd_clean(t_fd **hd)
 {
 	t_fd	*temp;
 	t_fd	*iter;
@@ -43,23 +49,41 @@ void	hd_clean(t_fd **hd)
 			free(temp->str);
 			temp->str = NULL;
 		}
+		if (temp->fd > 0)
+			close(temp->fd);
 		free(temp);
 		temp = NULL;
 	}
 	*hd = NULL;
 }
 
-int	ft_longer(char *str, char *key)
+/* 
+This function initializes the file descriptor from parser node in 3 cases:
+1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of redirection, and then 
+the filename.
+2. if type is 0 and token is 6 - the fd is the open fd where the heredoc is stored, 
+lex->token is the type of redirection, and then the keyword. 
+3. if type is NOT 0 (then it's 4) - the fd is -2, 4 is the type of redirection, and lex->str is 
+the filename. 
+*/
+void	fd_init(t_fd *new, t_mini *sh, int fd, int type)
 {
-	int	len;
-
-//	printf("in ft_longer: str - %zu, key - %zu\n", ft_strlen(str), ft_strlen(key)); //erase
-	if (ft_strlen(str) > ft_strlen(key))
-		len = ft_strlen(str);
-	else
+//	printf("[FD_INIT]You entered, fd: %i -- type: %i\n", fd, type); //erase
+	if (!type)
 	{
-		len = ft_strlen(key);
+		new->type = sh->lex_lst->token;
+		sh->lex_lst = sh->lex_lst->next;
+		if (sh->lex_lst && sh->lex_lst->token == 0)
+			sh->lex_lst = sh->lex_lst->next;
+		else if (!sh->lex_lst) // en realidad es un caso de error de syntax
+			return ;
 	}
-//	printf("in ft_longer: len -  %i\n", len); //erase
-	return (len);
+	else
+		new->type = type;
+//	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
+	new->str = sh->lex_lst->cont;
+	new->fd = fd;
+	new->next = NULL;
+	if (sh->lex_lst) // en realidad es un error de syntax este if
+		sh->lex_lst = sh->lex_lst->next;
 }
