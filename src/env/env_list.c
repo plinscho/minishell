@@ -6,11 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/12 16:21:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:31:05 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/env.h"
 
 
 int		allocate_env(t_mini *sh, size_t n)

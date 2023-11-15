@@ -6,11 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 22:14:02 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:49:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/lexer.h"
+#include "../../include/parser.h"
 
 
 int	ft_here_doc(t_mini *sh, char *in, t_fd **hd)

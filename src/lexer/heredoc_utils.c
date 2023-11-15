@@ -6,12 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:44:09 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:49:03 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
+#include "../../include/lexer.h"
+#include "../../include/parser.h"
 
 void	hd_add(t_fd **lst, t_fd *new)
 {

@@ -6,12 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:36 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/12 16:46:07 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:29:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
+#include "../../include/lexer.h"
 
 t_lexer *read_space(char *in, int *i)
 {

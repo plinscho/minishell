@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
-
+#include "../../include/lexer.h"
+#include "../../include/env.h"
+#include "../../include/parser.h"
 
 /*
 	This fucntion works as a collider of the shell parts.
@@ -30,7 +32,7 @@ int	minishell(t_mini *sh)
 
 	if (lexer(input, sh)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
-
+	print_lexer(sh);
 //	print_env(sh->env_lst, sh->env);
 //	print_lexer(sh);
 	

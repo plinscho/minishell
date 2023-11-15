@@ -6,11 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:02:54 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 20:22:18 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:43:54 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/parser.h"
+#include "../../include/lexer.h"
 
 
 int	parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh)

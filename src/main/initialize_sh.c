@@ -6,11 +6,15 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/12 17:58:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:53:49 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../include/lexer.h"
+#include "../../include/env.h"
+#include "../../include/parser.h"
+
 
 /*  we initialize the struct for the first time and parse the environment???*/
 int	sh_init(t_mini *sh, char **env)
