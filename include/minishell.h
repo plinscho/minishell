@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/12 19:50:38 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:02:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_lexer *read_word(char *in, int *i);
 t_lexer *read_space(char *in, int *i);
 
 // lexer_utils.c - dealing with lexer lists //
+int		pre_quotes(char *line);
 int		lex_clean(t_lexer **lst); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
@@ -209,5 +210,11 @@ void	free_env(t_mini *sh);
 
 //###########################################################################################
 
+
+//			--	--	ERRORS	--	--
+
+void	synt_error(t_mini *sh);
+
+//###########################################################################################
 
 #endif
