@@ -16,7 +16,8 @@ MAIN = src/main/main src/main/initialize_sh
 LEXER = src/lexer/lexer_main \
 		src/lexer/lexer_utils \
 		src/lexer/heredoc \
-		src/lexer/heredoc_utils
+		src/lexer/heredoc_utils \
+		src/lexer/check_syntax
 
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
