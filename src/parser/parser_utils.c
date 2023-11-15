@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/11 21:20:39 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:13:54 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,69 +19,50 @@ void	pipe_init(t_pipe *pip)
 	pip->fd_lst = NULL;
 	pip->in_fd = -2;
 	pip->out_fd = -2;
+	pip->next = NULL;
 //	pip->vars = NULL;
 }
 
-void	pipe_add(t_pipe **lst, t_pipe *new)
+void	pipe_add(t_mini *sh, t_pipe *new)
 {
 	t_pipe	*temp;
 
-	if (!*lst)
-		*lst = new;
-	temp = *lst;
+	if (!sh->pipe_lst)
+	{
+		sh->pipe_lst = new;
+		return ;
+	}
+	temp = sh->pipe_lst;
 	while (temp -> next)
 		temp = temp -> next;
 	temp -> next = new;
 }
 
-/* This function initializes the file descriptor node in 3 cases:
-1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of redirection, and then 
-the filename.
-2. if type is 0 and token is 6 - the fd is the open fd where the heredoc is stored, 
-lex->token is the type of redirection, and then the keyword. 
-3. if type is NOT 0 (then it's 4) - the fd is -2, 4 is the type of redirection, and lex->str is 
-the filename. 
-
-It also frees the used nodes */
-
-void	fd_init(t_fd *new, t_lexer *lex, int fd, int type)
+int	pipe_clean(t_pipe **lst)
 {
-	t_lexer	*temp;
+	t_pipe	*temp;
 
-	temp = lex;
-	if (!type)
+//	printf("[PIPE CLEAN]You entered: PIPE - %p\n", *lst); //erase
+	while (*lst)
 	{
-		new->type = lex->token;
-		lex = lex->next;
-		free(temp);
-		temp = lex;
-		if (lex->token == 0)
-		{
-			lex = lex->next;
-			free (temp);
-			temp = lex;
-		}
+		temp = (*lst) -> next;
+//		printf("[PIPE CLEAN] before hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
+		if ((*lst) -> fd_lst)
+			fd_clean(&((*lst) -> fd_lst));
+//		printf("[PIPE CLEAN] after hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
+//		printf("[PIPE CLEAN] before cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
+		(*lst)->cmd = arr_clean((*lst)->cmd, 1);
+//		printf("[PIPE CLEAN] after cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
+		//check if i neet to close in and out fd here
+		free(*lst);
+		*lst = NULL;
+		*lst = temp;
 	}
-	else
-		new->type = type;
-	new->str = lex->cont;
-	new->fd = fd;
-	new->next = NULL;
-	lex = lex->next;
-	free(temp);
+	lst = NULL;
+	return (1);
 }
 
-void	print_parser(t_mini *sh)
-{
-	t_pipe	*tmp = NULL;
-	int	i;
 
-	tmp = sh->pipe_lst;
-	i = 0;
-	while (tmp)
-   	{
-		printf("pipe %i -- cmd: %p, fd: %p\n", i, tmp->cmd, tmp->fd_lst);
-	 	i++;
-       	tmp = tmp->next; 
-    }
-}
+
+
+
