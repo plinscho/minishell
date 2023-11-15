@@ -10,14 +10,15 @@ MAKE_LIBFT = make -C include/libft --no-print-directory
 
 MAIN = src/main/main src/main/initialize_sh
 
-#PARSER = src/parser/parser_main \
+PARSER = src/parser/parser \
 			src/parser/parser_utils \
 
-LEXER = src/lexer/lexer_main \
+LEXER = src/lexer/lexer \
 		src/lexer/lexer_utils \
 		src/lexer/heredoc \
 		src/lexer/heredoc_utils \
-		src/lexer/check_syntax
+		src/lexer/check_syntax \
+		src/lexer/utils
 
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
