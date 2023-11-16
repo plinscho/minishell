@@ -6,11 +6,9 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/15 21:01:32 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:36:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -99,7 +97,7 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restore
 //			--	--	LEXER	--	--
 
 /***** lexer.c - Main and the main lexer cases *****/
-int		lexer(char *input, t_mini *sh); //creates the lexer list with tokens
+int		lexer(t_mini *sh, char *input); //creates the lexer list with tokens
 t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
 t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
 t_lexer *read_word(char *in, int *i, char q, int j); 
@@ -132,7 +130,7 @@ int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i);
 int		save_hd(char *key, char *str);
 
-/***** heredoc_utils.c - dealing with fd lists *****/
+/***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
 void	fd_init(t_fd *new, t_mini *sh, int fd, int type);

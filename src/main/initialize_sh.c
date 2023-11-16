@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:13:00 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:15:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /* Here we initialize the struct for the first time and parse the environment */
+
 int	sh_init(t_mini *sh, char **env)
 {
 	int	error;
@@ -38,6 +39,9 @@ int	sh_init(t_mini *sh, char **env)
 	return (0);
 }
 
+/*
+This function cleans the sh struct ans makes it ready for the next input.
+*/
 int	sh_clean(t_mini *sh, int err)
 {
 //	printf("[CLEAN]You entered: lex - %p\n", sh->lex_lst); //erase
@@ -59,9 +63,10 @@ int	sh_clean(t_mini *sh, int err)
 	return (err);
 }
 
-/* This function restores the initial position of all the lists clean all of 
-them after iteration */
-
+/* 
+This function restores the initial position of all the lists clean all of 
+them after iteration 
+*/
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
 	(*sh)->lex_lst = lex;
