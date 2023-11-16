@@ -16,7 +16,7 @@ PARSER = src/parser/parser \
 LEXER = src/lexer/lexer \
 		src/lexer/lexer_utils \
 		src/lexer/heredoc \
-		src/lexer/heredoc_utils \
+		src/lexer/fd_utils \
 		src/lexer/check_syntax \
 		src/lexer/utils
 

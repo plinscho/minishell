@@ -1,0 +1,13 @@
+For now the prototypes available to use in main:
+
+(int) ft_heredoc(sh, sh->input) - creates the heredoc list
+returns (0) - everything went well
+returns (1) - a malloc() or a pipe() failed, the sh is cleaned
+
+(int) lexer(sh, sh->input) - creates a lex list of tokens
+returns (0) - everything went well
+returns (1) - a malloc() failed, the sh is cleaned
+
+(int) parser(sh, sh->lex_lst, sh->hd_lst, 0) - creates a pipe list
+returns (0) - everything went well
+returns (1) - a malloc() failed, the sh is cleaned

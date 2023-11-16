@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:42:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:07:04 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/*
+This function cleans the lex list.
+*/
 int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
@@ -32,6 +35,9 @@ int	lex_clean(t_lexer **lst)
 	return (1);
 }
 
+/*
+This function allocates a new lex node, fills it with the given content and a type of token.
+*/
 t_lexer	*lex_new(char *content, int token)
 {
 	t_lexer	*new_node;
@@ -46,6 +52,9 @@ t_lexer	*lex_new(char *content, int token)
 	return (new_node);
 }
 
+/*
+This function adds a new lex node to the end of the lex list.
+*/
 void	lex_add(t_lexer **lst, t_lexer *new)
 {
 	t_lexer	*temp;

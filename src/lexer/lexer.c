@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/15 20:25:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:34:38 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ It creates a node for each token and adds it to the lexer list.
 1. return (0) - everything went well
 2. return (1) - some malloc failed, the struct is freed.
 */
-int lexer(char *input, t_mini *sh)
+int lexer(t_mini *sh, char *input)
 {
     t_lexer *new;
     int i;

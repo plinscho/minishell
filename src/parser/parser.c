@@ -6,13 +6,16 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/15 20:26:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:27:20 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
+/*
+This function creates a double array of commands, using the tokens allocated in the lexer list.
+*/
 int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 {
 	int		i;
@@ -45,6 +48,9 @@ int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 	return (0);
 }
 
+/*
+This function creates a file descriptor node and initializes it with the information from lexer and heredoc lists.
+*/
 int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 {
 	t_fd	*fd_new;
@@ -65,10 +71,13 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	fd_add(&(new->fd_lst), fd_new);
 	return (0);
 }
+
 /*
 This function reads the list of tokens and group them in the way is needed for execution.
 It creates pipe list, the nodes of this list are devided by pipes.
-In every 
+In every node it prses a double array of commands and a list of all file descriptors we have in this pipe. 
+To create the pipe nodes it iterates the heredoc list and the lexer list, so it saves the head of the lists 
+in the beginning to restore the initial position in sh at the end (or in case of a mistake).
 */
 int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 {

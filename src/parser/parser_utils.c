@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:13:54 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:17:24 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/*
+This function initializes the pipe list.
+*/
 void	pipe_init(t_pipe *pip)
 {
 	pip->cmd = NULL;
@@ -20,9 +23,11 @@ void	pipe_init(t_pipe *pip)
 	pip->in_fd = -2;
 	pip->out_fd = -2;
 	pip->next = NULL;
-//	pip->vars = NULL;
 }
 
+/*
+This function adds a new pipe node to the end of the pipe list.
+*/
 void	pipe_add(t_mini *sh, t_pipe *new)
 {
 	t_pipe	*temp;
@@ -38,6 +43,9 @@ void	pipe_add(t_mini *sh, t_pipe *new)
 	temp -> next = new;
 }
 
+/*
+This function cleans the pipe list.
+*/
 int	pipe_clean(t_pipe **lst)
 {
 	t_pipe	*temp;
