@@ -7,7 +7,7 @@
 	If you return 1, the minishell will exit. if it's 0, it will give you a new readline
 	trough every loop, there is the sh_clean function.
 */
-/*int	minishell(t_mini *sh)
+int	minishell(t_mini *sh)
 {
 	char	*input = NULL;
 
@@ -67,4 +67,4 @@ int main(int argc, char **argv, char **env)
 	}
 	free_env(&sh);
 	return (0);
-}*/
+}
