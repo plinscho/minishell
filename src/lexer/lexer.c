@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/16 19:34:38 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:35:29 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ t_lexer *read_space(char *in, int *i)
 /*
 This function parses words (see the list in README).
 If it finds quotes inside of a word, it jons to the word everything that 
-is inside of the quotes, trims " - double, but doesn't trim ' - single.
+is inside of the quotes, doesn't trim any quotes.
 Then it saves it to the node.
 */
 t_lexer *read_word(char *in, int *i, char q, int j)
 {
 	char	*cont;
 
+	printf("[RW]You entered: input - %c\n", in[j]); //erase
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
@@ -47,15 +48,17 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 			j++;
 		while (in[j] && in[j + 1] && in[j + 1] != ' ')
 			j++;
-		if (q == '\"')
-			cont = ft_substr_quotes(in, q, j, -1);
+//		if (q == '\"')
+//			cont = ft_substr_quotes(in, q, j, -1);
 		(*i)++;
 	}
-	if (q == ' ' || q == '\'')
-		cont = ft_substr(in, 0, j + 1);
+//	if (q == ' ' || q == '\'')
+//		cont = ft_substr(in, 0, j + 1);
+	cont = ft_substr(in, 0, j + 1);
 	if (!cont)
 		return (NULL);
 	*i += j;
+	printf("[RW] leaving: input - %c\n", in[j]); //erase
 	return (lex_new(cont, 1));
 }
 

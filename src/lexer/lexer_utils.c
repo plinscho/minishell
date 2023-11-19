@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/16 19:07:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:31:16 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,45 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 		temp = temp -> next;
 	new -> prev = temp;
 	temp -> next = new;
+}
+
+int	trim_quotes(t_mini *sh, t_lexer *temp)
+{
+	while (temp)
+	{
+		if (temp->token == 1)
+		{
+			temp->cont = word_no_q(temp, 0);
+			if (!temp->cont)
+				return (sh_clean(sh, 2));
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
+char	*word_no_q(t_lexer *lex, int j)
+{
+	char	*cont;
+	char	q;
+
+	while (lex->cont[j] && lex->cont[j] != '\'' && lex->cont[j] != '\"')
+		j++;
+	if (lex->cont[j] && (lex->cont[j] == '\'' || lex->cont[j] == '\"'))
+	{
+		q = lex->cont[j];
+		j++;
+		while (lex->cont[j] && lex->cont[j] != q)
+			j++;
+		while (lex->cont[j])
+			j++;
+		cont = ft_substr_quotes(lex->cont, q, j, -1);
+	}
+	else
+		return (lex->cont);
+	if (!cont)
+		return (NULL);
+	free(lex->cont);
+	lex->cont = NULL;
+	return (cont);
 }

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/16 19:36:22 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:30:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ t_lexer *read_space(char *in, int *i);
 int		lex_clean(t_lexer **lst); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
+int		trim_quotes(t_mini *sh, t_lexer *lex); // to trim quotes after expantion 
+char	*word_no_q(t_lexer *lex, int j); // to trim quotes after expantion
 
 /***** check_syntax.c - *****/
 int		pre_quotes(char *line);
