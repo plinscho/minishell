@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/13 15:50:12 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 21:16:31 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,27 @@ int	ft_longer(char *str, char *key)
 	}
 //	printf("in ft_longer: len -  %i\n", len); //erase
 	return (len);
+}
+
+char	*ft_smart_join(char *s1, char *s2, char *s3)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	if (!(s1 && s2 && s3))
+		return (0);
+	new = malloc(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s2) + 1);
+	if (!new)
+		return (NULL);
+	while (s1[++i])
+		new[i] = s1[i];
+	while (s2[j])
+		new[i++] = s2[j++];
+	j = 0;
+	while (s3[j])
+		new[i++] = s3[j++];
+	return (new);
 }

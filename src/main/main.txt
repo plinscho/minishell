@@ -1,5 +1,9 @@
 For now the prototypes available to use in main:
 
+int	sh_loop_init(t_mini *sh) - parses the path and the env each time when a new loop starts
+returns (0) - everything went well
+returns (1) - a malloc() or a pipe() failed, the sh is cleaned
+
 (int) ft_heredoc(sh, sh->input) - creates the heredoc list
 returns (0) - everything went well
 returns (1) - a malloc() or a pipe() failed, the sh is cleaned

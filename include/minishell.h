@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/19 16:30:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 21:28:05 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,23 @@ typedef struct s_fd
 typedef struct s_pipe
 {
 	char	**cmd;
+	char	*paths;
 	t_fd	*fd_lst; // the list names of all the files and file descriptors
 	int		in_fd; 
 	int		out_fd;
+	int		builtin;
 //	struct s_pipe	*prev;
 	struct s_pipe	*next;
 }	t_pipe;
+
+typedef struct s_exec
+{
+	int		fdp[2];		//array of 2 fd to use in pipe
+	int		pid;		//what we receive by fork
+	int		stat;		//the last process exit status
+	int		exit_stat;	//the last process exit status
+
+}	t_exec;
 
 typedef struct s_mini
 {
@@ -74,8 +85,10 @@ typedef struct s_mini
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
 	char	*input;		//what we receive by readline
+	char	**paths;
 	int		exit;		//int designed to exit the readline loop and finish the shell
 	int		pipes; 		//How many pipes are there
+	t_exec	exe;		//another struct with the variables i use in execution 
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
 	int		power_on;
 }	t_mini;
@@ -91,6 +104,7 @@ int		sh_init(t_mini *sh, char **env);
 void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
 int		sh_clean(t_mini *sh, int err);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
+int	sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
 
 //###########################################################################################
 
@@ -120,7 +134,7 @@ char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims sla
 int		check_chr(char c);
 char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - frees all the strings in it, if flag=1 only equals them to NULL (they are not allocated)
 int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
-
+char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
 
 //###########################################################################################
 
