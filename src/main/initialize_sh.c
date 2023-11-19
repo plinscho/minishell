@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:21:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/19 21:46:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
-	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
-	if (!sh->paths)
-	{
-		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
-		return (1);
-	}
+//	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
+//	if (!sh->paths)
+//	{
+//		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
+//		return (1);
+//	}
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
+	return (0);
 }
