@@ -18,3 +18,22 @@
 Error codes:
 2 - malloc fails
 1 - fd fails
+
+Builtin codes:
+0 - no builtin
+1 - echo
+2 - cd
+3 - pwd
+4 - export
+5 - unset
+6 - env
+7 - exit
+
+Builtin prototypes:
+ft_echo(sh)
+ft_cd(sh)
+ft_pwd(sh)
+ft_export(sh)
+ft_unset(sh)
+ft_env(sh)
+ft_exit(sh)

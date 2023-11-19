@@ -21,7 +21,7 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils
 
 EXPANSER = src/expanser/expanser
-EXECUTOR = src/executor/executor
+EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors
 ENV = src/env/env src/env/env_list src/env/free_env
 BUILTINS = src/builtins/cd
