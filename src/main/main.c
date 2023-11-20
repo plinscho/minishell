@@ -11,15 +11,15 @@ int	minishell(t_mini *sh)
 {
 	char	*input = NULL;
 
-	input = readline("minishell$> ");
-	if (!input)
+	sh->input = readline("minishell$> ");
+	if (!sh->input)
 	{
 		exit (1);		//  need to change it into our exit builtin function.
 	}
-	if (pre_quotes(input))
+	if (pre_quotes(sh->input))
 	{
 		synt_error(sh);
-		free(input);
+		free(sh->input);
 		return (sh->exit);
 	}
 
@@ -32,15 +32,15 @@ int	minishell(t_mini *sh)
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 
 //	print_env(sh->env_lst, sh->env);
-//	print_lexer(sh);
+	print_lexer(sh);
 	
 
 
 
 //	if (parser(&sh, sh->lex_lst, sh->hd_lst, 0))
 //		return (1); //we should clean all - I do it in the parser + we should write an error message function 
-
-	free(input);
+	if (sh->input)
+		free(input);
 	return (0);	
 }
 

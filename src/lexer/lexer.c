@@ -36,7 +36,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 {
 	char	*cont;
 
-	printf("[RW]You entered: input - %c\n", in[j]); //erase
+//	printf("[RW]You entered: input - %c\n", in[j]); //erase
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
@@ -58,7 +58,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	if (!cont)
 		return (NULL);
 	*i += j;
-	printf("[RW] leaving: input - %c\n", in[j]); //erase
+//	printf("[RW] leaving: input - %c\n", in[j]); //erase
 	return (lex_new(cont, 1));
 }
 
@@ -130,6 +130,7 @@ int lexer(t_mini *sh, char *input)
 
     i = -1;
     new = NULL;
+	printf("input: %s\n", input);
     while (input[++i])
     {
         printf("[LEX]You entered: input - %c\n", input[i]); //erase
