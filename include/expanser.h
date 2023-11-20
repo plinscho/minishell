@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanser.c                                         :+:      :+:    :+:   */
+/*   expanser.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/20 21:37:05 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/20 21:22:33 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/expanser.h"
+#ifndef EXPANSER_H
+ #define EXPANSER_H
 
-int     ft_check_lexer(void)
-{
-	return (0);
-}
+# include "minishell.h"
+    
+int     ft_check_lexer(void);
+
+
+
+#endif

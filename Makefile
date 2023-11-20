@@ -23,7 +23,7 @@ LEXER = src/lexer/lexer \
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
 ERRORS = src/errors/errors
-ENV = src/env/env src/env/env_list src/env/free_env
+ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
 
