@@ -30,6 +30,8 @@ int	minishell(t_mini *sh)
 
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
+	if (w_syntax(sh))
+		return (1);	
 
 //	print_env(sh->env_lst, sh->env);
 //	print_lexer(sh);

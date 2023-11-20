@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/20 21:46:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/20 22:18:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,14 @@ int		save_hd(char *key, char *str);
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
 void	fd_init(t_fd *new, t_mini *sh, int fd, int type);
+
+//###########################################################################################
+
+//			--	--	EXPANSER	--	--
+
+//	EXPANSER.C
+int    w_syntax(t_mini *sh);
+
 
 //###########################################################################################
 
