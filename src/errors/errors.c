@@ -14,7 +14,7 @@
 
 void	synt_error(t_mini *sh)
 {
-	ft_putstr_fd("minishell: Quotes not closed.\n", STDERR_FILENO);
+	ft_putstr_fd("minishell: Syntax error : Quotes not closed.\n", STDERR_FILENO);
 	sh->exit = 127;
 	return ;
 }
