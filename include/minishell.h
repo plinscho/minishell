@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/19 21:28:05 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:46:42 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,9 @@ t_env	*ft_envlast(t_env *lst);
 void	free_env_lst(t_mini *sh);
 void	free_env_chr(t_mini *sh);
 void	free_env(t_mini *sh);
+
+//	ENV_UTILS
+char *ft_get_value(t_mini *sh, char *key);
 
 //###########################################################################################
 
