@@ -68,6 +68,10 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf "[MINISH] Removed $(NAME).\n"
 
+gitstat:
+	git log --graph --oneline --all --decorate
+
+
 re: fclean all
 
 
