@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:29:03 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:09:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 		else if (fd1->type == 7)
 			p->out_fd = open(fd1->str, O_APPEND | O_CREAT | O_RDWR, 0666);
 		if (p->in_fd < 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
-			ft_exit_exe(sh, fd1->str, NULL, 1); //to write this function
+			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
 		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
-			ft_exit_exe(sh, fd1->str, NULL, 1); //to write this function
+			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
 		fd1 = fd1->next;
 	}
 }
@@ -87,11 +87,11 @@ void	check_access(t_mini *sh, char **cmd, char **path)
 		if (access(cmd[0], F_OK) == 0)
 		{
 			if (access(cmd[0], X_OK) != 0)
-				ft_exit_exe(sh, cmd[0], "permission denied\n", 126);
+				ft_exit_exe(sh, cmd[0], "permission denied", 126); // here should be return
 			*path = cmd[0];
 		}
 		else
-			ft_exit_exe(sh, cmd[0], "command not found\n", 127);
+			ft_exit_exe(sh, cmd[0], "command not found", 127);
 	}
 	else
 		*path = check_paths(sh->paths, cmd[0], sh);
@@ -107,7 +107,7 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 	{
 		p = ft_smart_join(paths[i], "/", cmd);
 		if (!p)
-			ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
+			ft_exit_exe(sh, "malloc", "allocation failed", errno);
 		if (access(p, F_OK) == 0)
 		{
 			if (access(p, X_OK) != 0)
@@ -116,6 +116,6 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 				return (p);
 		}
 	}
-	ft_exit_exe(sh, cmd, "command not found\n", 127);
+	ft_exit_exe(sh, cmd, "command not found", 127);
 	return (NULL);
 }
