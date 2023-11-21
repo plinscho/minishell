@@ -14,8 +14,15 @@
 
 int		check_word(char *word)
 {
+	(void)word;
+	return (0);
 	
-	
+}
+
+int		check_var(char *var)
+{
+	(void)var;	
+	return (0);
 }
 
 
@@ -61,7 +68,7 @@ int		w_syntax(t_mini *sh)
 
 	words = get_words(sh->lex_lst);
 	
-	
+	sh->exit = words;	
 	return (0);
 }	
 
@@ -73,6 +80,6 @@ int		w_syntax(t_mini *sh)
 */
 int	expanser(t_mini *sh)
 {
-	
+	(void)sh;
 	return (0);
 }
