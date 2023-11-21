@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/21 19:38:59 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:48:04 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		w_syntax(t_mini *sh)
 	if (sequence == NULL)
 		return (1);
 	get_sequence(tmp, sequence);
-	ft_printf("sequence: %s\n", sequence);
+	printf("sequence: %s\n", sequence);
 	free(sequence);
 	return (0);
 }	
