@@ -22,25 +22,20 @@ int	minishell(t_mini *sh)
 		free(sh->input);
 		return (sh->exit);
 	}
-
-//	if (ft_here_doc(sh, sh->input, &(sh->hd_lst)))
-//		return (1);	// break the loop code malloc error return (ft_error)
-
-//		Here we add a prelexer that checks all the syntax errors and if there is anything except spaces
-
+	if (ft_heredoc(sh, sh->input))
+		return (1);	// break the loop code malloc error return (ft_error)
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
+	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
+		return (1); //we should clean all - I do it in the parser + we should write an error message function 
 	if (w_syntax(sh))
-		return (1);	
+		return (1);
 
-//	print_env(sh->env_lst, sh->env);
-//	print_lexer(sh);
-	
+//	Expanser goes here.
+
+//	Executor goes here.
 
 
-
-//	if (parser(&sh, sh->lex_lst, sh->hd_lst, 0))
-//		return (1); //we should clean all - I do it in the parser + we should write an error message function 
 	if (sh->input)
 		free(input);
 	return (0);	
