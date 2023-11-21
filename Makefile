@@ -11,7 +11,7 @@ MAKE_LIBFT = make -C include/libft --no-print-directory
 MAIN = src/main/main src/main/initialize_sh src/main/main_dina
 
 PARSER = src/parser/parser \
-			src/parser/parser_utils \
+			src/parser/parser_utils src/parser/printer
 
 LEXER = src/lexer/lexer \
 		src/lexer/lexer_utils \
@@ -22,8 +22,8 @@ LEXER = src/lexer/lexer \
 
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor src/executor/exec_utils
-ERRORS = src/errors/errors
-ENV = src/env/env src/env/env_list src/env/free_env
+ERRORS = src/errors/errors src/errors/errors_dina
+ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
 

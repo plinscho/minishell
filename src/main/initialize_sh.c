@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 18:04:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:40:57 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->input = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
-	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
+//	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
@@ -42,7 +42,7 @@ int	sh_init(t_mini *sh, char **env)
 /*
 This function cleans the sh struct ans makes it ready for the next input.
 */
-int	sh_clean(t_mini *sh)
+int	sh_clean(t_mini *sh, int err)
 {
 //	printf("[CLEAN]You entered: lex - %p\n", sh->lex_lst); //erase
 	if (sh->lex_lst)
@@ -60,7 +60,8 @@ int	sh_clean(t_mini *sh)
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
 	sh->pipes = 0;
-	return (1);
+	sh->exit = err;
+	return (err);
 }
 
 /* 
@@ -86,4 +87,5 @@ int	sh_loop_init(t_mini *sh)
 	}
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
+	return (0);
 }

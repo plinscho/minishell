@@ -6,13 +6,13 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/20 18:09:21 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:15:27 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/executor.h"
 
-int	check_builtin(char *cmd)
+int	check_builtin(char **cmd)
 {
 	if (!cmd || !(*cmd))
 		return (0);
@@ -35,7 +35,7 @@ int	check_builtin(char *cmd)
 
 int	exec_builtin(t_mini *sh)
 {
-	if (sh->pipe_lst->builtin == 1)
+/*	if (sh->pipe_lst->builtin == 1)
 		return (ft_echo(sh));
 	if (sh->pipe_lst->builtin == 2)
 		return (ft_cd(sh));
@@ -48,7 +48,8 @@ int	exec_builtin(t_mini *sh)
 	if (sh->pipe_lst->builtin == 6)
 		return (ft_env(sh));
 	if (sh->pipe_lst->builtin == 7)
-		return (ft_exit(sh));
+		return (ft_exit(sh)); */
+	return (sh->exit);
 }
 
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)

@@ -6,11 +6,12 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:28:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:15:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/executor.h"
+#include "../../include/minishell.h"
 
 void	child_process(t_mini *sh, t_pipe *p)
 {
@@ -20,16 +21,16 @@ void	child_process(t_mini *sh, t_pipe *p)
 	close(sh->exe.fdp[0]);
 	ft_open(sh, p, p->fd_lst);
 	if (sh->pipe_lst->builtin)
-		exec_builtin(sh);
+		exit (exec_builtin(sh));
 	if (dup2(p->in_fd, STDIN_FILENO) < 0)
-		ft_exit_exe(sh, "dup2");
+		ft_exit_exe(sh, "dup2", strerror(errno), errno);
 	close(p->in_fd);
 	if (dup2(p->out_fd, STDOUT_FILENO) < 0)
-		ft_exit_exe(sh, "dup2");
+		ft_exit_exe(sh, "dup2", strerror(errno), errno);
 	close(p->out_fd);
 	check_access(sh, p->cmd, &the_path);
 	if (execve(the_path, p->cmd, sh->env) == -1)
-		ft_exit_exe(sh, "execve");
+		ft_exit_exe(sh, "execve", strerror(errno), errno);
 }
 
 int	last_child(t_mini *sh, t_pipe *p)
@@ -60,11 +61,11 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 	{
 		p->builtin = check_builtin(p->cmd);
 		if (pipe(sh->exe.fdp) < 0)
-			return (sh_clean(&sh, 1));
+			return (sh_clean(sh, errno));
 		p->out_fd = sh->exe.fdp[1]; 
 		sh->exe.pid = fork();
 		if (sh->exe.pid < 0)
-			return (sh_clean(sh, 3));
+			return (sh_clean(sh, errno));
 		else if (sh->exe.pid == 0)
 			child_process(sh, p);
 		close (sh->exe.fdp[1]);
@@ -75,8 +76,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 	while (++j <= sh->pipes)
 	{
 		if (waitpid(-1, &sh->exe.stat, 0) == sh->exe.pid)
-			sh->exe.exit_stat = WEXITSTATUS(sh->exe.stat);
+			sh->exit = WEXITSTATUS(sh->exe.stat);
 	}
 	return (0);
 }
-

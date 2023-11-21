@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 16:35:29 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:43:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 {
 	char	*cont;
 
-	printf("[RW]You entered: input - %c\n", in[j]); //erase
+//	printf("[RW]You entered: input - %c\n", in[j]); //erase
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
@@ -58,7 +58,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	if (!cont)
 		return (NULL);
 	*i += j;
-	printf("[RW] leaving: input - %c\n", in[j]); //erase
+//	printf("[RW] leaving: input - %c\n", in[j]); //erase
 	return (lex_new(cont, 1));
 }
 
@@ -132,7 +132,7 @@ int lexer(t_mini *sh, char *input)
     new = NULL;
     while (input[++i])
     {
-        printf("[LEX]You entered: input - %c\n", input[i]); //erase
+ //       printf("[LEX]You entered: input - %c\n", input[i]); //erase
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')

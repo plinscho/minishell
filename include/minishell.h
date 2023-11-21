@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/21 18:04:56 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:18:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
 
 //	0. STRUCTS:
 	
@@ -60,7 +61,7 @@ typedef struct s_fd
 typedef struct s_pipe
 {
 	char	**cmd;
-	char	*paths;
+	char	*path;
 	t_fd	*fd_lst; // the list names of all the files and file descriptors
 	int		in_fd; 
 	int		out_fd;
@@ -74,7 +75,6 @@ typedef struct s_exec
 	int		fdp[2];		//array of 2 fd to use in pipe
 	int		pid;		//what we receive by fork
 	int		stat;		//the last process exit status
-
 }	t_exec;
 
 typedef struct s_mini
@@ -101,7 +101,7 @@ int		minishell(t_mini *sh);
 /***** initialize.c - initializing and cleaning sh!!! *****/
 int		sh_init(t_mini *sh, char **env);
 void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
-int		sh_clean(t_mini *sh);
+int		sh_clean(t_mini *sh, int err);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int	sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
 
@@ -148,7 +148,7 @@ int		save_hd(char *key, char *str);
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
-void	fd_init(t_fd *new, t_mini *sh, int fd, int type);
+void	fd_init(t_fd *new, t_mini *sh, int fd);
 
 //###########################################################################################
 
@@ -162,11 +162,30 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 3 ca
 	//2. its a heredoc
 	//3. its a word so we treat it as a <
 int	parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
+int	count_cmd(t_lexer *temp); // counts words in a command
+t_lexer	*next_word(t_lexer *temp); // gets the pointer to the next word in the command
 
 /***** parser_utils.c - the updated main with sh struct and  *****/
 void	pipe_init(t_pipe *pip);
 void	pipe_add(t_mini *sh, t_pipe *new);
 int		pipe_clean(t_pipe **lst);
+
+/***** executor.c - main execution processes *****/
+int	executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
+void	child_process(t_mini *sh, t_pipe *p); 
+int	last_child(t_mini *sh, t_pipe *p);
+
+/***** exec_utils.c - utils for execution processes *****/
+int	check_builtin(char **cmd); // checks if the cmd is a builtin
+int	exec_builtin(t_mini *sh); // executes the needed builtin
+void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1); // opens all the file descriptors
+int ft_exit_exe(t_mini *sh, char *name, char *message, int err); //- call this error function, passing it the name of a failed file
+void	check_access(t_mini *sh, char **cmd, char **path);
+char	*check_paths(char **paths, char *cmd, t_mini *sh);
+int	ft_error_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
+
+/***** printer.c - main execution processes *****/
+void	print_parser_dina(t_pipe *p);
 
 //###########################################################################################
 
@@ -196,6 +215,9 @@ t_env	*ft_envlast(t_env *lst);
 void	free_env_lst(t_mini *sh);
 void	free_env_chr(t_mini *sh);
 void	free_env(t_mini *sh);
+
+// env_utils.c 
+char *ft_get_value(t_mini *sh, char *key);
 
 //###########################################################################################
 
