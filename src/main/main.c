@@ -22,14 +22,19 @@ int	minishell(t_mini *sh)
 		free(sh->input);
 		return (sh->exit);
 	}
-	if (ft_heredoc(sh, sh->input))
-		return (1);	// break the loop code malloc error return (ft_error)
+
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
+
+
+	if (w_syntax(sh)) // This function checks for the syntax errors. It operates using tokens logic.
+		return (1);
+/*	
+	if (ft_heredoc(sh, sh->input))
+		return (1);	// break the loop code malloc error return (ft_error)
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
-	if (w_syntax(sh))
-		return (1);
+*/
 
 //	Expanser goes here.
 
@@ -38,7 +43,7 @@ int	minishell(t_mini *sh)
 
 	if (sh->input)
 		free(input);
-	return (0);	
+	return (1);	
 }
 
 int main(int argc, char **argv, char **env)
@@ -55,7 +60,7 @@ int main(int argc, char **argv, char **env)
 	while (sh.power_on)
 	{
 		if (minishell(&sh))
-			continue;
+			;
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");

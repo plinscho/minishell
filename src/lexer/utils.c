@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:16:31 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:27:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 	m[i] = '\0';
 	return (m);
 }
+
+char int_to_char(int num)
+{
+  return (char)(num + '0');
+}
+
 
 /* 
 This function checks if a char is a redirection (< OR > OR |) or not:
