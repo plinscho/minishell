@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/19 21:28:05 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 18:04:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_exec
 	int		fdp[2];		//array of 2 fd to use in pipe
 	int		pid;		//what we receive by fork
 	int		stat;		//the last process exit status
-	int		exit_stat;	//the last process exit status
 
 }	t_exec;
 
@@ -102,7 +101,7 @@ int		minishell(t_mini *sh);
 /***** initialize.c - initializing and cleaning sh!!! *****/
 int		sh_init(t_mini *sh, char **env);
 void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
-int		sh_clean(t_mini *sh, int err);
+int		sh_clean(t_mini *sh);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int	sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
 

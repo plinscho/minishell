@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:21:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 18:04:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	sh_init(t_mini *sh, char **env)
 /*
 This function cleans the sh struct ans makes it ready for the next input.
 */
-int	sh_clean(t_mini *sh, int err)
+int	sh_clean(t_mini *sh)
 {
 //	printf("[CLEAN]You entered: lex - %p\n", sh->lex_lst); //erase
 	if (sh->lex_lst)
@@ -60,7 +60,7 @@ int	sh_clean(t_mini *sh, int err)
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
 	sh->pipes = 0;
-	return (err);
+	return (1);
 }
 
 /* 
