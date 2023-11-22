@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 19:26:07 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:50:20 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		pre_quotes(char *line)
 
 /*
 
-	FUNCTIONS ARE WAY TO COMPLICATED
+	FUNCTIONS ARE WAY TO COMPLICATED, using the lex list instead.
 
 void	get_sequence(t_lexer *tmp, char *sequence)
 {
