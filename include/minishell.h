@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/21 21:18:06 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:49:05 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_mini
 	t_fd	*hd_lst;	//Here_doc list. 
 	char	*input;		//what we receive by readline
 	char	**paths;
+	char	**envp; //the original, using for debugging
 	int		exit;		//int designed to exit the readline loop and finish the shell
 	int		pipes; 		//How many pipes are there
 	t_exec	exe;		//another struct with the variables i use in execution 
@@ -172,8 +173,9 @@ int		pipe_clean(t_pipe **lst);
 
 /***** executor.c - main execution processes *****/
 int	executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
-void	child_process(t_mini *sh, t_pipe *p); 
-int	last_child(t_mini *sh, t_pipe *p);
+void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+int	last_child(t_mini *sh, t_pipe *p); 
+void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
 
 /***** exec_utils.c - utils for execution processes *****/
 int	check_builtin(char **cmd); // checks if the cmd is a builtin

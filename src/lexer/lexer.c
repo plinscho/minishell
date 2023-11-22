@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 20:43:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:11:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_lexer *read_redirection(char *in, t_mini *sh, int *i)
     else if (in[j] == '|')
 	{
 		sh->pipes++;
+		printf("[LEXER] found a pipe: pipes == %i\n", sh->pipes);
 		return (lex_new(NULL, 8));
 	}
 	return (NULL);

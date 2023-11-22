@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 20:40:57 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:13:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->input = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
+//	sh->envp = env; // for debugging only
 //	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
@@ -79,6 +80,7 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
+//	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
 	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 	{

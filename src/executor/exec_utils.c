@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 19:15:27 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:02:40 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,19 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 {
 	while (fd1)
 	{
+		printf("[OPEN] PIPE %s -- filename before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd); //erase
+	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		if (p->in_fd >= 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
+		{
 			close(p->in_fd);
+	//		p->in_fd = -2;
+		}
 		if (p->out_fd >= 0 && (fd1->type == 5 || fd1->type == 7))
+		{
+	//		printf("[OPEN] PIPE %s -- closing out before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd);
 			close(p->out_fd);
+	//		p->out_fd = -2;
+		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (fd1->type == 4)
@@ -72,6 +81,7 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
 		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
 			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
+	//	printf("[OPEN] PIPE %s -- fd after open in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		fd1 = fd1->next;
 	}
 }
@@ -107,6 +117,7 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 	while (paths[++i])
 	{
 		p = ft_smart_join(paths[i], "/", cmd);
+//		printf("\n[CHECK PATHS] p: %s\n", p); //erase
 		if (!p)
 			ft_exit_exe(sh, "malloc", "allocation failed", errno);
 		if (access(p, F_OK) == 0)
