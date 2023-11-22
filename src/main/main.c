@@ -17,10 +17,7 @@ int	minishell(t_mini *sh)
 		exit (1);		//  need to change it into our exit builtin function.
 	}
 	if (pre_quotes(sh->input))
-	{
-		quotes_error(sh);
-		return (sh->exit);
-	}
+		return (quotes_error(sh));
 
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean

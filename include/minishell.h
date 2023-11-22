@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 19:28:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:53:05 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ char *ft_get_value(t_mini *sh, char *key);
 
 //			--	--	ERRORS	--	--
 
-void	quotes_error(t_mini *sh);
+int		quotes_error(t_mini *sh);
 void	syntax_error(t_mini *sh, char *seq);
 
 //###########################################################################################
