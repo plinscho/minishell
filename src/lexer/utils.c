@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 19:27:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:35:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,15 @@ int	ft_longer(char *str, char *key)
 	}
 //	printf("in ft_longer: len -  %i\n", len); //erase
 	return (len);
+}
+
+int		ft_isspace(int c)
+{
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
 }
 
 char	*ft_smart_join(char *s1, char *s2, char *s3)

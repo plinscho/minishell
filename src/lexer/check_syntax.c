@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/21 19:48:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:26:07 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int		pre_quotes(char *line)
 	return (open);
 }
 
+/*
+
+	FUNCTIONS ARE WAY TO COMPLICATED
 
 void	get_sequence(t_lexer *tmp, char *sequence)
 {
@@ -70,10 +73,9 @@ char	*alloc_sequence(t_lexer *head)
 	return (seq);	
 }
 
-/*
 	This function checks for syntax errors.
 	The ideal would be to use it after the lexer, I can use the tokens to create a logic.
-*/
+
 int		w_syntax(t_mini *sh)
 {
 	t_lexer	*tmp;
@@ -90,11 +92,12 @@ int		w_syntax(t_mini *sh)
 		return (1);
 	get_sequence(tmp, sequence);
 	printf("sequence: %s\n", sequence);
+	check_sequence(sh, sequence);
 	free(sequence);
 	return (0);
 }	
 
-
+*/
 
 //#######################################################################
 // Print functions

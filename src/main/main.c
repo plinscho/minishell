@@ -18,16 +18,14 @@ int	minishell(t_mini *sh)
 	}
 	if (pre_quotes(sh->input))
 	{
-		synt_error(sh);
-		free(sh->input);
+		quotes_error(sh);
 		return (sh->exit);
 	}
 
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 
-
-	if (w_syntax(sh)) // This function checks for the syntax errors. It operates using tokens logic.
+	if (check_syntax(sh->lex_lst)) // This function checks for the syntax errors. It operates using tokens logic.
 		return (1);
 /*	
 	if (ft_heredoc(sh, sh->input))

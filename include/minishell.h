@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/21 19:27:54 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:28:22 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 int		trim_quotes(t_mini *sh, t_lexer *lex); // to trim quotes after expantion 
 char	*word_no_q(t_lexer *lex, int j); // to trim quotes after expantion
-char int_to_char(int num); //converts int into char
+char 	int_to_char(int num); //converts int into char
+int		ft_isspace(int c); // Detects if "c" is a space char.
 
 /***** check_syntax.c - *****/
 int		pre_quotes(char *line);
@@ -136,6 +137,11 @@ int		check_chr(char c);
 char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - frees all the strings in it, if flag=1 only equals them to NULL (they are not allocated)
 int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
 char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
+
+//	Check_sequence.c - Checks the syntax sequence based on the tokens
+int		w_syntax(t_mini *sh);
+//	void	check_sequence(t_mini *sh, char *seq);
+int		check_syntax(t_lexer *head);
 
 //###########################################################################################
 
@@ -157,7 +163,6 @@ void	fd_init(t_fd *new, t_mini *sh, int fd, int type);
 //			--	--	EXPANSER	--	--
 
 //	EXPANSER.C
-int    w_syntax(t_mini *sh);
 
 
 //###########################################################################################
@@ -215,7 +220,8 @@ char *ft_get_value(t_mini *sh, char *key);
 
 //			--	--	ERRORS	--	--
 
-void	synt_error(t_mini *sh);
+void	quotes_error(t_mini *sh);
+void	syntax_error(t_mini *sh, char *seq);
 
 //###########################################################################################
 

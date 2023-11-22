@@ -18,7 +18,8 @@ LEXER = src/lexer/lexer \
 		src/lexer/heredoc \
 		src/lexer/fd_utils \
 		src/lexer/check_syntax \
-		src/lexer/utils
+		src/lexer/utils \
+		src/lexer/check_sequence
 
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor
