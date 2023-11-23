@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 17:49:05 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:23:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_mini
 	char	**envp; //the original, using for debugging
 	int		exit;		//int designed to exit the readline loop and finish the shell
 	int		pipes; 		//How many pipes are there
-	t_exec	exe;		//another struct with the variables i use in execution 
+	t_exec	*exe;		//another struct with the variables i use in execution 
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
 	int		power_on;
 }	t_mini;
@@ -105,7 +105,7 @@ void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont w
 int		sh_clean(t_mini *sh, int err);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int	sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
-
+int	allocate_exe(t_mini *sh);
 //###########################################################################################
 
 //			--	--	LEXER	--	--
