@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:44:09 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:19:18 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,17 @@ void	fd_clean(t_fd **hd)
 	t_fd	*iter;
 
 	iter = *hd;
+//	printf("[FD CLEAN]You entered: NODE - %p\n", *hd); //erase
 	while (iter)
 	{
 		temp = iter;
 		iter = iter->next;
-		if (temp->str)
+		/*if (temp->str)
 		{
 			free(temp->str);
 			temp->str = NULL;
-		}
-		if (temp->fd > 0)
+		}*/
+		if (temp->fd > 0 && temp->type != 6)
 			close(temp->fd);
 		free(temp);
 		temp = NULL;
@@ -66,20 +67,15 @@ lex->token is the type of redirection, and then the keyword.
 3. if type is NOT 0 (then it's 4) - the fd is -2, 4 is the type of redirection, and lex->str is 
 the filename. 
 */
-void	fd_init(t_fd *new, t_mini *sh, int fd, int type)
+void	fd_init(t_fd *new, t_mini *sh, int fd)
 {
 //	printf("[FD_INIT]You entered, fd: %i -- type: %i\n", fd, type); //erase
-	if (!type)
-	{
-		new->type = sh->lex_lst->token;
+	new->type = sh->lex_lst->token;
+	sh->lex_lst = sh->lex_lst->next;
+	if (sh->lex_lst && sh->lex_lst->token == 0)
 		sh->lex_lst = sh->lex_lst->next;
-		if (sh->lex_lst && sh->lex_lst->token == 0)
-			sh->lex_lst = sh->lex_lst->next;
-		else if (!sh->lex_lst) // en realidad es un caso de error de syntax
-			return ;
-	}
-	else
-		new->type = type;
+	if (!sh->lex_lst) // en realidad es un caso de error de syntax
+		return ;
 //	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
 	new->str = sh->lex_lst->cont;
 	new->fd = fd;

@@ -6,7 +6,11 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/19 21:46:42 by nzhuzhle         ###   ########.fr       */
+=======
+/*   Updated: 2023/11/23 17:23:02 by nzhuzhle         ###   ########.fr       */
+>>>>>>> 342ab7c7a05cb807b4958ac9e1951923ca3111f5
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +31,10 @@ int	sh_init(t_mini *sh, char **env)
 	sh->input = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
-	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
+	sh->envp = env; // for debugging only
+	if (allocate_exe(sh))
+		return (1);
+//	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
@@ -60,6 +67,7 @@ int	sh_clean(t_mini *sh, int err)
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
 	sh->pipes = 0;
+	sh->exit = err;
 	return (err);
 }
 
@@ -78,6 +86,7 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
+<<<<<<< HEAD
 //	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 //	if (!sh->paths)
 //	{
@@ -87,4 +96,27 @@ int	sh_loop_init(t_mini *sh)
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
 	return (0);
+=======
+//	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
+	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
+	if (!sh->paths)
+	{
+		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
+		return (1);
+	}
+	if (env_converter(sh) == -1) // malloc has failed in the char **.
+		return (1);
+	return (0);
+}
+
+int	allocate_exe(t_mini *sh)
+{
+	t_exec	*new;
+
+	new = malloc(sizeof(t_exec));
+	if (!new)
+		return (1);
+	sh->exe = new;
+	return (0);
+>>>>>>> 342ab7c7a05cb807b4958ac9e1951923ca3111f5
 }

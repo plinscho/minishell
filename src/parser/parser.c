@@ -6,44 +6,87 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 20:09:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:17:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
+t_lexer	*next_word(t_lexer *temp)
+{
+	int	f;
+
+	f = 1;
+	while (temp && temp->token != 8)
+	{
+		if (temp->token > 3 && !f)
+			f++;
+		else if (temp->token < 4 && temp->token > 0 && f)
+			f = 0;
+		else if (temp->token < 4 && temp->token > 0 && !f)
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
+}
+
+int	count_cmd(t_lexer *temp)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+//	printf("[P_CMD]token: %i\n", temp->token); //erase
+	while (temp && temp->token != 8)
+	{
+		if (temp->token < 4 && temp->token > 0 && !flag)
+			i++;
+		else if (temp->token < 4 && temp->token > 0 && flag)
+			flag = 0;
+		else if (temp->token > 3)
+			flag++;
+		temp = temp->next;
+	}
+	return (i);
+}
+
 /*
 This function creates a double array of commands, using the tokens allocated in the lexer list.
 */
 int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 {
-	int		i;
+	int	i;
+	int	j;
 
-	i = 0;
+	i = count_cmd(temp);
 //	printf("[P_CMD]token: %i\n", temp->token); //erase
-	while (temp && temp->token < 4)
-	{
-		if (temp->token != 0)
-			i++;
-		temp = temp->next;
-	}
 //	printf("[P_CMD]n of cmds: %i\n", i); //erase
 	new->cmd = (char **) malloc(sizeof(char*) * (i + 1));
 	if (!new->cmd)
 		return (1);
-	temp = sh->lex_lst;
-	i = 0;
+//	temp = sh->lex_lst;
+	j = 0;
 	while (sh->lex_lst && sh->lex_lst->token < 4)
 	{
 		if (sh->lex_lst->token != 0)
 		{
-			new->cmd[i] = sh->lex_lst->cont;
-			i++;
+			new->cmd[j] = sh->lex_lst->cont;
+//			printf("[P_CMD] cmd [%i]: %s, i - %i\n", j, sh->lex_lst->cont, i); //erase
+			j++;
 		}
 		sh->lex_lst = sh->lex_lst->next;
 	}
-	new->cmd[i] = NULL;
+	temp = sh->lex_lst;
+	while (j < i)
+	{
+		temp = next_word(temp);
+		new->cmd[j++] = temp->cont;
+//		printf("[P_CMD] cmd [%i]: %s\n", j - 1, temp->cont); //erase
+		temp = temp->next;
+	}
+	new->cmd[j] = NULL;
 //	printf("[P_CMD] new lex: %p\n", sh->lex_lst); //erase
 	return (0);
 }
@@ -60,14 +103,14 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	if (!fd_new)
 		return (1);
 	if ((lex->token > 3 && lex->token < 6) || lex->token == 7)
-		fd_init(fd_new, sh, -2, 0);
+		fd_init(fd_new, sh, -2);
 	else if (lex->token == 6)
 	{
-		fd_init(fd_new, sh, hd->fd, 0);
+		fd_init(fd_new, sh, hd->fd);
 		sh->hd_lst = hd->next;
 	}
-	else
-		fd_init(fd_new, sh, -2, 4);
+//	else
+//		fd_init(fd_new, sh, -2, 4);
 	fd_add(&(new->fd_lst), fd_new);
 	return (0);
 }
@@ -102,7 +145,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 		while (sh->lex_lst && sh->lex_lst->token != 8)
 		{
 //			printf("[PARSER] not 8, lex token: %i\n", sh->lex_lst->token); //erase
-			if ((sh->lex_lst->token > 3 && sh->lex_lst->token < 8) || (new->cmd && sh->lex_lst->token > 0 && sh->lex_lst->token < 4))
+			if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
 				check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
 			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && !new->cmd)
 				check = parse_cmd(new, sh->lex_lst, sh);
