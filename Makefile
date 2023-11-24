@@ -21,13 +21,8 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils
 
 EXPANSER = src/expanser/expanser
-<<<<<<< HEAD
-EXECUTOR = src/executor/executor
-ERRORS = src/errors/errors
-=======
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
->>>>>>> 342ab7c7a05cb807b4958ac9e1951923ca3111f5
 ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals

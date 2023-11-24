@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/19 21:46:42 by nzhuzhle         ###   ########.fr       */
-=======
-/*   Updated: 2023/11/23 17:23:02 by nzhuzhle         ###   ########.fr       */
->>>>>>> 342ab7c7a05cb807b4958ac9e1951923ca3111f5
+/*   Updated: 2023/11/24 20:27:47 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +82,6 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
-<<<<<<< HEAD
-//	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
-//	if (!sh->paths)
-//	{
-//		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
-//		return (1);
-//	}
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		return (1);
-	return (0);
-=======
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
 	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
@@ -118,5 +103,4 @@ int	allocate_exe(t_mini *sh)
 		return (1);
 	sh->exe = new;
 	return (0);
->>>>>>> 342ab7c7a05cb807b4958ac9e1951923ca3111f5
 }
