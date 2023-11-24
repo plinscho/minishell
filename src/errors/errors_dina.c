@@ -19,7 +19,9 @@ loop and cleaning the struct. */
 int	ft_exit_exe(t_mini *sh, char *name, char *message, int err)
 {
 	write(2, name, ft_strlen(name)); //erase
-	write(2, "exit!!!\n", ft_strlen("exit!!!\n")); //erase
+	write(2, ": ", ft_strlen(name)); //erase
+	write(2, message, ft_strlen(message)); //erase
+	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 	if (!name && message)
 		printf("minishell: %s\n", message);
 	if (name && message)

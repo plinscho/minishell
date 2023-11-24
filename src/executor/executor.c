@@ -44,7 +44,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 
 }
 
-void	child_process(t_mini *sh, t_pipe *p, int flag)
+void	child_process(t_mini *sh, t_pipe *p, int flag, int pip)
 {
 	char	*the_path;
 
@@ -57,9 +57,10 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 	printf("[CHILD] PIPE %s -- fd after open, in: %i, out - %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit (exec_builtin(sh));
-	ft_redir(sh, sh->pipe_lst, flag);
 	check_access(sh, p->cmd, &the_path);
 	printf("\n[CHILD] after check access: %s\n", the_path); //erase
+	ft_redir(sh, sh->pipe_lst, flag);
+	ft_putstr_fd("after redir -- \n", 2);
 	if (execve(the_path, p->cmd, sh->envp) == -1)
 		ft_exit_exe(sh, "execve", strerror(errno), errno);
 }
@@ -74,7 +75,7 @@ int	last_child(t_mini *sh, t_pipe *p)
 	if (sh->exe->pid < 0)
 		return (3);
 	else if (sh->exe->pid == 0)
-		child_process(sh, p, 1);
+		child_process(sh, p, 1, -1);
 	if (sh->pipes)
 		close(p->in_fd);
 	return (0);
@@ -101,7 +102,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 		if (sh->exe->pid < 0)
 			return (sh_clean(sh, errno));
 		else if (sh->exe->pid == 0)
-			child_process(sh, p, 0);
+			child_process(sh, p, 0, sh->exe->fdp);
 		close (sh->exe->fdp[1]);
 		close (p->in_fd);
 		p = p->next;
