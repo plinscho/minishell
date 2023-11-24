@@ -112,7 +112,7 @@ t_lexer *read_redirection(char *in, t_mini *sh, int *i)
     else if (in[j] == '|')
 	{
 		sh->pipes++;
-		printf("[LEXER] found a pipe: pipes == %i\n", sh->pipes);
+//		printf("[LEXER] found a pipe: pipes == %i\n", sh->pipes);
 		return (lex_new(NULL, 8));
 	}
 	return (NULL);

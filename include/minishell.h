@@ -173,9 +173,9 @@ int		pipe_clean(t_pipe **lst);
 
 /***** executor.c - main execution processes *****/
 int	executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
-void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
-int	last_child(t_mini *sh, t_pipe *p); 
-void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd); // flag 0 if NOT last child, 1 if last one
+int	last_child(t_mini *sh, t_pipe *p, int *fd); 
+void	ft_redir(t_mini *sh, t_pipe *p, int *fd, int flag); // flag 0 if NOT last child, 1 if last one
 
 /***** exec_utils.c - utils for execution processes *****/
 int	check_builtin(char **cmd); // checks if the cmd is a builtin
@@ -188,6 +188,7 @@ int	ft_error_break(t_mini *sh, char *name, char *message, int err); //This one s
 
 /***** printer.c - main execution processes *****/
 void	print_parser_dina(t_pipe *p);
+void	print_arr(char **arr);
 
 //###########################################################################################
 

@@ -88,9 +88,6 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 
 void	check_access(t_mini *sh, char **cmd, char **path)
 {
-	char	**paths;
-
-	paths = NULL;
 	if (!cmd)
 		return ;
 	if (ft_strchr(cmd[0], '/'))
@@ -114,6 +111,7 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 	int		i;
 
 	i = -1;
+//	print_arr(sh->paths);
 	while (paths[++i])
 	{
 		p = ft_smart_join(paths[i], "/", cmd);
@@ -127,6 +125,7 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 			else
 				return (p);
 		}
+		p = ft_memdel(p);
 	}
 	ft_exit_exe(sh, cmd, "command not found", 127);
 	return (NULL);

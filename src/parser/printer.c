@@ -39,3 +39,13 @@ void	print_parser_dina(t_pipe *p)
        	p = p->next; 
     }
 }
+
+void	print_arr(char **arr)
+{
+	int	i = -1;
+
+	if (!arr || !*arr)
+		printf("no array: %p\n", arr);
+	while (arr[++i])
+		printf("array %i: %s\n", i, arr[i]);
+}
