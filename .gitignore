@@ -2,4 +2,4 @@
 *.o
 *.d
 .vscode/settings.json
-src/main/main_dina.c
+#src/main/main_dina.c
