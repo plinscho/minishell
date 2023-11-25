@@ -6,14 +6,14 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/24 21:27:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:28:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
  #define LEXER_H
 
-#include "minishell.h"
+//#include "minishell.h"
 
 typedef struct s_lexer
 {
@@ -22,8 +22,6 @@ typedef struct s_lexer
     struct s_lexer  *prev;
     struct s_lexer  *next;
 } t_lexer;
-
-//###########################################################################################
 
 //###########################################################################################
 
@@ -42,6 +40,8 @@ t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 int		trim_quotes(t_mini *sh, t_lexer *lex); // to trim quotes after expantion 
 char	*word_no_q(t_lexer *lex, int j); // to trim quotes after expantion
+char 	int_to_char(int num); //converts int into char
+int		ft_isspace(int c); // Detects if "c" is a space char.
 
 /***** check_syntax.c - *****/
 int		pre_quotes(char *line);
@@ -55,8 +55,12 @@ char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - free
 int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
 char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
 
-//###########################################################################################
+//	Check_sequence.c - Checks the syntax sequence based on the tokens
+int		w_syntax(t_mini *sh);
+//	void	check_sequence(t_mini *sh, char *seq);
+int		check_syntax(t_lexer *head);
 
+//###########################################################################################
 
 
 

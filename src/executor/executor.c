@@ -6,11 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/24 20:26:27 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:14:22 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/executor.h"
+//#include "../../include/executor.h"
 #include "../../include/minishell.h"
 
 void	ft_redir(t_mini *sh, t_pipe *p, int *fd, int flag)

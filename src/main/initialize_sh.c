@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/25 12:57:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:09:12 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "../../include/minishell.h"
 
 /* Here we initialize the struct for the first time and parse the environment */
+
+int	allocate_exe(t_mini *sh);
 
 int	sh_init(t_mini *sh, char **env)
 {

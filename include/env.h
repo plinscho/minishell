@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:01:24 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/24 21:13:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:41:50 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 #ifndef ENV_H
  # define ENV_H
 
-#include "minishell.h"
+//#include "minishell.h"
+
+typedef struct s_mini t_mini;
 
 typedef struct s_envlst
 {

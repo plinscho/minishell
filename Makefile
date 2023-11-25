@@ -1,5 +1,11 @@
 NAME = minishell
-HEADER = include/minishell.h
+INCLUDE = include/minishell.h \
+			include/env.h \
+			include/lexer.h \
+			include/parser.h \
+			include/expanser.h \
+			include/executor.h
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
@@ -54,9 +60,9 @@ $(F_OBJ)%.o: src/%.c Makefile
 
 #vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
 
-$(NAME): $(OBJ) ./$(LIBFT)
+$(NAME): $(OBJ) ./$(LIBFT) $(HEADERS)
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(^) $(LIBS) -o ${NAME}
+	@$(CC) $(CFLAGS) $(HEADERS) $(^) $(LIBS) -o ${NAME}
 	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:
