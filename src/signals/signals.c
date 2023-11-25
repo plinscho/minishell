@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:32:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 19:05:30 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 12:58:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sig_handler(int sig)
 void	signals(void)
 {
 //	rl_catch_signals = 0;
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-//	signal(SIGSEGV, sig_handler);
+	signal(SIGINT, sig_handler); // ctrl + C
+	signal(SIGQUIT, SIG_IGN);  // ctrl + D
+	//signal(SIGSEGV, sig_handler);
 }

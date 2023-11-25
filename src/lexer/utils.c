@@ -138,5 +138,6 @@ char	*ft_smart_join(char *s1, char *s2, char *s3)
 	j = 0;
 	while (s3[j])
 		new[i++] = s3[j++];
+	new[i] = '\0';
 	return (new);
 }

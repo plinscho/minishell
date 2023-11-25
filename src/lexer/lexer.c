@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/20 22:20:02 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 12:56:48 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_lexer *read_redirection(char *in, t_mini *sh, int *i)
     else if (in[j] == '|')
 	{
 		sh->pipes++;
+//		printf("[LEXER] found a pipe: pipes == %i\n", sh->pipes);
 		return (lex_new(NULL, 8));
 	}
 	return (NULL);
@@ -133,7 +134,7 @@ int lexer(t_mini *sh, char *input)
 	printf("input: %s\n", input);
     while (input[++i])
     {
-//		printf("[LEX]You entered: input - %c\n", input[i]); //erase
+ //       printf("[LEX]You entered: input - %c\n", input[i]); //erase
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
