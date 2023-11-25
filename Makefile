@@ -1,5 +1,11 @@
 NAME = minishell
-HEADER = include/minishell.h
+INCLUDE = include/minishell.h \
+			include/env.h \
+			include/lexer.h \
+			include/parser.h \
+			include/expanser.h \
+			include/executor.h
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
@@ -11,7 +17,7 @@ MAKE_LIBFT = make -C include/libft --no-print-directory
 MAIN = src/main/main src/main/initialize_sh 
 
 PARSER = src/parser/parser \
-			src/parser/parser_utils \
+			src/parser/parser_utils src/parser/printer
 
 LEXER = src/lexer/lexer \
 		src/lexer/lexer_utils \
@@ -22,8 +28,8 @@ LEXER = src/lexer/lexer \
 		src/lexer/check_sequence
 
 EXPANSER = src/expanser/expanser
-EXECUTOR = src/executor/executor
-ERRORS = src/errors/errors
+EXECUTOR = src/executor/executor src/executor/exec_utils
+ERRORS = src/errors/errors src/errors/errors_dina
 ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
 BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
@@ -54,9 +60,9 @@ $(F_OBJ)%.o: src/%.c Makefile
 
 #vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
 
-$(NAME): $(OBJ) ./$(LIBFT)
+$(NAME): $(OBJ) ./$(LIBFT) 
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(^) $(LIBS) -o ${NAME}
+	@$(CC) $(CFLAGS) $(HEADERS) $(^) $(LIBS) -o ${NAME}
 	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/05 18:37:38 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:26:35 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	last_child(char *envp[], char *argv, t_pipe *info, char *outfile)
 		print_error("dup2 file descriptor", 0, info);
 	close(info->in_fd);
 	check_access(info, cmd, &the_path);
+	write(2, the_path, ft_strlen(the_path)); //erase
 	if (execve(the_path, cmd, envp) < 0)
 		print_error(cmd[0], 0, info);
 }
