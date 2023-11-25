@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 19:23:38 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 12:49:14 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		no_cmd(char *seq)
 
 int	serror(char *s)
 {
-	ft_putstr_fd("bash: syntax error near unexpected token ", 2);
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("\n", 2);
 	return (2);
@@ -107,7 +107,7 @@ int	check_syntax(t_lexer *head)
 	if (syntax_handler(tmp, &pipes, &redirs) != 0)
 		return (2);
 	if (redirs >= 1)
-		return (serror("newline"));
+		return (serror("'newline'"));
 	if (pipes >= 1)
 		return (serror("|"));
 	return (0);
