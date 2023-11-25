@@ -60,7 +60,7 @@ $(F_OBJ)%.o: src/%.c Makefile
 
 #vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
 
-$(NAME): $(OBJ) ./$(LIBFT) $(HEADERS)
+$(NAME): $(OBJ) ./$(LIBFT) 
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(HEADERS) $(^) $(LIBS) -o ${NAME}
 	@printf "Compiled $(NAME) succesfully!\n"

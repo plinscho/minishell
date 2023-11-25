@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 14:10:11 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:16:15 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 //# include "minishell.h"
 
 typedef struct s_mini t_mini;
-typedef struct s_envlst	t_env;
-typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
 typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
