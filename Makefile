@@ -27,11 +27,18 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils \
 		src/lexer/check_sequence
 
+BUILTINS = src/builtins/cd \
+			src/builtins/echo \
+			src/builtins/env \
+			src/builtins/exit \
+			src/builtins/export \
+			src/builtins/pwd \
+			src/builtins/unset
+
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
 ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
-BUILTINS = src/builtins/cd
 SIGNALS = src/signals/signals
 
 SRC = $(addsuffix .c, $(PARSER)) \

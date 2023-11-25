@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 16:42:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 17:01:49 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int		ft_env(t_mini *sh)
 {
-	
+	unsigned int	i;
 
-	return (1);
+	i = 0;
+	while (sh->env[i])
+	{
+		ft_putstr_fd(sh->env[i], 1);
+		i++;
+	}
+	return (0);
 }
