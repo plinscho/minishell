@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:13:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:46:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:34:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	sh_clean(t_mini *sh, int err)
 		fd_clean(&(sh->hd_lst));
 //	printf("[CLEAN] after hd clean: hd - %p\n", sh->hd_lst); //erase
 //	printf("[CLEAN] before input clean: input - %p\n", sh->input); //erase
-	if (sh->input) // memdel doesn't set a ptr to null without double pointer
+	if (sh->input && *sh->input) // memdel doesn't set a ptr to null without double pointer
 		sh->input = ft_memdel(sh->input);
 //	printf("[CLEAN] after input clean: input - %p\n", sh->input); //erase
 //	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase

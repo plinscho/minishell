@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 21:16:31 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:35:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 	m[i] = '\0';
 	return (m);
 }
+
+char int_to_char(int num)
+{
+  return (char)(num + '0');
+}
+
 
 /* 
 This function checks if a char is a redirection (< OR > OR |) or not:
@@ -101,6 +107,15 @@ int	ft_longer(char *str, char *key)
 	}
 //	printf("in ft_longer: len -  %i\n", len); //erase
 	return (len);
+}
+
+int		ft_isspace(int c)
+{
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
 }
 
 char	*ft_smart_join(char *s1, char *s2, char *s3)
