@@ -31,6 +31,7 @@ int	minishell(t_mini *sh)
 
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
+	print_env(NULL, sh->env);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
 	return (0);	
@@ -49,8 +50,7 @@ int main(int argc, char **argv, char **env)
 		return (1);
 	while (sh.power_on)
 	{
-		if (minishell(&sh))
-			;
+		minishell(&sh);
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");

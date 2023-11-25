@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 21:33:14 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/25 21:39:12 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 void	cd_home(t_mini *sh, char **cmd)
 {
+	(void)sh;
+	(void)cmd;
 	return ;
 }
 
