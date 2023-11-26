@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 12:56:48 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:49:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int lexer(t_mini *sh, char *input)
 
     i = -1;
     new = NULL;
-	printf("input: %s\n", input);
+//	printf("input: %s\n", input);
     while (input[++i])
     {
  //       printf("[LEX]You entered: input - %c\n", input[i]); //erase

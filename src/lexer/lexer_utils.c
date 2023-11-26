@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/19 16:31:16 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:55:24 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 
+//	printf
 	while (*lst)
 	{
 		temp = (*lst) -> next;

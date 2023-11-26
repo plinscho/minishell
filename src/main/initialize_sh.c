@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/26 19:31:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:58:34 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int	sh_clean(t_mini *sh, int err)
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
 	sh->exit = err; // this is incorrect
-
-	
 	return (err);
 }
 

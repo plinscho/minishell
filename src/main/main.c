@@ -12,18 +12,20 @@ int	minishell(t_mini *sh)
 	sh_loop_init(sh);
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
+	{
 		exit (1);		//  need to change it into our exit builtin function.
+	}
+//	if (sh->input[])
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
-	write(2, "1\n", 2); //erase
+
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
-	write(2, "1\n", 2); //erase
+//	print_lexer(sh);
 	if (check_syntax(sh->lex_lst)) // This function checks for the syntax errors. It operates using tokens logic.
 		return (1);
-	
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
 	if (executor(sh, sh->pipe_lst, -1, -1))
@@ -43,7 +45,7 @@ int main(int argc, char **argv, char **env)
 	while (sh.power_on)
 	{
 		if (minishell(&sh))
-			continue ;
+			;
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");
