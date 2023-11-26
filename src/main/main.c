@@ -12,15 +12,13 @@ int	minishell(t_mini *sh)
 	sh_loop_init(sh);
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
-	{
 		exit (1);		//  need to change it into our exit builtin function.
-	}
-//	if (sh->input[])
+	if (check_input(sh->input))
+		return (1);
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
-
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 //	print_lexer(sh);
@@ -28,6 +26,7 @@ int	minishell(t_mini *sh)
 		return (1);
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
+//	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
 	return (0);	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 12:49:14 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:05:10 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ int		no_cmd(char *seq)
 	return (1);
 }
 
-int	serror(char *s)
-{
-	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
-	ft_putstr_fd(s, 2);
-	ft_putstr_fd("\n", 2);
-	return (2);
-}
-
 int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
 {
 	while (head)
@@ -113,3 +105,16 @@ int	check_syntax(t_lexer *head)
 	return (0);
 }
 
+int		ft_isspace(int c)
+{
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
+}
+
+char int_to_char(int num)
+{
+  return (char)(num + '0');
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 14:21:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:57:53 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		minishell(t_mini *sh);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 int		sh_init(t_mini *sh, char **env);
-void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
+//void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
 int		sh_clean(t_mini *sh, int err);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
@@ -97,7 +97,8 @@ void	sig_handler(int sig);
 //			--	--	ERRORS	--	--
 
 int		quotes_error(t_mini *sh);
-void	syntax_error(t_mini *sh, char *seq);
+//void	syntax_error(t_mini *sh, char *seq);
+int		serror(char *s);
 
 //###########################################################################################
 

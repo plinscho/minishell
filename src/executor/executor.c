@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 15:23:35 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:44:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd)
 	char	*the_path;
 
 	the_path = NULL;
-//	printf("\n[CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
+//	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
 	if (!flag)
 		close(fd[0]); //check this
-//	printf("[CHILD] PIPE %s -- fd before open: %i\n", p->out_fd); //erase
+//	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
 	ft_open(sh, p, p->fd_lst);
-//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out - %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
+//	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit (exec_builtin(sh));
 	check_access(sh, p->cmd, &the_path);

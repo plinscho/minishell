@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 15:26:11 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:44:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 {
 	while (fd1)
 	{
-		printf("[OPEN] PIPE %s -- filename before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd); //erase
+	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i\n", p->cmd, fd1->str, fd1->fd); //erase
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		if (p->in_fd >= 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
 		{
 			close(p->in_fd);
-	//		p->in_fd = -2;
+			p->in_fd = -2;
 		}
 		if (p->out_fd >= 0 && (fd1->type == 5 || fd1->type == 7))
 		{
 	//		printf("[OPEN] PIPE %s -- closing out before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd);
 			close(p->out_fd);
-	//		p->out_fd = -2;
+			p->out_fd = -2;
 		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 19:49:21 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:15:54 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	if (!cont)
 		return (NULL);
 	*i += j;
-//	printf("[RW] leaving: input - %c\n", in[j]); //erase
+//	printf("[RW] leaving: token - %s\n", cont); //erase
 	return (lex_new(cont, 1));
 }
 

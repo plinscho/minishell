@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 14:22:27 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:53:19 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ typedef struct s_fd
 
 /***** parser.c - the updated main with sh struct and  *****/
 int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check); // cleans all and returns 1 if malloc failed
-int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 3 cases:
-	//1. its one of the < > >>
-	//2. its a heredoc
-	//3. its a word so we treat it as a <
+int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 2 cases: < || > || >> and heredoc
+
 int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
 int		count_cmd(t_lexer *temp); // counts words in a command
 t_lexer	*next_word(t_lexer *temp); // gets the pointer to the next word in the command
@@ -62,8 +60,8 @@ void	pipe_add(t_mini *sh, t_pipe *new);
 int		pipe_clean(t_pipe **lst);
 
 /***** printer.c - main execution processes *****/
-void	print_parser_dina(t_pipe *p);
+void	print_parser(t_pipe *p);
 void	print_arr(char **arr);
-
+void	print_lexer(t_mini *sh);
 
 #endif
