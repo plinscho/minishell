@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   expanser.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:32:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 12:58:18 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/20 22:15:45 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef EXPANSER_H
+ #define EXPANSER_H
 
-void	sig_handler(int sig)
-{
-	printf("\n");
-	rl_on_new_line();
-//	rl_replace_line("", 0);
-	rl_redisplay();
-	(void) sig;
-}
+# include "minishell.h"
+    
+int    w_syntax(t_mini *sh);
 
-void	signals(void)
-{
-//	rl_catch_signals = 0;
-	signal(SIGINT, sig_handler); // ctrl + C
-	signal(SIGQUIT, SIG_IGN);  // ctrl + D
-	//signal(SIGSEGV, sig_handler);
-}
+
+
+#endif

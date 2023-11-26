@@ -1,5 +1,11 @@
 NAME = minishell
-HEADER = include/minishell.h
+INCLUDE = include/minishell.h \
+			include/env.h \
+			include/lexer.h \
+			include/parser.h \
+			include/expanser.h \
+			include/executor.h
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
@@ -8,7 +14,7 @@ RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
 LIBS = -L ./include/libft $(RDL)
 MAKE_LIBFT = make -C include/libft --no-print-directory
 
-MAIN = src/main/main src/main/initialize_sh src/main/main_dina
+MAIN = src/main/main src/main/initialize_sh 
 
 PARSER = src/parser/parser \
 			src/parser/parser_utils src/parser/printer
@@ -18,7 +24,8 @@ LEXER = src/lexer/lexer \
 		src/lexer/heredoc \
 		src/lexer/fd_utils \
 		src/lexer/check_syntax \
-		src/lexer/utils
+		src/lexer/utils \
+		src/lexer/check_sequence
 
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor src/executor/exec_utils
@@ -53,9 +60,9 @@ $(F_OBJ)%.o: src/%.c Makefile
 
 #vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
 
-$(NAME): $(OBJ) ./$(LIBFT)
+$(NAME): $(OBJ) ./$(LIBFT) 
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(^) $(LIBS) -o ${NAME}
+	@$(CC) $(CFLAGS) $(HEADERS) $(^) $(LIBS) -o ${NAME}
 	@printf "Compiled $(NAME) succesfully!\n"
 
 clean:
@@ -67,6 +74,10 @@ fclean: clean
 	$(MAKE_LIBFT) fclean
 	@rm -f $(NAME)
 	@printf "[MINISH] Removed $(NAME).\n"
+
+gitstat:
+	git log --graph --oneline --all --decorate
+
 
 re: fclean all
 

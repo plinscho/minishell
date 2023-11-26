@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/23 17:18:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:23:35 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/executor.h"
+//#include "../../include/executor.h"
 #include "../../include/minishell.h"
 
 void	ft_redir(t_mini *sh, t_pipe *p, int *fd, int flag)
@@ -64,7 +64,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd)
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
-	if (execve(the_path, p->cmd, sh->envp) == -1)
+	if (execve(the_path, p->cmd, sh->env) == -1)
 		ft_exit_exe(sh, "execve", strerror(errno), errno);
 }
 
