@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/25 14:09:12 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:00:50 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
 	sh->pipe_lst = NULL;
-	sh->input = NULL;
+//	sh->input = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
 	sh->envp = env; // for debugging only
@@ -39,7 +39,7 @@ int	sh_init(t_mini *sh, char **env)
 		return (1);
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (1);
-	printf("\nShell Initialized\n#########################################\n\n"); //erase
+	printf("\nSHELL INITIALIZED\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	if (error)
 		sh->power_on = 0;

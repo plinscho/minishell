@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/12 16:21:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:06:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,21 @@ int		allocate_env(t_mini *sh, size_t n)
 	env_result[i] = NULL;
 	sh->env = env_result;
 	i = 0;
-	
-//	Create a function that frees the char **env
-/*	while (env_result[i])
-		ft_memdel(env_result[i++]);
-	ft_memdel(env_result[i]);
-	
-	printf("Char ** allocated!\n");
-*/
 	return (err);
-
 }
 
 t_env	*envnode_new(char *env)
 {
 	t_env	*new_list;
+	int		hasvalue;
 
 	new_list = malloc(sizeof(t_env));
 	if (!new_list)
 		return (NULL);
-	new_list->env_key = get_key(env);
-	new_list->env_val = get_val(env);
+	hasvalue = 1;
+	new_list->env_key = get_key(env, &hasvalue);
+	if (hasvalue)
+		new_list->env_val = get_val(env);
 	new_list->env_full = ft_strdup(env);
 	new_list->next = NULL;
 	return (new_list);

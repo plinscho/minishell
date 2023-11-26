@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 14:21:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:22:55 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ typedef struct s_mini
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
 	int		power_on;
 }	t_mini;
+
+//###########################################################################################
+
+//	BUILTINS !
+
+int		ft_env(t_mini *sh);
+int		ft_export(t_mini *sh);
+
 
 //###########################################################################################
 

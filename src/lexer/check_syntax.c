@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/22 19:50:20 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:58:22 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		pre_quotes(char *line)
 
 	i = 0;
 	open = 0;
+
 	while (line[i])
 	{
 		if (i > 0 && line[i - 1] == '\\')

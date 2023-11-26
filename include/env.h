@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:01:24 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 13:41:50 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:04:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_envlst
 //			--	--	ENV	--	--
 
 // env.c
+
 int		get_env(t_mini *sh, char **env);
-char	*get_key(char *og_env);
+char	*get_key(char *og_env, int *hasval);
 char	*get_val(char *og_env);
 int		env_converter(t_mini *sh);
 void	print_env(t_env *head, char **env);

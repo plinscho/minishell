@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 21:33:57 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:20:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ int	check_builtin(char **cmd)
 
 int	exec_builtin(t_mini *sh)
 {
-/*	if (sh->pipe_lst->builtin == 1)
+	if (sh->pipe_lst->builtin == 6)
+		return (ft_env(sh));
+	if (sh->pipe_lst->builtin == 4)
+		return (ft_export(sh));
+/*
+	if (sh->pipe_lst->builtin == 1)
 		return (ft_echo(sh));
 	if (sh->pipe_lst->builtin == 2)
 		return (ft_cd(sh));
 	if (sh->pipe_lst->builtin == 3)
 		return (ft_pwd(sh));
-	if (sh->pipe_lst->builtin == 4)
-		return (ft_export(sh));
 	if (sh->pipe_lst->builtin == 5)
 		return (ft_unset(sh));
-	if (sh->pipe_lst->builtin == 6)
-		return (ft_env(sh));
 	if (sh->pipe_lst->builtin == 7)
 		return (ft_exit(sh)); */
 	return (sh->exit);

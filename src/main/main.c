@@ -9,18 +9,21 @@
 */
 int	minishell(t_mini *sh)
 {
-	//char	*input = NULL;
 	sh_loop_init(sh);
+	//char	*input = NULL;
 	sh->input = readline("minishell$> ");
+	//if (*sh->input)
 	if (!sh->input)
 	{
+		printf("patata%s\n", sh->input);
 		exit (1);		//  need to change it into our exit builtin function.
 	}
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
-
+/*
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
+*/
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 
@@ -31,7 +34,6 @@ int	minishell(t_mini *sh)
 
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
-	print_env(NULL, sh->env);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
 	return (0);	
