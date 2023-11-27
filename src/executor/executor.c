@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 19:03:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:03:40 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, BEFORE dup in\n", p->cmd[0]); //erase
 		if (dup2(p->in_fd, STDIN_FILENO) < 0)
-			ft_exit_exe(sh, "in", strerror(errno), errno);
+			err_exit(sh, "in", strerror(errno), errno);
 		close(p->in_fd);
 		p->in_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, after dup in\n", p->cmd[0]); //erase
@@ -29,7 +29,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, BEFORE dup out\n", p->cmd[0]); //erase
 		if (dup2(p->out_fd, STDOUT_FILENO) < 0)
-			ft_exit_exe(sh, "out", strerror(errno), errno);
+			err_exit(sh, "out", strerror(errno), errno);
 		close(p->out_fd);
 		p->out_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, AFTER dup out\n", p->cmd[0]); //erase
@@ -38,7 +38,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, if there is pipe BEFORE dup out fd: %i\n", p->cmd[0], fd[1]); //erase
 		if (dup2(sh->exe->fdp[1], STDOUT_FILENO) < 0)
-			ft_exit_exe(sh, "pipe", strerror(errno), errno);
+			err_exit(sh, "pipe", strerror(errno), errno);
 		close(sh->exe->fdp[1]);
 		sh->exe->fdp[1] = -2;
 	}
@@ -60,7 +60,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 	ft_open(sh, p, p->fd_lst);
 //	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
-		exit (exec_builtin(sh));
+		exit(exec_builtin(sh));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
 //	if (!p->cmd)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
@@ -71,7 +71,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
 	if (execve(the_path, p->cmd, sh->env) == -1)
-		ft_exit_exe(sh, "execve", strerror(errno), errno);
+		err_exit(sh, "execve", strerror(EXIT_FAILURE), EXIT_FAILURE);
 }
 
 int	last_child(t_mini *sh, t_pipe *p)

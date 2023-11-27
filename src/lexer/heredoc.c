@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 19:00:02 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:05:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_heredoc(t_mini *sh, char *in)
 	//	printf("str after <<: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "heredoc", "Memory allocation failed", EXIT_FAILURE));
 		new->next = NULL;
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);

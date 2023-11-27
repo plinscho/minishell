@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/27 19:05:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:06:54 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 	{
-		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
+		err_exit(sh, "malloc", "allocation failed\n", errno);
 		return (1);
 	}
 	if (!sh->env)

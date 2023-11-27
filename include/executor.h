@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 18:56:37 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:09:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 i
 int		check_builtin(char **cmd); // checks if the cmd is a builtin
 int		exec_builtin(t_mini *sh); // executes the needed builtin
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1); // opens all the file descriptors
-int 	ft_exit_exe(t_mini *sh, char *name, char *message, int err); //- call this error function, passing it the name of a failed file
 void	check_access(t_mini *sh, char **cmd, char **path);
 char	*check_paths(char **paths, char *cmd, t_mini *sh);
-int		ft_error_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
+
 
 #endif

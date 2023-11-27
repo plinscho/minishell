@@ -33,7 +33,7 @@ int	minishell(t_mini *sh)
 //	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
-//	printf("after exec: %s\n", "5"); //erase
+	printf("after exec exit status: %i\n", sh->exit); //erase
 	return (0);	
 }
 
