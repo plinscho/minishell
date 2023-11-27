@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/27 17:59:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:40:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /* Here we initialize the struct for the first time and parse the environment */
 
-int	allocate_exe(t_mini *sh);
+//int	allocate_exe(t_mini *sh);
 
 int	sh_init(t_mini *sh, char **env)
 {
@@ -35,8 +35,8 @@ int	sh_init(t_mini *sh, char **env)
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
 	sh->env = NULL;
-//	if (env_converter(sh) == -1) // malloc has failed in the char **.
-//		return (1);
+	if (env_converter(sh) == -1) // malloc has failed in the char **.
+		return (1);
 	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
@@ -72,6 +72,7 @@ int	sh_clean(t_mini *sh, int err)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 	sh->exit = err; // this is incorrect
+	sh->pipes = 0;	
 	return (err);
 }
 
@@ -91,8 +92,6 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 int	sh_loop_init(t_mini *sh)
 {
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
-	sh->pipes = 0;
-
 	if (!sh->paths)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
@@ -115,6 +114,8 @@ int	allocate_exe(t_mini *sh)
 	new = malloc(sizeof(t_exec));
 	if (!new)
 		return (1);
+	new->fdp[0] = -2;
+	new->fdp[1] = -2;
 	sh->exe = new;
 	return (0);
 }

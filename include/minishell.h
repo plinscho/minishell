@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 20:57:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:38:41 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		sh_init(t_mini *sh, char **env);
 int		sh_clean(t_mini *sh, int err);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
-
+int	allocate_exe(t_mini *sh); //allocates a variables struct for execution
 
 //			--	--	HERE_DOC	--	--
 
