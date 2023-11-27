@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:01:35 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 16:50:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:07:31 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ It is a first sketch. We need to change all the structure now of exiting the
 loop and cleaning the struct. */
 int	ft_exit_exe(t_mini *sh, char *name, char *message, int err)
 {
+	//	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
-//	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 	if (name)
 	{
 		ft_putstr_fd(name, 2);
@@ -40,10 +40,18 @@ It is a first sketch. We need to change all the structure now of exiting the
 loop and cleaning the struct */
 int	ft_error_break(t_mini *sh, char *name, char *message, int err)
 {
-	if (!name && message)
-		printf("minishell: %s\n", message);
-	if (name && message)
-		printf("minishell: %s: %s\n", name, message);
+	if (name || message)
+		ft_putstr_fd("minishell: ", 2);
+	if (name)
+	{
+		ft_putstr_fd(name, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (message)
+	{
+		ft_putstr_fd(message, 2);
+		ft_putstr_fd("\n", 2);
+	}
 	sh_clean(sh, err);
 	return(err);
 }

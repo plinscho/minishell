@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 15:16:15 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:56:37 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_exec
 
 /***** executor.c - main execution processes *****/
 int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
-void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd); // flag 0 if NOT last child, 1 if last one
-int		last_child(t_mini *sh, t_pipe *p, int *fd); 
-void	ft_redir(t_mini *sh, t_pipe *p, int *fd, int flag); // flag 0 if NOT last child, 1 if last one
+void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+int		last_child(t_mini *sh, t_pipe *p); 
+void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
 
 /***** exec_utils.c - utils for execution processes *****/
 int		check_builtin(char **cmd); // checks if the cmd is a builtin

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/27 18:40:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:05:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	sh_clean(t_mini *sh, int err)
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
-	sh->exit = err; // this is incorrect
+//	sh->exit = err; // this is incorrect
 	sh->pipes = 0;	
 	return (err);
 }

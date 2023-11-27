@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:44:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:00:02 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int	save_hd(char *key, char *str)
 	//	write(1, str, ft_strlen(str)); //erase
 	//	write(1, "\n", 1); //erase
 		write(hd[1], str, ft_strlen(str));
+		write(hd[1], "\n", 1);
 		free(str);
 		str = NULL;
 	}
