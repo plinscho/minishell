@@ -9,11 +9,13 @@
 */
 int	minishell(t_mini *sh)
 {
-	sh_loop_init(sh);
+//	sh_loop_init(sh);
+	if (env_converter(sh) == -1) // malloc has failed in the char **.
+		return (1);
 	sh->input = readline("minishell$> ");
 	if (!sh->input || ft_strcmp(sh->input, "exit") == 0)
 		return (ft_exit(sh));
-	print_env(sh->env_lst, sh->env);
+	print_env(sh->env_sec, NULL);
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list

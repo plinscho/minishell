@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 21:01:24 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 16:57:18 by plinscho         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/15 20:34:15 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:55:51 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +48,14 @@ t_env	*ft_envlast(t_env *lst);
 void	free_env_lst(t_mini *sh);
 void	free_env_chr(t_mini *sh);
 void	free_env(t_mini *sh);
+void	env_nodel(t_env *head, char *key);
+
+//	env_remake.c
+int		env_add_update(t_mini *sh, char *key, char *n_value);
+int		get_sec_env(t_mini *sh);
+int		bubble_env(t_env *head);
 
 // env_utils.c 
-char *ft_get_value(t_mini *sh, char *key);
+char 	*ft_get_value(t_mini *sh, char *key);
 
 #endif

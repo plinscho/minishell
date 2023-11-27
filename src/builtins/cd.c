@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 21:39:12 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:49:28 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,38 @@
 	env. 
 */
 
-void	cd_home(t_mini *sh, char **cmd)
+// int		env_add_update(t_mini *sh, char *key, char *n_value)
+
+
+int		go_to_path(int option, t_mini *sh)
 {
-	(void)sh;
-	(void)cmd;
-	return ;
+	t_env	*env;
+	int		ret;
+	char	*env_path;
+
+	env = sh->env_lst;
+	env_path = NULL;
+	if (option == 0)
+	{
+		//env_add_update()
+		env_path = ft_get_value(sh, "HOME");
+		if (!env_path)
+			ft_putendl_fd("minishell : cd: HOME not set", 2);
+		if (!env_path)
+			return (1);
+	}
+	else if (option == 1)
+	{
+		env_path = ft_get_value(sh, "OLDPWD");
+		if (!env_path)
+			ft_putendl_fd("minishell : cd: OLDPWD not set", 2);
+		if (!env_path)
+			return (1);
+//		update_oldpwd(env);
+	}
+	ret = chdir(env_path);
+	ft_memdel(env_path);
+	return (ret);
 }
 
 int		ft_cd(t_mini *sh)
@@ -31,14 +58,15 @@ int		ft_cd(t_mini *sh)
 	char	*pwd;
 	
 	pwd = NULL;
-	pwd = getcwd(pwd, 0);
+	pwd = getcwd(pwd, PATH_MAX);
 	cmd_tmp = sh->pipe_lst->cmd; // Store the command
 	if (!(pwd || cmd_tmp))
 		return (1);
-	
 	// cd a secas te lleva a HOME
 	if (cmd_tmp[1] == NULL)
-		cd_home(sh, cmd_tmp);
+		return (go_to_path(0, sh));
+	else if (ft_strcmp(cmd_tmp[1], "-") == 0)
+		return (go_to_path(1, sh));
 	// cd - te lleva al OLDPWD
 
 	// si hay mas de 1 argumento:

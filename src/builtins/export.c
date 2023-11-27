@@ -6,43 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 17:17:30 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:55:36 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int		bubble_env(t_env *head)
-{
-	t_env 	*lptr = NULL;
-	t_env	*ptr1 = head;
-	int		swapped;
-	
-	if (head == NULL)
-        return (1);
-
-    swapped = 1; // Set to 1 initially to enter the loop
-    while (swapped) {
-        swapped = 0;
-        ptr1 = head;
-
-        while (ptr1->next != lptr) {
-            // Compare two environment keys and swap if needed
-            if (strcmp(ptr1->env_key, ptr1->next->env_key) > 0) {
-                // Swap the nodes
-                t_env *temp = ptr1;
-                ptr1 = ptr1->next;
-                temp->next = ptr1->next;
-                ptr1->next = temp;
-
-                swapped = 1;
-            }
-            ptr1 = ptr1->next;
-        }
-        lptr = ptr1;
-    }
-	return (0);
-}
 
 int		export_exe(t_env *head)
 {

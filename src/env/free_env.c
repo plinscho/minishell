@@ -6,28 +6,60 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:52 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:47:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	env_nodel(t_env *head, char *key)
+{
+	t_env 	*etmp;
+	size_t	len;
+
+	etmp = head;
+	len = ft_strlen(key);
+	while (head->next != NULL)
+	{
+		if (ft_strncmp(head->env_key, key, len) == 0)
+		{
+			etmp->env_key = ft_memdel(etmp->env_key);
+			etmp->env_full = ft_memdel(etmp->env_full);
+			if (etmp->env_val)
+				etmp->env_val = ft_memdel(etmp->env_val);
+		}
+		etmp = etmp->next;
+	}
+}
 
 void	free_env_lst(t_mini *sh)
 {
-	t_env	*tmp_node = NULL;
+	t_env	*s_tmp = NULL;
+	t_env	*e_tmp = NULL;
 	t_env	*prev_node = NULL;
 
-	tmp_node = sh->env_lst;
-	while (tmp_node)
+	e_tmp = sh->env_lst;
+	s_tmp = sh->env_sec;
+	while (e_tmp)
 	{
-		ft_memdel(tmp_node->env_key);
-		ft_memdel(tmp_node->env_val);
-		ft_memdel(tmp_node->env_full);
-		prev_node = tmp_node;
-		tmp_node = tmp_node->next;
+		ft_memdel(e_tmp->env_key);
+		ft_memdel(e_tmp->env_val);
+		ft_memdel(e_tmp->env_full);
+		prev_node = e_tmp;
+		e_tmp = e_tmp->next;
 		ft_memdel(prev_node);
 	}
+	while (s_tmp)
+	{
+		s_tmp->env_key = ft_memdel(s_tmp->env_key);
+		s_tmp->env_full = ft_memdel(s_tmp->env_full);
+		if (s_tmp->env_val)
+			s_tmp->env_val = ft_memdel(s_tmp->env_val);
+		prev_node = e_tmp;
+		s_tmp = s_tmp->next;
+		prev_node = ft_memdel(prev_node);
+	}
+
 }
 
 void	free_env_chr(t_mini *sh)

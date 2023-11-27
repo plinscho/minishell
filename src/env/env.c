@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 17:23:58 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:59:16 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ size_t	env_variables(t_env *head)
 	return (env_cases);	
 }
 
-
 char	*get_key(char *og_env, int *hasval)
 {
 	unsigned int	i;
@@ -36,14 +35,15 @@ char	*get_key(char *og_env, int *hasval)
 	
 	(void)hasval;
 	i = 0;
-	while (og_env[i] != '=') //og_env[i] != '\0'|| 
+	while (og_env[i] && og_env[i] != '=') 
 		i++;
-//	if (og_env[i] == '\0')
-//		*hasval = 0;
+	if (og_env[i] == '\0')
+		*hasval = 0;
 	key = ft_strndup(og_env, i);
+	if (!key)
+		return (NULL);
 	return (key);
 }
-
 
 char	*get_val(char *og_env)
 {
@@ -55,6 +55,8 @@ char	*get_val(char *og_env)
 		og_env++;
 	og_env++;
 	val = ft_strdup(og_env); // protect the ft_strdup
+	if (!val)
+		return (NULL);
 	return (val);
 }
 
@@ -96,7 +98,7 @@ void	print_env(t_env *head, char **env)
 			i++;
 		}
 	}
-	if (*env)
+	if (env)
 	{
 		i = 0;
 		while(env[i])

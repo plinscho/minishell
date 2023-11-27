@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/27 16:53:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:34:32 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
 	sh->pipe_lst = NULL;
-//	sh->input = NULL;
+	sh->env_sec = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
 	sh->envp = env; // for debugging only
@@ -37,7 +37,7 @@ int	sh_init(t_mini *sh, char **env)
 //	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
+	if (get_sec_env(sh) == -1)
 		return (1);
 	printf("\nSHELL INITIALIZED\n#########################################\n\n"); //erase
 	sh->power_on = 1;

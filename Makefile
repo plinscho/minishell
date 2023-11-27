@@ -38,7 +38,12 @@ BUILTINS = src/builtins/cd \
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
-ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
+ENV = src/env/env \
+		src/env/env_list \
+		src/env/free_env \
+		src/env/env_utils \
+		src/env/env_remake
+
 SIGNALS = src/signals/signals
 
 SRC = $(addsuffix .c, $(PARSER)) \
