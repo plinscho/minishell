@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 16:52:00 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:42:51 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 
 int		ft_exit(t_mini *sh)
 {
-	(void)	sh;
+	sh->power_on = 0;		
 	return (1);
 }

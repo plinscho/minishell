@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 12:49:14 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:19:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	serror(char *s)
 	return (2);
 }
 
+
+// Modify function, pair events are swallowed by the shell
 int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
 {
 	while (head)
@@ -93,7 +95,7 @@ int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
 	return (0);
 }
 
-int	check_syntax(t_lexer *head)
+int	check_syntax(t_lexer *head) // meter el error 258 en la struct de la minishell.
 {
 	t_lexer	*tmp;
 	int		pipes;

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 19:19:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:17:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ FROM THE MANUAL - man export:
 
 */
 
+// Not all variables are included in the env, but some are in the export list.
 int		ft_export(t_mini *sh)
 {
 	t_env	*etmp;

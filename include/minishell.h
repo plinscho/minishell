@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 18:22:55 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:36:45 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_mini
 
 int		ft_env(t_mini *sh);
 int		ft_export(t_mini *sh);
+int		ft_pwd(t_mini *sh);
+int		ft_exit(t_mini *sh);
 
 
 //###########################################################################################

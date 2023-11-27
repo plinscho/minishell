@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/26 18:00:50 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:53:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int	sh_loop_init(t_mini *sh)
 		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
 		return (1);
 	}
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		return (1);
+//	if (env_converter(sh) == -1) // malloc has failed in the char **.
+//		return (1);
 	return (0);
 }
 

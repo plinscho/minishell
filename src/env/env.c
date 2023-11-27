@@ -6,12 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 20:16:08 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:23:58 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
 
 
 size_t	env_variables(t_env *head)
@@ -35,22 +34,16 @@ char	*get_key(char *og_env, int *hasval)
 	unsigned int	i;
 	char			*key = NULL;
 	
+	(void)hasval;
 	i = 0;
-	if (!og_env)
-		return (NULL);
-	printf("og: %s\n", og_env);
-	while (og_env[i] != '\0' || og_env[i] != '=')
+	while (og_env[i] != '=') //og_env[i] != '\0'|| 
 		i++;
-	if (og_env[i] == '\0')
-	{
-		*hasval = 0;
-		return (NULL);
-	}
+//	if (og_env[i] == '\0')
+//		*hasval = 0;
 	key = ft_strndup(og_env, i);
-	if (!key)
-		return (NULL);
 	return (key);
 }
+
 
 char	*get_val(char *og_env)
 {
@@ -61,19 +54,14 @@ char	*get_val(char *og_env)
 	while (og_env[i] != '=')
 		og_env++;
 	og_env++;
-	val = ft_strdup(og_env);
-	if (!val)
-		return (NULL);
+	val = ft_strdup(og_env); // protect the ft_strdup
 	return (val);
 }
 
 int		env_converter(t_mini *sh)
 {
 	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
-	{
-		printf("Error in converting env to char **\n");
 		return (-1);
-	}
 	return (0);
 }
 
