@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:01:35 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 20:05:27 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:50:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ It is a first sketch. We need to change all the structure now of exiting the
 loop and cleaning the struct. */
 int	ft_exit_exe(t_mini *sh, char *name, char *message, int err)
 {
-	ft_putstr_fd("minishell: ", 2);
+	if (name || message)
+		ft_putstr_fd("minishell: ", 2);
 //	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 	if (name)
 	{
@@ -31,7 +32,7 @@ int	ft_exit_exe(t_mini *sh, char *name, char *message, int err)
 		ft_putstr_fd("\n", 2);
 	}
 	sh_clean(sh, err);
-	exit(err);
+	exit (err);
 }
 
 /* This one should only be used in the parent process, it doesn't exit.

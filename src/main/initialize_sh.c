@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/26 19:58:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:59:34 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,15 @@ int	sh_clean(t_mini *sh, int err)
 //	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
+//	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase	
+//	printf("[CLEAN] before paths clean: paths - %p\n", sh->paths); //erase
 	if (sh->paths)
 		sh->paths = arr_clean(sh->paths, 0);
+//	printf("[CLEAN] after paths clean: paths - %p\n", sh->paths); //erase
+//	printf("[CLEAN] before env clean: env - %p\n", sh->env); //erase
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
+//	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 	sh->exit = err; // this is incorrect
 	return (err);
 }

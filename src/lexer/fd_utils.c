@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 21:19:18 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:58:12 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	fd_clean(t_fd **hd)
 			free(temp->str);
 			temp->str = NULL;
 		}*/
+//		printf("[FD CLEAN]before close: NODE - %p, fd: %i\n", temp, temp->fd); //erase
 		if (temp->fd > 0 && temp->type != 6)
 			close(temp->fd);
 		free(temp);

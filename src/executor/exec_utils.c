@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 21:44:56 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:57:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
+		else if (!fd1->str)
+			ft_exit_exe(sh, "", "No such file or directory", 1);
 		else if (fd1->type == 4)
 			p->in_fd = open(fd1->str, O_RDONLY);
 		else if (fd1->type == 5)
@@ -78,9 +80,9 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 		else if (fd1->type == 7)
 			p->out_fd = open(fd1->str, O_APPEND | O_CREAT | O_RDWR, 0666);
 		if (p->in_fd < 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
-			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
+			ft_exit_exe(sh, fd1->str, strerror(errno), 1);
 		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
-			ft_exit_exe(sh, fd1->str, strerror(errno), 1); //to write this function
+			ft_exit_exe(sh, fd1->str, strerror(errno), 1);
 	//	printf("[OPEN] PIPE %s -- fd after open in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		fd1 = fd1->next;
 	}
@@ -88,8 +90,8 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 
 void	check_access(t_mini *sh, char **cmd, char **path)
 {
-	if (!cmd)
-		return ;
+//	if (!cmd)
+//		return ;
 	if (ft_strchr(cmd[0], '/'))
 	{
 		if (access(cmd[0], F_OK) == 0)

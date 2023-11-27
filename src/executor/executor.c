@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 21:44:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:48:57 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd)
 //	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit (exec_builtin(sh));
+//	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
+	if (!p->cmd)
+		ft_exit_exe(sh, NULL, NULL, 0); // do not 
 	check_access(sh, p->cmd, &the_path);
 //	printf("\n[CHILD] after check access: %s\n", the_path); //erase
 	ft_redir(sh, p, fd, flag);
