@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:55:51 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:09:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		get_env(t_mini *sh, char **env);
 char	*get_key(char *og_env, int *hasval);
 char	*get_val(char *og_env);
 int		env_converter(t_mini *sh);
+size_t	env_variables(t_env *head);
 void	print_env(t_env *head, char **env);
 
 //	ENV_LIST

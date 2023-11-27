@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:26:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:58:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:13:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,41 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-int		bubble_env(t_env *head)
+//int		bubble_env(t_env *head)
+
+void		sort_env(t_env *head)
 {
-	t_env 	*lptr = NULL;
-	t_env	*ptr1 = head;
-	int		swapped;
-	
-	if (head == NULL)
-        return (1);
+	t_env	*se_tmp;
+	t_env	*se_prev;
+	size_t	*env_len;
+	char	*tmp;
+	int		ordered;
+	int		i;
 
-    swapped = 1; // Set to 1 initially to enter the loop
-    while (swapped) {
-        swapped = 0;
-        ptr1 = head;
-
-        while (ptr1->next != lptr) {
-            // Compare two environment keys and swap if needed
-            if (strcmp(ptr1->env_key, ptr1->next->env_key) > 0) {
-                // Swap the nodes
-                t_env *temp = ptr1;
-                ptr1 = ptr1->next;
-                temp->next = ptr1->next;
-                ptr1->next = temp;
-
-                swapped = 1;
-            }
-            ptr1 = ptr1->next;
-        }
-        lptr = ptr1;
-    }
-	return (0);
+	env_len = env_variables(head);
+	se_prev = NULL;
+	se_tmp = head;
+	ordered = 0;
+	while (se_tmp && ordered == 0)
+	{
+		i = 0;
+		ordered = 1;
+		se_prev = se_tmp;
+		while (i < env_len - 1)
+		{
+			if (ft_strcmp(se_prev->env_full, se_tmp->env_full) > 0)
+			{
+				tmp = tab[i];
+				tab[i] = tab[i + 1];
+				tab[i + 1] = tmp;
+				ordered = 0;
+			}
+			i++;
+		}
+		env_len--;
+	}
 }
+
 
 int		get_sec_env(t_mini *sh)
 {
@@ -61,7 +65,8 @@ int		get_sec_env(t_mini *sh)
 				return (-1);	// If malloc fails in new node it 
 		e_tmp = e_tmp->next;
 	}
-//	bubble_env(sh->env_sec);
+	e_tmp = sh->env_sec;
+	sort_env(sh->env_sec);
 	return (0);
 }
 
