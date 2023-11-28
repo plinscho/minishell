@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 21:10:16 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:18:37 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,18 @@ void		print_error(char **args)
 	ft_putendl_fd(args[1], 2);
 }
 
-int		update_oldpwd(t_env *env)
+int		update_oldpwd(t_mini *sh)
 {
 	char	cwd[PATH_MAX];
-	char	*oldpwd;
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (-1);
-	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
-		return (-1);
-	if (is_in_env(env, oldpwd) == 0)
-		env_add(oldpwd, env);
-	oldpwd = ft_memdel(oldpwd);
+	if (env_add_update(sh, "OLDPWD", cwd))
+		return (1);
 	return (0);
 }
 
-int		go_to_path(int option, t_env *head, t_mini *sh)
+int		go_to_path(int option, t_mini *sh)
 {
 	int		ret;
 	char	*env_path;
@@ -57,7 +53,7 @@ int		go_to_path(int option, t_env *head, t_mini *sh)
 	env_path = NULL;
 	if (option == 0)
 	{
-		//env_add_update()
+		update_oldpwd(sh);
 		env_path = ft_get_value(sh, "HOME");
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", 2);
@@ -67,12 +63,15 @@ int		go_to_path(int option, t_env *head, t_mini *sh)
 	else if (option == 1)
 	{
 		env_path = ft_get_value(sh, "OLDPWD");
+//		printf("oldpwd: %s\n", env_path); //erase
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", 2);
 		if (!env_path)
 			return (1);
-		update_oldpwd(head);
+		update_oldpwd(sh);
+		//env_add_update(sh, "OLDPWD", env_path);
 	}
+//	printf("env_path: %s\n", env_path); //erase
 	ret = chdir(env_path);
 	env_path = ft_memdel(env_path);
 	return (ret);
@@ -81,18 +80,16 @@ int		go_to_path(int option, t_env *head, t_mini *sh)
 int		ft_cd(t_mini *sh)
 {
 	char	**args;
-	t_env	*env;
 	int		cd_ret;
 
 	args = sh->pipe_lst->cmd;
-	env = sh->env_lst;
 	if (!args[1])
-		return (go_to_path(0, env, sh));
+		return (go_to_path(0, sh));
 	if (ft_strcmp(args[1], "-") == 0)
-		cd_ret = go_to_path(1, env, sh);
+		cd_ret = go_to_path(1, sh);
 	else
 	{
-		update_oldpwd(env);
+		update_oldpwd(sh);
 		cd_ret = chdir(args[1]);
 		if (cd_ret < 0)
 			cd_ret *= -1;

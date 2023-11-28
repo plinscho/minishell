@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:26:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 18:36:41 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:11:20 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int		env_add_update(t_mini *sh, char *key, char *n_value)
 		if (ft_strncmp(tmp->env_key, key, len) == 0 \
 			&& len == ft_strlen(tmp->env_key))
 		{
-			free(tmp->env_val);
 			tmp->env_val = ft_strdup(n_value);
 			if (!tmp->env_val)
 				return (1);

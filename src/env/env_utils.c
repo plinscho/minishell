@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:29:44 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 20:58:16 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:41:04 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ char		*get_env_name(char *dest, const char *src)
 	return (dest);
 }
 
-int			is_in_env(t_env *env, char *args)
+int			is_in_env(t_mini *sh, t_env *env, char *key)
 {
-	char	var_name[BUFF_SIZE];
+	char	*var_name;
 	char	env_name[BUFF_SIZE];
 
-	get_env_name(var_name, args);
+	var_name = ft_get_value(sh, key);
+	get_env_name(var_name, key);
 	while (env && env->next)
 	{
 		get_env_name(env_name, env->env_val);
 		if (ft_strcmp(var_name, env_name) == 0)
 		{
 			ft_memdel(env->env_val);
-			env->env_val = ft_strdup(args);
+			env->env_val = ft_strdup(key);
 			return (1);
 		}
 		env = env->next;
