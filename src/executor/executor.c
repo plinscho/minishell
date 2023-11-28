@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 20:03:40 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:06:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, BEFORE dup in\n", p->cmd[0]); //erase
 		if (dup2(p->in_fd, STDIN_FILENO) < 0)
-			err_exit(sh, "in", strerror(errno), errno);
+			err_exit(sh, "dup2", NULL, 1);
 		close(p->in_fd);
 		p->in_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, after dup in\n", p->cmd[0]); //erase
@@ -29,7 +29,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, BEFORE dup out\n", p->cmd[0]); //erase
 		if (dup2(p->out_fd, STDOUT_FILENO) < 0)
-			err_exit(sh, "out", strerror(errno), errno);
+			err_exit(sh, "dup2", NULL, 1);
 		close(p->out_fd);
 		p->out_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, AFTER dup out\n", p->cmd[0]); //erase
@@ -38,7 +38,7 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, if there is pipe BEFORE dup out fd: %i\n", p->cmd[0], fd[1]); //erase
 		if (dup2(sh->exe->fdp[1], STDOUT_FILENO) < 0)
-			err_exit(sh, "pipe", strerror(errno), errno);
+			err_exit(sh, "dup2", NULL, 1);
 		close(sh->exe->fdp[1]);
 		sh->exe->fdp[1] = -2;
 	}
@@ -71,7 +71,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
 	if (execve(the_path, p->cmd, sh->env) == -1)
-		err_exit(sh, "execve", strerror(EXIT_FAILURE), EXIT_FAILURE);
+		err_exit(sh, "execve", NULL, 14);
 }
 
 int	last_child(t_mini *sh, t_pipe *p)
@@ -109,11 +109,11 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 //		printf("\n[EXEC] PIPES: %i, i: %i\n", sh->pipes, i); //erase
 		p->builtin = check_builtin(p->cmd);
 		if (pipe(sh->exe->fdp) < 0)
-			return (sh_clean(sh, errno));
+			return (err_break(sh, "pipe", "Broken pipe", 32));
 //		printf("\n[EXEC] after pipe fd[0]: %i, fd[1]: %i\n", fd[0], fd[1]); //erase
 		sh->exe->pid = fork();
 		if (sh->exe->pid < 0)
-			return (sh_clean(sh, errno));
+			return (err_break(sh, "fork", "Cannot allocate memory", 12));
 		else if (sh->exe->pid == 0)
 			child_process(sh, p, 0);
 		close (sh->exe->fdp[1]);
