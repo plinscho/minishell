@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:26:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 20:13:30 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:36:41 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,6 @@
 #include <stdlib.h>
 
 //int		bubble_env(t_env *head)
-
-void		sort_env(t_env *head)
-{
-	t_env	*se_tmp;
-	t_env	*se_prev;
-	size_t	*env_len;
-	char	*tmp;
-	int		ordered;
-	int		i;
-
-	env_len = env_variables(head);
-	se_prev = NULL;
-	se_tmp = head;
-	ordered = 0;
-	while (se_tmp && ordered == 0)
-	{
-		i = 0;
-		ordered = 1;
-		se_prev = se_tmp;
-		while (i < env_len - 1)
-		{
-			if (ft_strcmp(se_prev->env_full, se_tmp->env_full) > 0)
-			{
-				tmp = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i + 1] = tmp;
-				ordered = 0;
-			}
-			i++;
-		}
-		env_len--;
-	}
-}
 
 
 int		get_sec_env(t_mini *sh)

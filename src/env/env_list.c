@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 17:21:12 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:12:47 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_env	*envnode_new(char *env)
 	t_env	*new_list;
 	int		hasval;
 
-	new_list = malloc(sizeof(t_env));
+	hasval = 0;
+	new_list = (t_env *)malloc(sizeof(t_env));
 	if (!new_list)
 		return (NULL);
 	hasval = 0;

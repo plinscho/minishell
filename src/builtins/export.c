@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:55:36 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:47:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ int		ft_export(t_mini *sh)
 	char	**ecmd;
 
 	ecmd = sh->pipe_lst->cmd;
-	etmp = sh->env_lst;
-	if (sh->env_lst == NULL)
+	etmp = sh->env_sec;
+	if (sh->env_sec == NULL)
     	return (1);
 
 //	Bubble sorting the list, is needed for all cases.
-	bubble_env(etmp);
+	sort_env(etmp);
 
 //	Check if only printing or actually exporting | 1 == P , 2 == E
 	if (input_check(etmp, ecmd) == 1)

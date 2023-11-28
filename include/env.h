@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 20:09:26 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:37:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 //#include "minishell.h"
 
+#include <stddef.h>
 typedef struct s_mini t_mini;
 
 typedef struct s_envlst
@@ -46,7 +47,7 @@ t_env	*envnode_new(char *env);
 t_env	*ft_envlast(t_env *lst);
 
 // FREE
-void	free_env_lst(t_mini *sh);
+void	free_env_lst(t_env *head);
 void	free_env_chr(t_mini *sh);
 void	free_env(t_mini *sh);
 void	env_nodel(t_env *head, char *key);
@@ -58,5 +59,8 @@ int		bubble_env(t_env *head);
 
 // env_utils.c 
 char 	*ft_get_value(t_mini *sh, char *key);
+
+//env_sort.c
+void sort_env(t_env *head);
 
 #endif

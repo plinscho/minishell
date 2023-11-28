@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:47:00 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:13:48 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,25 @@ void	env_nodel(t_env *head, char *key)
 	}
 }
 
-void	free_env_lst(t_mini *sh)
+void	free_env_lst(t_env *head)
 {
-	t_env	*s_tmp = NULL;
 	t_env	*e_tmp = NULL;
 	t_env	*prev_node = NULL;
 
-	e_tmp = sh->env_lst;
-	s_tmp = sh->env_sec;
+	e_tmp = head;
 	while (e_tmp)
 	{
-		ft_memdel(e_tmp->env_key);
-		ft_memdel(e_tmp->env_val);
-		ft_memdel(e_tmp->env_full);
+		e_tmp->env_key = ft_memdel(e_tmp->env_key);
+		if (e_tmp->env_val)
+			e_tmp->env_val = ft_memdel(e_tmp->env_val);
+		e_tmp->env_full = ft_memdel(e_tmp->env_full);
 		prev_node = e_tmp;
 		e_tmp = e_tmp->next;
 		ft_memdel(prev_node);
+		prev_node = NULL;
 	}
-	while (s_tmp)
-	{
-		s_tmp->env_key = ft_memdel(s_tmp->env_key);
-		s_tmp->env_full = ft_memdel(s_tmp->env_full);
-		if (s_tmp->env_val)
-			s_tmp->env_val = ft_memdel(s_tmp->env_val);
-		prev_node = e_tmp;
-		s_tmp = s_tmp->next;
-		prev_node = ft_memdel(prev_node);
-	}
-
 }
-
+/*
 void	free_env_chr(t_mini *sh)
 {
 	char			**env_tmp = NULL;
@@ -76,14 +65,15 @@ void	free_env_chr(t_mini *sh)
 	}
 	ft_memdel(env_tmp);
 }
-
+*/
 void	free_env(t_mini *sh)
 {
 	printf("Cleaning env\n");
 	if (sh->env)
-		free_env_chr(sh);
+		arr_clean(sh->env, 0);
 	printf("Cleaned char **\n");
-	free_env_lst(sh);
+	free_env_lst(sh->env_lst);
+	free_env_lst(sh->env_sec);
 	printf("Cleaned list\n");
 
 }

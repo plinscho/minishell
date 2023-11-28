@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:59:16 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:20:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	*get_key(char *og_env, int *hasval)
 	unsigned int	i;
 	char			*key = NULL;
 	
-	(void)hasval;
 	i = 0;
+	*hasval = 1;
 	while (og_env[i] && og_env[i] != '=') 
 		i++;
 	if (og_env[i] == '\0')

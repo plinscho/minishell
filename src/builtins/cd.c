@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:49:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:43:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@
 
 int		go_to_path(int option, t_mini *sh)
 {
-	t_env	*env;
+	t_env	*env = NULL;
 	int		ret;
 	char	*env_path;
 
 	env = sh->env_lst;
+	if (!env)
+		return (1);
 	env_path = NULL;
 	if (option == 0)
 	{
@@ -47,6 +49,7 @@ int		go_to_path(int option, t_mini *sh)
 			return (1);
 //		update_oldpwd(env);
 	}
+	env = sh->env_lst;
 	ret = chdir(env_path);
 	ft_memdel(env_path);
 	return (ret);

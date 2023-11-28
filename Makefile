@@ -6,7 +6,7 @@ INCLUDE = include/minishell.h \
 			include/expanser.h \
 			include/executor.h
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
 LIBFT = include/libft/libft.a
@@ -42,7 +42,8 @@ ENV = src/env/env \
 		src/env/env_list \
 		src/env/free_env \
 		src/env/env_utils \
-		src/env/env_remake
+		src/env/env_remake \
+		src/env/env_sort
 
 SIGNALS = src/signals/signals
 
