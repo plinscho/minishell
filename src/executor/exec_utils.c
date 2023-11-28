@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/28 19:26:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:59:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	exec_builtin(t_mini *sh)
 		return (ft_pwd(sh));
 	if (sh->pipe_lst->builtin == 7)
 		return (ft_exit(sh)); 
+	if (sh->pipe_lst->builtin == 2)
+		return (ft_cd(sh));
 /*
 	if (sh->pipe_lst->builtin == 1)
 		return (ft_echo(sh));
-	if (sh->pipe_lst->builtin == 2)
-		return (ft_cd(sh));
 	if (sh->pipe_lst->builtin == 5)
 		return (ft_unset(sh));
 	*/

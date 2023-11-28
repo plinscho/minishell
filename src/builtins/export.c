@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 18:47:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:26:37 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		input_check(t_env *etmp, char **cmd_grd)
 	// if no arguments, return 1 and just print.
 	if (cmd_grd[1] == NULL)
 		return (1);
-	// if 
+	// if there are arguments, check if they have '='
 	else
 	{
 		(void)etmp;
@@ -87,12 +87,11 @@ int		ft_export(t_mini *sh)
 
 //	Bubble sorting the list, is needed for all cases.
 	sort_env(etmp);
-
 //	Check if only printing or actually exporting | 1 == P , 2 == E
-	if (input_check(etmp, ecmd) == 1)
+	if (input_check(etmp, ecmd))
 		return (print_export(etmp));
-	if(export_exe(etmp))
+	if (export_exe(etmp))
 		return (1);
 
-	return (1);
+	return (0);
 }

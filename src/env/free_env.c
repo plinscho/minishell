@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 19:13:48 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:44:33 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,4 @@ void	free_env(t_mini *sh)
 	free_env_lst(sh->env_lst);
 	free_env_lst(sh->env_sec);
 	printf("Cleaned list\n");
-
 }

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 19:37:24 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:06:51 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ int		bubble_env(t_env *head);
 
 // env_utils.c 
 char 	*ft_get_value(t_mini *sh, char *key);
+char	*get_env_name(char *dest, const char *src);
+int		is_in_env(t_env *env, char *args);
+int		env_add(const char *value, t_env *env);
+
 
 //env_sort.c
 void sort_env(t_env *head);

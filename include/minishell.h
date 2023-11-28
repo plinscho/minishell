@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 19:24:51 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:59:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		ft_env(t_mini *sh);
 int		ft_export(t_mini *sh);
 int		ft_pwd(t_mini *sh);
 int		ft_exit(t_mini *sh);
+int		ft_cd(t_mini *sh);
 
 
 //###########################################################################################

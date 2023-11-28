@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:20:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 19:32:56 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:48:53 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void sort_env(t_env *head)
 
     // Check if the linked list is empty or has only one node
     if (head == NULL || head->next == NULL)
-        return;
+        return ;
 
     while (swapped) 
 	{
@@ -44,19 +44,5 @@ void sort_env(t_env *head)
             ptr1 = ptr1->next;
         }
         lptr = ptr1;
-    }
-}
-
-
-// Function to print the sorted linked list
-void print_sorted_env(t_env *head)
-{
-    t_env *current = head;
-
-    // Iterate through the linked list and print each environment variable
-    while (current != NULL) 
-	{
-        printf("%s\n", current->env_full);
-        current = current->next;
     }
 }
