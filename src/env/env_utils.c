@@ -6,85 +6,27 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:29:44 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 18:49:17 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:45:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-# define BUFF_SIZE 1024
-
-int			has_equalsign(char *str)
+int		key_exists(t_env *head, char *key)
 {
-	int		ret;
+	t_env	*etpm;
 
-	ret = 0;
-	while (str[ret])
+	etpm = head;
+	while (head->next)
 	{
-		if (str[ret] == '=')
-			return (ret);
-		ret++;
-	}
-	return (0);
-}
-
-char		*get_env_name(char *dest, const char *src)
-{
-	int		i;
-
-	i = 0;
-	while (src[i] && src[i] != '=' && ft_strlen(src) < BUFF_SIZE)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-int			is_in_env(t_mini *sh, t_env *env, char *key)
-{
-	char	*var_name;
-	char	env_name[BUFF_SIZE];
-
-	var_name = ft_get_value(sh, key);
-	get_env_name(var_name, key);
-	while (env && env->next)
-	{
-		get_env_name(env_name, env->env_val);
-		if (ft_strcmp(var_name, env_name) == 0)
-		{
-			ft_memdel(env->env_val);
-			env->env_val = ft_strdup(key);
+		if (ft_strcmp(key, etpm->env_key))
 			return (1);
-		}
-		env = env->next;
+		etpm = etpm->next;
 	}
 	return (0);
 }
 
-int			env_add(const char *value, t_env *env)
-{
-	t_env	*new;
-	t_env	*tmp;
-
-	if (env && env->env_val == NULL)
-	{
-		env->env_full = ft_strdup(value);
-		return (0);
-	}
-	if (!(new = malloc(sizeof(t_env))))
-		return (-1);
-	new->env_full = ft_strdup(value);
-	while (env && env->next && env->next->next)
-		env = env->next;
-	tmp = env->next;
-	env->next = new;
-	new->next = tmp;
-	return (0);
-}
-
-char *ft_get_value(t_mini *sh, char *key)
+char	*ft_get_value(t_mini *sh, char *key)
 {
 	t_env	*tmp = NULL;
 	

@@ -10,7 +10,6 @@
 int	minishell(t_mini *sh)
 {
 	sh_loop_init(sh);
-
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
 		return (ft_exit(sh));
@@ -38,6 +37,7 @@ int main(int argc, char **argv, char **env)
 	while (sh.power_on)
 	{
 		minishell(&sh);
+	//	print_env(sh.env_sec, NULL);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");
 		add_history(sh.input);

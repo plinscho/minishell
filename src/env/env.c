@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 19:20:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:08:31 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	print_env(t_env *head, char **env)
 	{
 		while (tmp)
 		{
-			ft_printf("Node[%d] | %s\n", i, tmp->env_full);
+			printf("Node[%d] | %s\n", i, tmp->env_full);
+			printf("key: %s\nVal: %s\n\n", tmp->env_key, tmp->env_val);
 			tmp = tmp->next;
 			i++;
 		}

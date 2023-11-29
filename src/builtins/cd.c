@@ -6,21 +6,19 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 19:20:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:22:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <linux/limits.h>
 #include <unistd.h>
-//#include <unistd.h>
 
 /*
 	This builtin needs 2 thing, the OLDPWD and the actual PWD from
 	env. 
 */
 
-// int		env_add_update(t_mini *sh, char *key, char *n_value)
 void		print_error(char **args)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
@@ -31,7 +29,6 @@ void		print_error(char **args)
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd(strerror(errno), 2);
-	
 	}
 }
 
@@ -41,7 +38,7 @@ int		update_oldpwd(t_mini *sh)
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (-1);
-	if (env_add_update(sh, "OLDPWD", cwd))
+	if (env_val_update(sh->env_lst, "OLDPWD", cwd))
 		return (1);
 	return (0);
 }

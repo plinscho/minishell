@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 18:49:40 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:45:32 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,13 @@ void	free_env(t_mini *sh);
 void	env_nodel(t_env *head, char *key);
 
 //	env_remake.c
-int		env_add_update(t_mini *sh, char *key, char *n_value);
+int		env_val_update(t_env *head, char *key, char *n_value);
 int		get_sec_env(t_mini *sh);
 int		bubble_env(t_env *head);
 
 // env_utils.c 
-char 	*ft_get_value(t_mini *sh, char *key);
-char	*get_env_name(char *dest, const char *src);
-int		is_in_env(t_mini *sh, t_env *env, char *key);
-int		env_add(const char *value, t_env *env);
-int		has_equalsign(char *str);
-
+char	*ft_get_value(t_mini *sh, char *key);
+int		key_exists(t_env *head, char *key);
 //env_sort.c
 void sort_env(t_env *head);
 
