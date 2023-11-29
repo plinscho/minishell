@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 18:22:05 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:03:10 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
 	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
-		j += word_in_quotes(in, &q, j);
-	printf("[RW] After iteration: input - %c\n", in[j]); //erase
-	if (q != ' ')
-		(*i)++;
-	if (in[j] )
+		j = word_in_quotes(in, &q, j);
+//	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
+//	if (q != ' ')
+//		(*i)++;
 	cont = ft_substr(in, 0, j + 1);
 	if (!cont)
 		return (NULL);
 	*i += j;
-//	printf("[RW] leaving: token - %s\n", cont); //erase
+//	printf("[RW] leaving: token - %s, in[i] -- %c, i -- %i\n", cont, in[j], *i); //erase
 	return (lex_new(cont, 1));
 }
 
@@ -123,10 +122,10 @@ int lexer(t_mini *sh, char *input)
 
     i = -1;
     new = NULL;
-//	printf("input: %s\n", input);
+//	printf("[LEX] input: %s\n", input);
     while (input[++i])
     {
- //       printf("[LEX]You entered: input - %c\n", input[i]); //erase
+//      printf("[LEX]You entered: input - %c\n", input[i]); //erase
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
@@ -139,6 +138,7 @@ int lexer(t_mini *sh, char *input)
 			return (sh_clean(sh, 2));
 		else
 			lex_add(&(sh->lex_lst), new);
+	//	printf("[LEX] After loop: input - %c\n", input[i]);
     }
 	return (0);
 }
