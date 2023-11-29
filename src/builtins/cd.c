@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 22:22:26 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:20:28 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@
 // int		env_add_update(t_mini *sh, char *key, char *n_value)
 void		print_error(char **args)
 {
-	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd("minishell: cd: ", 2);
 	if (args[2])
-		ft_putstr_fd("string not in pwd: ", 2);
+		ft_putstr_fd("too many arguments\n", 2);
 	else
 	{
-		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+	
 	}
-	ft_putendl_fd(args[1], 2);
 }
 
 int		update_oldpwd(t_mini *sh)

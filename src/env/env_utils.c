@@ -6,13 +6,27 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:29:44 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 21:41:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:49:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 # define BUFF_SIZE 1024
+
+int			has_equalsign(char *str)
+{
+	int		ret;
+
+	ret = 0;
+	while (str[ret])
+	{
+		if (str[ret] == '=')
+			return (ret);
+		ret++;
+	}
+	return (0);
+}
 
 char		*get_env_name(char *dest, const char *src)
 {

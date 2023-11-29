@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 22:39:09 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:28:01 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_mini
 int		ft_env(t_mini *sh);		// Ready no leaks
 int		ft_export(t_mini *sh);	// Only prints
 int		ft_pwd(t_mini *sh);		// Ready no leaks
-int		ft_exit(t_mini *sh);	
+int		ft_exit(t_mini *sh);	// turns of shell
 int		ft_cd(t_mini *sh);		// Ready | Leaks!!
 
 

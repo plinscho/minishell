@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 20:26:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:07:03 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,22 @@ int		export_exe(t_env *head)
 	return (1);	
 }
 
-int		input_check(t_env *etmp, char **cmd_grd)
+int		smart_env(t_mini *sh, char *variable)
 {
-//	char *cmd_str;
+	int		err;
 
-	// if no arguments, return 1 and just print.
-	if (cmd_grd[1] == NULL)
-		return (1);
-	// if there are arguments, check if they have '='
+	err = 0;
+	if (has_equalsign(variable))
+	{
+		
+		err = ft_envadd_back(&sh->env_lst, envnode_new(variable));
+	}
 	else
 	{
-		(void)etmp;
-		return (0);
+		err = ft_envadd_back(&sh->env_sec, envnode_new(variable));
+		
 	}
+	return (err);
 }
 
 int		print_export(t_env *etmp)
@@ -74,24 +77,30 @@ FROM THE MANUAL - man export:
 
 */
 
-// Not all variables are included in the env, but some are in the export list.
+// 	Not all variables are included in the env
+//	but some are in the export list.
 int		ft_export(t_mini *sh)
 {
-	t_env	*etmp;
-	char	**ecmd;
+	t_env			*etmp;
+	char			**ecmd;
+	unsigned int	i;
 
 	ecmd = sh->pipe_lst->cmd;
 	etmp = sh->env_sec;
-	if (sh->env_sec == NULL)
+	if (sh->env_sec == NULL || ecmd == NULL)
     	return (1);
-
-//	Bubble sorting the list, is needed for all cases.
 	sort_env(etmp);
-//	Check if only printing or actually exporting | 1 == P , 2 == E
-	if (input_check(etmp, ecmd))
+	i = 1;
+	if (ecmd[1] == NULL)
 		return (print_export(etmp));
-	if (export_exe(etmp))
-		return (1);
-
+	else
+	{
+		while (ecmd[i] != NULL)
+		{
+			if (smart_env(sh, ecmd[i])) // malloc failed
+				return (1);
+			i++;
+		}
+	}
 	return (0);
 }

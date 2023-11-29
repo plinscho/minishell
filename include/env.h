@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 21:40:13 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:49:40 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char 	*ft_get_value(t_mini *sh, char *key);
 char	*get_env_name(char *dest, const char *src);
 int		is_in_env(t_mini *sh, t_env *env, char *key);
 int		env_add(const char *value, t_env *env);
-
+int		has_equalsign(char *str);
 
 //env_sort.c
 void sort_env(t_env *head);
