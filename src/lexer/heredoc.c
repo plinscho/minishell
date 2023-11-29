@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 20:05:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:19:57 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*keyword_hd(t_fd *new, char *in, int *i)
 	while (in[j] && in[j] != ' ' && in[j] != '\'' && in[j] != '\"' \
 	&& check_chr(in[j]))
 		j++;
-//	printf("in keyword: stop letter: %c\n", in[j]); //erase
+	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
 	if (in[j] && (in[j] == '\'' || in[j] == '\"'))
 	{
 		q = in[j];
@@ -106,17 +106,21 @@ char	*keyword_hd(t_fd *new, char *in, int *i)
 			j++;
 		while (in[j] && in[j + 1] && in[j + 1] != ' ')
 			j++;
+		printf("[HEREDOC] before substr: %s$\n", in + j); //erase
 		cont = ft_substr_quotes(in, q, j, -1);
 	}
 	else
 		cont = ft_substr(in, 0, j);
+	printf("[HEREDOC] final keyword: %s$\n", cont); //erase
 	if (!cont)
 		return (NULL);
-	if (q == '\'')
+	if (q == '\'' || q =='\"')
 		new->type = 9;
 	*i += j;
 	return (cont);
 }
+
+
 
 /* 
 This function creates a pipe to save the heredoc content in it.

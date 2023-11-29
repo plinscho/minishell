@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 21:15:54 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:22:05 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,12 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
-	if (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
-	{
-		q = in[++j];
-		j++;
-		while (in[j] && in[j] != q)
-			j++;
-		while (in[j] && in[j + 1] && in[j + 1] != ' ')
-			j++;
-//		if (q == '\"')
-//			cont = ft_substr_quotes(in, q, j, -1);
+	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+		j += word_in_quotes(in, &q, j);
+	printf("[RW] After iteration: input - %c\n", in[j]); //erase
+	if (q != ' ')
 		(*i)++;
-	}
-//	if (q == ' ' || q == '\'')
-//		cont = ft_substr(in, 0, j + 1);
+	if (in[j] )
 	cont = ft_substr(in, 0, j + 1);
 	if (!cont)
 		return (NULL);

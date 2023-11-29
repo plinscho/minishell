@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/28 19:06:50 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:05:51 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,23 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 			sh->exit = WEXITSTATUS(sh->exe->stat);
 	}
 	return (0);
+}
+
+int	exec_builtin(t_mini *sh)
+{
+/*	if (sh->pipe_lst->builtin == 1)
+		return (ft_echo(sh));
+	if (sh->pipe_lst->builtin == 2)
+		return (ft_cd(sh));
+	if (sh->pipe_lst->builtin == 3)
+		return (ft_pwd(sh));
+	if (sh->pipe_lst->builtin == 4)
+		return (ft_export(sh));
+	if (sh->pipe_lst->builtin == 5)
+		return (ft_unset(sh));
+	if (sh->pipe_lst->builtin == 6)
+		return (ft_env(sh));
+	if (sh->pipe_lst->builtin == 7)
+		return (ft_exit(sh)); */
+	return (sh->exit);
 }

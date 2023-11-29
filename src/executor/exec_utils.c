@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/28 18:50:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:19:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	check_builtin(char **cmd)
 {
 	if (!cmd || !(*cmd))
 		return (0);
-	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
-		return (1);
+//	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
+//		return (1);
 	if (!ft_strncmp(cmd[0], "cd", ft_longer(cmd[0], "cd")))
 		return (2);
 	if (!ft_strncmp(cmd[0], "pwd", ft_longer(cmd[0], "pwd")))
@@ -33,42 +33,15 @@ int	check_builtin(char **cmd)
 	return (0);
 }
 
-int	exec_builtin(t_mini *sh)
-{
-/*	if (sh->pipe_lst->builtin == 1)
-		return (ft_echo(sh));
-	if (sh->pipe_lst->builtin == 2)
-		return (ft_cd(sh));
-	if (sh->pipe_lst->builtin == 3)
-		return (ft_pwd(sh));
-	if (sh->pipe_lst->builtin == 4)
-		return (ft_export(sh));
-	if (sh->pipe_lst->builtin == 5)
-		return (ft_unset(sh));
-	if (sh->pipe_lst->builtin == 6)
-		return (ft_env(sh));
-	if (sh->pipe_lst->builtin == 7)
-		return (ft_exit(sh)); */
-	return (sh->exit);
-}
-
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 {
+	int	prev;
+
+	prev = -1;
 	while (fd1)
 	{
 	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i\n", p->cmd, fd1->str, fd1->fd); //erase
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
-		if (p->in_fd >= 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
-		{
-			close(p->in_fd);
-			p->in_fd = -2;
-		}
-		if (p->out_fd >= 0 && (fd1->type == 5 || fd1->type == 7))
-		{
-	//		printf("[OPEN] PIPE %s -- closing out before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd);
-			close(p->out_fd);
-			p->out_fd = -2;
-		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (!fd1->str || *fd1->str == '\0')
@@ -84,7 +57,23 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
 			err_exit(sh, fd1->str, NULL, 1);
 	//	printf("[OPEN] PIPE %s -- fd after open in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
+		prev = fd1->type;
 		fd1 = fd1->next;
+	}
+}
+
+void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
+{
+	if (p->in_fd >= 0 && (cur->type == 6 || cur->type == 9 || cur->type == 4) && prev != 6)
+	{
+		close(p->in_fd);
+		p->in_fd = -2;
+	}
+	if (p->out_fd >= 0 && (cur->type == 5 || cur->type == 7))
+	{
+	//	printf("[OPEN] PIPE %s -- closing out before open: %s, fd: %i\n", p->cmd[0], fd1->str, fd1->fd);
+		close(p->out_fd);
+		p->out_fd = -2;
 	}
 }
 

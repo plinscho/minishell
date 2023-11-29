@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/27 20:09:11 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:07:32 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
 void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
 int		last_child(t_mini *sh, t_pipe *p); 
 void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+int		exec_builtin(t_mini *sh); // executes the needed builtin
+/*************************************************/
 
 /***** exec_utils.c - utils for execution processes *****/
 int		check_builtin(char **cmd); // checks if the cmd is a builtin
-int		exec_builtin(t_mini *sh); // executes the needed builtin
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1); // opens all the file descriptors
+void	ft_check_open(t_pipe *p, t_fd *cur, int prev); // check if the prev is open and closes it
 void	check_access(t_mini *sh, char **cmd, char **path);
 char	*check_paths(char **paths, char *cmd, t_mini *sh);
+/*********************************************************/
 
 
 #endif

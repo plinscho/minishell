@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 21:08:41 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:21:24 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,43 +73,69 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	temp -> next = new;
 }
 
-int	trim_quotes(t_mini *sh, t_lexer *temp)
+/*int	trim_quotes(t_mini *sh, t_lexer *temp, int j)
 {
+	char *in;
+
 	while (temp)
 	{
 		if (temp->token == 1)
 		{
-			temp->cont = word_no_q(temp, 0);
+			in = temp->cont;
+			while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
+			in[j + 1] != '\"' && check_chr(in[j + 1]))
+				j++;
+			while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+				j += word_in_quotes(in, " ", j);
+			temp->cont = ft_substr(in, 0, j + 1);
+			in = ft_memdel(in);
 			if (!temp->cont)
 				return (sh_clean(sh, 2));
 		}
 		temp = temp->next;
 	}
 	return (0);
+}*/
+
+int	trim_quotes(t_mini *sh, t_lexer *temp)
+{
+	while (temp)
+	{
+		if (temp->token == 1)
+		{
+			temp->cont = word_no_q(temp->cont, '\'');
+			if (!temp->cont)
+				return (err_break(sh, "malloc", "Cannot allocate memory", 12));
+			temp->cont = word_no_q(temp->cont, '\"');
+			if (!temp->cont)
+				return (err_break(sh, "malloc", "Cannot allocate memory", 12));
+		}
+		temp = temp->next;
+	}
+	return (0);
 }
 
-char	*word_no_q(t_lexer *lex, int j)
+char	*word_no_q(char *in, char q)
 {
 	char	*cont;
-	char	q;
 
-	while (lex->cont[j] && lex->cont[j] != '\'' && lex->cont[j] != '\"')
-		j++;
-	if (lex->cont[j] && (lex->cont[j] == '\'' || lex->cont[j] == '\"'))
-	{
-		q = lex->cont[j];
-		j++;
-		while (lex->cont[j] && lex->cont[j] != q)
-			j++;
-		while (lex->cont[j])
-			j++;
-		cont = ft_substr_quotes(lex->cont, q, j, -1);
-	}
+	if (ft_strchr(in, q))
+		cont = ft_substr_quotes(in, q, ft_strlen(in), -1);
 	else
-		return (lex->cont);
+		return (in);
+	in = ft_memdel(in);
 	if (!cont)
 		return (NULL);
-	free(lex->cont);
-	lex->cont = NULL;
 	return (cont);
+}
+
+int	word_in_quotes(char *in, char *q, int j)
+{
+	*q = in[++j];
+	j++;
+	while (in[j] && in[j + 1] != *q)
+		j++;
+	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] == '\'' && in[j + 1] == '\"')
+		j++;
+	return (j);
 }
