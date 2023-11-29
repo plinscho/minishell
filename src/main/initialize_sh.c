@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/28 19:28:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:30:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	sh_init(t_mini *sh, char **env)
 		return (1);
 //	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
+		return (1);
+	if (env_converter(sh))
 		return (1);
 	if (get_sec_env(sh) == -1)
 		return (1);

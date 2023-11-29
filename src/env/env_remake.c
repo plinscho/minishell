@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:26:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 22:11:20 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:26:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int		rebase_env(t_env *env_new, char* env_key, char *env_val)
 int		env_add_update(t_mini *sh, char *key, char *n_value)
 {
 	t_env	*tmp;
-	t_env	*env_new;
+//	t_env	*env_new;
 	size_t	len;
 	
-	env_new = NULL;
+//	env_new = NULL;
 	tmp = sh->env_lst;
 	len = ft_strlen(key);
 	while (tmp != NULL)
@@ -69,10 +69,13 @@ int		env_add_update(t_mini *sh, char *key, char *n_value)
 		}
 		tmp = tmp->next;
 	}
+	return (1);
+	/*
 	env_new = malloc(sizeof(t_env));
 	if (!env_new)
 		return (errno);
 	if (rebase_env(env_new, env_new->env_key, env_new->env_val))
 		return (1);
 	return (0);
+	*/
 }

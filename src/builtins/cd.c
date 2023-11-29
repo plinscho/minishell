@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 22:18:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:22:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ int		go_to_path(int option, t_mini *sh)
 	else if (option == 1)
 	{
 		env_path = ft_get_value(sh, "OLDPWD");
-//		printf("oldpwd: %s\n", env_path); //erase
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", 2);
 		if (!env_path)
 			return (1);
 		update_oldpwd(sh);
-		//env_add_update(sh, "OLDPWD", env_path);
 	}
-//	printf("env_path: %s\n", env_path); //erase
 	ret = chdir(env_path);
 	env_path = ft_memdel(env_path);
 	return (ret);
