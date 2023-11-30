@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 20:14:32 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:55:04 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_lexer	*next_word(t_lexer *temp)
 {
 	int	f;
 
-	f = 1;
+	f = 0;
 	while (temp && temp->token != 8)
 	{
 		if (temp->token > 3 && !f)
@@ -73,20 +73,22 @@ int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 		if (sh->lex_lst->token != 0)
 		{
 			new->cmd[j] = sh->lex_lst->cont;
-//			printf("[P_CMD] cmd [%i]: %s, i - %i\n", j, sh->lex_lst->cont, i); //erase
+//			printf("[P_CMD] cmd1 [%i]: %s, i - %i\n", j, sh->lex_lst->cont, i); //erase
 			j++;
 		}
 		sh->lex_lst = sh->lex_lst->next;
 	}
 	temp = sh->lex_lst;
+//	printf("[P_CMD]token: %i\n", temp->token); //erase
 	while (j < i)
 	{
 		temp = next_word(temp);
 		new->cmd[j++] = temp->cont;
-//		printf("[P_CMD] cmd [%i]: %s\n", j - 1, temp->cont); //erase
+//		printf("[P_CMD] cmd2 [%i]: %s\n", j - 1, temp->cont); //erase
 		temp = temp->next;
 	}
 	new->cmd[j] = NULL;
+//	print_arr(new->cmd);
 //	printf("[P_CMD] new lex: %p\n", sh->lex_lst); //erase
 	return (0);
 }

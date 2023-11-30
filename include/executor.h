@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 17:07:32 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:09 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_exec
 int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
 void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
 int		last_child(t_mini *sh, t_pipe *p); 
-void	ft_redir(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+void	ft_redir(t_mini *sh, t_pipe *p); // flag 0 if NOT last child, 1 if last one
 int		exec_builtin(t_mini *sh); // executes the needed builtin
 /*************************************************/
 

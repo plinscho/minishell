@@ -6,14 +6,14 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 17:05:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "../../include/executor.h"
 #include "../../include/minishell.h"
 
-void	ft_redir(t_mini *sh, t_pipe *p, int flag)
+void	ft_redir(t_mini *sh, t_pipe *p)
 {
 //	printf("\n[REDIR] PIPE: %s, in: %i\n", p->cmd[0], p->in_fd); //erase
 	if (p->in_fd >= 0)
@@ -34,15 +34,14 @@ void	ft_redir(t_mini *sh, t_pipe *p, int flag)
 		p->out_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, AFTER dup out\n", p->cmd[0]); //erase
 	}
-	else if (!flag)
+	/*else if (!flag)
 	{
 //		printf("\n[REDIR] PIPE: %s, if there is pipe BEFORE dup out fd: %i\n", p->cmd[0], fd[1]); //erase
 		if (dup2(sh->exe->fdp[1], STDOUT_FILENO) < 0)
 			err_exit(sh, "dup2", NULL, 1);
 		close(sh->exe->fdp[1]);
 		sh->exe->fdp[1] = -2;
-	}
-
+	}*/
 }
 
 void	child_process(t_mini *sh, t_pipe *p, int flag)
@@ -66,7 +65,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
 	check_access(sh, p->cmd, &the_path);
 //	printf("\n[CHILD] after check access: %s\n", the_path); //erase
-	ft_redir(sh, p, flag);
+	ft_redir(sh, p);
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
@@ -111,6 +110,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 		if (pipe(sh->exe->fdp) < 0)
 			return (err_break(sh, "pipe", "Broken pipe", 32));
 //		printf("\n[EXEC] after pipe fd[0]: %i, fd[1]: %i\n", fd[0], fd[1]); //erase
+		p->out_fd = sh->exe->fdp[1];
 		sh->exe->pid = fork();
 		if (sh->exe->pid < 0)
 			return (err_break(sh, "fork", "Cannot allocate memory", 12));
