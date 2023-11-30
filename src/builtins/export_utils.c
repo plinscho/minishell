@@ -5,6 +5,10 @@
 #define UPDATE	1
 #define ADD		2
 
+
+/*
+	FUNCTIONS FOR EXPORT
+*/
 int		key_in_env(char *key, t_env *env)
 {
 	t_env	*tmp;
@@ -68,4 +72,42 @@ int		ft_export_(t_mini *sh)
 		i++;
 	}
 	return (0);
+}
+
+/*
+	FUNCTIONS FOR ENV
+*/
+
+//OLD
+
+char	*get_key(char *og_env, int *hasval)
+{
+	unsigned int	i;
+	char			*key = NULL;
+	
+	i = 0;
+	*hasval = 1;
+	while (og_env[i] && og_env[i] != '=') 
+		i++;
+	if (og_env[i] == '\0')
+		*hasval = 0;
+	key = ft_strndup(og_env, i);
+	if (!key)
+		return (NULL);
+	return (key);
+}
+
+char	*get_val(char *og_env)
+{
+	unsigned int	i;
+	char			*val = NULL;
+
+	i = 0;
+	while (og_env[i] != '=')
+		og_env++;
+	og_env++;
+	val = ft_strdup(og_env); // protect the ft_strdup
+	if (!val)
+		return (NULL);
+	return (val);
 }
