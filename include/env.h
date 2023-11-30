@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 21:45:32 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:57:02 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ typedef struct s_envlst
 
 //			--	--	ENV	--	--
 
+
+/*
+	EXPORT_UTILS_C
+*/
+t_env	*ft_getkey_node(char *key, t_env *list);
+int		has_equal_sign(char *str);
+
 // env.c
 
 int		get_env(t_mini *sh, char **env);
 char	*get_key(char *og_env, int *hasval);
 char	*get_val(char *og_env);
 int		env_converter(t_mini *sh);
-size_t	env_variables(t_env *head);
+size_t	env_variables(t_env *head, int option);
 void	print_env(t_env *head, char **env);
 
 //	ENV_LIST

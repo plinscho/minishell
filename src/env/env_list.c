@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/28 19:12:47 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:15:01 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_env	*envnode_new(char *env)
 	new_list->env_key = get_key(env, &hasval);
 	if (hasval)
 		new_list->env_val = get_val(env);
+	else
+		new_list->env_val = NULL;
 	new_list->env_full = ft_strdup(env);
 	new_list->next = NULL;
 	return (new_list);

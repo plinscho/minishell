@@ -32,6 +32,7 @@ BUILTINS = src/builtins/cd \
 			src/builtins/env \
 			src/builtins/exit \
 			src/builtins/export \
+			src/builtins/export_utils \
 			src/builtins/pwd \
 			src/builtins/unset
 

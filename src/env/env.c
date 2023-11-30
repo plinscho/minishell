@@ -6,26 +6,42 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 22:08:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:58:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-size_t	env_variables(t_env *head)
+// option 1 == All variables
+// option 2 == Only variables with value ('=')
+size_t	env_variables(t_env *head, int option)
 {
 	t_env	*tmp = NULL;
 	size_t	env_cases;
 	
 	tmp = head;
 	env_cases = 0;
-	while (tmp)
+	if (option == 1)
 	{
-		env_cases++;
-		tmp = tmp->next;
+		while (tmp)
+		{
+			env_cases++;
+			tmp = tmp->next;
+		}
+		return (env_cases);	
 	}
-	return (env_cases);	
+	else if (option == 2)
+	{
+		while (tmp)
+		{
+			if (has_equal_sign(tmp->env_full))
+				env_cases++;
+			tmp = tmp->next;
+		}
+		return (env_cases);	
+	}
+	else
+		return (0);
 }
 
 char	*get_key(char *og_env, int *hasval)
@@ -62,7 +78,7 @@ char	*get_val(char *og_env)
 
 int		env_converter(t_mini *sh)
 {
-	if (allocate_env(sh, env_variables(sh->env_lst)) == -1)	// if the malloc fails
+	if (allocate_env(sh, env_variables(sh->env_lst, 2)) == -1)	// if the malloc fails
 		return (-1);
 	return (0);
 }
