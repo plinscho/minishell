@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 17:19:57 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:12:47 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ int	ft_heredoc(t_mini *sh, char *in)
 	//	printf("str after <<: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
-			return (err_break(sh, "heredoc", "Memory allocation failed", EXIT_FAILURE));
+			return (err_break(sh, "heredoc", "Cannot allocate memory", 12));
 		new->next = NULL;
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
 		new->str = keyword_hd(new, in, &i);
 		if (!new->str)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "heredoc", "Cannot allocate memory", 12));
 		new->fd = save_hd(new->str, NULL);
 		if (new->fd < 0)
-			return (sh_clean(sh, -(new->fd)));
+			return (err_break(sh, "heredoc", NULL, 1));
 	}
 	return (0);
 }
@@ -98,20 +98,16 @@ char	*keyword_hd(t_fd *new, char *in, int *i)
 	&& check_chr(in[j]))
 		j++;
 	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
-	if (in[j] && (in[j] == '\'' || in[j] == '\"'))
-	{
-		q = in[j];
-		j++;
-		while (in[j] && in[j] != q)
-			j++;
-		while (in[j] && in[j + 1] && in[j + 1] != ' ')
-			j++;
-		printf("[HEREDOC] before substr: %s$\n", in + j); //erase
-		cont = ft_substr_quotes(in, q, j, -1);
-	}
-	else
-		cont = ft_substr(in, 0, j);
+	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+		j = word_in_quotes(in, &q, j);
+	cont = ft_substr(in, 0, j + 1);
 	printf("[HEREDOC] final keyword: %s$\n", cont); //erase
+	if (!cont)
+		return (NULL);
+	cont = word_no_q(cont, '\'');
+	if (!cont)
+		return (NULL);
+	cont = word_no_q(cont, '\"');
 	if (!cont)
 		return (NULL);
 	if (q == '\'' || q =='\"')
