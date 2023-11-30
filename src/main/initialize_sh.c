@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/30 14:26:33 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:24:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	sh_init(t_mini *sh, char **env)
 	sh->exit = 0;
 	sh->envp = env; // for debugging only
 	if (allocate_exe(sh))
-		return (1);
+		return (err_break(sh, "malloc", NULL, 12));
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
-		return (1);
+		return (err_break(sh, "malloc", NULL, 12));
 	sh->env = NULL;
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
-		return (1);
+		return (err_break(sh, "malloc", NULL, 12));
 	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
@@ -45,7 +45,7 @@ int	sh_init(t_mini *sh, char **env)
 /*
 This function cleans the sh struct ans makes it ready for the next input.
 */
-int	sh_clean(t_mini *sh, int err)
+void	sh_clean(t_mini *sh)
 {
 //	printf("[CLEAN]You entered: lex - %p\n", sh->lex_lst); //erase
 	if (sh->lex_lst)
@@ -72,8 +72,7 @@ int	sh_clean(t_mini *sh, int err)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
-	sh->pipes = 0;	
-	return (err);
+	sh->pipes = 0;
 }
 
 /* 
@@ -95,14 +94,11 @@ int	sh_loop_init(t_mini *sh)
 	if (!sh->paths)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
-	{
-		err_exit(sh, "malloc", "allocation failed\n", errno);
-		return (1);
-	}
+		return(err_break(sh, "malloc", NULL, 12));
 	if (!sh->env)
 	{
 		if (env_converter(sh) == -1) // malloc has failed in the char **.
-			return (1);
+			return (err_break(sh, "malloc", NULL, 12));
 	}
 	return (0);
 }

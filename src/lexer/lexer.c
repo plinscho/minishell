@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 15:03:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:20:26 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int lexer(t_mini *sh, char *input)
 		else
 			new = read_word(&input[i], &i, ' ', 0);
 		if (!new)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "malloc", NULL, 12));
 		else
 			lex_add(&(sh->lex_lst), new);
 	//	printf("[LEX] After loop: input - %c\n", input[i]);

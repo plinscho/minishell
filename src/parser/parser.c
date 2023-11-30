@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 14:55:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:29:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 		fd_init(fd_new, sh, hd->fd);
 		sh->hd_lst = hd->next;
 	}
-//	else
-//		fd_init(fd_new, sh, -2, 4);
 	fd_add(&(new->fd_lst), fd_new);
 	return (0);
 }
@@ -133,7 +131,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 	{
 		new = malloc(sizeof(t_pipe));
 		if (!new)
-			return (sh_clean(sh_restore(&sh, lex, hd), 2));
+			return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
 //		printf("[PARSER]lex 1 -- content: %s, type; %i\n", sh->lex_lst->cont, sh->lex_lst->token); //erase
 //		printf("[PARSER]You entered: %i\n", check); //erase
 		pipe_init(new);
@@ -142,7 +140,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 		pipe_add(sh, new);
 //		printf("[PARSER]after add: %p\n", sh->pipe_lst); //erase
 	// 	return (0); //erase
-		if (sh->lex_lst)
+//		if (sh->lex_lst)
 //			printf("[PARSER] lex: %s\n", sh->lex_lst->cont); //erase
 		while (sh->lex_lst && sh->lex_lst->token != 8)
 		{
@@ -161,7 +159,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 			if (check)
 			{
 //				printf("[check 0] lex: %s\n", (sh)->lex_lst->cont); //erase
-				return (sh_clean(sh_restore(&sh, lex, hd), 2));
+				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
 			}
 		}
 		if (sh->lex_lst)

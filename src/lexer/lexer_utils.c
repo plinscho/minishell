@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 20:38:12 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:19:14 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,6 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	temp -> next = new;
 }
 
-/*int	trim_quotes(t_mini *sh, t_lexer *temp, int j)
-{
-	char *in;
-
-	while (temp)
-	{
-		if (temp->token == 1)
-		{
-			in = temp->cont;
-			while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
-			in[j + 1] != '\"' && check_chr(in[j + 1]))
-				j++;
-			while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
-				j += word_in_quotes(in, " ", j);
-			temp->cont = ft_substr(in, 0, j + 1);
-			in = ft_memdel(in);
-			if (!temp->cont)
-				return (sh_clean(sh, 2));
-		}
-		temp = temp->next;
-	}
-	return (0);
-}*/
 
 int	trim_quotes(t_mini *sh, t_lexer *temp)
 {
@@ -105,10 +82,10 @@ int	trim_quotes(t_mini *sh, t_lexer *temp)
 		{
 			temp->cont = word_no_q(temp->cont, '\'');
 			if (!temp->cont)
-				return (err_break(sh, "malloc", "Cannot allocate memory", 12));
+				return (err_break(sh, "malloc", NULL, 12));
 			temp->cont = word_no_q(temp->cont, '\"');
 			if (!temp->cont)
-				return (err_break(sh, "malloc", "Cannot allocate memory", 12));
+				return (err_break(sh, "malloc", NULL, 12));
 		}
 		temp = temp->next;
 	}

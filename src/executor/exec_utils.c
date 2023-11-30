@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 14:28:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:33:03 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*check_paths(char **paths, char *cmd, t_mini *sh)
 		p = ft_smart_join(paths[i], "/", cmd);
 //		printf("\n[CHECK PATHS] p: %s\n", p); //erase
 		if (!p)
-			err_exit(sh, "malloc", "Cannot allocate memory", 12);
+			err_exit(sh, "malloc", NULL, 12);
 		if (access(p, F_OK) == 0)
 		{
 			if (access(p, X_OK) != 0)

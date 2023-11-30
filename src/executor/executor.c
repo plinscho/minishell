@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 14:40:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:33:07 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 		p->out_fd = sh->exe->fdp[1];
 		sh->exe->pid = fork();
 		if (sh->exe->pid < 0)
-			return (err_break(sh, "fork", "Cannot allocate memory", 12));
+			return (err_break(sh, "fork", NULL, 12));
 		else if (sh->exe->pid == 0)
 			child_process(sh, p, 0);
 		close (sh->exe->fdp[1]);

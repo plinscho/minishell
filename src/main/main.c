@@ -13,9 +13,8 @@ int	minishell(t_mini *sh)
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
 		exit (1);		//  need to change it into our exit builtin function.
-	
-	if (check_input(sh->input))
-		return (1);
+	if (check_input(sh->input)) // It's not a mistake, just empty line
+		return (0);
 //	printf("after check input: %s\n", "1"); //erase
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
@@ -58,7 +57,7 @@ int main(int argc, char **argv, char **env)
 //		print_parser(&sh);
 		add_history(sh.input);
 //		printf("\n[MAIN] clean in main:\n------------%i----------\n", 2); //erase
-		sh_clean(&sh, 0);
+		sh_clean(&sh);
 //		printf("\n\n[MAIN] ------------   %s   ----------\n\n", "AFTER CLEAN"); //erase
 	}
 	free_env(&sh);
