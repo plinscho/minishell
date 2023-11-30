@@ -27,6 +27,8 @@ int	minishell(t_mini *sh)
 //	print_lexer(sh);
 	if (check_syntax(sh->lex_lst)) // This function checks for the syntax errors. It operates using tokens logic.
 		return (1);
+	if (expanser(sh, sh->lex_lst))
+		return (1);
 	if (trim_quotes(sh, sh->lex_lst))
 		return (1);
 //	printf("after check syntax: %s\n", "4"); //erase

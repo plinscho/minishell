@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 18:24:54 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:44:29 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,6 @@ loop and cleaning the struct. */
 int	err_exit(t_mini *sh, char *name, char *message, int err)
 {
 	//	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
-
-	printf("[ERR EXIT] errno: %i, message: %s\n", 30, strerror(30)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 31, strerror(31)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 32, strerror(32)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 33, strerror(33)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 34, strerror(34)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 35, strerror(35)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 36, strerror(36)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 37, strerror(37)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 38, strerror(38)); //erase
-	printf("[ERR EXIT] errno: %i, message: %s\n", 39, strerror(39)); //erase
 //	printf("[ERR EXIT] name: %s,\n message: %s\n", name, message); //erase
 
 	if (name || message)
