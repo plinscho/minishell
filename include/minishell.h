@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/27 20:05:35 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:26:20 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		save_hd(char *key, char *str);
 
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
-void	fd_clean(t_fd **hd); // returns 2 if malloc fails, 1 if fd fails
+void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
 void	fd_init(t_fd *new, t_mini *sh, int fd);
 
 

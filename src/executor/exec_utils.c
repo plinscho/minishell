@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/29 17:19:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:28:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 	{
 	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i\n", p->cmd, fd1->str, fd1->fd); //erase
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
+		ft_check_open(p, fd1, prev);
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (!fd1->str || *fd1->str == '\0')

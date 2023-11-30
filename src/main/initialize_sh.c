@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/27 20:06:54 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:26:33 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	sh_clean(t_mini *sh, int err)
 //	printf("[CLEAN] after lex clean: lex - %p\n", sh->lex_lst); //erase
 //	printf("[CLEAN]before hd clean: hd - %p\n", sh->hd_lst); //erase
 	if (sh->hd_lst)
-		fd_clean(&(sh->hd_lst));
+		fd_clean(&(sh->hd_lst), 1);
 //	printf("[CLEAN] after hd clean: hd - %p\n", sh->hd_lst); //erase
 //	printf("[CLEAN] before input clean: input - %p\n", sh->input); //erase
 	if (sh->input && *sh->input) // memdel doesn't set a ptr to null without double pointer
