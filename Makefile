@@ -43,8 +43,8 @@ ENV = src/env/env \
 		src/env/env_list \
 		src/env/free_env \
 		src/env/env_utils \
-		src/env/env_remake \
-		src/env/env_sort
+		src/env/env_sort \
+		src/env/env2
 
 SIGNALS = src/signals/signals
 

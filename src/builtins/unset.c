@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:43:15 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 15:45:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:44:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	unset_free(t_env *env)
 {
 	env->env_key = ft_memdel(env->env_key);
 	env->env_val = ft_memdel(env->env_val);
-	env->env_full = ft_memdel(env->env_full);
 	env = ft_memdel(env);
 }
 

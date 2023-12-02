@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 15:45:10 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:31:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ typedef struct s_exec	t_exec;
 
 typedef struct s_mini
 {
-	t_lexer	*lex_lst;	//change to lex_lst
-	t_env	*env_lst;	//change to env_lst
-	t_env	*env_sec;	// secret env for the export variables without '='
+	t_lexer	*lex_lst;
+	t_env	*env_lst;
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
 	char	*input;		//what we receive by readline
@@ -112,6 +111,7 @@ void	sig_handler(int sig);
 
 int		quotes_error(t_mini *sh);
 void	syntax_error(t_mini *sh, char *seq);
+void	error_option(char *str1, char *str2);
 
 //###########################################################################################
 

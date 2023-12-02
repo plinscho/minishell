@@ -6,11 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 15:36:30 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:18:46 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+/*
 
 int		allocate_env(t_mini *sh, size_t n)
 {
@@ -29,11 +30,14 @@ int		allocate_env(t_mini *sh, size_t n)
 		return (-1);
 	while (i <= n && tmp != NULL)
 	{
-		env_result[i] = ft_strdup(tmp->env_full);
-		if (!env_result[i]) 
-			err = -1;
+		if (tmp->env_val)
+		{
+			env_result[i] = ft_env(tmp->env_full);
+			if (!env_result[i]) 
+				err = -1;
+			i++;
+		}
 		tmp = tmp->next;
-		i++;
 	}
 	env_result[i] = NULL;
 	sh->env = env_result;
@@ -65,7 +69,8 @@ char	*get_val(char *og_env)
 	i = 0;
 	while (og_env[i] != '=')
 		og_env++;
-	og_env++;
+	if (*og_env == '\0')
+		return (NULL);
 	val = ft_strdup(og_env); // protect the ft_strdup
 	if (!val)
 		return (NULL);
@@ -79,18 +84,6 @@ int		env_converter(t_mini *sh)
 	return (0);
 }
 
-int		get_env(t_mini *sh, char **env)
-{
-	unsigned int	i;
+*/
 
-	sh->env_lst = NULL;
-	i = 0;
-	while (env[i])
-	{
-		if (!(ft_envadd_back(&sh->env_lst, envnode_new(env[i]))))
-			return (-1);	// If malloc fails in new node it 
-		i++;
-	}
-	return (0);
-}
 

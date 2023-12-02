@@ -9,44 +9,41 @@
 #define UPDATE	1
 #define ADD		2
 
-
-int		print_export(t_env *etmp)
+int		print_export(t_env *eprint)
 {
-	t_env	*eprint;
-
-	eprint = etmp;
+	if (!eprint)
+		return (1);
+	sort_env(eprint);
 	while (eprint)
 	{
-		ft_putstr_fd("declare -x ", 2);
-		ft_putstr_fd(eprint->env_full, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(eprint->env_key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putendl_fd(eprint->env_val,1);
 		eprint = eprint->next;
 	}
 	return (0);
 }
 
-int		has_equal_sign(char *str)
+char	*find_in_env_variables(t_mini *sh, char *variable_name)
 {
-	unsigned int	i;
+	t_env	*env;
+	int		env_name_len;
+	int		var_name_len;
 
-	i = 0;
-	while (str[i])
+	if (variable_name == NULL)
+		return (NULL);
+	env = sh->env_lst;
+	var_name_len = ft_strlen(variable_name);
+	while (env != NULL)
 	{
-		if (str[i] == '=')
-			return (1);
-		i++;
+		env_name_len = ft_strlen(env->env_key);
+		if (ft_strncmp(env->env_key, variable_name, env_name_len) == 0
+			&& (env_name_len == var_name_len))
+			return (env->env_val);
+		env = env->next;
 	}
-	return (0);
-}
-
-void	make_env_full(t_env *node, char *key, char *val, char *full)
-{
-	ft_memdel(node->env_full);
-	ft_memdel(node->env_key);
-	ft_memdel(node->env_val);
-	node->env_key = key;
-	node->env_val = val;
-	node->env_full = full;
+	return (NULL);
 }
 
 t_env	*ft_getkey_node(char *new_key, t_env *list)
@@ -65,18 +62,21 @@ t_env	*ft_getkey_node(char *new_key, t_env *list)
 
 }
 
-int		key_in_env(char *new_key, t_env *env)
+int		export_option(const char *name)
 {
-	t_env	*tmp;
-	
-	tmp = env;
-	while (tmp->next)
+	int	i;
+
+	if (!name || (!ft_isalpha(name[0]) && name[0] != '_'))
+		return (0);
+	i = 1;
+	while (name[i] != '\0')
 	{
-		if (ft_strcmp(new_key, tmp->env_key) == 0)
-			return (1);
-		tmp = tmp->next;
+		if (!ft_isalnum(name[i]) && name[i] != '_')
+		{
+			if ((name[i] == '+' || name[i] == '=') && name[i + 1] != '\0')
+				return (0);
+		}
+		i++;
 	}
-	return (0);
+	return (1);
 }
-
-

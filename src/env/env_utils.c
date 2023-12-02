@@ -6,42 +6,52 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:29:44 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 11:57:53 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:36:53 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// option 1 == All variables
-// option 2 == Only variables with value ('=')
-size_t	env_variables(t_env *head, int option)
+/*
+
+
+int		env_add(char *var, t_env *head)
 {
-	t_env	*tmp = NULL;
-	size_t	env_cases;
+	t_env	*tmp;
+	t_env	*new;
+
+	tmp = head;
+	new = envnode_new(var);
+	if (!new)
+		return (1);
+	tmp = ft_envlast(tmp);
+	tmp->next = new;
+	return (0);
+}
+
+*/
+
+int		env_val_update(t_env *head, char *key, char *n_value)
+{
+	t_env	*tmp;
+	size_t	len;
 	
 	tmp = head;
-	env_cases = 0;
-	if (option == 1)
+	len = ft_strlen(key);
+	while (tmp != NULL)
 	{
-		while (tmp)
+		// Found an old env key
+		if (ft_strncmp(tmp->env_key, key, len) == 0 \
+			&& len == ft_strlen(tmp->env_key))
 		{
-			env_cases++;
-			tmp = tmp->next;
+			tmp->env_val = ft_strdup(n_value);
+			if (!tmp->env_val)
+				return (1);
+			return (0);
 		}
-		return (env_cases);	
+		tmp = tmp->next;
 	}
-	else if (option == 2)
-	{
-		while (tmp)
-		{
-			if (has_equal_sign(tmp->env_full))
-				env_cases++;
-			tmp = tmp->next;
-		}
-		return (env_cases);	
-	}
-	else
-		return (0);
+	return (1);
 }
 
 void	print_env(t_env *head, char **env)
@@ -55,8 +65,7 @@ void	print_env(t_env *head, char **env)
 	{
 		while (tmp)
 		{
-			printf("Node[%d] | %s\n", i, tmp->env_full);
-			printf("key: %s\nVal: %s\n\n", tmp->env_key, tmp->env_val);
+			printf("Node[%d]\nkey: %s\nVal: %s\n\n", i, tmp->env_key, tmp->env_val);
 			tmp = tmp->next;
 			i++;
 		}

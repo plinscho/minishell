@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/02 15:14:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:01:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@ int	sh_init(t_mini *sh, char **env)
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
 	sh->pipe_lst = NULL;
-	sh->env_sec = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
 	sh->envp = env; // for debugging only
 	if (allocate_exe(sh))
 		return (1);
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
-	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
+	if (first_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
-	if (get_sec_env(sh) == -1)
+	sh->env = env_converter(sh->env_lst);
+	if (sh->env == NULL)
 		return (1);
-	if (env_converter(sh))
-		return (1);
+	print_env(sh->env_lst, sh->env);
 	printf("\nSHELL INITIALIZED\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	if (error)
@@ -89,13 +88,13 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 int	sh_loop_init(t_mini *sh)
 {
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
-//	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
+	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 	{
 		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);
 		return (1);
 	}
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
+	if (env_converter(sh->env_lst) == NULL) // malloc has failed in the char **.
 		return (1);
 	return (0);
 }
