@@ -9,7 +9,7 @@
 */
 int	minishell(t_mini *sh)
 {
-	sh_loop_init(sh);
+	//sh_loop_init(sh);
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
 		return (ft_exit(sh));
@@ -36,6 +36,7 @@ int main(int argc, char **argv, char **env)
 		return (1);
 	while (sh.power_on)
 	{
+	//	print_export(sh.env_lst);
 		minishell(&sh);
 	//	print_env(sh.env_sec, NULL);
 		if (sh.power_on == 0)

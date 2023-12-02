@@ -6,42 +6,38 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 19:03:17 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 22:58:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:36:30 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// option 1 == All variables
-// option 2 == Only variables with value ('=')
-size_t	env_variables(t_env *head, int option)
+int		allocate_env(t_mini *sh, size_t n)
 {
-	t_env	*tmp = NULL;
-	size_t	env_cases;
-	
-	tmp = head;
-	env_cases = 0;
-	if (option == 1)
+	char			**env_result = NULL;
+	t_env			*tmp = NULL;
+	unsigned int	i;
+	char			err;
+
+	if (sh->env)
+		arr_clean(sh->env, 1);
+	tmp = sh->env_lst;
+	i = 0;
+	err = 0;
+	env_result = ft_calloc(n + 1, sizeof(char *));
+	if (!env_result)
+		return (-1);
+	while (i <= n && tmp != NULL)
 	{
-		while (tmp)
-		{
-			env_cases++;
-			tmp = tmp->next;
-		}
-		return (env_cases);	
+		env_result[i] = ft_strdup(tmp->env_full);
+		if (!env_result[i]) 
+			err = -1;
+		tmp = tmp->next;
+		i++;
 	}
-	else if (option == 2)
-	{
-		while (tmp)
-		{
-			if (has_equal_sign(tmp->env_full))
-				env_cases++;
-			tmp = tmp->next;
-		}
-		return (env_cases);	
-	}
-	else
-		return (0);
+	env_result[i] = NULL;
+	sh->env = env_result;
+	return (err);
 }
 
 char	*get_key(char *og_env, int *hasval)
@@ -98,31 +94,3 @@ int		get_env(t_mini *sh, char **env)
 	return (0);
 }
 
-void	print_env(t_env *head, char **env)
-{
-	t_env	*tmp;
-	int		i;
-
-	tmp = head;
-	i = 0;
-	if (tmp)
-	{
-		while (tmp)
-		{
-			printf("Node[%d] | %s\n", i, tmp->env_full);
-			printf("key: %s\nVal: %s\n\n", tmp->env_key, tmp->env_val);
-			tmp = tmp->next;
-			i++;
-		}
-	}
-	if (env)
-	{
-		i = 0;
-		while(env[i])
-		{
-			ft_printf("char_env[%d]: %s\n", i, env[i]);
-			i++;
-		}
-	}
-	ft_printf("\n");
-}

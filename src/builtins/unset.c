@@ -6,15 +6,55 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:43:15 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 16:59:47 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:45:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	unset_free(t_env *env)
+{
+	env->env_key = ft_memdel(env->env_key);
+	env->env_val = ft_memdel(env->env_val);
+	env->env_full = ft_memdel(env->env_full);
+	env = ft_memdel(env);
+}
+
+void	unset_var(t_mini *sh, char *var)
+{
+	t_env	*node;
+	t_env	*tmp;
+
+	node = sh->env_lst;
+	tmp = NULL;
+	if (ft_strcmp(node->env_key, var) == 0)
+	{
+		sh->env_lst = sh->env_lst->next;
+		unset_free(node);
+		return ;
+	}
+	while (node != NULL && ft_strcmp(node->env_key, var) != 0)
+	{
+		tmp = node;
+		node = node->next;
+	}
+	if (node == NULL)
+		return ;
+	tmp->next = node->next;
+	unset_free(node);
+}
+
 int		ft_unset(t_mini *sh)
 {
-	(void)sh;
+	char	**args;
+	int		i;
 
-	return (1);
+	args = sh->pipe_lst->cmd;
+	i = 1;
+	while (args[i])
+	{
+		unset_var(sh, args[i]);
+		i++;
+	}
+	return (0);
 }

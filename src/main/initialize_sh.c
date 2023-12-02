@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/29 22:14:09 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:14:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	sh_init(t_mini *sh, char **env)
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (1);
 	if (get_sec_env(sh) == -1)
+		return (1);
+	if (env_converter(sh))
 		return (1);
 	printf("\nSHELL INITIALIZED\n#########################################\n\n"); //erase
 	sh->power_on = 1;
@@ -87,7 +89,7 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 int	sh_loop_init(t_mini *sh)
 {
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
-	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
+//	sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 	{
 		ft_exit_exe(sh, "malloc", "allocation failed\n", errno);

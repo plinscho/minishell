@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 22:57:02 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 12:11:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ typedef struct s_envlst
 
 //			--	--	ENV	--	--
 
+//export.c
 
-/*
-	EXPORT_UTILS_C
-*/
+
+// export_utils.c
+int		print_export(t_env *etmp);
+int		key_in_env(char *new_key, t_env *env);
+void	make_env_full(t_env *node, char *key, char *val, char *full);
 t_env	*ft_getkey_node(char *key, t_env *list);
 int		has_equal_sign(char *str);
 
@@ -68,6 +71,6 @@ int		bubble_env(t_env *head);
 char	*ft_get_value(t_mini *sh, char *key);
 int		key_exists(t_env *head, char *key);
 //env_sort.c
-void sort_env(t_env *head);
+void 	sort_env(t_env *head);
 
 #endif

@@ -6,38 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 22:15:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:57:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-int		allocate_env(t_mini *sh, size_t n)
-{
-	char			**env_result = NULL;
-	t_env			*tmp = NULL;
-	unsigned int	i;
-	char			err;
-
-	tmp = sh->env_lst;
-	i = 0;
-	err = 0;
-	env_result = ft_calloc(n + 1, sizeof(char *));
-	if (!env_result)
-		return (-1);
-	while (i <= n && tmp != NULL)
-	{
-		env_result[i] = ft_strdup(tmp->env_full);
-		if (!env_result[i])
-			err = -1;
-		tmp = tmp->next;
-		i++;
-	}
-	env_result[i] = NULL;
-	sh->env = env_result;
-	return (err);
-}
 
 t_env	*envnode_new(char *env)
 {
