@@ -6,37 +6,49 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 20:18:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:44:19 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expanser.h"
 
-int	new_len()
 
-char	*expand_str(char *cont)
+char	*expand_str(t_mini *sh, char *cont, int i)
 {
-	int	len;
-	int	i;
+	int	k;
+	int	j;
+	char	*var;
 	char	*new;
 
-	i = 0;
-	while (cont[i] && cont[i + 1])
+	j = -1;
+	new = malloc(new_len(sh, cont) + 1);
+	while (cont[++i])
 	{
-		if (cont[i] == '$' && check_chr(cont[i + 1]) > 1)
-			break ;
-		i++;
+		if (cont[i] != '$' || !cont[i + 1])
+			new[++j] = cont[i];
+		else
+		{
+			k = -1;
+			var = get_var(&cont[i + 1]);
+			if (!var)
+				return (NULL);
+			while (ft_get_value(sh, var)[++k])
+				new[++j] = ft_get_value(sh, var)[k];
+			i += ft_strlen(var);
+			var = ft_memdel(var);
+		}
 	}
-	if (!cont[i + 1])
-		return (cont);
-	len = new_len(); // start here next time 
+	new[++j] = '\0';
 	return (new);
-
 }
+
+/*int		expand_word(t_lexer **lex, int flag)
+{
+
+}*/
 
 /*
 	Function designed to expand the $ into the command.
-	
 */
 int	expanser(t_mini *sh, t_lexer *head)
 {
@@ -45,15 +57,16 @@ int	expanser(t_mini *sh, t_lexer *head)
 	flag = 0;
 	while (sh->lex_lst)
 	{
-		if (sh->lex_lst->token == 3 && sh->lex_lst->cont)
+		if (sh->lex_lst->token == 3 && sh->lex_lst->cont && \
+		check_exp(sh->lex_lst->cont, 1))
 		{
-			sh->lex_lst->cont = expand_str(sh->lex_lst->cont);
+			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, -1);
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		else if (sh->lex_lst->token == 1 && !flag)
+		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0))
 		{	
-			if (!expand_word(&sh->lex_lst))
+			if (!expand_word(sh, &sh->lex_lst, flag))
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
