@@ -6,7 +6,7 @@ INCLUDE = include/minishell.h \
 			include/expanser.h \
 			include/executor.h
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
 
 LIBFT = include/libft/libft.a
@@ -27,11 +27,24 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils \
 		src/lexer/check_sequence
 
+BUILTINS = src/builtins/cd \
+			src/builtins/echo \
+			src/builtins/env \
+			src/builtins/exit \
+			src/builtins/export \
+			src/builtins/export_utils \
+			src/builtins/pwd \
+			src/builtins/unset
+
 EXPANSER = src/expanser/expanser
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
-ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils
-BUILTINS = src/builtins/cd
+ENV = src/env/env \
+		src/env/env_list \
+		src/env/free_env \
+		src/env/env_utils \
+		src/env/env_sort
+
 SIGNALS = src/signals/signals
 
 SRC = $(addsuffix .c, $(PARSER)) \

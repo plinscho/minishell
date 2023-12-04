@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 21:05:10 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:19:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ int		no_cmd(char *seq)
 	return (1);
 }
 
+ builtins
+int	serror(char *s)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd("\n", 2);
+	return (2);
+}
+
+
+// Modify function, pair events are swallowed by the shell
 int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
 {
 	while (head)
@@ -85,7 +96,7 @@ int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
 	return (0);
 }
 
-int	check_syntax(t_lexer *head)
+int	check_syntax(t_lexer *head) // meter el error 258 en la struct de la minishell.
 {
 	t_lexer	*tmp;
 	int		pipes;

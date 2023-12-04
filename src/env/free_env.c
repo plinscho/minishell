@@ -6,30 +6,29 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:52 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:51:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-void	free_env_lst(t_mini *sh)
+void	free_env_lst(t_env *head)
 {
-	t_env	*tmp_node = NULL;
+	t_env	*e_tmp = NULL;
 	t_env	*prev_node = NULL;
 
-	tmp_node = sh->env_lst;
-	while (tmp_node)
+	e_tmp = head;
+	while (e_tmp)
 	{
-		ft_memdel(tmp_node->env_key);
-		ft_memdel(tmp_node->env_val);
-		ft_memdel(tmp_node->env_full);
-		prev_node = tmp_node;
-		tmp_node = tmp_node->next;
+		e_tmp->env_key = ft_memdel(e_tmp->env_key);
+		e_tmp->env_val = ft_memdel(e_tmp->env_val);
+		prev_node = e_tmp;
+		e_tmp = e_tmp->next;
 		ft_memdel(prev_node);
+		prev_node = NULL;
 	}
 }
-
+/*
 void	free_env_chr(t_mini *sh)
 {
 	char			**env_tmp = NULL;
@@ -44,14 +43,13 @@ void	free_env_chr(t_mini *sh)
 	}
 	ft_memdel(env_tmp);
 }
-
+*/
 void	free_env(t_mini *sh)
 {
 	printf("Cleaning env\n");
 	if (sh->env)
-		free_env_chr(sh);
+		arr_clean(sh->env, 0);
 	printf("Cleaned char **\n");
-	free_env_lst(sh);
+	free_env_lst(sh->env_lst);
 	printf("Cleaned list\n");
-
 }

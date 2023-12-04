@@ -33,6 +33,28 @@ int	check_builtin(char **cmd)
 	return (0);
 }
 
+int	exec_builtin(t_mini *sh)
+{
+/*
+	if (sh->pipe_lst->builtin == 1)
+		return (ft_echo(sh));
+*/
+	if (sh->pipe_lst->builtin == 2)
+		return (ft_cd(sh));
+	if (sh->pipe_lst->builtin == 3)
+		return (ft_pwd(sh));
+	if (sh->pipe_lst->builtin == 4)
+		return (ft_export(sh));
+	if (sh->pipe_lst->builtin == 5)
+		return (ft_unset(sh));
+	if (sh->pipe_lst->builtin == 6)
+		return (ft_env(sh));
+	if (sh->pipe_lst->builtin == 7)
+		return (ft_exit(sh)); 
+	return (sh->exit);
+}
+
+
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1)
 {
 	int	prev;

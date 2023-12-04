@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/11/30 18:24:22 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:29:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	sh_init(t_mini *sh, char **env)
 	sh->paths = NULL;
 	sh->exit = 0;
 	sh->envp = env; // for debugging only
+  
 	if (allocate_exe(sh))
-		return (err_break(sh, "malloc", NULL, 12));
+    return (err_break(sh, "malloc", NULL, 12));
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
-	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
-		return (err_break(sh, "malloc", NULL, 12));
+  if (first_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.		
+     return (err_break(sh, "malloc", NULL, 12));
 	sh->env = NULL;
 	if (env_converter(sh) == -1) // malloc has failed in the char **.
 		return (err_break(sh, "malloc", NULL, 12));
@@ -100,6 +101,8 @@ int	sh_loop_init(t_mini *sh)
 		if (env_converter(sh) == -1) // malloc has failed in the char **.
 			return (err_break(sh, "malloc", NULL, 12));
 	}
+	if (env_converter(sh->env_lst) == NULL) // malloc has failed in the char **.
+		return (1);
 	return (0);
 }
 
