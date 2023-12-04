@@ -15,3 +15,7 @@ returns (1) - a malloc() failed, the sh is cleaned
 (int) parser(sh, sh->lex_lst, sh->hd_lst, 0) - creates a pipe list
 returns (0) - everything went well
 returns (1) - a malloc() failed, the sh is cleaned
+
+(int) executor(sh, sh->pipe_lst, -1, -1) - executes the commads
+returns (0) - everything went well
+returns (1) - a malloc() failed, the sh is cleaned

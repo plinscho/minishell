@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   check_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
 /*   Updated: 2023/11/27 16:19:59 by plinscho         ###   ########.fr       */
@@ -58,6 +58,7 @@ int		no_cmd(char *seq)
 	return (1);
 }
 
+ builtins
 int	serror(char *s)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
@@ -115,3 +116,16 @@ int	check_syntax(t_lexer *head) // meter el error 258 en la struct de la minishe
 	return (0);
 }
 
+int		ft_isspace(int c)
+{
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
+}
+
+char int_to_char(int num)
+{
+  return (char)(num + '0');
+}

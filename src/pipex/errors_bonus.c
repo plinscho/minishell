@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:01 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/10/05 18:37:10 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:28:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ void	ft_free(char **arr, int n)
 
 void	check_access(t_pipe *info, char **cmd, char **path)
 {
+	ft_putstr_fd("entered check access: ", 2); //erase
+	ft_putstr_fd(cmd[0], 2); //erase
+	ft_putstr_fd("\n", 2); //erase
 	if (ft_strchr(cmd[0], '/'))
 	{
+		ft_putstr_fd("found / \n", 2); //erase
 		if (access(cmd[0], F_OK) == 0)
 		{
 			if (access(cmd[0], X_OK) != 0)
@@ -69,7 +73,13 @@ void	check_access(t_pipe *info, char **cmd, char **path)
 			print_error(ft_strjoin(cmd[0], ": command not found\n"), 127, info);
 	}
 	else
+	{
+		ft_putstr_fd("entered else\n", 2); //erase
 		*path = ft_strdup(check_paths(info->paths, cmd[0], info));
+	}
+	ft_putstr_fd("check access, path: ", 2); //erase
+	ft_putstr_fd(*path, 2); //erase
+	ft_putstr_fd("\n", 2); //erase
 }
 
 char	*check_paths(char **paths, char *cmd, t_pipe *info)
@@ -78,6 +88,9 @@ char	*check_paths(char **paths, char *cmd, t_pipe *info)
 	int		i;
 
 	i = -1;
+	ft_putstr_fd("entered check paths: ", 2); //erase
+	ft_putstr_fd(cmd, 2); //erase
+	ft_putstr_fd("\n", 2); //erase
 	while (paths[++i])
 	{
 		p = ft_strjoin(paths[i], cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 14:08:15 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:30:17 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,15 @@ int	pipe_clean(t_pipe **lst)
 		temp = (*lst) -> next;
 //		printf("[PIPE CLEAN] before hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
 		if ((*lst) -> fd_lst)
-			fd_clean(&((*lst) -> fd_lst));
+			fd_clean(&((*lst) -> fd_lst), 0);
+		if ((*lst)->in_fd > 0)
+			close((*lst)->in_fd);
+		if ((*lst)->out_fd > 0)
+			close((*lst)->out_fd);
 //		printf("[PIPE CLEAN] after hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
 //		printf("[PIPE CLEAN] before cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
-		(*lst)->cmd = arr_clean((*lst)->cmd, 1);
+		if ((*lst)->cmd)
+			(*lst)->cmd = arr_clean((*lst)->cmd, 1);
 //		printf("[PIPE CLEAN] after cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
 		//check if i neet to close in and out fd here
 		free(*lst);
