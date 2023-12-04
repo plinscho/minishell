@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 19:35:35 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:30:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_envfull(char *key, char *value)
 	size_t	key_len;
 	size_t	val_len;
 	int		i;
+	int		j;
 
 	if (!key)
 		return (NULL);
@@ -26,14 +27,15 @@ char	*ft_envfull(char *key, char *value)
 	key_len = ft_strlen(key);
 	val_len = ft_strlen(value);
 	env_full = (char *)malloc(key_len + val_len +  2);
-	ft_strlcpy(env_full, key, key_len);
-	i = key_len;
-	env_full[i + 1] = '=';
-	i += 2;
-	while(value[++i] != '\0')
-		env_full[i] = value[i];
-	env_full[i] = '\0';
-	return (env_full);	
+	i = -1;
+	while (key[++i])
+		env_full[i] = key[i];
+	env_full[i++] = '=';
+	j = -1;
+	while (value[++j])
+		env_full[i + j] = value[j];
+	env_full[i + j] = '\0';
+	return (env_full);
 }
 
 char	**env_converter(t_env *env)
