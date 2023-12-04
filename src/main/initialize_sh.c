@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/02 20:01:44 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:29:44 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	sh_init(t_mini *sh, char **env)
 	sh->env = env_converter(sh->env_lst);
 	if (sh->env == NULL)
 		return (1);
-	print_env(sh->env_lst, sh->env);
 	printf("\nSHELL INITIALIZED\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	if (error)
