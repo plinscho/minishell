@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 15:16:15 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:09 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,19 @@ typedef struct s_exec
 
 /***** executor.c - main execution processes *****/
 int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
-void	child_process(t_mini *sh, t_pipe *p, int flag, int *fd); // flag 0 if NOT last child, 1 if last one
-int		last_child(t_mini *sh, t_pipe *p, int *fd); 
-void	ft_redir(t_mini *sh, t_pipe *p, int *fd, int flag); // flag 0 if NOT last child, 1 if last one
+void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+int		last_child(t_mini *sh, t_pipe *p); 
+void	ft_redir(t_mini *sh, t_pipe *p); // flag 0 if NOT last child, 1 if last one
+int		exec_builtin(t_mini *sh); // executes the needed builtin
+/*************************************************/
 
 /***** exec_utils.c - utils for execution processes *****/
 int		check_builtin(char **cmd); // checks if the cmd is a builtin
-int		exec_builtin(t_mini *sh); // executes the needed builtin
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1); // opens all the file descriptors
-int 	ft_exit_exe(t_mini *sh, char *name, char *message, int err); //- call this error function, passing it the name of a failed file
+void	ft_check_open(t_pipe *p, t_fd *cur, int prev); // check if the prev is open and closes it
 void	check_access(t_mini *sh, char **cmd, char **path);
 char	*check_paths(char **paths, char *cmd, t_mini *sh);
-int		ft_error_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
+/*********************************************************/
+
 
 #endif

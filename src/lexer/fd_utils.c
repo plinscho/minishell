@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 21:19:18 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:41:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fd_add(t_fd **lst, t_fd *new)
 This function cleans the fd list and closes the file descriptors 
 if they are bigger than 0 
 */
-void	fd_clean(t_fd **hd)
+void	fd_clean(t_fd **hd, int flag)
 {
 	t_fd	*temp;
 	t_fd	*iter;
@@ -45,15 +45,12 @@ void	fd_clean(t_fd **hd)
 	{
 		temp = iter;
 		iter = iter->next;
-		/*if (temp->str)
-		{
-			free(temp->str);
-			temp->str = NULL;
-		}*/
-		if (temp->fd > 0 && temp->type != 6)
+		if (temp->str && flag)
+			temp->str = ft_memdel(temp->str);
+//		printf("[FD CLEAN]before close: NODE - %p, fd: %i\n", temp, temp->fd); //erase
+		if (temp->fd > 0 && flag)
 			close(temp->fd);
-		free(temp);
-		temp = NULL;
+		temp = ft_memdel(temp);
 	}
 	*hd = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/25 12:56:48 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:20:26 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,16 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
 	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
-	if (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
-	{
-		q = in[++j];
-		j++;
-		while (in[j] && in[j] != q)
-			j++;
-		while (in[j] && in[j + 1] && in[j + 1] != ' ')
-			j++;
-//		if (q == '\"')
-//			cont = ft_substr_quotes(in, q, j, -1);
-		(*i)++;
-	}
-//	if (q == ' ' || q == '\'')
-//		cont = ft_substr(in, 0, j + 1);
+	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+		j = word_in_quotes(in, &q, j);
+//	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
+//	if (q != ' ')
+//		(*i)++;
 	cont = ft_substr(in, 0, j + 1);
 	if (!cont)
 		return (NULL);
 	*i += j;
-//	printf("[RW] leaving: input - %c\n", in[j]); //erase
+//	printf("[RW] leaving: token - %s, in[i] -- %c, i -- %i\n", cont, in[j], *i); //erase
 	return (lex_new(cont, 1));
 }
 
@@ -131,10 +122,10 @@ int lexer(t_mini *sh, char *input)
 
     i = -1;
     new = NULL;
-	printf("input: %s\n", input);
+//	printf("[LEX] input: %s\n", input);
     while (input[++i])
     {
- //       printf("[LEX]You entered: input - %c\n", input[i]); //erase
+//      printf("[LEX]You entered: input - %c\n", input[i]); //erase
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
@@ -144,9 +135,10 @@ int lexer(t_mini *sh, char *input)
 		else
 			new = read_word(&input[i], &i, ' ', 0);
 		if (!new)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "malloc", NULL, 12));
 		else
 			lex_add(&(sh->lex_lst), new);
+	//	printf("[LEX] After loop: input - %c\n", input[i]);
     }
 	return (0);
 }

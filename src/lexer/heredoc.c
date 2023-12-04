@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:44:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:11:37 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ int	ft_heredoc(t_mini *sh, char *in)
 	//	printf("str after <<: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "heredoc", NULL, 12));
 		new->next = NULL;
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
-		new->str = keyword_hd(new, in, &i);
+		new->str = keyword_hd(new, in, &i, ' ');
 		if (!new->str)
-			return (sh_clean(sh, 2));
+			return (err_break(sh, "heredoc", NULL, 12));
 		new->fd = save_hd(new->str, NULL);
 		if (new->fd < 0)
-			return (sh_clean(sh, -(new->fd)));
+			return (err_break(sh, "heredoc", NULL, -(new->fd)));
 	}
 	return (0);
 }
@@ -87,32 +87,30 @@ all the valid characters that are not space, < OR > OR |,
 trims the quotes if finds them, 
 if any ' quotes are found changes the type of the node to 9 - for the expanser.
 */
-char	*keyword_hd(t_fd *new, char *in, int *i)
+char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 {
 	char	*cont;
 	int		j;
-	char	q;
 
 	j = 0;
-	while (in[j] && in[j] != ' ' && in[j] != '\'' && in[j] != '\"' \
-	&& check_chr(in[j]))
+	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
+	in[j + 1] != '\"' && check_chr(in[j + 1]))
 		j++;
-//	printf("in keyword: stop letter: %c\n", in[j]); //erase
-	if (in[j] && (in[j] == '\'' || in[j] == '\"'))
-	{
-		q = in[j];
-		j++;
-		while (in[j] && in[j] != q)
-			j++;
-		while (in[j] && in[j + 1] && in[j + 1] != ' ')
-			j++;
-		cont = ft_substr_quotes(in, q, j, -1);
-	}
-	else
-		cont = ft_substr(in, 0, j);
+//	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
+	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+		j = word_in_quotes(in, &q, j);
+	cont = ft_substr(in, 0, j + 1);
+//	printf("[HEREDOC] before trim keyword: %s$\n", cont); //erase
 	if (!cont)
 		return (NULL);
-	if (q == '\'')
+	cont = word_no_q(cont, '\'');
+	if (!cont)
+		return (NULL);
+	cont = word_no_q(cont, '\"');
+	if (!cont)
+		return (NULL);
+//	printf("[HEREDOC] final keyword: %s$\n", cont); //erase
+	if (q == '\'' || q =='\"')
 		new->type = 9;
 	*i += j;
 	return (cont);
@@ -139,26 +137,31 @@ int	save_hd(char *key, char *str)
 	{
 		str = readline("> ");
 		if (!str)
-			return (-2);
+			return (hd_close(hd));
 		else if (!ft_strncmp(str, key, ft_longer(str, key)) && \
 				(ft_strncmp(str, "\n", 1)))
 		{
 	//		printf("in 1st cmp: str -  %s\n", str); //erase
 			break ;
 		}
-			
 		else if (!ft_strncmp(str, "\n", 1) && (*key == '\0'))
 			break ;
 	//	write(1, "in heredoc: ", 12); //erase
 	//	write(1, str, ft_strlen(str)); //erase
 	//	write(1, "\n", 1); //erase
 		write(hd[1], str, ft_strlen(str));
-		free(str);
-		str = NULL;
+		write(hd[1], "\n", 1);
+		str = ft_memdel(str);
 	}
 	if (str)
-		free(str);
-	str = NULL;
+		str = ft_memdel(str);
 	close(hd[1]);
 	return (hd[0]);
+}
+
+int	hd_close(int fd[])
+{
+	close(fd[0]);
+	close(fd[1]);
+	return (-12);
 }

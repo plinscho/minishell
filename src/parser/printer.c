@@ -6,13 +6,13 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:50:22 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/21 20:52:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:07:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_parser_dina(t_pipe *p)
+void	print_parser(t_pipe *p)
 {
 	t_fd *f;
 	int	i;
@@ -38,6 +38,21 @@ void	print_parser_dina(t_pipe *p)
 		j++;
        	p = p->next; 
     }
+}
+
+void	print_lexer(t_mini *sh)
+{
+	t_lexer	*lex_list = NULL;
+	int	i;
+
+	i = 1;
+	lex_list = sh->lex_lst;
+	while (lex_list)
+    {
+		printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+	 	i++;
+      	lex_list = lex_list->next; 
+   	}
 }
 
 void	print_arr(char **arr)
