@@ -27,7 +27,7 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils \
 		src/lexer/check_sequence
 
-EXPANSER = src/expanser/expanser
+EXPANSER = src/expanser/expanser src/expanser/expanser_utils
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
 ENV = src/env/env src/env/env_list src/env/free_env src/env/env_utils

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/04 17:42:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:24:01 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	new_len(t_mini *sh, char *cont)
 		i = check_exp(cont, 1);
 		if (!i)
 			break ;
-		new = get_var(cont[i + 1]);
+		new = get_var(&cont[i + 1]);
 		if (!new)
-			return (NULL);
+			return (-1);
 		len = len - ft_strlen(new) - 1 + ft_strlen(ft_get_value(sh, new));
 		cont = cont + i + 1;
 		new = ft_memdel(new);

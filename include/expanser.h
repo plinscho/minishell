@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 17:42:47 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:18:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /**********   expanser.c -  ***********/
 int	expanser(t_mini *sh, t_lexer *lex);
 char	*expand_str(t_mini *sh, char *cont, int i);
-int		expand_word(t_mini *sh, t_lexer **lex, int flag); // flag=0 - expand all, flag=1 - filename, expand only ""
+//int		expand_word(t_mini *sh, t_lexer **lex, int flag); // flag=0 - expand all, flag=1 - filename, expand only ""
 
 /**********   expanser_utils.c -  ******/
 int	check_exp(char *cont, int type);
