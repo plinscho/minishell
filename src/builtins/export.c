@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 17:02:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:16:46 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 		}
 		env = env->next;
 	}
+}
+
+void	error_option(char *str1, char *str2)
+{
+	ft_putstr_fd("Export ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd("=", 2);
+	ft_putstr_fd(str2, 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
+
 }
 
 int		handle_args(t_mini *sh, char *arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/04 18:29:44 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:13:07 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	sh_init(t_mini *sh, char **env)
 	if (allocate_exe(sh))
     return (err_break(sh, "malloc", NULL, 12));
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
-  if (first_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.		
+  if (first_env(sh, env))  // Loads env into the shell. If malloc fails, delete it.		
      return (err_break(sh, "malloc", NULL, 12));
-	sh->env = NULL;
-	if (env_converter(sh) == -1) // malloc has failed in the char **.
+	sh->env = env_converter(sh->env_lst);
+	if (sh->env == NULL) // malloc has failed in the char **.
 		return (err_break(sh, "malloc", NULL, 12));
 	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
@@ -96,6 +96,9 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 		return(err_break(sh, "malloc", NULL, 12));
+/*
+	I am changing the env each time unset or export are called.
+
 	if (!sh->env)
 	{
 		if (env_converter(sh) == -1) // malloc has failed in the char **.
@@ -103,6 +106,8 @@ int	sh_loop_init(t_mini *sh)
 	}
 	if (env_converter(sh->env_lst) == NULL) // malloc has failed in the char **.
 		return (1);
+
+*/
 	return (0);
 }
 
