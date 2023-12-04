@@ -18,8 +18,13 @@ int		print_export(t_env *eprint)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(eprint->env_key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putendl_fd(eprint->env_val,1);
+		if (eprint->env_val)
+		{
+			ft_putstr_fd("=", 1);
+			ft_putendl_fd(eprint->env_val,1);
+		}
+		else
+			ft_putstr_fd("\n", 1);
 		eprint = eprint->next;
 	}
 	return (0);

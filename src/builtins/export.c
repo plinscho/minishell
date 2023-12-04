@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 19:42:45 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:02:23 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		handle_args(t_mini *sh, char *arg)
 int		ft_export(t_mini *sh)
 {
 	t_env	*tmp_env;
+	char	**new_env;
 	char	**t_cmd;
 	int		err;
 	int		i;
@@ -83,7 +84,11 @@ int		ft_export(t_mini *sh)
 		err = handle_args(sh, t_cmd[i]);
 		i++;
 	}
-	if (env_converter(sh->env_lst) == NULL)
+	if (sh->env)
+		arr_clean(sh->env, 0);
+	new_env = env_converter(sh->env_lst);
+	if (!new_env)
 		return (1);
+	sh->env = new_env;
 	return (0);
 }

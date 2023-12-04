@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42barcel>       +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:09:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/05/16 16:11:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:54:41 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	int		j;
 	char	*str;
 
+	if (!s)
+		return (NULL);
 	i = ft_strlen(s) + 1;
 	str = ft_calloc(i, sizeof(char));
 	if (str == NULL)
