@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/04 20:24:01 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:58:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	check_exp(char *cont, int type)
 	int	i;
 
 	i = 0;
+	if (!cont)
+		return (-1);
 	while (cont[i] && cont[i + 1])
 	{
 		if (!type && cont[i] == '\'')
@@ -36,7 +38,7 @@ int	check_exp(char *cont, int type)
 		i++;
 	}
 	if (!cont[i] || !cont[i + 1])
-		return (0);
+		return (-1);
 	return (i);
 }
 
@@ -50,13 +52,16 @@ int	new_len(t_mini *sh, char *cont)
 	len = ft_strlen(cont);
 	while (*cont)
 	{
+		
 		i = check_exp(cont, 1);
-		if (!i)
+		if (i < 0)
 			break ;
 		new = get_var(&cont[i + 1]);
+	//	printf("[NEW LEN] new var -- %s\n", new); //erase
 		if (!new)
 			return (-1);
 		len = len - ft_strlen(new) - 1 + ft_strlen(ft_get_value(sh, new));
+	//	printf("[NEW LEN] cont[i] -- %c\n", cont[i]); //erase
 		cont = cont + i + 1;
 		new = ft_memdel(new);
 	}
