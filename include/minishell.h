@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 18:30:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:24:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	allocate_exe(t_mini *sh); //allocates a variables struct for execution
 int		ft_heredoc(t_mini *sh, char *in);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
-int		save_hd(char *key, char *str);
+int		save_hd(t_mini *sh, char *key, char *str, int type);
 int		hd_close(int fd[]);
 /*************************************************/
 

@@ -6,12 +6,21 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/05 16:56:45 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:34:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expanser.h"
 
+char	*expand_hd(t_mini *sh, char *cont, int type)
+{
+	if (type == 9)
+		return (cont);
+	if (check_exp < 0)
+		return (cont);
+	cont = expand_str(sh, cont, -1);
+	return (cont);
+}
 
 char	*expand_str(t_mini *sh, char *cont, int i)
 {
@@ -27,6 +36,8 @@ char	*expand_str(t_mini *sh, char *cont, int i)
 	if (k < 0)
 		return (NULL);
 	new = malloc(k + 1);
+	if (!new)
+		return (ft_memdel(cont));
 	while (cont[++i])
 	{
 		if (cont[i] != '$' || !cont[i + 1])
@@ -38,7 +49,7 @@ char	*expand_str(t_mini *sh, char *cont, int i)
 			var = get_var(&cont[i + 1]);
 	//		printf("[EXP STR] var -- %s\n", var); //erase
 			if (!var)
-				return (NULL);
+				return (ft_memdel(cont));
 			while (ft_get_value(sh, var) && ft_get_value(sh, var)[++k])
 				new[++j] = ft_get_value(sh, var)[k];
 			i += ft_strlen(var);
@@ -47,6 +58,7 @@ char	*expand_str(t_mini *sh, char *cont, int i)
 		}
 	}
 	new[++j] = '\0';
+	cont = ft_memdel(cont);
 	return (new);
 }
 

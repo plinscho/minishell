@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:11:37 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:25:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_heredoc(t_mini *sh, char *in)
 		new->str = keyword_hd(new, in, &i, ' ');
 		if (!new->str)
 			return (err_break(sh, "heredoc", NULL, 12));
-		new->fd = save_hd(new->str, NULL);
+		new->fd = save_hd(sh, new->str, NULL, new->type);
 		if (new->fd < 0)
 			return (err_break(sh, "heredoc", NULL, -(new->fd)));
 	}
@@ -125,7 +125,7 @@ it saves the line in the buffer.
 1. return (-1) - if pipe() error occures
 2. return (fd) - a file descriptor to read the content of the heredoc
 */
-int	save_hd(char *key, char *str)
+int	save_hd(t_mini *sh, char *key, char *str, int type)
 {
 	int	hd[2];
 
@@ -146,6 +146,9 @@ int	save_hd(char *key, char *str)
 		}
 		else if (!ft_strncmp(str, "\n", 1) && (*key == '\0'))
 			break ;
+		str = expand_hd(sh, str, type);
+		if (!str)
+			return (hd_close(hd));
 	//	write(1, "in heredoc: ", 12); //erase
 	//	write(1, str, ft_strlen(str)); //erase
 	//	write(1, "\n", 1); //erase
