@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/05 17:24:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:01:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
 typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
+typedef struct s_exp	t_exp;
 
 typedef struct s_mini
 {
@@ -46,9 +47,10 @@ typedef struct s_mini
 	t_env	*env_lst;	//change to env_lst
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
+	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
-	char	**envp; //the original, using for debugging
+//	char	**envp; //the original, using for debugging
 	int		exit;		//int designed to exit the readline loop and finish the shell
 	int		pipes; 		//How many pipes are there
 	t_exec	*exe;		//another struct with the variables i use in execution 

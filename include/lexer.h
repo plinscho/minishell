@@ -6,14 +6,14 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 18:13:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:00:18 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
  #define LEXER_H
 
-//#include "minishell.h"
+#include "minishell.h"
 
 typedef struct s_lexer
 {

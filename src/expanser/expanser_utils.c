@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/05 16:58:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:07:53 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	new_len(t_mini *sh, char *cont)
 	len = ft_strlen(cont);
 	while (*cont)
 	{
-		
 		i = check_exp(cont, 1);
 		if (i < 0)
 			break ;
@@ -93,4 +92,20 @@ char *get_var(char *cont)
 		new[len] = cont[len];
 	new[len] = '\0';
 	return (new);
+}
+
+
+char	*check_value(t_mini *sh, char *var)
+{
+	if (!var)
+		return (NULL);
+	if (*var == '?')
+	{
+		sh->exp->alloc = 1;
+		return (ft_itoa(sh->exit));
+	}
+	else if (*var == '0')
+		return ("bash\0");
+	else
+		return (ft_get_value(sh, var));
 }

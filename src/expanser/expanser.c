@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/05 17:34:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:11:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,55 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 		return (cont);
 	if (check_exp < 0)
 		return (cont);
-	cont = expand_str(sh, cont, -1);
+	cont = expand_str(sh, cont, -1, -1);
 	return (cont);
 }
 
-char	*expand_str(t_mini *sh, char *cont, int i)
-{
-	int	k;
-	int	j;
-	char	*var;
-	char	*new;
+//char	*add_var(t_mini *sh, char *cont, int j)
 
-	j = -1;
+int	exp_start(t_mini *sh, char *cont)
+{
+	sh->exp->cont = cont;
+	sh->exp->k = new_len(sh, cont);
+	if (sh->exp->k < 0)
+		return (1);
+	sh->exp->new = malloc(sh->exp->k + 1);
+	if (!sh->exp->new)
+		return (1);
+	sh->exp->k = -1;
+	return (0);
+}
+
+char	*expand_str(t_mini *sh, char *cont, int i, int j)
+{
 //	printf("[EXP STR] entered exp str, cont-- %s\n", cont); //erase
-	k = new_len(sh, cont);
 //	printf("[EXP STR] final lenth -- %i\n", k); //erase
-	if (k < 0)
+	if (exp_start(sh, cont))
 		return (NULL);
-	new = malloc(k + 1);
-	if (!new)
-		return (ft_memdel(cont));
 	while (cont[++i])
 	{
 		if (cont[i] != '$' || !cont[i + 1])
-			new[++j] = cont[i];
+			sh->exp->new[++j] = cont[i];
 		else
 		{
-			k = -1;
 	//		printf("[EXP STR] entered else, str[i] -- %c\n", cont[i]); //erase
-			var = get_var(&cont[i + 1]);
-	//		printf("[EXP STR] var -- %s\n", var); //erase
-			if (!var)
-				return (ft_memdel(cont));
-			while (ft_get_value(sh, var) && ft_get_value(sh, var)[++k])
-				new[++j] = ft_get_value(sh, var)[k];
-			i += ft_strlen(var);
-	//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
-			var = ft_memdel(var);
+			sh->exp->var = get_var(&cont[i + 1]);
+	//		printf("[EXP STR] var -- %s\n", sh->exp->var); //erase
+			if (!sh->exp->var)
+				return (NULL);
+			sh->exp->val = check_value(sh, sh->exp->var);
+			if (*sh->exp->var == '?' && !sh->exp->val)
+				return (NULL);
+			while (sh->exp->val && sh->exp->val[++sh->exp->k])
+				sh->exp->new[++j] = sh->exp->val[sh->exp->k];
+			i += ft_strlen(sh->exp->var);
+			//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
+			exp_nano_clean(sh->exp);
 		}
 	}
-	new[++j] = '\0';
-	cont = ft_memdel(cont);
-	return (new);
+	sh->exp->new[++j] = '\0';
+	sh->exp->cont = ft_memdel(sh->exp->cont);
+	return (sh->exp->new);
 }
 
 /*int		expand_word(t_lexer **lex, int flag)
@@ -76,6 +83,8 @@ int	expanser(t_mini *sh, t_lexer *head)
 	int	flag;
 
 	flag = 0;
+	if (exp_init(sh))
+		return (0);
 	while (sh->lex_lst)
 	{
 	//	printf("[EXPANSE] lex -- content: %s, type; %i\n", sh->lex_lst->cont, sh->lex_lst->token); //erase
@@ -85,7 +94,7 @@ int	expanser(t_mini *sh, t_lexer *head)
 		check_exp(sh->lex_lst->cont, 1) != -1)
 		{
 	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
-			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, -1);
+			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, -1, -1);
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}

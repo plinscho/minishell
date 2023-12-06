@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/05 16:38:16 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:10:07 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	sh_init(t_mini *sh, char **env)
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
 	sh->pipe_lst = NULL;
+	sh->exp = NULL;
 	sh->input = NULL;
 	sh->paths = NULL;
 	sh->exit = 0;
-	sh->envp = env; // for debugging only
+//	sh->envp = env; // for debugging only
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
 //	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
@@ -72,6 +73,7 @@ void	sh_clean(t_mini *sh)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
+	/* CLEAN THE EXPANTION */
 	sh->pipes = 0;
 }
 
