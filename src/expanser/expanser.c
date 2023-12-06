@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/06 19:11:48 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:07:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 	cont = expand_str(sh, cont, -1, -1);
 	return (cont);
 }
-
-//char	*add_var(t_mini *sh, char *cont, int j)
 
 int	exp_start(t_mini *sh, char *cont)
 {
@@ -69,10 +67,22 @@ char	*expand_str(t_mini *sh, char *cont, int i, int j)
 	return (sh->exp->new);
 }
 
-/*int		expand_word(t_lexer **lex, int flag)
+/*int		expand_word(t_mini *sh, t_lexer **lex, int flag)
 {
-	(void *)lex;
-	return (flag);
+	if (flag)
+	{
+		if (check_filename((*lex)->cont)) //problems with printing error - do it in lexer?
+			return ()
+		return (expand_filename(sh, *lex));
+	}
+	else
+	{
+		if (!expand_all(sh, *lex))
+			return (1);
+	}
+	if (!split_word(sh, lex)
+		return (1);
+	return (0);
 }*/
 
 /*
@@ -98,11 +108,11 @@ int	expanser(t_mini *sh, t_lexer *head)
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		/*else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0) != -1)
+		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0) != -1)
 		{	
 			if (!expand_word(sh, &sh->lex_lst, flag))
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
-		}*/
+		}
 		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
 			flag = 1;
 		if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && flag)
