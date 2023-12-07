@@ -16,13 +16,10 @@ int	minishell(t_mini *sh)
 	if (check_input(sh->input)) // It's not a mistake, just empty line
 		return (0);
   	add_history(sh->input);
-//	printf("after check input: %s\n", "1"); //erase
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
-//	printf("after prequotes: %s\n", "2"); //erase
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
-//	printf("after heredoc: %s\n", "3"); //erase
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 //	print_lexer(sh);
@@ -36,7 +33,7 @@ int	minishell(t_mini *sh)
 //	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
-	printf("after exec exit status: %i\n", sh->exit); //erase
+	printf("Exit status: %i\n", sh->exit); //erase
 	return (0);	
 }
 
@@ -55,7 +52,6 @@ int main(int argc, char **argv, char **env)
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");
 //		print_parser(&sh);
-		add_history(sh.input);
 //		printf("\n[MAIN] clean in main:\n------------%i----------\n", 2); //erase
 		sh_clean(&sh);
 //		printf("\n\n[MAIN] ------------   %s   ----------\n\n", "AFTER CLEAN"); //erase

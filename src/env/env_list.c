@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 19:25:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:09:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	add_env_to_list(t_env **env, t_env *new_env)
 	last_env(*env)->next = new_env;
 }
 
+// option 1 is for complete variables (with value)
 size_t	env_variables(t_env *head, int option)
 {
 	t_env	*tmp = NULL;

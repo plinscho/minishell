@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 19:58:32 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:45:38 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ char	*ft_get_value(t_mini *sh, char *key);
 char	*ft_envfull(char *key, char *value);
 
 // env_sort.c
-void sort_env(t_env *head) ;
+void	sort_env(t_env *head);
+t_env	*list_copy(t_env *og);
+t_env	*env_new_node(t_env *original);
 
 // export.c
 

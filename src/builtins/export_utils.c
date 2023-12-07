@@ -11,22 +11,26 @@
 
 int		print_export(t_env *eprint)
 {
+	t_env	*tmp;
+
 	if (!eprint)
 		return (1);
 	sort_env(eprint);
-	while (eprint)
+	tmp = eprint;
+	while (tmp)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(eprint->env_key, 1);
-		if (eprint->env_val)
+		if (tmp->env_val)
 		{
 			ft_putstr_fd("=", 1);
-			ft_putendl_fd(eprint->env_val,1);
+			ft_putendl_fd(tmp->env_val,1);
 		}
 		else
 			ft_putstr_fd("\n", 1);
-		eprint = eprint->next;
+		tmp = tmp->next;
 	}
+	tmp = eprint;
 	return (0);
 }
 

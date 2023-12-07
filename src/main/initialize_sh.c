@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/04 19:13:07 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:11:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ void	sh_clean(t_mini *sh)
 		sh->paths = arr_clean(sh->paths, 0);
 //	printf("[CLEAN] after paths clean: paths - %p\n", sh->paths); //erase
 //	printf("[CLEAN] before env clean: env - %p\n", sh->env); //erase
+
+/*	DO NOT FREE IT HERE
+
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
+*/
+
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
 	sh->pipes = 0;
@@ -96,18 +101,8 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 		return(err_break(sh, "malloc", NULL, 12));
-/*
-	I am changing the env each time unset or export are called.
-
-	if (!sh->env)
-	{
-		if (env_converter(sh) == -1) // malloc has failed in the char **.
-			return (err_break(sh, "malloc", NULL, 12));
-	}
-	if (env_converter(sh->env_lst) == NULL) // malloc has failed in the char **.
-		return (1);
-
-*/
+//	if (env_converter(sh->env_lst) == NULL) // malloc has failed in the char **.
+//		return (1);
 	return (0);
 }
 

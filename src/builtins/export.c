@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 19:16:46 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:04:37 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		ft_export(t_mini *sh)
 	int		err;
 	int		i;
 	
+    err = 0;
 	tmp_env = sh->env_lst;
 	t_cmd = sh->pipe_lst->cmd;
 	i = 1;
@@ -100,5 +101,5 @@ int		ft_export(t_mini *sh)
 	if (!new_env)
 		return (1);
 	sh->env = new_env;
-	return (0);
+	return (err);
 }
