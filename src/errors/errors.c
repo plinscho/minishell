@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 18:26:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:38:09 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,30 @@ int		quotes_error(t_mini *sh)
 	(void)sh;
 	printf("minishell: syntax error near unexpected token '%s'\n", seq);
 	return ;
-}*/
+}
+*/
+
+/*
+# define TRUNC 4		>
+# define PIPE 5			|
+# define INPUT 6		<
+*/
+
+int	err_char(int token)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+	if (token == 4)
+		ft_putendl_fd("<", 2);
+	else if (token == 5)
+		ft_putendl_fd(">", 2);
+	else if (token == 7)
+		ft_putendl_fd(">>", 2);
+	else if (token == 8)
+		ft_putendl_fd("|", 2);
+	else
+		ft_putendl_fd("newline", 2);
+	return (1);	
+}
 
 int	serror(char *s)
 {

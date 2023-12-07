@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 21:05:10 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:41:29 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,96 @@ int		no_cmd(char *seq)
 	return (1);
 }
 
-int	syntax_handler(t_lexer *head, int *pipes, int *redirs)
+int syntax_handler(t_lexer *head, int *pipes, int *redirs)
 {
-	while (head)
-	{
-		if (head && (head->token == 4 || head->token == 3 \
-			|| head->token == 6 || head->token == 5))
-		{
-			if (*redirs == 1)
-				return (serror(""));
-			*redirs = 1;
-		}
-		if (head && head->token == 1)
-		{
-			*pipes = 0;
-			*redirs = 0;
-		}
-		if (head && head->token == 8)
-		{
-			if (*pipes == 1 || *redirs == 1)
-				return (serror("|"));
-			*pipes = 1;
-		}
-		head = head->next;
-	}
-	return (0);
+    int prev_token = -1;
+    while (head)
+    {
+        if (head->token == 3 || head->token == 4 || head->token == 5)
+        {
+            if (prev_token == 3 || prev_token == 4 || prev_token == 5)
+                return (err_char(prev_token));
+            if (head->token == 5)
+                *pipes += 1;
+            else
+                *redirs += 1;
+            if (*pipes > 1 || *redirs > 2)
+                return (err_char(head->token));
+        }
+        prev_token = head->token;
+        head = head->next;
+    }
+    // New code: check the last token
+    if (prev_token == 3 || prev_token == 4 || prev_token == 5)
+        return (err_char(prev_token));
+    return (0);
 }
 
-int	check_syntax(t_lexer *head)
+
+int check_syntax(t_lexer *lexer)
+{
+    t_lexer *current = lexer;
+    int prev_token = -1;
+
+    while (current != NULL)
+    {
+        if (current->token != 0) // Ignore space tokens
+        {
+            if (current->token >= 4 && current->token <= 9) // If the token is a pipe or redirection operator
+            {
+                if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
+                {
+                    return (err_char(current->token)); // Return an error
+                }
+            }
+
+            prev_token = current->token;
+        }
+
+        current = current->next;
+    }
+
+    if (prev_token >= 4 && prev_token <= 9) // If the last token was a pipe or redirection operator
+    {
+                return (err_char(prev_token)); // Return an error
+    }
+
+    return 0; // No syntax errors found
+}
+/*
+
+// Modify function, pair events are swallowed by the shell
+int syntax_handler(t_lexer *head, int *pipes, int *redirs)
+{
+    while (head)
+    {
+        if (head && (head->token == 3 || head->token == 4))
+        {
+            if (*redirs >= 2) // Allow multiple redirections
+                return (err_char(head->token));
+            *redirs += 1;
+        }
+        if (head && head->token == 5)
+        {
+            if (*pipes >= 1 || *redirs >= 1)
+                return (serror("|"));
+            *pipes += 1;
+        }
+        if (head && (head->token == 6 || head->token == 7))
+        {
+            if (*redirs >= 2) // Allow multiple redirections
+                return (err_char(head->token));
+            *redirs += 1;
+        }
+        head = head->next;
+    }
+    return (0);
+}
+*/
+
+/*		OLD CHECK SYNTAX
+
+int	check_syntax(t_lexer *head) // meter el error 258 en la struct de la minishell.
 {
 	t_lexer	*tmp;
 	int		pipes;
@@ -105,6 +167,7 @@ int	check_syntax(t_lexer *head)
 	return (0);
 }
 
+*/
 int		ft_isspace(int c)
 {
 	c = (unsigned char)c;

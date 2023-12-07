@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 18:30:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:03:02 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "executor.h"
 
 # include <stdio.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -42,8 +43,8 @@ typedef struct s_exec	t_exec;
 
 typedef struct s_mini
 {
-	t_lexer	*lex_lst;	//change to lex_lst
-	t_env	*env_lst;	//change to env_lst
+	t_lexer	*lex_lst;
+	t_env	*env_lst;
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
 	char	*input;		//what we receive by readline
@@ -55,6 +56,18 @@ typedef struct s_mini
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
 	int		power_on;
 }	t_mini;
+
+//###########################################################################################
+
+//	BUILTINS !
+
+int		ft_env(t_mini *sh);		// Ready no leaks
+int		ft_export(t_mini *sh);	// Only prints
+int		ft_pwd(t_mini *sh);		// Ready no leaks
+int		ft_exit(t_mini *sh);	// turns of shell
+int		ft_cd(t_mini *sh);		// Ready | Leaks!!
+int		ft_unset(t_mini *sh);
+
 
 //###########################################################################################
 
@@ -101,6 +114,10 @@ void	sig_handler(int sig);
 //			--	--	ERRORS	--	--
 
 int		quotes_error(t_mini *sh);
+int		err_char(int token);
+void	error_option(char *str1, char *str2);
+
+
 //void	syntax_error(t_mini *sh, char *seq);
 int		serror(char *s);
 int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanser.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 19:25:43 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/25 16:39:34 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/25 16:57:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANSER_H
- #define EXPANSER_H
+#include "../../include/minishell.h"
 
-typedef struct s_mini t_mini;
-
-#endif
+int		ft_pwd(t_mini *sh)
+{
+	char	*pwd;
+	
+	(void)sh;
+	pwd = NULL;
+	pwd = getcwd(pwd, 0);
+	if (!pwd)
+		return (1);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	free(pwd);
+	return (0);
+}
