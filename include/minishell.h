@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 19:31:10 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:03:02 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	sig_handler(int sig);
 //			--	--	ERRORS	--	--
 
 int		quotes_error(t_mini *sh);
-void	syntax_error(t_mini *sh, char *seq);
+int		err_char(int token);
 void	error_option(char *str1, char *str2);
 
 

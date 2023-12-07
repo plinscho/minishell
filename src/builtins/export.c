@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 15:04:37 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:22:16 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,32 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 		add_or_update_env(sh, key, value);
 		return ;
 	}
-	env = sh->env_lst;
-	if (!value)
-		value = ft_strdup("");
-	while (env != NULL)
+	else
 	{
-		if (ft_strncmp(env->env_key, key, ft_strlen(key)) == 0 \
-			&& ft_strlen(env->env_key) == ft_strlen(key))
+		env = sh->env_lst;
+		if (!value)
+			value = ft_strdup("");
+		while (env != NULL)
 		{
-			old_value = env->env_val;
-			env->env_val = ft_strjoin(old_value, value);
-			free(old_value);
-			return ;
+			if (ft_strncmp(env->env_key, key, ft_strlen(key)) == 0 \
+				&& ft_strlen(env->env_key) == ft_strlen(key))
+			{
+				old_value = env->env_val;
+				env->env_val = ft_strjoin(old_value, value);
+				free(old_value);
+				return ;
+			}
+			env = env->next;
 		}
-		env = env->next;
 	}
+/*
+	if (sh->env)
+		arr_clean(sh->env, 0);
+	char	**new_env = env_converter(sh->env_lst);
+	if (!new_env)
+		return ;
+	sh->env = new_env;
+*/
 }
 
 void	error_option(char *str1, char *str2)
@@ -53,33 +64,42 @@ void	error_option(char *str1, char *str2)
 
 int		handle_args(t_mini *sh, char *arg)
 {
-	char	**vc;
-	char	*key;
-	
-	vc = ft_split(arg, '=');
-	if (!export_option(vc[0]))
-		error_option(vc[0], vc[1]);
-	else
-	{
-		if (ft_strchr(vc[0], '+'))
-		{
-			key = ft_substr(vc[0], 0, ft_strchr(vc[0], '+') - vc[0]);
-			if (!key)
-				return (1);
-			export_plus_equal(sh, key, vc[1]);
-			free(key);
-		}
-		else
-			add_or_update_env(sh, vc[0], vc[1]);
-	}
-	arr_clean(vc, 0);
-	return (0);
+    char	**vc;
+    char	*key;
+    
+    vc = ft_split(arg, '=');
+    if (!export_option(vc[0]))
+        error_option(vc[0], vc[1]);
+    else
+    {
+        if (ft_strchr(vc[0], '+'))
+        {
+            key = ft_substr(vc[0], 0, ft_strchr(vc[0], '+') - vc[0]);
+            if (!key)
+                return (1);
+            export_plus_equal(sh, key, vc[1]);
+            free(key);
+        }
+        else
+        {
+            add_or_update_env(sh, vc[0], vc[1]);
+			/*
+            if (sh->env)
+                arr_clean(sh->env, 0);
+            char **new_env = env_converter(sh->env_lst);
+            if (!new_env)
+                return (1);
+            sh->env = new_env;
+			*/
+        }
+    }
+    arr_clean(vc, 0);
+    return (0);
 }
 
 int		ft_export(t_mini *sh)
 {
 	t_env	*tmp_env;
-	char	**new_env;
 	char	**t_cmd;
 	int		err;
 	int		i;
@@ -95,11 +115,5 @@ int		ft_export(t_mini *sh)
 		err = handle_args(sh, t_cmd[i]);
 		i++;
 	}
-	if (sh->env)
-		arr_clean(sh->env, 0);
-	new_env = env_converter(sh->env_lst);
-	if (!new_env)
-		return (1);
-	sh->env = new_env;
 	return (err);
 }
