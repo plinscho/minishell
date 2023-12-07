@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 18:41:29 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:55:56 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int syntax_handler(t_lexer *head, int *pipes, int *redirs)
 }
 
 
-int check_syntax(t_lexer *lexer)
+int check_syntax(t_mini *sh, t_lexer *lexer)
 {
     t_lexer *current = lexer;
     int prev_token = -1;
@@ -97,6 +97,7 @@ int check_syntax(t_lexer *lexer)
             {
                 if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
                 {
+                    sh->exit = 258;
                     return (err_char(current->token)); // Return an error
                 }
             }
@@ -109,7 +110,8 @@ int check_syntax(t_lexer *lexer)
 
     if (prev_token >= 4 && prev_token <= 9) // If the last token was a pipe or redirection operator
     {
-                return (err_char(prev_token)); // Return an error
+        sh->exit = 258;
+        return (err_char(prev_token)); // Return an error
     }
 
     return 0; // No syntax errors found

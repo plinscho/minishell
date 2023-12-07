@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 18:38:09 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:55:10 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		quotes_error(t_mini *sh)
 {
 	ft_putstr_fd("minishell: syntax error: Quotes not closed\n", 2);
 	sh->exit = 258;
-	return (sh->exit);
+	return (1);
 }
 
 /*void	syntax_error(t_mini *sh, char *seq)
@@ -40,6 +40,8 @@ int	err_char(int token)
 		ft_putendl_fd("<", 2);
 	else if (token == 5)
 		ft_putendl_fd(">", 2);
+	else if (token == 6)
+		ft_putendl_fd("<<", 2);
 	else if (token == 7)
 		ft_putendl_fd(">>", 2);
 	else if (token == 8)

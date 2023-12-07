@@ -24,7 +24,7 @@ int	minishell(t_mini *sh)
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 //	print_lexer(sh);
-	if (check_syntax(sh->lex_lst))
+	if (check_syntax(sh, sh->lex_lst))
 		return (1);
 	if (trim_quotes(sh, sh->lex_lst))
 		return (1);
@@ -34,7 +34,6 @@ int	minishell(t_mini *sh)
 //	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
-	printf("Exit status: %i\n", sh->exit); //erase
 	return (0);	
 }
 
@@ -49,6 +48,7 @@ int main(int argc, char **argv, char **env)
 	while (sh.power_on)
 	{
 		minishell(&sh);
+		printf("Exit status: %i\n", sh.exit); //erase
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");

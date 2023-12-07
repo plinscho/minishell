@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 18:25:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:56:28 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,11 @@ void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
 int		trim_quotes(t_mini *sh, t_lexer *lex); // to trim quotes after expantion 
 char	*word_no_q(char *in, char q); // to trim quotes after expantion
 /***************************************************/
-int	word_in_quotes(char *in, char *q, int j);
-
-
+int 	word_in_quotes(char *in, char *q, int j);
 
 /***** check_syntax.c - *****/
-int	check_input(char *in); // checks if there is anything in the input
+int	    check_input(char *in); // checks if there is anything in the input
 int		pre_quotes(char *line);
-
-
 
 /***** utils.c - general utils *****/
 char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
@@ -64,7 +60,7 @@ char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jp
 //void	check_sequence(t_mini *sh, char *seq);
 int		no_cmd(char *seq);
 int		syntax_handler(t_lexer *head, int *pipes, int *redirs);
-int		check_syntax(t_lexer *head);
+int		check_syntax(t_mini *sh, t_lexer *head);
 char 	int_to_char(int num); //converts int into char
 int		ft_isspace(int c); // Detects if "c" is a space char.
 

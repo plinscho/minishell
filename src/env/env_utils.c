@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:29:44 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 16:23:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:47:15 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ char	*ft_get_value(t_mini *sh, char *key)
 		else
 			tmp = tmp->next;
 	}
-	ft_putstr_fd("Error: Key not found.\n", 2);
 	return (NULL);
 }
