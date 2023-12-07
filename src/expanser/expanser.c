@@ -6,45 +6,40 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/06 20:07:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:41:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expanser.h"
 
+/*
+type = 9 - no expansion
+type = 6 - expansion type "" (1)
+*/
 char	*expand_hd(t_mini *sh, char *cont, int type)
 {
 	if (type == 9)
 		return (cont);
-	if (check_exp < 0)
+	if (check_exp(cont, 1, -1) < 0)
 		return (cont);
 	cont = expand_str(sh, cont, -1, -1);
 	return (cont);
 }
 
-int	exp_start(t_mini *sh, char *cont)
-{
-	sh->exp->cont = cont;
-	sh->exp->k = new_len(sh, cont);
-	if (sh->exp->k < 0)
-		return (1);
-	sh->exp->new = malloc(sh->exp->k + 1);
-	if (!sh->exp->new)
-		return (1);
-	sh->exp->k = -1;
-	return (0);
-}
-
-char	*expand_str(t_mini *sh, char *cont, int i, int j)
+/*
+If type = 0 - It's a word (token 1)
+if type = 1 - it's a string "" (token 3)
+*/
+char	*expand_str(t_mini *sh, char *cont, int type, int i)
 {
 //	printf("[EXP STR] entered exp str, cont-- %s\n", cont); //erase
 //	printf("[EXP STR] final lenth -- %i\n", k); //erase
-	if (exp_start(sh, cont))
+	if (exp_start(sh, cont, type))
 		return (NULL);
 	while (cont[++i])
 	{
 		if (cont[i] != '$' || !cont[i + 1])
-			sh->exp->new[++j] = cont[i];
+			sh->exp->new[++sh->exp->j] = cont[i];
 		else
 		{
 	//		printf("[EXP STR] entered else, str[i] -- %c\n", cont[i]); //erase
@@ -56,34 +51,69 @@ char	*expand_str(t_mini *sh, char *cont, int i, int j)
 			if (*sh->exp->var == '?' && !sh->exp->val)
 				return (NULL);
 			while (sh->exp->val && sh->exp->val[++sh->exp->k])
-				sh->exp->new[++j] = sh->exp->val[sh->exp->k];
+				sh->exp->new[++sh->exp->j] = sh->exp->val[sh->exp->k];
 			i += ft_strlen(sh->exp->var);
 			//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
 			exp_nano_clean(sh->exp);
 		}
 	}
-	sh->exp->new[++j] = '\0';
+	sh->exp->new[++sh->exp->j] = '\0';
 	sh->exp->cont = ft_memdel(sh->exp->cont);
 	return (sh->exp->new);
 }
 
-/*int		expand_word(t_mini *sh, t_lexer **lex, int flag)
+t_lexer *read_word_exp(char *in, int *i, char q, int j)
 {
-	if (flag)
-	{
-		if (check_filename((*lex)->cont)) //problems with printing error - do it in lexer?
-			return ()
-		return (expand_filename(sh, *lex));
-	}
-	else
-	{
-		if (!expand_all(sh, *lex))
-			return (1);
-	}
-	if (!split_word(sh, lex)
+	char	*cont;
+
+//	printf("[RW]You entered: input - %c\n", in[j]); //erase
+	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
+	in[j + 1] != '\"')
+		j++;
+	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+		j = word_in_quotes(in, &q, j);
+//	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
+//	if (q != ' ')
+//		(*i)++;
+	cont = ft_substr(in, 0, j + 1);
+	if (!cont)
+		return (NULL);
+	*i += j;
+//	printf("[RW] leaving: token - %s, in[i] -- %c, i -- %i\n", cont, in[j], *i); //erase
+	return (lex_new(cont, 1));
+}
+
+int		expand_word(t_mini *sh, t_lexer **lex)
+{
+	char	*str;
+	t_lexer	*new;
+	t_lexer	*old;
+	int		i;
+
+	str = expand_str(sh, (*lex)->cont, 0, -1);
+	if (!str)
 		return (1);
-	return (0);
-}*/
+	old = *lex;
+	*lex = NULL;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == ' ')
+			new = read_space(&str[i], &i);
+		else
+			new = read_word_exp(&str[i], &i, ' ', 0);
+		if (!new)
+			return (1);
+		else
+			lex_add(lex, new);
+	}
+	lex_last(*lex)->next = old->next;
+	old->next = NULL;
+	str = ft_memdel(str);
+//	trim quotes here??? no, cause there are strings where no exp but quotes
+//	trim quotes in parser? expand filename in parser??
+	return (lex_clean(&old));
+}
 
 /*
 	Function designed to expand the $ into the command.
@@ -101,16 +131,16 @@ int	expanser(t_mini *sh, t_lexer *head)
 	//	printf("[EXPANSE] check if exp: %i\n", check_exp(sh->lex_lst->cont, 1)); //erase
 	//	printf("[EXPANSE] get value $0: %s\n", ft_get_value(sh, "0")); //erase
 		if (sh->lex_lst->token == 3 && sh->lex_lst->cont && \
-		check_exp(sh->lex_lst->cont, 1) != -1)
+		check_exp(sh->lex_lst->cont, 1, -1) != -1)
 		{
 	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
-			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, -1, -1);
+			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 1, -1);
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0) != -1)
+		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0, -1) >= 0 && !flag)
 		{	
-			if (!expand_word(sh, &sh->lex_lst, flag))
+			if (expand_word(sh, &sh->lex_lst))
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)

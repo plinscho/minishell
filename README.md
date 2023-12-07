@@ -12,7 +12,7 @@
 6 = << heredoc sign; IF THERE IS NO SINGLE QUOTES IN KEY WORD - content is null 
 7 = >> outfile append redirection; - content is null
 8 = | pipe; - content is null
-9 = << heredoc sign; IF THERE IS ARE SINGLE QUOTES IN KEY WORD (SO NO EXPANTION INSIDE) - content is null 
+9 = << heredoc sign; IF THERE ARE QUOTES IN KEY WORD (SO NO EXPANTION INSIDE) - content is null 
 
 
 Error codes:

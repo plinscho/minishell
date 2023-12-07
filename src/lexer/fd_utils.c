@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:41:23 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:02:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	fd_init(t_fd *new, t_mini *sh, int fd)
 	new->next = NULL;
 	if (sh->lex_lst) // en realidad es un error de syntax este if
 		sh->lex_lst = sh->lex_lst->next;
+	new->exp = 0;
 }

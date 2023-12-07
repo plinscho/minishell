@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/06 18:59:54 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:35:20 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exp_init(t_mini *sh)
 	sh->exp->val = NULL;
 	sh->exp->alloc = 0;
 	sh->exp->k = -1;
-
+	sh->exp->j = -1;
 	return (0);
 }
 

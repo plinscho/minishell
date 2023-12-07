@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/26 20:53:19 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:11:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ typedef struct s_pipe
 /* a list with all the files names with redirections */
 typedef struct s_fd
 {
-	int		fd; // file descriptor
-	int		type; // 4 - infile, 5 - outfile, 6 - here_doc, 7 - outfile append
-	char	*str; // keyword in heredoc, or the filename
+	int		fd;		// file descriptor
+	int		type;	// 4 - infile, 5 - outfile, 6 - here_doc, 7 - outfile append
+	int		exp;	// flag, if there is an ambiguos redirect
+	char	*str;	// keyword in heredoc, or the filename
 	struct s_fd	*next;
 }	t_fd;
 

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:19:14 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:40:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	lex_clean(t_lexer **lst)
 		*lst = temp;
 	}
 	*lst = NULL;
-	return (1);
+	return (0);
 }
 
 /*
@@ -119,4 +119,14 @@ int	word_in_quotes(char *in, char *q, int j)
 		j++;
 //	printf("[AFTER QUOTES] IN quotes: input - %s, j -- %i\n", in + j, j); //erase
 	return (j);
+}
+
+t_lexer	*lex_last(t_lexer *lst)
+{
+	if (lst)
+	{
+		while (lst -> next)
+			lst = lst -> next;
+	}
+	return (lst);
 }

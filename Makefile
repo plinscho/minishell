@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
+#    Updated: 2023/12/07 21:23:05 by nzhuzhle         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 INCLUDE = include/minishell.h \
 			include/env.h \
@@ -82,4 +94,4 @@ gitstat:
 re: fclean all
 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_lib
