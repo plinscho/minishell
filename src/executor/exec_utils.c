@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:33:03 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:39:31 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	check_builtin(char **cmd)
 		return (5);
 	if (!ft_strncmp(cmd[0], "env", ft_longer(cmd[0], "env")))
 		return (6);
-	if (!ft_strncmp(cmd[0], "exit", ft_longer(cmd[0], "exit")))
-		return (7);
+//	if (!ft_strncmp(cmd[0], "exit", ft_longer(cmd[0], "exit")))
+//		return (7);
 	return (0);
 }
 

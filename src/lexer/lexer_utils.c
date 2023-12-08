@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 14:40:37 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:26:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,30 @@ void	lex_insert(t_mini *sh, t_lexer **lst, t_lexer *new)
 	t_lexer	*temp;
 
 	temp = *lst;
-	printf("[LEX INSERT] BEFORE *lst ptr: %p, sh-lst: %p\n", *lst, sh->lex_lst);
+	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
+	
+	if (!new)
+	{
+		sh->lex_lst = temp->next;
+		if (temp->prev)
+			temp->prev->next = temp->next;
+		if (temp->next)
+			temp->next->prev = temp->prev;
+	//	printf("[LEX INSERT] BEFORE *lst ptr: %p, sh-lst: %p, new: %p\n", *lst, sh->lex_lst, new);	
+	//	sh->lex_lst = temp->next;
+	//	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
+		if (temp->cont)
+			temp -> cont = ft_memdel(temp -> cont);
+		temp = ft_memdel(temp);
+		return ;
+	}
 	new->prev = temp->prev;
 	lex_last(new)->next = temp->next;
 	if (temp->prev)
 		temp->prev->next = new;
+//	if (temp -> cont)
+//		temp -> cont = ft_memdel(temp -> cont);
+//	temp = ft_memdel(temp);	
 	temp = new;
 	printf("[LEX INSERT] *lst ptr: %p, sh-lst: %p\n", *lst, sh->lex_lst);
 //	if (temp -> cont)

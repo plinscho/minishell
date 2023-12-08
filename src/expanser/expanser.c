@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/08 14:43:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:25:20 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 				sh->exp->new[++sh->exp->j] = sh->exp->val[sh->exp->k];
 			i += ft_strlen(sh->exp->var);
 			//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
-			exp_nano_clean(sh->exp);
+			//exp_nano_clean(sh->exp);
 		}
 	}
 	sh->exp->new[++sh->exp->j] = '\0';
-	sh->exp->cont = ft_memdel(sh->exp->cont);
+	if (type)
+		sh->exp->cont = ft_memdel(sh->exp->cont);
 	return (sh->exp->new);
 }
 
@@ -86,23 +87,23 @@ t_lexer *read_word_exp(char *in, int *i, char q, int j)
 	return (lex_new(cont, 1));
 }
 
-int		expand_word(t_mini *sh, t_lexer **lex)
+int		expand_word(t_mini *sh)
 {
 	char	*str;
 	t_lexer	*new;
 	t_lexer	*head;
 	int		i;
 
-	str = expand_str(sh, (*lex)->cont, 0, -1);
+	str = expand_str(sh, sh->lex_lst->cont, 0, -1);
 	printf("--------------- \n[EXP WORD] in sh lex node: \n"); //erase
 	print_lex_node(sh->lex_lst); //erase
-	printf("--------------- \n[EXP WORD] free lex node: \n"); //erase
-	print_lex_node(*lex); //erase
-	printf("[EXP_WORD] expanded string: %s\n", str); //erase
+//	printf("--------------- \n[EXP WORD] free lex node: \n"); //erase
+//	print_lex_node(lex); //erase
+	printf("[EXP_WORD] expanded string: %s|\n", str); //erase
 	if (!str)
 		return (1);
 	head = NULL;
-	printf("[EXP_WORD] old lex: %p, new lex; %p\n", *lex, head); //erase
+//	printf("[EXP_WORD] old lex: %p, new lex; %p\n", lex, head); //erase
 	i = -1;
 	while (str[++i])
 	{
@@ -117,12 +118,18 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 	}
 	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 	print_lex_node(head); //erase
-	lex_insert(sh, lex, head);
+	lex_insert(sh, &(sh->lex_lst), head);
 	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
 	print_lex_node(head); //erase
+	printf("--------------- \n[EXP WORD] AFTER ALL in sh lex node: \n"); //erase
+	print_lex_node(sh->lex_lst); //erase
+//	printf("--------------- \n[EXP WORD] AFTER ALL free lex node: \n"); //erase
+//	print_lex_node(lex); //erase
+	printf("1\n");
 //	lex_last(*lex)->next = old->next;
 //	old->next = NULL;
 	str = ft_memdel(str);
+	printf("2\n");
 //	trim quotes here??? no, cause there are strings where no exp but quotes
 //	trim quotes in parser? expand filename in parser??
 //	return (lex_clean(&old));
@@ -155,17 +162,18 @@ int	expanser(t_mini *sh, t_lexer *head)
 		}
 		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0, -1) >= 0 && !flag)
 		{	
-			if (expand_word(sh, &sh->lex_lst))
+			if (expand_word(sh))
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
 			flag = 1;
-		if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && flag)
+		if (sh->lex_lst && sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && flag)
 			flag = 0;
 		printf("\n --------------- \n[EXPANSE] lex node: \n"); //erase
 		printf("pointer: %p\n", sh->lex_lst);
 		print_lex_node(sh->lex_lst); //erase
-		sh->lex_lst = sh->lex_lst->next;
+		if(sh->lex_lst)
+			sh->lex_lst = sh->lex_lst->next;
 	}
 	sh_restore(&sh, head, NULL);
 	return (0);
