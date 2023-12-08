@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 21:04:02 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:44:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,10 @@ int	exp_init(t_mini *sh)
 
 void	exp_nano_clean(t_exp *exp)
 {
-	if (exp->val && exp->alloc){
+	if (exp->val && exp->alloc)
 		exp->val = ft_memdel(exp->val);
-		exp->val = NULL;
-	}
-	if (exp->var){
+	if (exp->var)
 		exp->var = ft_memdel(exp->var);
-		exp->var = NULL;
-	}
 	exp->alloc = 0;
 	exp->k = -1;
 }

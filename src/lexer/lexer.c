@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 20:57:41 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:43:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 //	if (q != ' ')
 //		(*i)++;
 	cont = ft_substr(in, 0, j + 1);
-	printf("creando cont!!!!!: %s\n", cont);
+//	printf("creando cont!!!!!: %s\n", cont);
 	if (!cont)
 		return (NULL);
 	*i += j;
