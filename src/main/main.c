@@ -30,7 +30,7 @@ int	minishell(t_mini *sh)
 	if (expanser(sh, sh->lex_lst))
 		return (1);
 //	printf("--------------------\n"); //erase	
-//	print_lexer(sh); //erase
+	print_lexer(sh); //erase
 	if (trim_quotes(sh, sh->lex_lst))
 		return (1);
 ///	printf("after check syntax: %s\n", "4"); //erase

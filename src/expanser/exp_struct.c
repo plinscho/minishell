@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 21:44:11 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:52:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,55 @@ void	exp_clean(t_exp **exp)
 	if ((*exp)->new)
 		(*exp)->new = ft_memdel((*exp)->new);
 	*exp = ft_memdel(*exp);
+}
+
+char	*exp_file(t_mini *sh, char *cont, t_fd *new)
+{
+	char	*str;
+
+	if (new->type == 6 || check_exp(cont, 0, -1) >= 0)
+		return (cont);
+	if (sh->exp)
+		exp_clean(&sh->exp);
+	if (exp_init(sh))
+		return (NULL);
+	str = expand_str(sh, cont, 0, -1);
+	if (!str)
+		return (NULL);
+	if (check_file_exp(str))
+	{
+		str = ft_memdel(str);
+		new->exp = 1;
+		return (cont);
+	}
+//	trim_quotes!!!
+	return (str);
+}
+
+/*
+flag = 0 - there is no open quotes
+fflag = 1 - there is an open quote
+*/
+int	check_file_exp(char *str)
+{
+	int		i;
+	int		flag;
+	char	q;
+
+	i = -1;
+	flag = 0;
+	q = ' ';
+	while (str[++i])
+	{
+		if (str[i] == ' ' && !flag)
+			return (1);
+		if (check_chr(str[i]) == 2 && !flag)
+		{
+			flag++;
+			q = str[i];
+		}
+		else if (flag && str[i] == q)
+			flag = 0;
+	}
+	return (0);
 }

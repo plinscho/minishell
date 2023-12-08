@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/08 21:56:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:52:40 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ char	*check_value(t_mini *sh, char *var);
 int	exp_start(t_mini *sh, char *cont, int type);
 /***************************************************/
 
-
 /**********   exp_struct.c -  ******/
 int	exp_init(t_mini *sh);
 void	exp_nano_clean(t_exp *exp);
 void	exp_clean(t_exp **exp);
+char	*exp_file(t_mini *sh, char *cont, t_fd *new);
+int	check_file_exp(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/08 20:40:21 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:29:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	sh_clean(t_mini *sh)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
-	/* CLEAN THE EXPANTION */
+	if (sh->exp)
+		exp_clean(&sh->exp);
 	sh->pipes = 0;
 }
 
