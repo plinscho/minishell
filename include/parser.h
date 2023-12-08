@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 21:11:08 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:09:55 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int		pipe_clean(t_pipe **lst);
 void	print_parser(t_pipe *p);
 void	print_arr(char **arr);
 void	print_lexer(t_mini *sh);
+void	print_lex_node(t_lexer *lex_list);
 
 #endif

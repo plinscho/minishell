@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:20:26 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:32:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	char	*cont;
 
 //	printf("[RW]You entered: input - %c\n", in[j]); //erase
-	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
-	in[j + 1] != '\"' && check_chr(in[j + 1]))
+	while (in[j] && in[j + 1] && check_chr(in[0]) == 2 && in[j + 1] != in[0])
+		j++;
+	if (in[j] && in[j + 1] && check_chr(in[0]) == 2)
+		j = j + 2;	
+	while (in[j] && in[j + 1] && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
 		j++;
 	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
 		j = word_in_quotes(in, &q, j);
@@ -64,8 +67,10 @@ t_lexer *read_in_quotes(char *in, int *i)
 
 	j = 0;
 //	printf("entered read quotes: i == %i\n", *i);
-	while (in[j] && in[j + 1] != in[0])
+	while (in[j] && in[j + 1] && in[j + 1] != in[0])
 		j++;
+	if (in[j + 2] && check_chr(in[j + 2]))
+		return (read_word(in, i, ' ', 0));
 	cont = ft_substr(in, 1, j);
 	if (!cont)
 		return (NULL);

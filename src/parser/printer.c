@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:50:22 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 21:07:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:09:19 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ void	print_lexer(t_mini *sh)
 
 	i = 1;
 	lex_list = sh->lex_lst;
+	while (lex_list)
+    {
+		printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase
+	 	i++;
+      	lex_list = lex_list->next; 
+   	}
+}
+
+void	print_lex_node(t_lexer *lex_list)
+{
+	int	i;
+
+	i = 1;
 	while (lex_list)
     {
 		printf("node %i -- content: %s, type; %i\n", i, lex_list->cont, lex_list->token); //erase

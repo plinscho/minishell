@@ -24,11 +24,13 @@ int	minishell(t_mini *sh)
 //	printf("after heredoc: %s\n", "3"); //erase
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
-//	print_lexer(sh);
+	print_lexer(sh); //erase
 //	if (check_syntax(sh->lex_lst)) // This function checks for the syntax errors. It operates using tokens logic.
 //		return (1);
 	if (expanser(sh, sh->lex_lst))
 		return (1);
+	printf("--------------------\n"); //erase	
+	print_lexer(sh); //erase
 	if (trim_quotes(sh, sh->lex_lst))
 		return (1);
 ///	printf("after check syntax: %s\n", "4"); //erase

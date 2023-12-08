@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/06 17:39:26 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:08:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_substr_quotes(char *s, char q, int len, int i)
 /* 
 This function checks if a char is a redirection (< OR > OR |) or not:
 1. return (1) - the char is NOT a redirection, it's a simple char
-2. return (0) - the char is a redirection 
+2. return (0) - the char is a redirection or space
 3. return (2) - the char is a quote (for expansion)
 4. return (3) - the char is a number (for expansion)
 4. return (4) - the char is a character (for expansion)
