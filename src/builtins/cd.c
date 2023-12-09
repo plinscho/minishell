@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/29 21:22:13 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:58:54 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int		ft_cd(t_mini *sh)
 	if (!args[1])
 		return (go_to_path(0, sh));
 	if (ft_strcmp(args[1], "-") == 0)
+	{
 		cd_ret = go_to_path(1, sh);
+		add_or_update_env(sh, "PWD", ft_get_value(sh, "OLDPWD"));
+	}
 	else
 	{
 		update_oldpwd(sh);
@@ -89,6 +92,7 @@ int		ft_cd(t_mini *sh)
 			cd_ret *= -1;
 		if (cd_ret != 0)
 			print_error(args);
+		add_or_update_env(sh, "PWD", args[1]);
 	}
 	return (cd_ret);
 }
