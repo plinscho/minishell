@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 16:38:52 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:37:47 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**env_converter(t_env *env)
 		return (NULL);
 	tmp = env;
 	i = 0;
-	while (tmp->next)
+	while (tmp)
 	{
 		if (tmp->env_val != NULL)
 		{
@@ -85,7 +85,7 @@ int		env_add_last(t_mini *sh, char *name, char *value)
 		unset_free(new_env);
 	    return (1);
 	}
-	add_env_to_list(&sh->env_lst, new_env);
+	add_env_to_list(sh, new_env);
 	return (0);
 }
 
@@ -93,7 +93,6 @@ int		add_or_update_env(t_mini *sh, char *name, char *value)
 {
 	t_env	*env;
 
-	printf("\nhowdy\n");
 	env = sh->env_lst;
 	while (env != NULL)
 	{
@@ -118,18 +117,20 @@ int		first_env(t_mini *sh, char **env)
 	t_env	*sh_env;
 	int		i;
 
-	i = ~0;
-	while (env[++i] != NULL)
+	i = 0;
+	while (env[i] != NULL)
 	{
 		sh_env = malloc(sizeof(t_env));
 		if (!sh_env)
 			return (1);
-		add_env_to_list(&sh->env_lst, sh_env);
 		sh_env->env_key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);
 		sh_env->env_val = ft_strdup(getenv(sh_env->env_key));
 		sh_env->next = NULL;
+		add_env_to_list(sh, sh_env);
 		if (!sh_env->env_key || !sh_env->env_val)
 			return (free_env_lst(sh->env_lst));
+		i++;
 	}
+	sh->env = env_converter(sh->env_lst);
 	return (0);
 }

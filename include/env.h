@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 16:32:29 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:18:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ typedef struct s_envlst
 //unset.c
 void	unset_var(t_mini *sh, char *var);
 void	unset_free(t_env *env);
-
-//export.c
-
 
 /*
 // OLD
@@ -67,6 +64,7 @@ size_t	env_variables(t_env *head, int option);
 int		key_exists(t_env *head, char *key);
 
 */
+
 // FREE
 int		free_env_lst(t_env *head);
 void	free_env_chr(t_mini *sh);
@@ -98,7 +96,7 @@ char	**env_converter(t_env *env);
 
 // env_list.c
 size_t	env_variables(t_env *head, int option);
-void	add_env_to_list(t_env **env, t_env *new_env);
+void	add_env_to_list(t_mini *sh, t_env *new_env);
 
 
 #endif

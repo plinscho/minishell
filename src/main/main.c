@@ -36,12 +36,25 @@ int	minishell(t_mini *sh)
 	return (0);	
 }
 
+char	**change_env(void)
+{
+	char **test;
+
+	test = (char **)malloc(sizeof(char *) * 3 + 1);
+	test[0] = ft_strdup("VAR1=first");
+	test[1] = ft_strdup("VAR2=second");
+	test[2] = ft_strdup("VAR3=third");
+
+	return (test);
+}
+
 int main(int argc, char **argv, char **env)
 {
 	t_mini	sh;
 	(void)argc;
 	(void)argv;
 
+	env = change_env();
 	if (sh_init(&sh, env))
 		return (1);
 	while (sh.power_on)

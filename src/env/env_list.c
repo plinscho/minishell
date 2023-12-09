@@ -6,12 +6,12 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 16:09:17 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:47:14 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
+/*
 static t_env	*last_env(t_env *env)
 {
 	if (env == NULL)
@@ -20,17 +20,27 @@ static t_env	*last_env(t_env *env)
 		env = env->next;
 	return (env);
 }
+*/
 
-void	add_env_to_list(t_env **env, t_env *new_env)
+
+void	add_env_to_list(t_mini *sh, t_env *new_env)
 {
+	t_env	*head;
+	t_env	*tmp;
+
+	head = sh->env_lst;
+	tmp = sh->env_lst;
 	if (new_env == NULL)
 		return ;
-	if (*env == NULL)
+	if (head == NULL)
 	{
-		*env = new_env;
+		sh->env_lst = new_env;
 		return ;
 	}
-	last_env(*env)->next = new_env;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new_env;
+//	sh->env_lst = head;
 }
 
 // option 1 is for complete variables (with value)
@@ -52,9 +62,9 @@ size_t	env_variables(t_env *head, int option)
 	}
 	else if (option == 2)
 	{
-		while (tmp)
+		while (tmp->next)
 		{
-			if (head->env_val)
+			if (tmp->env_val)
 				env_cases++;
 			tmp = tmp->next;
 		}

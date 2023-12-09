@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 16:40:41 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:39:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,6 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 			env = env->next;
 		}
 	}
-/*
-	if (sh->env)
-		arr_clean(sh->env, 0);
-	char	**new_env = env_converter(sh->env_lst);
-	if (!new_env)
-		return ;
-	sh->env = new_env;
-*/
 }
 
 void	error_option(char *str1, char *str2)
@@ -85,6 +77,7 @@ int		handle_args(t_mini *sh, char *arg)
             add_or_update_env(sh, vc[0], vc[1]);
         }
     }
+	vc = arr_clean(vc, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 16:43:41 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:26:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		ft_env(t_mini *sh)
 	if (sh && sh->env_lst)
 	{
 		tmp = sh->env_lst;
-		while (tmp->next)
+		while (tmp)
 		{
-			if (*tmp->env_val != '\0')
+			if (tmp->env_val != NULL)
 			{
 				ft_putstr_fd(tmp->env_key, 1);
 				ft_putstr_fd("=", 1);
