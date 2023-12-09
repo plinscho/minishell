@@ -49,4 +49,6 @@ void	exp_clean(t_exp **exp);
 char	*exp_file(t_mini *sh, char *cont, t_fd *new);
 int	check_file_exp(char *str);
 
+typedef struct s_mini t_mini;
+
 #endif

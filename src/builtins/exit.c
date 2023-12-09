@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:32:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/02 18:00:26 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/27 16:42:51 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	sig_handler(int sig)
-{
-	printf("\n");
-	rl_on_new_line();
-//	rl_replace_line("", 0);
-	rl_redisplay();
-	(void) sig;
-}
+// exit is also a tricky function. Can be used almost everywhere and with and saves the $? error.
+// Im also saving it for the last so that can work with the rest of the code when debugged.
 
-void	signals(void)
+int		ft_exit(t_mini *sh)
 {
-//	rl_catch_signals = 0;
-	signal(SIGINT, sig_handler); // ctrl + C
-	signal(SIGQUIT, SIG_IGN);  // ctrl + D
+	sh->power_on = 0;		
+	return (1);
 }

@@ -12,22 +12,19 @@ int	minishell(t_mini *sh)
 	sh_loop_init(sh);
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
-		exit (1);		//  need to change it into our exit builtin function.
+		return (ft_exit(sh));
 	if (check_input(sh->input)) // It's not a mistake, just empty line
 		return (0);
-//	printf("after check input: %s\n", "1"); //erase
+  	add_history(sh->input);
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
-//	printf("after prequotes: %s\n", "2"); //erase
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
-//	printf("after heredoc: %s\n", "3"); //erase
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
-//	print_lexer(sh); //erase
-//	if (check_syntax(sh->lex_lst)) // This function checks for the syntax errors. It operates using tokens logic.
-//		return (1);
 	if (expanser(sh, sh->lex_lst))
+    return (1);
+	if (check_syntax(sh, sh->lex_lst))
 		return (1);
 //	printf("--------------------\n"); //erase	
 //	print_lexer(sh); //erase
@@ -47,20 +44,19 @@ int	minishell(t_mini *sh)
 int main(int argc, char **argv, char **env)
 {
 	t_mini	sh;
-
 	(void)argc;
 	(void)argv;
-	
+
 	if (sh_init(&sh, env))
 		return (1);
 	while (sh.power_on)
 	{
 		minishell(&sh);
+		printf("Exit status: %i\n", sh.exit); //erase
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");
 //		print_parser(&sh);
-		add_history(sh.input);
 //		printf("\n[MAIN] clean in main:\n------------%i----------\n", 2); //erase
 //		print_exp(sh.exp);
 		sh_clean(&sh);

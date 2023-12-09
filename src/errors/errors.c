@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
 /*   Updated: 2023/12/09 17:13:12 by nzhuzhle         ###   ########.fr       */
@@ -16,7 +16,7 @@ int		quotes_error(t_mini *sh)
 {
 	ft_putstr_fd("minishell: syntax error: Quotes not closed\n", 2);
 	sh->exit = 258;
-	return (sh->exit);
+	return (1);
 }
 
 /*void	syntax_error(t_mini *sh, char *seq)
@@ -24,7 +24,32 @@ int		quotes_error(t_mini *sh)
 	(void)sh;
 	printf("minishell: syntax error near unexpected token '%s'\n", seq);
 	return ;
-}*/
+}
+*/
+
+/*
+# define TRUNC 4		>
+# define PIPE 5			|
+# define INPUT 6		<
+*/
+
+int	err_char(int token)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+	if (token == 4)
+		ft_putendl_fd("<", 2);
+	else if (token == 5)
+		ft_putendl_fd(">", 2);
+	else if (token == 6)
+		ft_putendl_fd("<<", 2);
+	else if (token == 7)
+		ft_putendl_fd(">>", 2);
+	else if (token == 8)
+		ft_putendl_fd("|", 2);
+	else
+		ft_putendl_fd("newline", 2);
+	return (1);	
+}
 
 int	serror(char *s)
 {
@@ -45,6 +70,7 @@ int	err_exit(t_mini *sh, char *name, char *message, int err)
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
 	if ((err == 1 && *name && !message) || err == 14 || err == 12)
+
 	{
 		perror(name);
 //		sh_clean(sh, err);

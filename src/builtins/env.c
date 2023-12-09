@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 19:19:23 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
+/*   Updated: 2023/12/09 19:26:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		pre_quotes(char *line)
+int		ft_env(t_mini *sh)
 {
-	int	i;
-	int	open;
+	t_env	*tmp;
 
-	i = 0;
-	open = 0;
-
-	while (line[i])
+	if (sh && sh->env_lst)
 	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
+		tmp = sh->env_lst;
+		while (tmp)
+		{
+			if (tmp->env_val != NULL)
+			{
+				ft_putstr_fd(tmp->env_key, 1);
+				ft_putstr_fd("=", 1);
+				ft_putendl_fd(tmp->env_val, 1);
+			}
+			tmp = tmp->next;
+		}
+		return (0);
 	}
-	return (open);
-}
-
-int	check_input(char *in)
-{
-	while (*in && *in == ' ')
-		in++;
-	if (!*in)
+	else
 		return (1);
-	return (0);
 }

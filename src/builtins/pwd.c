@@ -1,47 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 19:19:23 by plinscho         ###   ########.fr       */
+/*   Created: 2023/11/25 16:39:34 by plinscho          #+#    #+#             */
+/*   Updated: 2023/11/25 16:57:24 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		pre_quotes(char *line)
+int		ft_pwd(t_mini *sh)
 {
-	int	i;
-	int	open;
-
-	i = 0;
-	open = 0;
-
-	while (line[i])
-	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
-	}
-	return (open);
-}
-
-int	check_input(char *in)
-{
-	while (*in && *in == ' ')
-		in++;
-	if (!*in)
+	char	*pwd;
+	
+	(void)sh;
+	pwd = NULL;
+	pwd = getcwd(pwd, 0);
+	if (!pwd)
 		return (1);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	free(pwd);
 	return (0);
 }

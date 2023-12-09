@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:14:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/20 21:23:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:38:28 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		ft_toupper(int c); // ok
 int		ft_atoi(const char *str);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n); //ok
+int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize); //ok
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len); //ok
