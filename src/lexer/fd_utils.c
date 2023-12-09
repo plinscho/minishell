@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 22:37:54 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:18:44 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,22 @@ the filename.
 */
 int	fd_init(t_fd *new, t_mini *sh, int fd)
 {
-//	printf("[FD_INIT]You entered, fd: %i -- type: %i\n", fd, type); //erase
+	printf("[FD_INIT]You entered, fd: %i\n", fd); //erase
 	new->exp = 0;
 	new->type = sh->lex_lst->token;
 	sh->lex_lst = sh->lex_lst->next;
-	if (sh->lex_lst && sh->lex_lst->token == 0)
+	while (sh->lex_lst && sh->lex_lst->token == 0)
 		sh->lex_lst = sh->lex_lst->next;
 	if (!sh->lex_lst) // en realidad es un caso de error de syntax
-		return ;
+		return (0);
 //	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
 	new->str = exp_file(sh, sh->lex_lst->cont, new);
+	printf("[FD_INIT] new str: %s, exp flag: %i\n", new->str, new->exp); //erase
 	if (!new->str)
 		return (1);
 	new->fd = fd;
 	new->next = NULL;
 	if (sh->lex_lst) // en realidad es un error de syntax este if
 		sh->lex_lst = sh->lex_lst->next;
-	new->exp = 0;
 	return (0);
 }

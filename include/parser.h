@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/08 14:09:55 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:06:30 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
 typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
+typedef struct s_exp	t_exp;
 
 /* a list with commands for child processes */
 typedef struct s_pipe
@@ -65,5 +66,6 @@ void	print_parser(t_pipe *p);
 void	print_arr(char **arr);
 void	print_lexer(t_mini *sh);
 void	print_lex_node(t_lexer *lex_list);
+void	print_exp(t_exp *exp);
 
 #endif

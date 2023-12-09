@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 18:33:07 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:10:45 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 		sh->exe->fdp[0] = -2;
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
-	ft_open(sh, p, p->fd_lst);
+	ft_open(sh, p, p->fd_lst, -1);
 //	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit(exec_builtin(sh));

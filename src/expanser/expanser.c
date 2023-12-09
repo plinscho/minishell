@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/08 22:04:44 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:56:13 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 /*
 type = 9 - no expansion
-type = 6 - expansion type "" (1)
+type = 6 - expansion type "" (3)
 */
 char	*expand_hd(t_mini *sh, char *cont, int type)
 {
 	if (type == 9)
 		return (cont);
-	if (check_exp(cont, 1, -1) < 0)
+	if (check_exp(cont, 3, -1) < 0)
 		return (cont);
 	cont = expand_str(sh, cont, -1, -1);
 	return (cont);
 }
 
 /*
-If type = 0 - It's a word (token 1)
-if type = 1 - it's a string "" (token 3)
+If type = 1 - It's a word (token 1)  0
+if type = 3 - it's a string "" (token 3) 1
 */
 char	*expand_str(t_mini *sh, char *cont, int type, int i)
 {
@@ -58,7 +58,7 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 		}
 	}
 	sh->exp->new[++sh->exp->j] = '\0';
-	if (type)
+	if (type == 3)
 		sh->exp->cont = ft_memdel(sh->exp->cont);
 	return (sh->exp->new);
 }
@@ -94,12 +94,12 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 	t_lexer	*head;
 	int		i;
 
-	str = expand_str(sh, sh->lex_lst->cont, 0, -1);
-//	printf("--------------- \n[EXP WORD] in sh lex node: \n"); //erase
+	str = expand_str(sh, sh->lex_lst->cont, 1, -1);
+	printf("--------------- \n[EXP WORD] in sh lex node: \n"); //erase
 //	print_lex_node(sh->lex_lst); //erase
 //	printf("--------------- \n[EXP WORD] free lex node: \n"); //erase
 //	print_lex_node(lex); //erase
-//	printf("[EXP_WORD] expanded string: %s|\n", str); //erase
+	printf("[EXP_WORD] expanded string: %s|\n", str); //erase
 	if (!str)
 		return (1);
 	head = NULL;
@@ -116,10 +116,10 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 		else
 			lex_add(&head, new);
 	}
-//	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
+	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 //	print_lex_node(head); //erase
 	lex_insert(sh, head, lex);
-//	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
+	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
 //	print_lex_node(head); //erase
 //	printf("--------------- \n[EXP WORD] AFTER ALL in sh lex node: \n"); //erase
 //	print_lex_node(sh->lex_lst); //erase
@@ -150,17 +150,17 @@ int	expanser(t_mini *sh, t_lexer *head)
 	{
 	//	printf("\n --------------- \n[EXPANSE] start loop \n"); //erase
 	//	print_lex_node(sh->lex_lst); //erase
-	//	printf("[EXPANSE] check if exp: %i\n", check_exp(sh->lex_lst->cont, 1)); //erase
+	//	printf("[EXPANSE] cont: %i\n", check_exp(sh->lex_lst->cont, 1)); //erase
 	//	printf("[EXPANSE] get value $0: %s\n", ft_get_value(sh, "0")); //erase
 		if (sh->lex_lst->token == 3 && sh->lex_lst->cont && \
-		check_exp(sh->lex_lst->cont, 1, -1) != -1)
+		check_exp(sh->lex_lst->cont, 3, -1) != -1)
 		{
-	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
-			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 1, -1);
+			printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
+			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 3, -1);
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 0, -1) >= 0 && !flag)
+		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) >= 0 && !flag)
 		{	
 			if (expand_word(sh, &head))
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
@@ -180,5 +180,7 @@ int	expanser(t_mini *sh, t_lexer *head)
 	}
 //	printf("[EXPANSE] before next: \n"); //erase
 	sh_restore(&sh, head, NULL);
+//	printf("[EXPANSE] leaving, pointer to head: %p\n", head); //erase
+//	exit (1); //erase
 	return (0);
 }

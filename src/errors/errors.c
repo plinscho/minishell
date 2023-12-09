@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/30 18:44:29 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:13:12 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	err_exit(t_mini *sh, char *name, char *message, int err)
 
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
-	if ((err == 1 && *name) || err == 14)
+	if ((err == 1 && *name && !message) || err == 14 || err == 12)
 	{
 		perror(name);
 //		sh_clean(sh, err);
@@ -71,7 +71,7 @@ int	err_break(t_mini *sh, char *name, char *message, int err)
 {
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
-	if ((err == 1 && *name) || err == 14 || err == 12)
+	if ((err == 1 && *name && !message) || err == 14 || err == 12)
 		perror(name);
 	else if (name)
 	{

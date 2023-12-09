@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 22:52:08 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:02:13 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	exp_clean(t_exp **exp)
 	if (!(*exp))
 		return ;
 	exp_nano_clean(*exp);
-	if ((*exp)->cont)
-		(*exp)->cont = ft_memdel((*exp)->cont);
-	if ((*exp)->new)
-		(*exp)->new = ft_memdel((*exp)->new);
+	(*exp)->cont = NULL;
+	(*exp)->new = NULL;
+//	if ((*exp)->cont)
+//		(*exp)->cont = ft_memdel((*exp)->cont);
+//	if ((*exp)->new)
+//		(*exp)->new = ft_memdel((*exp)->new);
 	*exp = ft_memdel(*exp);
 }
 
@@ -53,15 +55,17 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 {
 	char	*str;
 
-	if (new->type == 6 || check_exp(cont, 0, -1) >= 0)
+	printf("[EXP  FILE] cont: %s -- check_exp: %i\n", cont, check_exp(cont, 0, -1)); //erase
+	if (new->type == 6 || check_exp(cont, sh->lex_lst->token, -1) < 0)
 		return (cont);
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	if (exp_init(sh))
 		return (NULL);
-	str = expand_str(sh, cont, 0, -1);
+	str = expand_str(sh, cont, sh->lex_lst->token, -1);
 	if (!str)
 		return (NULL);
+	printf("[EXP  FILE] cont: %s -- new str: %s\n", cont, str); //erase
 	if (check_file_exp(str))
 	{
 		str = ft_memdel(str);

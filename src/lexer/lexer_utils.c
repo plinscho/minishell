@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 22:04:41 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:43:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 		return ;
 	}
 	new->prev = temp->prev;
-//	sh->lex_lst = lex_last(new);
+	sh->lex_lst = lex_last(new);
 	lex_last(new)->next = temp->next;
 	if (temp->prev)
 		temp->prev->next = new;
@@ -164,7 +164,7 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 	if (temp -> cont)
 		temp -> cont = ft_memdel(temp -> cont);
 	temp = ft_memdel(temp);
-	sh->lex_lst = new;
+//	sh->lex_lst = new;
 //	printf("[LEX INSERT] *lst ptr: %p, sh-lst: %p\n", *lst, sh->lex_lst);
 //	if (temp -> cont)
 //		temp -> cont = ft_memdel(temp -> cont);

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:50:22 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 14:09:19 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:04:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,19 @@ void	print_arr(char **arr)
 		printf("no array: %p\n", arr);
 	while (arr[++i])
 		printf("array %i: %s\n", i, arr[i]);
+}
+
+void	print_exp(t_exp *exp)
+{
+	printf("\n-----------Expanser structure-------------\n"); //erase
+	if (exp->cont)
+		printf("initial content: pointer --- %p, cont -- %s\n", exp->cont, exp->cont); //erase
+	if (exp->new)
+		printf("final expanded string: pointer --- %p, cont -- %s\n", exp->new, exp->new); //erase
+	if (exp->var)
+		printf("variable name: pointer --- %p, cont -- %s\n", exp->var, exp->var); //erase
+	if (exp->val)
+		printf("the value of the variable: pointer --- %p, cont -- %s\n", exp->val, exp->val); //erase
+	printf("variables: alloc --- %i, k -- %i, j -- %i\n", exp->alloc, exp->k, exp->j); //erase
+	printf("------------------------------\n\n"); //erase
 }

@@ -6,15 +6,16 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 21:25:57 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:01:09 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expanser.h"
 
 /*
-If type = 0 - It's a word (token 1)
-if type = 1 - it's a string "" (token 3)
+If type = 1 - It's a word (token 1) 0
+if type = 3 - it's a string "" (token 3) 1
+if type = 2 - it's a string '' (token 3) - no expansion
 Q is always -1 in the beginning - its a flag to check if we are in the double quotes. 
 q < 0 - no open quotes
 q > 1 - you are inside open quotes
@@ -24,13 +25,13 @@ int	check_exp(char *cont, int type, int q)
 	int	i;
 
 	i = 0;
-	if (!cont)
+	if (!cont || type == 2)
 		return (-1);
 	while (cont[i] && cont[i + 1])
 	{
-		if (!type && cont[i] == '\"')
+		if (type == 1 && cont[i] == '\"')
 			q *= -1;
-		if (!type && q < 0 && cont[i] == '\'')
+		if (type == 1 && q < 0 && cont[i] == '\'')
 		{
 			i++;
 			while (cont[i] && cont[i] != '\'')
@@ -48,8 +49,8 @@ int	check_exp(char *cont, int type, int q)
 }
 
 /*
-If type = 0 - It's a word (token 1)
-if type = 1 - it's a string "" (token 3)
+If type = 1 - It's a word (token 1) 0
+if type = 3 - it's a string "" (token 3) 1
 */
 int	new_len(t_mini *sh, char *cont, int type)
 {
@@ -113,14 +114,14 @@ char	*check_value(t_mini *sh, char *var)
 		return (ft_itoa(sh->exit));
 	}
 	else if (*var == '0')
-		return ("bash\0");
+		return ("kebab\0");
 	else
 		return (ft_get_value(sh, var));
 }
 
 /*
-If type = 0 - It's a word (token 1)
-if type = 1 - it's a string "" (token 3)
+If type = 1 - It's a word (token 1) 0
+if type = 3 - it's a string "" (token 3) 1
 */
 int	exp_start(t_mini *sh, char *cont, int type)
 {

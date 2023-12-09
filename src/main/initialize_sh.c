@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/08 22:29:50 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:34:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	sh_clean(t_mini *sh)
 		sh->env = arr_clean(sh->env, 0);
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
+	if (sh->exe)
+		sh->exe = ft_memdel(sh->exe);
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	sh->pipes = 0;
@@ -84,10 +86,12 @@ them after iteration
 */
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
+//	printf("\n[SH RESTORE] ---- entered\n"); //erase
 	if (lex)
 		(*sh)->lex_lst = lex;
 	if (hd)
 		(*sh)->hd_lst = hd;
+//	printf("\n[SH RESTORE] ---- exit\n"); //erase
 	return (*sh);
 }
 
