@@ -6,7 +6,7 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/09 15:42:16 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/09 20:46:22 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ LEXER = src/lexer/lexer \
 
 EXPANSER = src/expanser/expanser src/expanser/expanser_utils src/expanser/exp_struct 
 EXECUTOR = src/executor/executor src/executor/exec_utils
-ERRORS = src/errors/errors src/errors/errors_dina
+ERRORS = src/errors/errors 
 ENV = src/env/env \
 		src/env/env_list \
 		src/env/free_env \
 		src/env/env_utils \
 		src/env/env_sort
 
-BUILTINS = src/builtins/cd
+BUILTINS = src/builtins/cd \
 			src/builtins/echo \
 			src/builtins/env \
 			src/builtins/exit \

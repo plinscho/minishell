@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 19:41:58 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:52:55 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,12 @@ int	expanser(t_mini *sh, t_lexer *head)
 		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) >= 0 && !flag)
 		{	
 			if (expand_word(sh, &head))
+				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
+		}
+		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) < 0 && !flag)
+		{
+			sh->lex_lst->cont = trim_quotes(sh->lex_lst->cont, ' ', ft_strlen(sh->lex_lst->cont), -1);
+			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
