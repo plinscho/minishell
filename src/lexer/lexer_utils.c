@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 19:21:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:44:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,14 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 //		temp -> cont = ft_memdel(temp -> cont);
 //	temp = ft_memdel(temp);
 }
+
 /*
+s - string you want to trim
 i = -1
 q = ' '
+len = ft_strlen(s)
 */
+
 char		*trim_quotes(char *s, char q, int len, int i)
 {
 	char	*m;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 20:51:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:46:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 		return(err_break(sh, "malloc", NULL, 12));
+
 /*
 	if (!sh->env)
 	{
@@ -109,6 +110,7 @@ int	sh_loop_init(t_mini *sh)
 			return (err_break(sh, "malloc", NULL, 12));
 	}
 */
+
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
 
