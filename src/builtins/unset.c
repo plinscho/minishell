@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:43:15 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 17:12:41 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:06:48 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	unset_var(t_mini *sh, char *var)
 int		ft_unset(t_mini *sh)
 {
 	char	**args;
-	char	**new_env;
+//	char	**new_env;
 	int		i;
 
 	args = sh->pipe_lst->cmd;
@@ -57,10 +57,9 @@ int		ft_unset(t_mini *sh)
 		i++;
 	}
 	if (sh->env)
-		arr_clean(sh->env, 0);
-	new_env = env_converter(sh->env_lst);
-	if (!new_env)
-		return (1);
-	sh->env = new_env;
+		sh->env = arr_clean(sh->env, 0);
+	sh->env = env_converter(sh->env_lst);
+	if (!sh->env)
+		return (err_break(sh, "malloc", NULL, 12));
 	return (0);
 }
