@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 15:06:59 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:18:18 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ typedef struct s_envlst
 //unset.c
 void	unset_var(t_mini *sh, char *var);
 void	unset_free(t_env *env);
-
-//export.c
-
 
 /*
 // OLD
@@ -67,6 +64,7 @@ size_t	env_variables(t_env *head, int option);
 int		key_exists(t_env *head, char *key);
 
 */
+
 // FREE
 int		free_env_lst(t_env *head);
 void	free_env_chr(t_mini *sh);
@@ -80,9 +78,8 @@ char	*ft_get_value(t_mini *sh, char *key);
 char	*ft_envfull(char *key, char *value);
 
 // env_sort.c
+void	print_sort_print(t_env *env);
 void	sort_env(t_env *head);
-t_env	*list_copy(t_env *og);
-t_env	*env_new_node(t_env *original);
 
 // export.c
 
@@ -94,15 +91,12 @@ int		print_export(t_env *eprint);
 
 //	env2.c
 int		first_env(t_mini *sh, char **env);
-void	add_or_update_env(t_mini *sh, char *name, char *value);
+int		add_or_update_env(t_mini *sh, char *name, char *value);
 char	**env_converter(t_env *env);
-void	add_or_update_env(t_mini *sh, char *name, char *value);
-//static t_env	*last_env(t_env *env);
 
 // env_list.c
 size_t	env_variables(t_env *head, int option);
-void	add_env_to_list(t_env **env, t_env *new_env);
-//static t_env	*last_env(t_env *env);
+void	add_env_to_list(t_mini *sh, t_env *new_env);
 
 
 #endif

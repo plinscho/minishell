@@ -15,16 +15,18 @@ int		print_export(t_env *eprint)
 
 	if (!eprint)
 		return (1);
-	sort_env(eprint);
+	print_sort_print(eprint);
 	tmp = eprint;
 	while (tmp)
 	{
 		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(eprint->env_key, 1);
+		ft_putstr_fd(tmp->env_key, 1);
 		if (tmp->env_val)
 		{
 			ft_putstr_fd("=", 1);
-			ft_putendl_fd(tmp->env_val,1);
+			ft_putstr_fd("\"", 1);
+			ft_putstr_fd(tmp->env_val,1);
+			ft_putendl_fd("\"", 1);
 		}
 		else
 			ft_putstr_fd("\n", 1);

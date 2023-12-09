@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 15:11:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:24:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_env_chr(t_mini *sh)
 */
 void	free_env(t_mini *sh)
 {
+	if (sh->exe)
+		free(sh->exe);
 	sh->env = arr_clean(sh->env, 0);
 	printf("Cleaned char **\n");
 	free_env_lst(sh->env_lst);

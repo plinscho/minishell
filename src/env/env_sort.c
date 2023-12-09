@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:20:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 16:28:44 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:30:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,6 @@ void	sort_env(t_env *head)
 	if (!head_bk)
 		return ;
 	print_sort_print(head);
-	while (head != NULL)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		if (head->env_val != NULL)
-		{
-			ft_putstr_fd(head->env_key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putendl_fd(head->env_val, 1);
-		}
-		else
-		{
-			ft_putendl_fd(head->env_key, 1);
-		}
-		head = head->next;
-	}
 	head = head_bk;
 }
 

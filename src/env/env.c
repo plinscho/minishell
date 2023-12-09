@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 15:23:56 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:37:47 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**env_converter(t_env *env)
 		return (NULL);
 	tmp = env;
 	i = 0;
-	while (tmp->next)
+	while (tmp)
 	{
 		if (tmp->env_val != NULL)
 		{
@@ -70,10 +70,28 @@ char	**env_converter(t_env *env)
 	return (grid);
 }
 
-void	add_or_update_env(t_mini *sh, char *name, char *value)
+int		env_add_last(t_mini *sh, char *name, char *value)
+{
+	t_env	*new_env;
+	
+	new_env = malloc(sizeof(t_env));
+	if (!new_env)
+		return (1);
+	new_env->env_key = ft_strdup(name);
+	new_env->env_val = ft_strdup(value);
+	new_env->next = NULL;
+	if (!new_env->env_key || !new_env->env_val)
+	{
+		unset_free(new_env);
+	    return (1);
+	}
+	add_env_to_list(sh, new_env);
+	return (0);
+}
+
+int		add_or_update_env(t_mini *sh, char *name, char *value)
 {
 	t_env	*env;
-	t_env	*new_env;
 
 	env = sh->env_lst;
 	while (env != NULL)
@@ -83,15 +101,15 @@ void	add_or_update_env(t_mini *sh, char *name, char *value)
 		{
 			free(env->env_val);
 			env->env_val = ft_strdup(value);
-			return ;
+			if (!env->env_val)
+				return (err_break(sh, "malloc", NULL, 12));
+			return (0);
 		}
 		env = env->next;
 	}
-	new_env = malloc(sizeof(t_env));
-	new_env->env_key = ft_strdup(name);
-	new_env->env_val = ft_strdup(value);
-	new_env->next = NULL;
-	add_env_to_list(&sh->env_lst, new_env);
+	if (env_add_last(sh, name, value))
+		return (err_break(sh, "malloc", NULL, 12));
+	return (0);
 }
 
 int		first_env(t_mini *sh, char **env)
@@ -99,18 +117,20 @@ int		first_env(t_mini *sh, char **env)
 	t_env	*sh_env;
 	int		i;
 
-	i = ~0;
-	while (env[++i] != NULL)
+	i = 0;
+	while (env[i] != NULL)
 	{
 		sh_env = malloc(sizeof(t_env));
 		if (!sh_env)
 			return (1);
-		add_env_to_list(&sh->env_lst, sh_env);
 		sh_env->env_key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);
 		sh_env->env_val = ft_strdup(getenv(sh_env->env_key));
 		sh_env->next = NULL;
+		add_env_to_list(sh, sh_env);
 		if (!sh_env->env_key || !sh_env->env_val)
 			return (free_env_lst(sh->env_lst));
+		i++;
 	}
+	sh->env = env_converter(sh->env_lst);
 	return (0);
 }
