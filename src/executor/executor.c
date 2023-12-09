@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 18:39:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:43:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 		sh->exe->fdp[0] = -2;
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
-	ft_open(sh, p, p->fd_lst);
+	ft_open(sh, p, p->fd_lst, -1);
 //	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit(exec_builtin(sh));
@@ -75,6 +75,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 
 int	last_child(t_mini *sh, t_pipe *p)
 {
+//	print_parser(p);
 	sh->pipe_lst->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)

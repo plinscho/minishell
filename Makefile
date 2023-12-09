@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
+#    Updated: 2023/12/09 15:42:16 by nzhuzhle         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 INCLUDE = include/minishell.h \
 			include/env.h \
@@ -27,16 +39,7 @@ LEXER = src/lexer/lexer \
 		src/lexer/utils \
 		src/lexer/check_sequence
 
-BUILTINS = src/builtins/cd \
-			src/builtins/echo \
-			src/builtins/env \
-			src/builtins/exit \
-			src/builtins/export \
-			src/builtins/export_utils \
-			src/builtins/pwd \
-			src/builtins/unset
-
-EXPANSER = src/expanser/expanser
+EXPANSER = src/expanser/expanser src/expanser/expanser_utils src/expanser/exp_struct 
 EXECUTOR = src/executor/executor src/executor/exec_utils
 ERRORS = src/errors/errors src/errors/errors_dina
 ENV = src/env/env \
@@ -44,6 +47,15 @@ ENV = src/env/env \
 		src/env/free_env \
 		src/env/env_utils \
 		src/env/env_sort
+
+BUILTINS = src/builtins/cd
+			src/builtins/echo \
+			src/builtins/env \
+			src/builtins/exit \
+			src/builtins/export \
+			src/builtins/export_utils \
+			src/builtins/pwd \
+			src/builtins/unset
 
 SIGNALS = src/signals/signals
 
@@ -95,4 +107,4 @@ gitstat:
 re: fclean all
 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_lib

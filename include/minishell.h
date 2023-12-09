@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 17:03:02 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:21:52 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
 typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
+typedef struct s_exp	t_exp;
 
 typedef struct s_mini
 {
@@ -47,9 +48,10 @@ typedef struct s_mini
 	t_env	*env_lst;
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
+	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
-	char	**envp; //the original, using for debugging
+//	char	**envp; //the original, using for debugging
 	int		exit;		//int designed to exit the readline loop and finish the shell
 	int		pipes; 		//How many pipes are there
 	t_exec	*exe;		//another struct with the variables i use in execution 
@@ -90,14 +92,14 @@ int	allocate_exe(t_mini *sh); //allocates a variables struct for execution
 int		ft_heredoc(t_mini *sh, char *in);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
-int		save_hd(char *key, char *str);
+int		save_hd(t_mini *sh, char *key, char *str, int type);
 int		hd_close(int fd[]);
 /*************************************************/
 
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
-void	fd_init(t_fd *new, t_mini *sh, int fd);
+int	fd_init(t_fd *new, t_mini *sh, int fd);
 /*************************************************/
 
 

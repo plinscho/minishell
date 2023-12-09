@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 19:12:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:40:16 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ int	sh_init(t_mini *sh, char **env)
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
 	sh->pipe_lst = NULL;
+	sh->exp = NULL;
 	sh->input = NULL;
 	sh->paths = NULL;
 	sh->exit = 0;
-	sh->envp = env; // for debugging only
   
+//	sh->envp = env; // for debugging only
+
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (allocate_exe(sh))
     	return (err_break(sh, "malloc", NULL, 12));
@@ -71,6 +73,10 @@ void	sh_clean(t_mini *sh)
 
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
 //	sh->exit = err; // this is incorrect
+	if (sh->exe)
+		sh->exe = ft_memdel(sh->exe);
+	if (sh->exp)
+		exp_clean(&sh->exp);
 	sh->pipes = 0;
 }
 
@@ -80,10 +86,12 @@ them after iteration
 */
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
+//	printf("\n[SH RESTORE] ---- entered\n"); //erase
 	if (lex)
 		(*sh)->lex_lst = lex;
 	if (hd)
 		(*sh)->hd_lst = hd;
+//	printf("\n[SH RESTORE] ---- exit\n"); //erase
 	return (*sh);
 }
 
@@ -94,11 +102,14 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 		return(err_break(sh, "malloc", NULL, 12));
-//	if (sh->env)
-//		sh->env = arr_clean(sh->env, 0);
-	//sh->env = env_converter(sh->env_lst);
-//	if (sh->env == NULL) // malloc has failed in the char **.
-//		return (err_break(sh, "malloc", NULL, 12));
+	if (!sh->env)
+	{
+		if (env_converter(sh) == -1) // malloc has failed in the char **.
+			return (err_break(sh, "malloc", NULL, 12));
+	}
+	if (allocate_exe(sh))
+		return (err_break(sh, "malloc", NULL, 12));
+
 	return (0);
 }
 
