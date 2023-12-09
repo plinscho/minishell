@@ -34,10 +34,10 @@ int	minishell(t_mini *sh)
 //	print_lexer(sh);
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
-	print_parser(sh->pipe_lst);
+//	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
-	printf("\nafter exec exit status: %i\n", sh->exit); //erase
+//	printf("After exec exit status: %i\n", sh->exit); //erase
 	return (0);	
 }
 
@@ -52,7 +52,6 @@ int main(int argc, char **argv, char **env)
 	while (sh.power_on)
 	{
 		minishell(&sh);
-		printf("Exit status: %i\n", sh.exit); //erase
 //		print_lexer(&sh);
 		if (sh.power_on == 0)
 			printf("\nPOWERING OFF...\n");

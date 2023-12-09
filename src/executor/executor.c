@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 19:43:56 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:56:01 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,9 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 }
 
 int	exec_builtin(t_mini *sh)
-{
-/*	
+{	
 	if (sh->pipe_lst->builtin == 1)
 		return (ft_echo(sh));
-*/
 	if (sh->pipe_lst->builtin == 2)
 		return (ft_cd(sh));
 	if (sh->pipe_lst->builtin == 3)

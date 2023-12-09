@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/08 22:21:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:53:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ typedef struct s_mini
 
 //	BUILTINS !
 
-int		ft_env(t_mini *sh);		// Ready no leaks
-int		ft_export(t_mini *sh);	// Only prints
-int		ft_pwd(t_mini *sh);		// Ready no leaks
-int		ft_exit(t_mini *sh);	// turns of shell
+int		ft_env(t_mini *sh);		// Ready
+int		ft_export(t_mini *sh);	// Ready
+int		ft_pwd(t_mini *sh);		// Ready
+int		ft_exit(t_mini *sh);	// Ready | check exit value
 int		ft_cd(t_mini *sh);		// Ready | Leaks!!
-int		ft_unset(t_mini *sh);
+int		ft_unset(t_mini *sh);	// Reeady
+int		ft_echo(t_mini *sh);
 
 
 //###########################################################################################
@@ -83,7 +84,7 @@ int		sh_init(t_mini *sh, char **env);
 void		sh_clean(t_mini *sh);
 t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
-int	allocate_exe(t_mini *sh); //allocates a variables struct for execution
+int		allocate_exe(t_mini *sh); //allocates a variables struct for execution
 /*************************************************/
 
 //			--	--	HERE_DOC	--	--

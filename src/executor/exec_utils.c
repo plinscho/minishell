@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 19:47:08 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:51:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	check_builtin(char **cmd)
 {
 	if (!cmd || !(*cmd))
 		return (0);
-//	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
-//		return (1);
+	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
+		return (1);
 	if (!ft_strncmp(cmd[0], "cd", ft_longer(cmd[0], "cd")))
 		return (2);
 	if (!ft_strncmp(cmd[0], "pwd", ft_longer(cmd[0], "pwd")))
@@ -28,8 +28,8 @@ int	check_builtin(char **cmd)
 		return (5);
 	if (!ft_strncmp(cmd[0], "env", ft_longer(cmd[0], "env")))
 		return (6);
-//	if (!ft_strncmp(cmd[0], "exit", ft_longer(cmd[0], "exit")))
-//		return (7);
+	if (!ft_strncmp(cmd[0], "exit", ft_longer(cmd[0], "exit")))
+		return (7);
 	return (0);
 }
 

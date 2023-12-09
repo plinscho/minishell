@@ -6,15 +6,11 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 21:29:53 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 21:51:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
-// ECho is a tricky function. Can be used almost everywhere and with -n extension.
-// Im saving it for the last so that can work with the rest of the code when debugged.
 
 /*
 	CASES:
@@ -29,17 +25,41 @@
 	howdy -n -nnnnnnnnnbash-3.2$
 */
 
+int		num_args(char **args)
+{
+	int	i;
+	
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	return (i);
+}
+
 int		ft_echo(t_mini *sh)
 {
 	char	**cmd;
 	int		i;
+	int		has_n;
 	
 	i = 1;
+	has_n = 0;
 	cmd = sh->pipe_lst->cmd;
-	if (!cmd)
-		return (1);
-	
-
-	
+	if (num_args(cmd) > 1)
+	{
+		while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+		{
+			has_n = 1;
+			i++;
+		}
+		while (cmd[i])
+		{
+			ft_putstr_fd(cmd[i], 1);
+			if (cmd[i + 1] && cmd[i][0] != '\0')
+				write(1, " ", 1);
+			i++;
+		}
+	}
+	if (has_n == 0)
+		write(1, "\n", 1);
 	return (0);
 }
