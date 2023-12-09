@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 17:18:02 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:47:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 {
 	while (fd1)
 	{
-		printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i, exp flag: %i\n", p->cmd, fd1->str, fd1->fd, fd1->exp); //erase
+	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i, exp flag: %i\n", p->cmd, fd1->str, fd1->fd, fd1->exp); //erase
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		ft_check_open(p, fd1, prev);
 		if (fd1->exp == 1)
 		{
-			printf("[OPEN] flag is 1\n"); // erase
+	//		printf("[OPEN] flag is 1\n"); // erase
 			err_exit(sh, fd1->str, "ambiguous redirect", 1);
 		}
 		if (fd1->type == 6 || fd1->type == 9)

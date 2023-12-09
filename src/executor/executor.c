@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 17:10:45 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:43:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 
 int	last_child(t_mini *sh, t_pipe *p)
 {
+//	print_parser(p);
 	sh->pipe_lst->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)

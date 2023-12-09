@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 16:56:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:41:58 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_lexer *read_word_exp(char *in, int *i, char q, int j)
 //	if (q != ' ')
 //		(*i)++;
 	cont = ft_substr(in, 0, j + 1);
+	if (cont)
+		cont = trim_quotes(cont, ' ', ft_strlen(cont), -1);
 	if (!cont)
 		return (NULL);
 	*i += j;
@@ -95,11 +97,11 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 	int		i;
 
 	str = expand_str(sh, sh->lex_lst->cont, 1, -1);
-	printf("--------------- \n[EXP WORD] in sh lex node: \n"); //erase
+//	printf("--------------- \n[EXP WORD] in sh lex node: \n"); //erase
 //	print_lex_node(sh->lex_lst); //erase
 //	printf("--------------- \n[EXP WORD] free lex node: \n"); //erase
 //	print_lex_node(lex); //erase
-	printf("[EXP_WORD] expanded string: %s|\n", str); //erase
+//	printf("[EXP_WORD] expanded string: %s|\n", str); //erase
 	if (!str)
 		return (1);
 	head = NULL;
@@ -116,10 +118,10 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 		else
 			lex_add(&head, new);
 	}
-	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
+//	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 //	print_lex_node(head); //erase
 	lex_insert(sh, head, lex);
-	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
+//	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
 //	print_lex_node(head); //erase
 //	printf("--------------- \n[EXP WORD] AFTER ALL in sh lex node: \n"); //erase
 //	print_lex_node(sh->lex_lst); //erase
@@ -155,7 +157,7 @@ int	expanser(t_mini *sh, t_lexer *head)
 		if (sh->lex_lst->token == 3 && sh->lex_lst->cont && \
 		check_exp(sh->lex_lst->cont, 3, -1) != -1)
 		{
-			printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
+	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
 			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 3, -1);
 			if (!sh->lex_lst->cont)
 				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));

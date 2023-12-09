@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 16:34:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:40:16 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	sh_init(t_mini *sh, char **env)
 	sh->paths = NULL;
 	sh->exit = 0;
 //	sh->envp = env; // for debugging only
-	if (allocate_exe(sh))
-		return (err_break(sh, "malloc", NULL, 12));
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (get_env(sh, env) == -1)  // Loads env into the shell. If malloc fails, delete it.
 		return (err_break(sh, "malloc", NULL, 12));
@@ -107,6 +105,8 @@ int	sh_loop_init(t_mini *sh)
 		if (env_converter(sh) == -1) // malloc has failed in the char **.
 			return (err_break(sh, "malloc", NULL, 12));
 	}
+	if (allocate_exe(sh))
+		return (err_break(sh, "malloc", NULL, 12));
 	return (0);
 }
 

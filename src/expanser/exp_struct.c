@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 17:02:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:42:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 {
 	char	*str;
 
-	printf("[EXP  FILE] cont: %s -- check_exp: %i\n", cont, check_exp(cont, 0, -1)); //erase
-	if (new->type == 6 || check_exp(cont, sh->lex_lst->token, -1) < 0)
-		return (cont);
+//	printf("[EXP  FILE] cont: %s -- check_exp: %i\n", cont, check_exp(cont, 0, -1)); //erase
+	if (sh->lex_lst->token == 1 && check_exp(cont, sh->lex_lst->token, -1) < 0)
+		return (trim_quotes(cont, ' ', ft_strlen(cont), -1));
+	else if (new->type == 6 || check_exp(cont, sh->lex_lst->token, -1) < 0)
+		return (ft_strdup(cont));
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	if (exp_init(sh))
@@ -65,13 +67,16 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	str = expand_str(sh, cont, sh->lex_lst->token, -1);
 	if (!str)
 		return (NULL);
-	printf("[EXP  FILE] cont: %s -- new str: %s\n", cont, str); //erase
+//	printf("[EXP  FILE] cont: %s -- new str: %s\n", cont, str); //erase
 	if (check_file_exp(str))
 	{
 		str = ft_memdel(str);
 		new->exp = 1;
-		return (cont);
+		return (ft_strdup(cont));
 	}
+	if (sh->lex_lst->token == 1)
+		return (trim_quotes(str, ' ', ft_strlen(cont), -1));
+	str = ft_memdel(str);
 //	trim_quotes!!!
 	return (str);
 }

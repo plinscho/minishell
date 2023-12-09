@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/05 17:25:48 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:06:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,8 @@ char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 		j = word_in_quotes(in, &q, j);
 	cont = ft_substr(in, 0, j + 1);
 //	printf("[HEREDOC] before trim keyword: %s$\n", cont); //erase
-	if (!cont)
-		return (NULL);
-	cont = word_no_q(cont, '\'');
-	if (!cont)
-		return (NULL);
-	cont = word_no_q(cont, '\"');
+	if (cont)
+		cont = trim_quotes(cont, ' ', ft_strlen(cont), -1);
 	if (!cont)
 		return (NULL);
 //	printf("[HEREDOC] final keyword: %s$\n", cont); //erase

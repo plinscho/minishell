@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 15:43:48 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:21:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 }
 
 
-int	trim_quotes(t_mini *sh, t_lexer *temp)
+/*int	trim_quotes(t_mini *sh, t_lexer *temp)
 {
 	while (temp)
 	{
@@ -104,7 +104,7 @@ char	*word_no_q(char *in, char q)
 	if (!cont)
 		return (NULL);
 	return (cont);
-}
+}*/
 
 int	word_in_quotes(char *in, char *q, int j)
 {
@@ -169,4 +169,58 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 //	if (temp -> cont)
 //		temp -> cont = ft_memdel(temp -> cont);
 //	temp = ft_memdel(temp);
+}
+/*
+i = -1
+q = ' '
+*/
+char		*trim_quotes(char *s, char q, int len, int i)
+{
+	char	*m;
+	int		flag;
+	int		j;
+
+	if (!s || !len)
+		return (s);
+	len = len_no_q(s, q, len, -1);
+	m = (char *) malloc(len + 1);
+	if (m == 0)
+		return (NULL);
+	flag = 1;
+	j = 0;
+	while (++i < len && s[i + j])
+	{
+		if (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
+		{
+			q = s[i + j];
+			flag *= -1;
+			j++;
+		}
+		m[i] = s[i + j];
+	}
+	m[i] = '\0';
+//	s = ft_memdel(s);
+	return (m);
+}
+
+int	len_no_q(char *s, char q, int len, int i)
+{
+	int	flag;
+	
+	flag = 1;
+	while (s[++i])
+	{
+		if (check_chr(s[i]) == 2 && flag > 0)
+		{
+			q = s[i];
+			flag *= -1;
+			len--;
+		}
+		else if (check_chr(s[i]) == 2 && flag < 0 && s[i] == q)
+		{
+			flag *= -1;
+			len--;
+		}
+	}
+	return (len);
 }
