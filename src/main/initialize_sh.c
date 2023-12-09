@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 15:28:56 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:34:50 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	sh_init(t_mini *sh, char **env)
 	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
 	if (first_env(sh, env))  	// Loads env into the shell. If malloc fails, delete it.		
     	return (err_break(sh, "malloc", NULL, 12));
-	print_env(sh->env_lst, NULL);
 	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
