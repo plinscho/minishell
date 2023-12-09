@@ -102,11 +102,15 @@ int	sh_loop_init(t_mini *sh)
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 	if (!sh->paths)
 		return(err_break(sh, "malloc", NULL, 12));
-/*	if (!sh->env)
+
+/*
+	if (!sh->env)
 	{
-		if (env_converter(sh) == -1) // malloc has failed in the char **.
+		if (env_converter(sh->env_lst) == -1) // malloc has failed in the char **.
 			return (err_break(sh, "malloc", NULL, 12));
-	}*/
+	}
+*/
+
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
 

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 19:37:47 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:49:38 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int		add_or_update_env(t_mini *sh, char *name, char *value)
 		if (ft_strncmp(env->env_key, name, ft_strlen(name)) == 0
 			&& ft_strlen(env->env_key) == ft_strlen(name))
 		{
-			free(env->env_val);
+			if (env->env_val)
+				free(env->env_val);
 			env->env_val = ft_strdup(value);
 			if (!env->env_val)
 				return (err_break(sh, "malloc", NULL, 12));
@@ -132,5 +133,7 @@ int		first_env(t_mini *sh, char **env)
 		i++;
 	}
 	sh->env = env_converter(sh->env_lst);
+	if (!sh->env)
+		return (err_break(sh, "malloc", NULL, 12));	
 	return (0);
 }
