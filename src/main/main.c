@@ -10,7 +10,6 @@
 int	minishell(t_mini *sh)
 {
 	sh_loop_init(sh);
-	print_env(NULL, sh->env);
 	sh->input = readline("minishell$> ");
 	if (!sh->input)
 		return (ft_exit(sh));

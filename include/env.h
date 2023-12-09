@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/07 15:45:38 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:06:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		key_exists(t_env *head, char *key);
 
 */
 // FREE
-void	free_env_lst(t_env *head);
+int		free_env_lst(t_env *head);
 void	free_env_chr(t_mini *sh);
 void	free_env(t_mini *sh);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/26 20:50:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:13:08 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**arr_clean(char **cmd, int flag)
 
 	i = 0;
 //	printf("[ARR CLEAN]You entered: arr - %p\n", *cmd); //erase
-	while (cmd && cmd[i])
+	while (cmd && cmd[i] != NULL)
 	{
 //		printf("[ARR CLEAN] before cleaning: str - %p\n", cmd[i]); //erase
 		if (!flag) 

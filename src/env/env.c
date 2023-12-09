@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 18:28:39 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:23:56 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*ft_envfull(char *key, char *value)
 	key_len = ft_strlen(key);
 	val_len = ft_strlen(value);
 	env_full = (char *)malloc(key_len + val_len +  2);
+	if (!env_full)
+		return (NULL);
 	i = -1;
 	while (key[++i])
 		env_full[i] = key[i];
@@ -48,7 +50,9 @@ char	**env_converter(t_env *env)
 	if (!env)
 		return (NULL);
 	nodes = env_variables(env, 2);
-	grid = (char **)malloc(sizeof(char *) * nodes + 1);
+	grid = (char **)malloc(sizeof(char *) * nodes + 2);
+	if (!grid)
+		return (NULL);
 	tmp = env;
 	i = 0;
 	while (tmp->next)
@@ -57,7 +61,7 @@ char	**env_converter(t_env *env)
 		{
 			grid[i] = ft_envfull(tmp->env_key, tmp->env_val);
 			if (!grid[i])
-				return (NULL);
+				return (arr_clean(grid, 0));
 			i++;
 		}
 		tmp = tmp->next;
@@ -101,12 +105,12 @@ int		first_env(t_mini *sh, char **env)
 		sh_env = malloc(sizeof(t_env));
 		if (!sh_env)
 			return (1);
+		add_env_to_list(&sh->env_lst, sh_env);
 		sh_env->env_key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);
 		sh_env->env_val = ft_strdup(getenv(sh_env->env_key));
 		sh_env->next = NULL;
 		if (!sh_env->env_key || !sh_env->env_val)
-			return (1);
-		add_env_to_list(&sh->env_lst, sh_env);
+			return (free_env_lst(sh->env_lst));
 	}
 	return (0);
 }
