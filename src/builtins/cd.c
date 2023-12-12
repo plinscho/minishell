@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/12 17:30:36 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:39:08 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int		ft_cd(t_mini *sh, t_pipe *p)
 
 //	print_parser(p);
 	(void)p;
-	args = sh->pipe_lst->cmd;
-	print_arr(args);
+	args = p->cmd;
 	if (!args[1])
 		return (go_to_path(0, sh));
 	if (ft_strcmp(args[1], "-") == 0)
