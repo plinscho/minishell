@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/12 17:33:44 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:11:06 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		ft_export(t_mini *sh, t_pipe *p)
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
 	sh->env = env_converter(sh->env_lst);
-	if (!sh->env)
-		return (err_break(sh, "malloc", NULL, 12));
+//	if (!sh->env)
+//		return (err_break(sh, "malloc", NULL, 12));
 	return (err);
 }
