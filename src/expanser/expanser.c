@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 21:55:39 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:21:41 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 		return (cont);
 	if (check_exp(cont, 3, -1) < 0)
 		return (cont);
-	cont = expand_str(sh, cont, -1, -1);
+	if (exp_init(sh))
+		return (0);
+	cont = expand_str(sh, cont, 1, -1);
 	return (cont);
 }
 
@@ -53,8 +55,8 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 			while (sh->exp->val && sh->exp->val[++sh->exp->k])
 				sh->exp->new[++sh->exp->j] = sh->exp->val[sh->exp->k];
 			i += ft_strlen(sh->exp->var);
-			//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
-			//exp_nano_clean(sh->exp);
+	//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
+			exp_nano_clean(sh->exp);
 		}
 	}
 	sh->exp->new[++sh->exp->j] = '\0';

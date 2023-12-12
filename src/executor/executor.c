@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 21:56:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:18:53 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 	ft_open(sh, p, p->fd_lst, -1);
 //	printf("[CHILD] PIPE %p -- fd after open, in: %i, out - %i\n", p->cmd, p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
-		exit(exec_builtin(sh));
+		exit(exec_builtin(sh, p));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
 //	if (!p->cmd)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
@@ -79,10 +79,13 @@ int	last_child(t_mini *sh, t_pipe *p)
 	sh->pipe_lst->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)
-		return (exec_builtin(sh));
+	{
+		sh->exit = exec_builtin(sh, p);
+		return (0);
+	}
 	sh->exe->pid = fork();
 	if (sh->exe->pid < 0)
-		return (3);
+		return (err_break(sh, "fork", NULL, 12));
 	else if (sh->exe->pid == 0)
 		child_process(sh, p, 1);
 	if (sh->pipes && p->in_fd >= 0)
@@ -132,21 +135,21 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 	return (0);
 }
 
-int	exec_builtin(t_mini *sh)
+int	exec_builtin(t_mini *sh, t_pipe *p)
 {	
 	if (sh->pipe_lst->builtin == 1)
-		return (ft_echo(sh));
+		return (ft_echo(sh, p));
 	if (sh->pipe_lst->builtin == 2)
-		return (ft_cd(sh));
+		return (ft_cd(sh, p));
 	if (sh->pipe_lst->builtin == 3)
-		return (ft_pwd(sh));
+		return (ft_pwd(sh, p));
 	if (sh->pipe_lst->builtin == 4)
-		return (ft_export(sh));
+		return (ft_export(sh, p));
 	if (sh->pipe_lst->builtin == 5)
-		return (ft_unset(sh));
+		return (ft_unset(sh, p));
 	if (sh->pipe_lst->builtin == 6)
-		return (ft_env(sh));
+		return (ft_env(sh, p));
 	if (sh->pipe_lst->builtin == 7)
-		return (ft_exit(sh)); 
+		return (ft_exit(sh, p)); 
 	return (sh->exit);
 }
