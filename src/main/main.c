@@ -10,7 +10,7 @@
 int	minishell(t_mini *sh)
 {
 	sh_loop_init(sh);
-	sh->input = readline("minishell$> ");
+	sh->input = readline("minishell$ ");
 	if (!sh->input)
 		return (ft_exit(sh));
 	if (check_input(sh->input)) // It's not a mistake, just empty line
@@ -53,8 +53,8 @@ int main(int argc, char **argv, char **env)
 	{
 		minishell(&sh);
 //		print_lexer(&sh);
-		if (sh.power_on == 0)
-			printf("\nPOWERING OFF...\n");
+//		if (sh.power_on == 0)
+//			printf("\nPOWERING OFF...\n");
 //		print_parser(&sh);
 //		printf("\n[MAIN] clean in main:\n------------%i----------\n", 2); //erase
 //		print_exp(sh.exp);
@@ -62,5 +62,5 @@ int main(int argc, char **argv, char **env)
 //		printf("\n\n[MAIN] ------------   %s   ----------\n\n", "AFTER CLEAN"); //erase
 	}
 	free_env(&sh);
-	return (0);
+	return (sh.exit);
 }
