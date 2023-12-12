@@ -6,16 +6,17 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 19:26:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:27:00 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		ft_env(t_mini *sh)
+int		ft_env(t_mini *sh, t_pipe *p)
 {
 	t_env	*tmp;
 
+	(void)p;
 	if (sh && sh->env_lst)
 	{
 		tmp = sh->env_lst;

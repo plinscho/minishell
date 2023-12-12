@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 21:51:06 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:26:54 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ int		num_args(char **args)
 	return (i);
 }
 
-int		ft_echo(t_mini *sh)
+int		ft_echo(t_mini *sh, t_pipe *p)
 {
 	char	**cmd;
 	int		i;
 	int		has_n;
 	
+	(void)p;
 	i = 1;
 	has_n = 0;
 	cmd = sh->pipe_lst->cmd;

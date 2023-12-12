@@ -6,16 +6,17 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:39:34 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/25 16:57:24 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:27:16 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		ft_pwd(t_mini *sh)
+int		ft_pwd(t_mini *sh, t_pipe *p)
 {
 	char	*pwd;
 	
+	(void)p;
 	(void)sh;
 	pwd = NULL;
 	pwd = getcwd(pwd, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 17:18:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:34:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,6 @@ int	exec_builtin(t_mini *sh, t_pipe *p)
 	if (sh->pipe_lst->builtin == 6)
 		return (ft_env(sh, p));
 	if (sh->pipe_lst->builtin == 7)
-		return (ft_exit(sh, p)); 
+		return (ft_exit(sh)); 
 	return (sh->exit);
 }
