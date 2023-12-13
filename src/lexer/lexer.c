@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/08 21:43:36 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:09:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 {
 	char	*cont;
 
-//	printf("[RW]You entered: input - %c\n", in[j]); //erase
-	while (in[j] && in[j + 1] && check_chr(in[0]) == 2 && in[j + 1] != in[0])
+//	printf("[RW]You entered: input - %s\n", in + j); //erase
+/*	while (in[j] && in[j + 1] && check_chr(in[0]) == 2 && in[j + 1] != in[0])
 		j++;
+	printf("[RW] After first while: input - %s\n", in + j); //erase
 	if (in[j] && in[j + 1] && check_chr(in[0]) == 2)
-		j = j + 2;	
-	while (in[j] && in[j + 1] && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
+		j = j + 2;
+	printf("[RW] After if: input - %s\n", in + j); //erase*/
+	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
 		j++;
-	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+//	printf("[RW] After 2d while: input - %s\n", in + j); //erase
+	if (check_chr(in[0]) == 2)
+		j = word_in_quotes(in, &q, -1);
+	while (in[j] && in[j + 1] && check_chr(in[j + 1]) == 2)
 		j = word_in_quotes(in, &q, j);
 //	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
 //	if (q != ' ')
@@ -67,11 +72,13 @@ t_lexer *read_in_quotes(char *in, int *i)
 	int		j;
 
 	j = 0;
-//	printf("entered read quotes: i == %i\n", *i);
+//	printf("[LEX READ IN QUOTES]entered read quotes: in == %s\n", in + j);
 	while (in[j] && in[j + 1] && in[j + 1] != in[0])
 		j++;
+//	printf("[LEX READ IN QUOTES] after while: in == %s\n", in + j);
 	if (in[j + 2] && check_chr(in[j + 2]))
 		return (read_word(in, i, ' ', 0));
+//	printf("[LEX READ IN QUOTES]entered read quotes: i == %i\n", *i);
 	cont = ft_substr(in, 1, j);
 	if (!cont)
 		return (NULL);
@@ -132,6 +139,11 @@ int lexer(t_mini *sh, char *input)
     while (input[++i])
     {
 //      printf("[LEX]You entered: input - %c\n", input[i]); //erase
+		if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i])
+		{
+			i++;
+			continue ;
+		}
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')

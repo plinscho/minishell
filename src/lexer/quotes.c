@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:43:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:56:34 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 int	word_in_quotes(char *in, char *q, int j)
 {
 	*q = in[++j];
+//	printf("[IN QUOTES]: input - %s, q -- %c\n", in + j, *q); //erase
 	j++;
 	while (in[j] && in[j] != *q)
 		j++;
 //	if (in[j])
 //		j++;
-//	printf("[IN QUOTES] IN quotes: input - %s, j -- %i\n", in + j, j); //erase
-	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && in[j + 1] != '\"')
+//	printf("[IN QUOTES] IN quotes before: input - %s, j -- %i\n", in + j, j); //erase
+	while (in[j] && in[j + 1] && in[j + 1] != ' ' && check_chr(in[j + 1]) != 2)
 		j++;
 //	printf("[AFTER QUOTES] IN quotes: input - %s, j -- %i\n", in + j, j); //erase
 	return (j);
@@ -44,6 +45,7 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	if (!s || !len)
 		return (s);
 	len = len_no_q(s, q, len, -1);
+//	printf("[TRIM] len - %i\n", len); //erase
 	m = (char *) malloc(len + 1);
 	if (m == 0)
 		return (NULL);
@@ -51,13 +53,15 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	j = 0;
 	while (++i < len && s[i + j])
 	{
-		if (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
+	//	printf("[TRIM] - %i\n", len); //erase
+		while (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
 		{
 			q = s[i + j];
 			flag *= -1;
 			j++;
 		}
 		m[i] = s[i + j];
+//		printf("[TRIM] m[i]: %c, q: %c, flag: %i, s[i+j]: %c\n", m[i], q, flag, s[i + j]); //erase
 	}
 	m[i] = '\0';
 //	s = ft_memdel(s);
