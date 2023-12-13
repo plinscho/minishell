@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 20:46:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:20:13 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	sh_init(t_mini *sh, char **env)
     	return (err_break(sh, "malloc", NULL, 12));
 	if (first_env(sh, env))  	// Loads env into the shell. If malloc fails, delete it.		
     	return (err_break(sh, "malloc", NULL, 12));
-	printf("\nShell Initialized\n#########################################\n\n"); //erase
+//	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
 }

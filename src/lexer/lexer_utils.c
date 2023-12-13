@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 20:44:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:37:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,54 +73,6 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	temp -> next = new;
 }
 
-
-/*int	trim_quotes(t_mini *sh, t_lexer *temp)
-{
-	while (temp)
-	{
-		if (temp->token == 1)
-		{
-			temp->cont = word_no_q(temp->cont, '\'');
-			if (!temp->cont)
-				return (err_break(sh, "malloc", NULL, 12));
-			temp->cont = word_no_q(temp->cont, '\"');
-			if (!temp->cont)
-				return (err_break(sh, "malloc", NULL, 12));
-		}
-		temp = temp->next;
-	}
-	return (0);
-}
-
-char	*word_no_q(char *in, char q)
-{
-	char	*cont;
-
-	if (ft_strchr(in, q))
-		cont = ft_substr_quotes(in, q, ft_strlen(in), -1);
-	else
-		return (in);
-	in = ft_memdel(in);
-	if (!cont)
-		return (NULL);
-	return (cont);
-}*/
-
-int	word_in_quotes(char *in, char *q, int j)
-{
-	*q = in[++j];
-	j++;
-	while (in[j] && in[j] != *q)
-		j++;
-//	if (in[j])
-//		j++;
-//	printf("[IN QUOTES] IN quotes: input - %s, j -- %i\n", in + j, j); //erase
-	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && in[j + 1] != '\"')
-		j++;
-//	printf("[AFTER QUOTES] IN quotes: input - %s, j -- %i\n", in + j, j); //erase
-	return (j);
-}
-
 t_lexer	*lex_last(t_lexer *lst)
 {
 	if (lst)
@@ -171,60 +123,34 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 //	temp = ft_memdel(temp);
 }
 
-/*
-s - string you want to trim
-i = -1
-q = ' '
-len = ft_strlen(s)
-*/
-
-char		*trim_quotes(char *s, char q, int len, int i)
+/*int	trim_quotes(t_mini *sh, t_lexer *temp)
 {
-	char	*m;
-	int		flag;
-	int		j;
+	while (temp)
+	{
+		if (temp->token == 1)
+		{
+			temp->cont = word_no_q(temp->cont, '\'');
+			if (!temp->cont)
+				return (err_break(sh, "malloc", NULL, 12));
+			temp->cont = word_no_q(temp->cont, '\"');
+			if (!temp->cont)
+				return (err_break(sh, "malloc", NULL, 12));
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
 
-	if (!s || !len)
-		return (s);
-	len = len_no_q(s, q, len, -1);
-	m = (char *) malloc(len + 1);
-	if (m == 0)
+char	*word_no_q(char *in, char q)
+{
+	char	*cont;
+
+	if (ft_strchr(in, q))
+		cont = ft_substr_quotes(in, q, ft_strlen(in), -1);
+	else
+		return (in);
+	in = ft_memdel(in);
+	if (!cont)
 		return (NULL);
-	flag = 1;
-	j = 0;
-	while (++i < len && s[i + j])
-	{
-		if (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
-		{
-			q = s[i + j];
-			flag *= -1;
-			j++;
-		}
-		m[i] = s[i + j];
-	}
-	m[i] = '\0';
-//	s = ft_memdel(s);
-	return (m);
-}
-
-int	len_no_q(char *s, char q, int len, int i)
-{
-	int	flag;
-	
-	flag = 1;
-	while (s[++i])
-	{
-		if (check_chr(s[i]) == 2 && flag > 0)
-		{
-			q = s[i];
-			flag *= -1;
-			len--;
-		}
-		else if (check_chr(s[i]) == 2 && flag < 0 && s[i] == q)
-		{
-			flag *= -1;
-			len--;
-		}
-	}
-	return (len);
-}
+	return (cont);
+}*/
