@@ -24,8 +24,28 @@
 	bash-3.2$ echo -n -n -n -n howdy -n -nnnnnnnnn
 	howdy -n -nnnnnnnnnbash-3.2$
 */
+int		parse_nl(char *s)
+{
+	int	i;
 
+	i = 1;
+	if (!(s[0] == '-'))
+		return (0);
+	while(s[i] && s[i] == 'n')
+		i++;
+	if (s[i] != '\0')
+		return (0);
+	return (1);
+}
 
+int		check_nl(char *str)
+{
+	if (!str)
+		return (1);
+	else if (str[0] == '-' && str[1] == 'n')
+		return (0);
+	return (1);
+}
 
 int		num_args(char **args)
 {
@@ -46,18 +66,15 @@ int		ft_echo(t_mini *sh, t_pipe *p)
 	(void)sh;
 	
 	i = 1;
-	has_n = 0;
 	cmd = p->cmd;
+	has_n = check_nl(cmd[1]);
 	output = p->out_fd;
 	if (output < 0)
 		output = 1;
     if (num_args(cmd) > 1)
     {
-        while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
-        {
-            has_n = 0;
-            i++;
-        }
+        while (cmd[i] && parse_nl(cmd[i]))
+			i++;
 		while (cmd[i])
         {
             ft_putendl_fd(cmd[i], output);
@@ -66,9 +83,9 @@ int		ft_echo(t_mini *sh, t_pipe *p)
             i++;
         }
     }
-    if (!has_n)
+  if (has_n)
         ft_putstr_fd("\n", output);
-    if (sh->pipes)
+  if (sh->pipes)
 		err_exit(sh, NULL, NULL, 0);
 	return (0);
 }
