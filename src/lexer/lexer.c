@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 19:09:06 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:20:13 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,16 @@ t_lexer *read_in_quotes(char *in, int *i)
 	while (in[j] && in[j + 1] && in[j + 1] != in[0])
 		j++;
 //	printf("[LEX READ IN QUOTES] after while: in == %s\n", in + j);
+//	if (j == 0 && in[j + 1] && in[j + 1] == in[0] && !in[j + 2])
+//		j++;
 	if (in[j + 2] && check_chr(in[j + 2]))
 		return (read_word(in, i, ' ', 0));
-//	printf("[LEX READ IN QUOTES]entered read quotes: i == %i\n", *i);
+///	printf("[LEX READ IN QUOTES] after all: j == %i\n", j);
 	cont = ft_substr(in, 1, j);
 	if (!cont)
 		return (NULL);
 	*i += j + 1;
-//	printf("in read quotes: i == %i\n", *i);
+//	printf("[LEX READ IN QUOTES]: i == %i\n", *i);
 	if (in[0] == '\'')
 		return (lex_new(cont, 2));
 	else
@@ -138,8 +140,8 @@ int lexer(t_mini *sh, char *input)
 //	printf("[LEX] input: %s\n", input);
     while (input[++i])
     {
-//      printf("[LEX]You entered: input - %c\n", input[i]); //erase
-		if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i])
+//      printf("[LEX]You entered: input - %c\n", input[0]); //erase
+		if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i] && input[i + 2])
 		{
 			i++;
 			continue ;

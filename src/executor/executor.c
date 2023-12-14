@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 18:06:11 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:25:51 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,22 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
 	if (!flag)
 	{
+//		printf("\n[CHILD] closing fd[0]: %i\n", sh->exe->fdp[0]); //erase
 		close(sh->exe->fdp[0]); //check this
 		sh->exe->fdp[0] = -2;
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
+//	if (p->in_fd >= 0)
+//		ft_putendl_fd(cmd[i], output);
 	ft_open(sh, p, p->fd_lst, -1);
-//	printf("[CHILD] PIPE %p -- fd after open, in: %i, out: %i\n", p->cmd, p->in_fd, p->out_fd); //erase
-	if (sh->pipe_lst->builtin)
-		exit(exec_builtin(sh, p));
+//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, sh->pipe_lst->builtin); //erase
+//	if (sh->pipe_lst->builtin)
+//		exit(exec_builtin(sh, p));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
 //	if (!p->cmd)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
+	if (p->builtin)
+		exit(exec_builtin(sh, p));
 	check_access(sh, p->cmd, &the_path);
 //	printf("\n[CHILD] after check access: %s\n", the_path); //erase
 	ft_redir(sh, p);
@@ -76,7 +81,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 int	last_child(t_mini *sh, t_pipe *p)
 {
 //	print_parser(p);
-	sh->pipe_lst->builtin = check_builtin(p->cmd);
+	p->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)
 	{
@@ -111,6 +116,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 	{
 //		printf("\n[EXEC] PIPES: %i, i: %i\n", sh->pipes, i); //erase
 		p->builtin = check_builtin(p->cmd);
+//		printf("\n[EXEC] FLAG BUILT: %i\n", p->builtin); //erase
 		if (pipe(sh->exe->fdp) < 0)
 			return (err_break(sh, "pipe", "Broken pipe", 32));
 //		printf("\n[EXEC] after pipe fd[0]: %i, fd[1]: %i\n", fd[0], fd[1]); //erase

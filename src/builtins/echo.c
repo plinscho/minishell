@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:34:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:29:01 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int		ft_echo(t_mini *sh, t_pipe *p)
             i++;
         }
     }
-    if (has_n)
+  if (has_n)
         ft_putstr_fd("\n", output);
-//	if (output > 1)
-//		close(output);
-    return (0);
+  if (sh->pipes)
+		err_exit(sh, NULL, NULL, 0);
+	return (0);
 }
 
