@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 21:29:01 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:58:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		ft_echo(t_mini *sh, t_pipe *p)
 	output = p->out_fd;
 	if (output < 0)
 		output = 1;
+//	printf("\n[ECHO] enteres: %s, output: %i\n", p->cmd[0], output); //erase
     if (num_args(cmd) > 1)
     {
         while (cmd[i] && parse_nl(cmd[i]))

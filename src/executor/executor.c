@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 21:25:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:57:58 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //	if (p->in_fd >= 0)
 //		ft_putendl_fd(cmd[i], output);
 	ft_open(sh, p, p->fd_lst, -1);
-//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, sh->pipe_lst->builtin); //erase
+//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, p->builtin); //erase
 //	if (sh->pipe_lst->builtin)
 //		exit(exec_builtin(sh, p));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
@@ -145,19 +145,19 @@ int	exec_builtin(t_mini *sh, t_pipe *p)
 {	
 	if (!sh->pipes)
 		ft_open(sh, p, p->fd_lst, -1);
-	if (sh->pipe_lst->builtin == 1)
+	if (p->builtin == 1)
 		return (ft_echo(sh, p));
-	if (sh->pipe_lst->builtin == 2)
+	if (p->builtin == 2)
 		return (ft_cd(sh, p));
-	if (sh->pipe_lst->builtin == 3)
+	if (p->builtin == 3)
 		return (ft_pwd(sh, p));
-	if (sh->pipe_lst->builtin == 4)
+	if (p->builtin == 4)
 		return (ft_export(sh, p));
-	if (sh->pipe_lst->builtin == 5)
+	if (p->builtin == 5)
 		return (ft_unset(sh, p));
-	if (sh->pipe_lst->builtin == 6)
+	if (p->builtin == 6)
 		return (ft_env(sh, p));
-	if (sh->pipe_lst->builtin == 7)
+	if (p->builtin == 7)
 		return (ft_exit(sh)); 
 	return (sh->exit);
 }
