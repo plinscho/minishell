@@ -31,7 +31,7 @@ int		print_export(t_env *eprint, t_pipe *p)
 			ft_putstr_fd("\"", output);
 			ft_putstr_fd(tmp->env_val, output);
 			ft_putstr_fd("\"", output);
-			write(1, "\n", output);
+			ft_putstr_fd("\n", output);
 		}
 		else
 			ft_putstr_fd("\n", output);
