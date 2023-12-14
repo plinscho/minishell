@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 15:39:52 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:44:42 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int check_syntax(t_mini *sh, t_lexer *lexer)
     t_lexer *current = lexer;
     int prev_token = -1;
 
+	if (current->token == 8)
+	{
+		sh->exit = 258;
+		return (err_char(current->token));
+	}
     while (current != NULL)
     {
         if (current->token != 0) // Ignore space tokens

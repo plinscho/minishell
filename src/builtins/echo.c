@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:24:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:49:09 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@
 	howdy -n -nnnnnnnnnbash-3.2$
 */
 
-int		check_flag(char *str)
-{
-	if (ft_strcmp(str, "-n") == 0)
-		return (0);
-	return (1);
-}
 
 
 int		num_args(char **args)
@@ -68,12 +62,12 @@ int		ft_echo(t_mini *sh, t_pipe *p)
         {
             ft_putendl_fd(cmd[i], output);
             if (cmd[i + 1] && cmd[i][0] != '\0')
-                write(1, " ", output);
+                ft_putstr_fd(" ", output);
             i++;
         }
     }
-    if (!has_n && output == 1)
-        write(1, "\n", output);
+    if (!has_n)
+        ft_putstr_fd("\n", output);
     return (0);
 }
 
