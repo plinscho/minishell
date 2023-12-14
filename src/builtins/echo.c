@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 17:43:19 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:24:21 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_echo(t_mini *sh, t_pipe *p)
     {
         while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
         {
-            has_n = 1;
+            has_n = 0;
             i++;
         }
 		while (cmd[i])
