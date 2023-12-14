@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 18:06:11 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:40:06 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
 	ft_open(sh, p, p->fd_lst, -1);
-//	printf("[CHILD] PIPE %p -- fd after open, in: %i, out: %i\n", p->cmd, p->in_fd, p->out_fd); //erase
+//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 	if (sh->pipe_lst->builtin)
 		exit(exec_builtin(sh, p));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
