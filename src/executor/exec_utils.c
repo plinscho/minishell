@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 18:17:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:24:44 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	check_builtin(char **cmd)
 {
+	
 	if (!cmd || !(*cmd))
 		return (0);
+//	printf("\n[CHECK BUILT] CMD: %s\n", cmd[0]); //erase
 	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
 		return (1);
 	if (!ft_strncmp(cmd[0], "cd", ft_longer(cmd[0], "cd")))

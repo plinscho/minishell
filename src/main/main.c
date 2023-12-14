@@ -15,9 +15,11 @@ int	minishell(t_mini *sh)
 		return (ft_exit(sh));
 	if (check_input(sh->input)) // It's not a mistake, just empty line
 		return (0);
+//	printf("[MAIN] After check input: %i\n", sh->exit); //erase
   	add_history(sh->input);
 	if (pre_quotes(sh->input))
 		return (quotes_error(sh));
+//	printf("[MAIN] After prequotes: %i\n", sh->exit); //erase
 	if (ft_heredoc(sh, sh->input))
 		return (1);	// break the loop code malloc error return (ft_error)
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
@@ -25,6 +27,7 @@ int	minishell(t_mini *sh)
 //	print_lexer(sh); //erase
 	if (expanser(sh, sh->lex_lst))
     	return (1);
+//	printf("[MAIN] After expansion: %i\n", sh->exit); //erase
 	if (check_syntax(sh, sh->lex_lst))
 		return (1);
 //	printf("--------------------\n"); //erase	
@@ -34,9 +37,11 @@ int	minishell(t_mini *sh)
 //	print_lexer(sh);
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
+//	printf("[MAIN] After parsing: %i\n", sh->exit); //erase
 //	print_parser(sh->pipe_lst);
 	if (executor(sh, sh->pipe_lst, -1, -1))
 		return (1);
+//	printf("[MAIN] After execution: %i\n", sh->exit); //erase
 //	printf("After exec exit status: %i\n", sh->exit); //erase
 	return (0);	
 }
