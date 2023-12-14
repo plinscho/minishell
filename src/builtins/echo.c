@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 19:30:04 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:34:01 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int		ft_echo(t_mini *sh, t_pipe *p)
     }
     if (has_n)
         ft_putstr_fd("\n", output);
+//	if (output > 1)
+//		close(output);
     return (0);
 }
 
