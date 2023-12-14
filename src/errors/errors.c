@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/12 18:27:31 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:44:26 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	err_char(int token)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
 	if (token == 4)
-		ft_putendl_fd("<", 2);
+		ft_putendl_fd("<\n", 2);
 	else if (token == 5)
-		ft_putendl_fd(">", 2);
+		ft_putendl_fd(">\n", 2);
 	else if (token == 6)
-		ft_putendl_fd("<<", 2);
+		ft_putendl_fd("<<\n", 2);
 	else if (token == 7)
-		ft_putendl_fd(">>", 2);
+		ft_putendl_fd(">>\n", 2);
 	else if (token == 8)
-		ft_putendl_fd("|", 2);
+		ft_putendl_fd("|\n", 2);
 	else
-		ft_putendl_fd("newline", 2);
+		ft_putendl_fd("newline\n", 2);
 	return (1);	
 }
 

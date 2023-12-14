@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/12 17:54:40 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:49:09 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 	howdy -n -nnnnnnnnnbash-3.2$
 */
 
+
+
 int		num_args(char **args)
 {
 	int	i;
@@ -42,28 +44,30 @@ int		ft_echo(t_mini *sh, t_pipe *p)
 	int		has_n;
 	int		output;
 	(void)sh;
+	
 	i = 1;
 	has_n = 0;
 	cmd = p->cmd;
 	output = p->out_fd;
 	if (output < 0)
 		output = 1;
-	if (num_args(cmd) > 1)
-	{
-		while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
-		{
-			has_n = 1;
-			i++;
-		}
+    if (num_args(cmd) > 1)
+    {
+        while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+        {
+            has_n = 0;
+            i++;
+        }
 		while (cmd[i])
-		{
-			ft_putendl_fd(cmd[i], output);
-			if (cmd[i + 1] && cmd[i][0] != '\0')
-				write(1, " ", output);
-			i++;
-		}
-	}
-	if (has_n == 0 && output == 1)
-		write(1, "\n", output);
-	return (0);
+        {
+            ft_putendl_fd(cmd[i], output);
+            if (cmd[i + 1] && cmd[i][0] != '\0')
+                ft_putstr_fd(" ", output);
+            i++;
+        }
+    }
+    if (!has_n)
+        ft_putstr_fd("\n", output);
+    return (0);
 }
+

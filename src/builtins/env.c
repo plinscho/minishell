@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/12 18:02:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:22:34 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_env(t_mini *sh, t_pipe *p)
 				ft_putstr_fd(tmp->env_key, output);
 				ft_putstr_fd("=", output);
 				ft_putendl_fd(tmp->env_val, output);
+				ft_putstr_fd("\n", output);
 			}
 			tmp = tmp->next;
 		}
