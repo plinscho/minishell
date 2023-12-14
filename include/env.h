@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 18:18:18 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:56:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <stddef.h>
 typedef struct s_mini t_mini;
+typedef struct s_pipe t_pipe;
 
 typedef struct s_envlst
 {
@@ -87,7 +88,7 @@ void	sort_env(t_env *head);
 // export_utils.c
 int		export_option(const char *name);
 char	*find_in_env_variables(t_mini *sh, char *variable_name);
-int		print_export(t_env *eprint);
+int		print_export(t_env *eprint, t_pipe *p);
 
 //	env2.c
 int		first_env(t_mini *sh, char **env);

@@ -9,27 +9,32 @@
 #define UPDATE	1
 #define ADD		2
 
-int		print_export(t_env *eprint)
+int		print_export(t_env *eprint, t_pipe *p)
 {
 	t_env	*tmp;
+	int		output;
 
+	output = p->out_fd;
+	if (output < 1)
+		output = 1;
 	if (!eprint)
 		return (1);
 	print_sort_print(eprint);
 	tmp = eprint;
 	while (tmp)
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(tmp->env_key, 1);
+		ft_putstr_fd("declare -x ", output);
+		ft_putstr_fd(tmp->env_key, output);
 		if (tmp->env_val)
 		{
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd("\"", 1);
-			ft_putstr_fd(tmp->env_val,1);
-			ft_putendl_fd("\"", 1);
+			ft_putstr_fd("=", output);
+			ft_putstr_fd("\"", output);
+			ft_putstr_fd(tmp->env_val, output);
+			ft_putstr_fd("\"", output);
+			write(1, "\n", output);
 		}
 		else
-			ft_putstr_fd("\n", 1);
+			ft_putstr_fd("\n", output);
 		tmp = tmp->next;
 	}
 	tmp = eprint;
