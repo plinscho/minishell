@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+         #
+#    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/09 20:46:22 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/13 16:42:53 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ PARSER = src/parser/parser \
 
 LEXER = src/lexer/lexer \
 		src/lexer/lexer_utils \
+		src/lexer/quotes \
 		src/lexer/heredoc \
 		src/lexer/fd_utils \
 		src/lexer/check_syntax \

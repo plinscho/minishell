@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 18:50:30 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:11:34 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
  #define LEXER_H
 
 #include "minishell.h"
+
+typedef struct s_exp	t_exp;
 
 typedef struct s_lexer
 {
@@ -39,15 +41,17 @@ t_lexer *read_space(char *in, int *i);
 int		lex_clean(t_lexer **lst); // cleans the list and the input
 t_lexer	*lex_new(char *content, int token); // creates a new node
 void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
+t_lexer	*lex_last(t_lexer *lst);
+void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex);
 //int		trim_quotes(t_mini *sh, t_lexer *lex); // to trim quotes after expantion 
 //char	*word_no_q(char *in, char q); // to trim quotes after expantion
 /***************************************************/
 
-int	word_in_quotes(char *in, char *q, int j);
-t_lexer	*lex_last(t_lexer *lst);
-void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex);
-char		*trim_quotes(char *s, char q, int len, int i);
-int	len_no_q(char *s, char q, int len, int i);
+/***** quotes.c - dealing with quotes *****/
+int		word_in_quotes(char *in, char *q, int j);
+char	*trim_quotes(char *s, char q, int len, int i);
+int		len_no_q(char *s, char q, int len, int i);
+int		open_q(t_exp *exp, char c, int type);
 
 
 /***** check_syntax.c - *****/

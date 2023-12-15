@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 20:48:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:09:39 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 
 void	error_option(char *str1, char *str2)
 {
-	ft_putstr_fd("Export ", 2);
+	ft_putstr_fd("minishell: export: \'", 2);
 	ft_putstr_fd(str1, 2);
 	ft_putstr_fd("=", 2);
 	ft_putstr_fd(str2, 2);
-	ft_putstr_fd(": not a valid identifier\n", 2);
+	ft_putstr_fd("\': not a valid identifier\n", 2);
 
 }
 
@@ -81,29 +81,29 @@ int		handle_args(t_mini *sh, char *arg)
 	return (0);
 }
 
-int		ft_export(t_mini *sh)
+int		ft_export(t_mini *sh, t_pipe *p)
 {
 	t_env	*tmp_env;
 	char	**t_cmd;
 	int		err;
 	int		i;
 	
+	(void)p;
     err = 0;
 	tmp_env = sh->env_lst;
 	t_cmd = sh->pipe_lst->cmd;
 	i = 1;
 	if (!t_cmd[1])
-		return (print_export(tmp_env));
+		return (print_export(tmp_env, p));
 	while (t_cmd[i] != NULL)
 	{
 		err = handle_args(sh, t_cmd[i]);
 		i++;
 	}
 	if (sh->env)
-	usleep(50);
 		sh->env = arr_clean(sh->env, 0);
 	sh->env = env_converter(sh->env_lst);
-	if (!sh->env)
-		return (err_break(sh, "malloc", NULL, 12));
+//	if (!sh->env)
+//		return (err_break(sh, "malloc", NULL, 12));
 	return (err);
 }

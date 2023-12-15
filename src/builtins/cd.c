@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 13:58:54 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:46:22 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		print_error(char **args)
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 	}
 }
 
@@ -53,7 +54,7 @@ int		go_to_path(int option, t_mini *sh)
 		update_oldpwd(sh);
 		env_path = ft_get_value(sh, "HOME");
 		if (!env_path)
-			ft_putendl_fd("minishell : cd: HOME not set", 2);
+			ft_putstr_fd("minishell : cd: HOME not set\n", 2);
 		if (!env_path)
 			return (1);
 	}
@@ -61,23 +62,25 @@ int		go_to_path(int option, t_mini *sh)
 	{
 		env_path = ft_get_value(sh, "OLDPWD");
 		if (!env_path)
-			ft_putendl_fd("minishell : cd: OLDPWD not set", 2);
+			ft_putstr_fd("minishell : cd: OLDPWD not set\n", 2);
 		if (!env_path)
 			return (1);
 		update_oldpwd(sh);
 	}
 	ret = chdir(env_path);
-	env_path = ft_memdel(env_path);
+//	env_path = ft_memdel(env_path);
 	return (ret);
 }
 
-int		ft_cd(t_mini *sh)
+int		ft_cd(t_mini *sh, t_pipe *p)
 {
 	char	**args;
 	int		cd_ret;
 
-	args = sh->pipe_lst->cmd;
-	if (!args[1])
+//	print_parser(p);
+	(void)p;
+	args = p->cmd;
+	if (!args[1] || args[1][0] == '~')
 		return (go_to_path(0, sh));
 	if (ft_strcmp(args[1], "-") == 0)
 	{
