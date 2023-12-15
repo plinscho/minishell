@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/14 17:17:57 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:40:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	sh_clean(t_mini *sh)
 		pipe_clean(&(sh->pipe_lst));
 //	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase	
 //	printf("[CLEAN] before paths clean: paths - %p\n", sh->paths); //erase
-	if (sh->paths[0] != NULL)
+	if (sh->paths && sh->paths[0] != NULL)
 		sh->paths = arr_clean(sh->paths, 0);
 //	printf("[CLEAN] after paths clean: paths - %p\n", sh->paths); //erase
 //	printf("[CLEAN] before env clean: env - %p\n", sh->env); //erase

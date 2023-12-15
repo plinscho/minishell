@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 21:57:58 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:14:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	ft_redir(t_mini *sh, t_pipe *p)
 
 void	child_process(t_mini *sh, t_pipe *p, int flag)
 {
-	char	*the_path;
+//	char	*the_path;
 
-	the_path = NULL;
+//	the_path = NULL;
 //	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
 	if (!flag)
 	{
@@ -68,13 +68,14 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
 	if (p->builtin)
 		exit(exec_builtin(sh, p));
-	check_access(sh, p->cmd, &the_path);
-//	printf("\n[CHILD] after check access: %s\n", the_path); //erase
+	check_access(sh, p->cmd, p);
+//	printf("\n[CHILD] after check access: %s\n", p->path); //erase
 	ft_redir(sh, p);
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
-	if (execve(the_path, p->cmd, sh->env) == -1)
+
+	if (execve(p->path, p->cmd, sh->env) == -1)
 		err_exit(sh, "execve", NULL, 14);
 }
 

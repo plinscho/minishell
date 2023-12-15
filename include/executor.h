@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 17:02:29 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:16:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int		exec_builtin(t_mini *sh, t_pipe *p); // executes the needed builtin
 int		check_builtin(char **cmd); // checks if the cmd is a builtin
 void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
 void	ft_check_open(t_pipe *p, t_fd *cur, int prev); // check if the prev is open and closes it
-void	check_access(t_mini *sh, char **cmd, char **path);
-char	*check_paths(char **paths, char *cmd, t_mini *sh);
+void	check_access(t_mini *sh, char **cmd, t_pipe *p);
+void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *p);
 /*********************************************************/
 
 

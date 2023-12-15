@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:51:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:05:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,10 @@ char	*ft_smart_join(char *s1, char *s2, char *s3)
 
 	i = -1;
 	j = 0;
+//	printf("[SMART JOIN] S1: %s, -- S2: %s, -- S3: %s\n", s1, s2, s3); //erase
 	if (!(s1 && s2 && s3))
 		return (0);
-	new = malloc(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s2) + 1);
+	new = malloc(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1);
 	if (!new)
 		return (NULL);
 	while (s1[++i])

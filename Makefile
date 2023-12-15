@@ -6,7 +6,7 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/13 16:42:53 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/15 20:13:08 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDE = include/minishell.h \
 			include/executor.h
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
+CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/ #-fsanitize=address
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
