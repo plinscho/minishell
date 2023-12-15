@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 18:56:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:28:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	int		flag;
 	int		j;
 
-	if (!s || !len)
+	if (!s || !len || (!ft_strchr(s, '\'') && !ft_strchr(s, '\"')))
 		return (s);
 	len = len_no_q(s, q, len, -1);
 //	printf("[TRIM] len - %i\n", len); //erase
