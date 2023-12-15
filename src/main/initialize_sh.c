@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_sh.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/09 20:46:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:17:57 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	sh_init(t_mini *sh, char **env)
     	return (err_break(sh, "malloc", NULL, 12));
 	if (first_env(sh, env))  	// Loads env into the shell. If malloc fails, delete it.		
     	return (err_break(sh, "malloc", NULL, 12));
-	printf("\nShell Initialized\n#########################################\n\n"); //erase
+			sh->env = env_converter(sh->env_lst);
+	if (!sh->env)
+		return (err_break(sh, "malloc", NULL, 12));	
+//	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
 }

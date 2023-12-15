@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 21:51:26 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:24:44 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	check_builtin(char **cmd)
 {
+	
 	if (!cmd || !(*cmd))
 		return (0);
+//	printf("\n[CHECK BUILT] CMD: %s\n", cmd[0]); //erase
 	if (!ft_strncmp(cmd[0], "echo", ft_longer(cmd[0], "echo")))
 		return (1);
 	if (!ft_strncmp(cmd[0], "cd", ft_longer(cmd[0], "cd")))
@@ -85,8 +87,8 @@ void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
 
 void	check_access(t_mini *sh, char **cmd, char **path)
 {
-//	if (!cmd)
-//		return ;
+	if (!cmd || !(*cmd) || !(**cmd))
+		err_exit(sh, cmd[0], "command not found", 127);
 	if (ft_strchr(cmd[0], '/'))
 	{
 		if (access(cmd[0], F_OK) == 0)

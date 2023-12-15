@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 20:22:33 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 17:10:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:02:29 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
 void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
 int		last_child(t_mini *sh, t_pipe *p); 
 void	ft_redir(t_mini *sh, t_pipe *p); // flag 0 if NOT last child, 1 if last one
-int		exec_builtin(t_mini *sh); // executes the needed builtin
+int		exec_builtin(t_mini *sh, t_pipe *p); // executes the needed builtin
 /*************************************************/
 
 /***** exec_utils.c - utils for execution processes *****/

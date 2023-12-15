@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 19:42:36 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:50:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ void	exp_clean(t_exp **exp)
 	*exp = ft_memdel(*exp);
 }
 
+/*
+If type = 1 - It's a word (token 1) 0
+if type = 3 - it's a string "" (token 3) 1
+*/
+int	exp_start(t_mini *sh, char *cont, int type)
+{
+	sh->exp->cont = cont;
+	sh->exp->k = new_len(sh, cont, type);
+	if (sh->exp->k < 0)
+		return (1);
+	sh->exp->new = malloc(sh->exp->k + 1);
+	if (!sh->exp->new)
+		return (1);
+	sh->exp->k = -1;
+	sh->exp->j = -1;
+	sh->exp->fl = 0;
+	sh->exp->q = ' ';
+	return (0);
+}
+
 char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 {
 	char	*str;
@@ -81,30 +101,3 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	return (str);
 }
 
-/*
-flag = 0 - there is no open quotes
-fflag = 1 - there is an open quote
-*/
-int	check_file_exp(char *str)
-{
-	int		i;
-	int		flag;
-	char	q;
-
-	i = -1;
-	flag = 0;
-	q = ' ';
-	while (str[++i])
-	{
-		if (str[i] == ' ' && !flag)
-			return (1);
-		if (check_chr(str[i]) == 2 && !flag)
-		{
-			flag++;
-			q = str[i];
-		}
-		else if (flag && str[i] == q)
-			flag = 0;
-	}
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 17:01:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:50:15 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,19 +120,29 @@ char	*check_value(t_mini *sh, char *var)
 }
 
 /*
-If type = 1 - It's a word (token 1) 0
-if type = 3 - it's a string "" (token 3) 1
+flag = 0 - there is no open quotes
+fflag = 1 - there is an open quote
 */
-int	exp_start(t_mini *sh, char *cont, int type)
+int	check_file_exp(char *str)
 {
-	sh->exp->cont = cont;
-	sh->exp->k = new_len(sh, cont, type);
-	if (sh->exp->k < 0)
-		return (1);
-	sh->exp->new = malloc(sh->exp->k + 1);
-	if (!sh->exp->new)
-		return (1);
-	sh->exp->k = -1;
-	sh->exp->j = -1;
+	int		i;
+	int		flag;
+	char	q;
+
+	i = -1;
+	flag = 0;
+	q = ' ';
+	while (str[++i])
+	{
+		if (str[i] == ' ' && !flag)
+			return (1);
+		if (check_chr(str[i]) == 2 && !flag)
+		{
+			flag++;
+			q = str[i];
+		}
+		else if (flag && str[i] == q)
+			flag = 0;
+	}
 	return (0);
 }

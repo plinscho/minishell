@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 21:55:39 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:53:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 		return (cont);
 	if (check_exp(cont, 3, -1) < 0)
 		return (cont);
-	cont = expand_str(sh, cont, -1, -1);
+	if (exp_init(sh))
+		return (0);
+	cont = expand_str(sh, cont, 1, -1);
 	return (cont);
 }
 
@@ -38,7 +40,8 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 		return (NULL);
 	while (cont[++i])
 	{
-		if (cont[i] != '$' || !cont[i + 1])
+	//	printf("[EXP STR] loop, str[i] -- %c\n", cont[i]); //erase
+		if (open_q(sh->exp, cont[i], type) || cont[i] != '$' || !cont[i + 1]) // add here a flag (in exp  struct) if there is an open '
 			sh->exp->new[++sh->exp->j] = cont[i];
 		else
 		{
@@ -53,8 +56,8 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 			while (sh->exp->val && sh->exp->val[++sh->exp->k])
 				sh->exp->new[++sh->exp->j] = sh->exp->val[sh->exp->k];
 			i += ft_strlen(sh->exp->var);
-			//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
-			//exp_nano_clean(sh->exp);
+	//		printf("[EXP STR] after get value, str[i] -- %c, str[i-1] -- %c\n", cont[i], cont[i - 1]); //erase
+			exp_nano_clean(sh->exp);
 		}
 	}
 	sh->exp->new[++sh->exp->j] = '\0';
@@ -79,6 +82,7 @@ t_lexer *read_word_exp(char *in, int *i, char q, int j)
 //	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
 //	if (q != ' ')
 //		(*i)++;
+//	cont = trim_quotes(ft_substr(in, 0, j + 1), ' ', ft_strlen(cont), -1);
 	cont = ft_substr(in, 0, j + 1);
 	if (cont)
 		cont = trim_quotes(cont, ' ', ft_strlen(cont), -1);
@@ -117,6 +121,8 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 			return (1);
 		else
 			lex_add(&head, new);
+		if (!str[i])
+			break ;
 	}
 //	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 //	print_lex_node(head); //erase
