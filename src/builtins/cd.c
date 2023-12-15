@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:46:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:44:34 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		go_to_path(int option, t_mini *sh)
 		update_oldpwd(sh);
 	}
 	ret = chdir(env_path);
-//	env_path = ft_memdel(env_path);
+	env_path = ft_memdel(env_path);
 	return (ret);
 }
 

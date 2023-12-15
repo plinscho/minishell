@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 19:47:14 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:46:29 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ size_t	env_variables(t_env *head, int option)
 	{
 		while (tmp->next)
 		{
-			if (tmp->env_val)
+			if (tmp->env_val[0] != '\0')
 				env_cases++;
 			tmp = tmp->next;
 		}
