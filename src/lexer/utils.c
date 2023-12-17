@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 20:05:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 17:59:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ This function checks if a char is a redirection (< OR > OR |) or not:
 2. return (0) - the char is a redirection or space
 3. return (2) - the char is a quote (for expansion)
 4. return (3) - the char is a number (for expansion)
-4. return (4) - the char is a character (for expansion)
+5. return (4) - the char is a character (for expansion)
 */
 int	check_chr(char c)
 {

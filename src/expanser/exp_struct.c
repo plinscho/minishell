@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 16:30:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:21:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ if type = 3 - it's a string "" (token 3) 1
 int	exp_start(t_mini *sh, char *cont, int type)
 {
 	sh->exp->cont = cont;
-	sh->exp->k = new_len(sh, cont, type);
+	sh->exp->k = new_len(sh, cont);
 	if (sh->exp->k < 0)
 		return (1);
 	sh->exp->new = malloc(sh->exp->k + 1);

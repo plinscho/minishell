@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/13 16:50:18 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:22:20 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ typedef struct s_exp
 
 /**********   expanser.c -  ***********/
 int		expanser(t_mini *sh, t_lexer *lex);
-char	*expand_str(t_mini *sh, char *cont, int type, int i);
+char	*expand_str(t_mini *sh, char *cont, int i);
 int		expand_word(t_mini *sh, t_lexer **lex);
 t_lexer *read_word_exp(char *in, int *i, char q, int j); 
 char	*expand_hd(t_mini *sh, char *cont, int type);
 /***************************************************/
 
 /**********   expanser_utils.c -  ******/
-int		check_exp(char *cont, int type, int q); // q is a flag used inside to count " quotes
-int		new_len(t_mini *sh, char *cont, int type);
+int		check_exp(char *cont, int type, int flag); // q is a flag used inside to count " quotes
+int		new_len(t_mini *sh, char *cont);
 char 	*get_var(char *cont);
 char	*check_value(t_mini *sh, char *var);
 int		check_file_exp(char *str);
@@ -48,7 +48,7 @@ int		check_file_exp(char *str);
 int		exp_init(t_mini *sh);
 void	exp_nano_clean(t_exp *exp);
 void	exp_clean(t_exp **exp);
-int		exp_start(t_mini *sh, char *cont, int type);
+int		exp_start(t_mini *sh, char *cont);
 char	*exp_file(t_mini *sh, char *cont, t_fd *new);
 /***************************************************/
 

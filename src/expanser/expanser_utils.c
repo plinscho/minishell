@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:50:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:21:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,17 @@ Q is always -1 in the beginning - its a flag to check if we are in the double qu
 q < 0 - no open quotes
 q > 1 - you are inside open quotes
 */
-int	check_exp(char *cont, int type, int q)
+int	check_exp(char *cont, int type, int flag)
 {
 	int	i;
 
 	i = 0;
-	if (!cont || type == 2)
+	if (!cont || (type != 1 && type != 3) || flag)
 		return (-1);
 	while (cont[i] && cont[i + 1])
 	{
-		if (type == 1 && cont[i] == '\"')
-			q *= -1;
-		if (type == 1 && q < 0 && cont[i] == '\'')
-		{
-			i++;
-			while (cont[i] && cont[i] != '\'')
-				i++;
-			if (!cont[i])
-				break ;
-		}
-		else if (cont[i] == '$' && check_chr(cont[i + 1]) > 2)
-				break ;
+		if (cont[i] == '$' && check_chr(cont[i + 1]) > 2)
+			break ;
 		i++;
 	}
 	if (!cont[i] || !cont[i + 1])
@@ -52,7 +42,7 @@ int	check_exp(char *cont, int type, int q)
 If type = 1 - It's a word (token 1) 0
 if type = 3 - it's a string "" (token 3) 1
 */
-int	new_len(t_mini *sh, char *cont, int type)
+int	new_len(t_mini *sh, char *cont)
 {
 	int	len;
 	int	i;
@@ -61,7 +51,7 @@ int	new_len(t_mini *sh, char *cont, int type)
 	len = ft_strlen(cont);
 	while (*cont)
 	{
-		i = check_exp(cont, type, -1);
+		i = check_exp(cont, 1, -1);
 		if (i < 0)
 			break ;
 		new = get_var(&cont[i + 1]);

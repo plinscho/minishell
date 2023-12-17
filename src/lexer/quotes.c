@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 16:28:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:19:30 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	len_no_q(char *s, char q, int len, int i)
 	return (len);
 }
 
-int		open_q(t_exp *exp, char c, int type)
+/*int		open_q(t_exp *exp, char c, int type)
 {
 //	printf("[OPEN Q] c -- %c, type -- %i, q -- %c, flag -- %i\n", c, type, exp->q, exp->fl); //erase
 	if (type == 3)
@@ -105,4 +105,4 @@ int		open_q(t_exp *exp, char c, int type)
 	else if (exp->fl && c == exp->q)
 		exp->fl = 0;
 	return (0);
-}
+}*/

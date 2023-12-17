@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 20:20:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 17:58:45 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ This function trims all the sequential spaces and saves token 0 in the node.
 t_lexer *read_space(char *in, int *i)
 {
 	int	j;
+	char	*cont;
 
 	j = 0;
 	while (in[j + 1] && in[j + 1] == ' ')
         j++;
+	cont = malloc(2);
+	if (!cont)
+		return (NULL);
+	cont[0] = ' ';
+	cont[1] = '\0';
 	*i += j;
-    return(lex_new(NULL, 0));
+    return(lex_new(cont, 0));
 }
 
 /*
@@ -36,20 +42,21 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 {
 	char	*cont;
 
-//	printf("[RW]You entered: input - %s\n", in + j); //erase
+	q = ' '; // erase	
+//printf("[RW]You entered: input - %s\n", in + j); //erase
 /*	while (in[j] && in[j + 1] && check_chr(in[0]) == 2 && in[j + 1] != in[0])
 		j++;
 	printf("[RW] After first while: input - %s\n", in + j); //erase
 	if (in[j] && in[j + 1] && check_chr(in[0]) == 2)
 		j = j + 2;
 	printf("[RW] After if: input - %s\n", in + j); //erase*/
-	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
+	while (in[j] && in[j + 1] && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
 		j++;
 //	printf("[RW] After 2d while: input - %s\n", in + j); //erase
-	if (check_chr(in[0]) == 2)
+	/*if (check_chr(in[0]) == 2)
 		j = word_in_quotes(in, &q, -1);
 	while (in[j] && in[j + 1] && check_chr(in[j + 1]) == 2)
-		j = word_in_quotes(in, &q, j);
+		j = word_in_quotes(in, &q, j);*/
 //	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
 //	if (q != ' ')
 //		(*i)++;
@@ -58,7 +65,7 @@ t_lexer *read_word(char *in, int *i, char q, int j)
 	if (!cont)
 		return (NULL);
 	*i += j;
-//	printf("[RW] leaving: token - %s, in[i] -- %c, i -- %i\n", cont, in[j], *i); //erase
+//	printf("[RW] leaving: token - %s, in[i] -- %s, i -- %i\n", cont, in + j, *i); //erase
 	return (lex_new(cont, 1));
 }
 
@@ -76,16 +83,15 @@ t_lexer *read_in_quotes(char *in, int *i)
 	while (in[j] && in[j + 1] && in[j + 1] != in[0])
 		j++;
 //	printf("[LEX READ IN QUOTES] after while: in == %s\n", in + j);
-//	if (j == 0 && in[j + 1] && in[j + 1] == in[0] && !in[j + 2])
-//		j++;
-	if (in[j + 2] && check_chr(in[j + 2]))
-		return (read_word(in, i, ' ', 0));
+//	cont = ft_substr_quotes(in, in[0], j + 1, -1);
+	/*if (in[j + 2] && check_chr(in[j + 2]))
+		return (read_word(in, i, ' ', 0));*/
 ///	printf("[LEX READ IN QUOTES] after all: j == %i\n", j);
 	cont = ft_substr(in, 1, j);
 	if (!cont)
 		return (NULL);
 	*i += j + 1;
-//	printf("[LEX READ IN QUOTES]: i == %i\n", *i);
+//	printf("[LEX READ IN QUOTES]: in[i] == %s\n", in + j + 1);
 	if (in[0] == '\'')
 		return (lex_new(cont, 2));
 	else
@@ -141,11 +147,11 @@ int lexer(t_mini *sh, char *input)
     while (input[++i])
     {
 //      printf("[LEX]You entered: input - %c\n", input[0]); //erase
-		if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i] && input[i + 2])
+		/*if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i] && input[i + 2])
 		{
 			i++;
 			continue ;
-		}
+		}*/
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
