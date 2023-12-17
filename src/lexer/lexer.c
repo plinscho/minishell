@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 20:20:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:33:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ This function trims all the sequential spaces and saves token 0 in the node.
 */
 t_lexer *read_space(char *in, int *i)
 {
-	int	j;
+	int		j;
+	char	*cont;
 
 	j = 0;
 	while (in[j + 1] && in[j + 1] == ' ')
         j++;
+	cont = malloc(2);
+	if (!cont)
+		return (NULL);
+	cont[0] = ' ';
+	cont[1] = '\0';
 	*i += j;
-    return(lex_new(NULL, 0));
+    return(lex_new(cont, 0));
 }
 
 /*
