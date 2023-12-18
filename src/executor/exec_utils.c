@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 20:14:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:45:33 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,10 @@ void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *pipe)
 	int		i;
 
 	i = 0;
-//	print_arr(sh->paths);
-	pipe->path = NULL;
+//	print_arr(paths);
+	if (!paths)
+		err_exit(sh, cmd, "command not found", 127);
+//	pipe->path = NULL;
 	while (paths[i])
 	{
 	//	printf("\n[CHECK PATHS] i: %i, path: %s\n", i, paths[i]); //erase

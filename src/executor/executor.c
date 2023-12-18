@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 20:14:11 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:49:24 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
-
 	if (execve(p->path, p->cmd, sh->env) == -1)
 		err_exit(sh, "execve", NULL, 14);
 }
@@ -156,8 +155,10 @@ int	exec_builtin(t_mini *sh, t_pipe *p)
 		return (ft_export(sh, p));
 	if (p->builtin == 5)
 		return (ft_unset(sh, p));
-	if (p->builtin == 6)
+	if (p->builtin == 6 && sh->paths)
 		return (ft_env(sh, p));
+	else if (p->builtin == 6 && !sh->paths)
+		err_break(sh, p->cmd[0], "command not found", 127);
 	if (p->builtin == 7)
 		return (ft_exit(sh)); 
 	return (sh->exit);
