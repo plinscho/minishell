@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/18 17:45:33 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:56:58 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	check_access(t_mini *sh, char **cmd, t_pipe *p)
 			p->path = cmd[0];
 		}
 		else
-			err_exit(sh, cmd[0], "command not found", 127);
+			err_exit(sh, cmd[0], "No such file or directory", 127);
 	}
 	else
 		check_paths(sh->paths, cmd[0], sh, p);
