@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:30:57 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:39:02 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_exit(t_mini *sh)
 	char	*input;
 	int		ex;
 	
-	if (sh->input == NULL)
+	if (sh->input == NULL || ft_strcmp(sh->input, "exit") == 0)
 	{
 		sh->power_on = 0;
 		return (sh->exit);
