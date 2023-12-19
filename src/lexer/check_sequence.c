@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:44:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:05:54 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		no_cmd(char *seq)
 	}
 	return (1);
 }
-
-int syntax_handler(t_lexer *head, int *pipes, int *redirs)
+/*
+int synt_heredoc(t_lexer *head)
 {
     int prev_token = -1;
     while (head)
@@ -81,6 +81,7 @@ int syntax_handler(t_lexer *head, int *pipes, int *redirs)
         return (err_char(prev_token));
     return (0);
 }
+*/
 
 
 int check_syntax(t_mini *sh, t_lexer *lexer)
@@ -97,7 +98,7 @@ int check_syntax(t_mini *sh, t_lexer *lexer)
     {
         if (current->token != 0) // Ignore space tokens
         {
-            if (current->token >= 4 && current->token <= 9) // If the token is a pipe or redirection operator
+            if ((current->token >= 4 && current->token <= 5) || current->token >= 7)// If the token is a pipe or redirection operator
             {
                 if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
                 {

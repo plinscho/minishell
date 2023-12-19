@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/12 16:06:14 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:53:46 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_heredoc(t_mini *sh, char *in)
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
 		new->str = keyword_hd(new, in, &i, ' ');
-		printf("[HD] keyword: %s\n", new->str); //erase
+	//	printf("[HD] keyword: %s\n", new->str); //erase
 		if (!new->str)
 			return (err_break(sh, "heredoc", NULL, 12));
 		new->fd = save_hd(sh, new->str, NULL, new->type);

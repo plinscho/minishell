@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:09:39 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:57:05 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	error_option(char *str1, char *str2)
 
 int		handle_args(t_mini *sh, char *arg)
 {
+//	char	*has_eq;
     char	**vc;
     char	*key;
     
+//	has_eq = (unsigned long)ft_strchr(arg, '=');
     vc = ft_split(arg, '=');
     if (!export_option(vc[0]))
         error_option(vc[0], vc[1]);

@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 18:50:55 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:59:25 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ int		ft_exit(t_mini *sh)
 		return (sh->exit);
 	}
 	else
-	{	
+	{
+		ex = 255;
 		if (arg_count(sh->pipe_lst->cmd) > 2)
 			return (p_exit_err("minishell: exit: too many arguments\n", 2));			
 		input = sh->pipe_lst->cmd[1];
-		if (!input)
-			return (1);
-		ex = check_exit(input);
+		if (input[0] == '\0')
+			p_exit_err(input, 1);
+		else
+			ex = check_exit(input);
 	}
 	if (ex != -1)
 		sh->power_on = 0;

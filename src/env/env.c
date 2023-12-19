@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 17:17:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:58:42 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		first_env(t_mini *sh, char **env)
 			return (1);
 		sh_env->env_key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);
 		sh_env->env_val = ft_strdup(getenv(sh_env->env_key));
+//		sh_env->env_val = ft_strjoin("=", getenv(sh_env->env_key));
 		sh_env->next = NULL;
 		add_env_to_list(sh, sh_env);
 		if (!sh_env->env_key || !sh_env->env_val)
