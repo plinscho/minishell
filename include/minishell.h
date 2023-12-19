@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 17:55:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:06:36 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	sig_handler(int sig);
 
 int		quotes_error(t_mini *sh);
 int		err_char(int token);
-void	error_option(char *str1, char *str2);
+int		error_option(char *str1, char *str2);
 
 
 //void	syntax_error(t_mini *sh, char *seq);
