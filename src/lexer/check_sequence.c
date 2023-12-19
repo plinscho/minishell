@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:44:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:00:59 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int check_syntax(t_mini *sh, t_lexer *lexer)
     {
         if (current->token != 0) // Ignore space tokens
         {
-            if (current->token >= 4 && current->token <= 9) // If the token is a pipe or redirection operator
+			printf("tok: %d\n", current->token);
+            if ((current->token >= 4 && current->token <= 5) || current->token >= 7)// If the token is a pipe or redirection operator
             {
                 if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
                 {

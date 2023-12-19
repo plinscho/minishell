@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 17:17:49 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:35:02 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**env_converter(t_env *env)
 	if (!env)
 		return (NULL);
 	nodes = env_variables(env, 2);
-	grid = (char **)malloc((sizeof(char *) * (nodes + 1) + 1));
+	grid = (char **)malloc((sizeof(char *) * (nodes + 1)));
 	if (!grid)
 		return (NULL);
 	tmp = env;

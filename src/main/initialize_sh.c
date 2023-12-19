@@ -37,7 +37,7 @@ int	sh_init(t_mini *sh, char **env)
     	return (err_break(sh, "malloc", NULL, 12));*/
 	if (first_env(sh, env))  	// Loads env into the shell. If malloc fails, delete it.		
     	return (err_break(sh, "malloc", NULL, 12));
-			sh->env = env_converter(sh->env_lst);
+	sh->env = env_converter(sh->env_lst);
 	if (!sh->env)
 		return (err_break(sh, "malloc", NULL, 12));	
 //	printf("\nShell Initialized\n#########################################\n\n"); //erase
@@ -51,6 +51,9 @@ This function cleans the sh struct ans makes it ready for the next input.
 void	sh_clean(t_mini *sh)
 {
 //	printf("[CLEAN]You entered: lex - %p\n", sh->lex_lst); //erase
+	if (sh->input) // memdel doesn't set a ptr to null without double pointer
+		sh->input = ft_memdel(sh->input);
+
 	if (sh->lex_lst)
 		lex_clean(&(sh->lex_lst));
 //	printf("[CLEAN] after lex clean: lex - %p\n", sh->lex_lst); //erase
@@ -59,8 +62,7 @@ void	sh_clean(t_mini *sh)
 		fd_clean(&(sh->hd_lst), 1);
 //	printf("[CLEAN] after hd clean: hd - %p\n", sh->hd_lst); //erase
 //	printf("[CLEAN] before input clean: input - %p\n", sh->input); //erase
-	if (sh->input && *sh->input) // memdel doesn't set a ptr to null without double pointer
-		sh->input = ft_memdel(sh->input);
+
 //	printf("[CLEAN] after input clean: input - %p\n", sh->input); //erase
 //	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase
 	if (sh->pipe_lst)
