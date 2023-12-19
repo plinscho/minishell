@@ -33,7 +33,7 @@ int	minishell(t_mini *sh)
 //	printf("--------------------\n"); //erase	
 //	if (trim_quotes(sh, sh->lex_lst))
 //		return (1);
-///	printf("after check syntax: %s\n", "4"); //erase
+//	printf("after check syntax: %s\n", "4"); //erase
 //	print_lexer(sh);
 	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 

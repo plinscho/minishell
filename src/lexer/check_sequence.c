@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 18:00:32 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:22:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int check_syntax(t_mini *sh, t_lexer *lexer)
     t_lexer *current = lexer;
     int prev_token = -1;
 
+	if (!lexer)
+		return (1);
 	if (current->token == 8)
 	{
 		sh->exit = 258;
