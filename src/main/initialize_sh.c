@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/19 17:42:03 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:46:13 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@
 
 /* Here we initialize the struct for the first time and parse the environment */
 
-//int	allocate_exe(t_mini *sh);
-
 int	sh_init(t_mini *sh, char **env)
 {
-	sh->env	= NULL;
 	sh->env_lst = NULL;
 	sh->lex_lst = NULL;
 	sh->hd_lst = NULL;
@@ -29,18 +26,17 @@ int	sh_init(t_mini *sh, char **env)
 	sh->input = NULL;
 	sh->paths = NULL;
 	sh->exit = 0;
-  
+	sh->pipes = 0;
+	sh->exe = NULL;
+	sh->env	= NULL;
 //	sh->envp = env; // for debugging only
-
-	signals(); 					 // This starts the signals Ctrl + C && Ctrl + D.
-	/*if (allocate_exe(sh))
-    	return (err_break(sh, "malloc", NULL, 12));*/
-	if (first_env(sh, env))  	// Loads env into the shell. If malloc fails, delete it.		
+	sh->power_on = 0;
+	signals();
+	if (first_env(sh, env))
     	return (err_break(sh, "malloc", NULL, 12));
-			sh->env = env_converter(sh->env_lst);
+	sh->env = env_converter(sh->env_lst);
 	if (!sh->env)
 		return (err_break(sh, "malloc", NULL, 12));	
-//	printf("\nShell Initialized\n#########################################\n\n"); //erase
 	sh->power_on = 1;
 	return (0);
 }
@@ -59,7 +55,7 @@ void	sh_clean(t_mini *sh)
 		fd_clean(&(sh->hd_lst), 1);
 //	printf("[CLEAN] after hd clean: hd - %p\n", sh->hd_lst); //erase
 //	printf("[CLEAN] before input clean: input - %p\n", sh->input); //erase
-	if (sh->input && *sh->input) // memdel doesn't set a ptr to null without double pointer
+	if (sh->input && *sh->input)
 		sh->input = ft_memdel(sh->input);
 //	printf("[CLEAN] after input clean: input - %p\n", sh->input); //erase
 //	printf("[CLEAN] before pipe clean: pipe - %p\n", sh->pipe_lst); //erase
@@ -73,9 +69,7 @@ void	sh_clean(t_mini *sh)
 //	printf("[CLEAN] before env clean: env - %p\n", sh->env); //erase
 //	if (sh->env)
 //		sh->env = arr_clean(sh->env, 0);
-
 //	printf("[CLEAN] after env clean: env - %p\n", sh->env); //erase
-//	sh->exit = err; // this is incorrect
 	if (sh->exe)
 		sh->exe = ft_memdel(sh->exe);
 	if (sh->exp)
@@ -101,22 +95,13 @@ t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
 int	sh_loop_init(t_mini *sh)
 {
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
-	if (sh->paths)
-		sh->paths = ft_memdel(sh->paths);
+	sh->pipes = 0;
 	if (ft_get_value(sh, "PATH"))
 	{
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');
 		if (!sh->paths)
 			return(err_break(sh, "malloc", NULL, 12));
 	}
-/*
-	if (!sh->env)
-	{
-		if (env_converter(sh->env_lst) == -1) // malloc has failed in the char **.
-			return (err_break(sh, "malloc", NULL, 12));
-	}
-*/
-	sh->pipes = 0;
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
 	return (0);

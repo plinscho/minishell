@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 16:43:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:09:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ typedef struct s_exp	t_exp;
 
 typedef struct s_mini
 {
-	t_lexer	*lex_lst;
 	t_env	*env_lst;
+	t_lexer	*lex_lst;
 	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
 	t_fd	*hd_lst;	//Here_doc list. 
 	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
 //	char	**envp; //the original, using for debugging
-	int		exit;		//int designed to exit the readline loop and finish the shell
+	int		exit;		//exit status
 	int		pipes; 		//How many pipes are there
 	t_exec	*exe;		//another struct with the variables i use in execution 
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
@@ -90,7 +90,7 @@ int		allocate_exe(t_mini *sh); //allocates a variables struct for execution
 //			--	--	HERE_DOC	--	--
 
 /***** heredoc.c - after checking unclosed quotes *****/
-int		ft_heredoc(t_mini *sh, char *in);
+int		ft_heredoc(t_mini *sh, char *in, int i);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
 int		save_hd(t_mini *sh, char *key, char *str, int type);

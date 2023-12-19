@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 19:27:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:15:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ This function checks if there is a << heredoc sign in the string,
 if finds one - creates an fd node, adds it to the list, 
 parses the keyword, then calls a functin that will fill the node.
 */
-int	ft_heredoc(t_mini *sh, char *in)
+int	ft_heredoc(t_mini *sh, char *in, int i)
 {
-	int		i;
 	t_fd	*new;
 
-	i = 0;
 	if (!ft_strnstr(in, "<<", ft_strlen(in)))
 		return (0);
 	while (in[i])
@@ -31,7 +29,6 @@ int	ft_heredoc(t_mini *sh, char *in)
 		if (i <= 0)
 			return (0);
 		in = in + i;
-	//	printf("str after <<: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
 			return (err_break(sh, "heredoc", NULL, 12));
@@ -39,7 +36,6 @@ int	ft_heredoc(t_mini *sh, char *in)
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
 		new->str = keyword_hd(new, in, &i, ' ');
-//		printf("[HD] keyword: %s\n", new->str); //erase
 		if (!new->str)
 			return (err_break(sh, "heredoc", NULL, 12));
 		new->fd = save_hd(sh, new->str, NULL, new->type);
@@ -128,8 +124,6 @@ int	save_hd(t_mini *sh, char *key, char *str, int type)
 
 	if (pipe(hd) < -1)
 		return (-1);
-//	printf("in save hd: key -  %s\n", key); //erase
-//	write(1, key, ft_strlen(key)); //erase
 	while (42)
 	{
 		str = readline("> ");
@@ -137,24 +131,17 @@ int	save_hd(t_mini *sh, char *key, char *str, int type)
 			return (hd_close(hd));
 		else if (!ft_strncmp(str, key, ft_longer(str, key)) && \
 				(ft_strncmp(str, "\n", 1)))
-		{
-	//		printf("in 1st cmp: str -  %s\n", str); //erase
 			break ;
-		}
 		else if (!ft_strncmp(str, "\n", 1) && (*key == '\0'))
 			break ;
 		str = expand_hd(sh, str, type);
 		if (!str)
 			return (hd_close(hd));
-	//	write(1, "in heredoc: ", 12); //erase
-	//	write(1, str, ft_strlen(str)); //erase
-	//	write(1, "\n", 1); //erase
 		write(hd[1], str, ft_strlen(str));
 		write(hd[1], "\n", 1);
 		str = ft_memdel(str);
 	}
-	if (str)
-		str = ft_memdel(str);
+	str = ft_memdel(str);
 	close(hd[1]);
 	return (hd[0]);
 }

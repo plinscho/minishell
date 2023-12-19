@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:01:59 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/04 19:19:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:53:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		pre_quotes(char *line)
 
 	i = 0;
 	open = 0;
-
 	while (line[i])
 	{
 		if (i > 0 && line[i - 1] == '\\')

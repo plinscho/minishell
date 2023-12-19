@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/13 18:53:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:28:09 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 	if (check_exp(cont, 3, -1) < 0)
 		return (cont);
 	if (exp_init(sh))
-		return (0);
+		return (ft_memdel(cont));
 	cont = expand_str(sh, cont, 1, -1);
 	return (cont);
 }
