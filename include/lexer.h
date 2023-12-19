@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/13 17:11:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:38:09 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int		check_chr(char c);
 char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - frees all the strings in it, if flag=1 only equals them to NULL (they are not allocated)
 int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
 char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
- 
+/***************************************************/ 
+
 /***** check_sequence.c - checks the syntax sequence based on the tokens ***/
 //int		w_syntax(t_mini *sh);
 //void	check_sequence(t_mini *sh, char *seq);
@@ -73,6 +74,7 @@ int		syntax_handler(t_lexer *head, int *pipes, int *redirs);
 int		check_syntax(t_mini *sh, t_lexer *head);
 char 	int_to_char(int num); //converts int into char
 int		ft_isspace(int c); // Detects if "c" is a space char.
+/***************************************************/
 
 //###########################################################################################
 

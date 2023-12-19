@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 21:58:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:04:26 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		ft_echo(t_mini *sh, t_pipe *p)
   if (has_n)
         ft_putstr_fd("\n", output);
   if (sh->pipes)
-		err_exit(sh, NULL, NULL, 0);
+		err_break(sh, NULL, NULL, 0);
 	return (0);
 }
 

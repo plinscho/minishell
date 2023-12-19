@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/18 17:49:24 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:44:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 
 int	exec_builtin(t_mini *sh, t_pipe *p)
 {	
-	if (!sh->pipes)
-		ft_open(sh, p, p->fd_lst, -1);
+	if (!sh->pipes && ft_open_built(sh, p, p->fd_lst, -1))
+		return (sh->exit);
 	if (p->builtin == 1)
 		return (ft_echo(sh, p));
 	if (p->builtin == 2)
