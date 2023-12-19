@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:50:22 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 17:12:01 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:04:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_parser(t_pipe *p)
 		i = 0;
 		while (p->cmd && p->cmd[i])
 		{
-			printf("cmd[%i]: %s\n", i, p->cmd[i]);
+			printf("cmd[%i]: %s$\n", i, p->cmd[i]);
 			i++;
 		}
 		i = 0;

@@ -10,7 +10,7 @@
 int	minishell(t_mini *sh)
 {
 	sh_loop_init(sh);
-	sh->input = readline("minishell$ ");
+	sh->input = readline("kebab$> ");
 	if (!sh->input)
 		return (ft_exit(sh));
 	if (check_input(sh->input)) // It's not a mistake, just empty line

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:44:42 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:00:32 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ int check_syntax(t_mini *sh, t_lexer *lexer)
     {
         if (current->token != 0) // Ignore space tokens
         {
-            if (current->token >= 4 && current->token <= 9) // If the token is a pipe or redirection operator
+            if (current->token >= 4 && current->token <= 8) // If the token is a pipe or redirection operator
             {
-                if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
+                if ((prev_token >= 4 && prev_token < 8) || (prev_token == 8 && current->token == 8)) // If the previous token was also a pipe or redirection operator
                 {
                     sh->exit = 258;
                     return (err_char(current->token)); // Return an error

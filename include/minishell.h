@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 17:55:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:43:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		hd_close(int fd[]);
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
 int		fd_init(t_fd *new, t_mini *sh, int fd);
+int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
 /*************************************************/
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:44:26 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:24:01 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,12 @@ int	err_exit(t_mini *sh, char *name, char *message, int err)
 {
 	//	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 //	printf("[ERR EXIT] name: %s,\n message: %s\n", name, message); //erase
-
+//	if (!sh->pipes && sh->pipe_lst->builtin && err == 1)
+//		return (err_break(sh, name, message, err));
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
 	if ((err == 1 && *name && !message) || err == 14 || err == 12)
-
-	{
 		perror(name);
-//		sh_clean(sh, err);
-//		exit (err);
-	}
 	else if (name)
 	{
 		ft_putstr_fd(name, 2);

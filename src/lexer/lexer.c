@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:25:46 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 20:20:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:33:35 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ This function trims all the sequential spaces and saves token 0 in the node.
 */
 t_lexer *read_space(char *in, int *i)
 {
-	int	j;
+	int		j;
+	char	*cont;
 
 	j = 0;
 	while (in[j + 1] && in[j + 1] == ' ')
         j++;
+	cont = malloc(2);
+	if (!cont)
+		return (NULL);
+	cont[0] = ' ';
+	cont[1] = '\0';
 	*i += j;
-    return(lex_new(NULL, 0));
+    return(lex_new(cont, 0));
 }
 
 /*
@@ -141,11 +147,11 @@ int lexer(t_mini *sh, char *input)
     while (input[++i])
     {
 //      printf("[LEX]You entered: input - %c\n", input[0]); //erase
-		if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i] && input[i + 2])
+		/*if (input[i + 1] && check_chr(input[i]) == 2 && input[i + 1] == input[i] && input[i + 2])
 		{
 			i++;
 			continue ;
-		}
+		}*/
 		if (input[i] == ' ')
             new = read_space(&input[i], &i);
         else if (input[i] == '<' || input[i] == '>' || input[i] == '|')

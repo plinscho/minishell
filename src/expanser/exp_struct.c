@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:50:00 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:30:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 		return (ft_strdup(cont));
 	}
 	if (sh->lex_lst->token == 1)
-		return (trim_quotes(str, ' ', ft_strlen(cont), -1));
-	str = ft_memdel(str);
+		return (trim_quotes(str, ' ', ft_strlen(str), -1));
+//	cont = ft_memdel(cont);
 //	trim_quotes!!!
 	return (str);
 }
