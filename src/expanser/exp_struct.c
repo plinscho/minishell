@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 16:54:40 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:59:35 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exp_clean(t_exp **exp)
 		return ;
 	exp_nano_clean(*exp);
 	(*exp)->cont = NULL;
-//	if (*exp)->new = NULL;
+	(*exp)->new = NULL;
 //	if ((*exp)->cont)
 //		(*exp)->cont = ft_memdel((*exp)->cont);
 //	if ((*exp)->new)
