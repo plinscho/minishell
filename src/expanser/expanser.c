@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/20 16:07:48 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:15:53 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,8 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 //	printf("--------------- \n[EXP WORD] AFTER ALL free lex node: \n"); //erase
 //	print_lex_node(lex); //erase
 //	printf("1\n");
-//	lex_last(*lex)->next = old->next;
-//	old->next = NULL;
 	str = ft_memdel(str);
 //	printf("2\n");
-//	trim quotes here??? no, cause there are strings where no exp but quotes
-//	trim quotes in parser? expand filename in parser??
-//	return (lex_clean(&old));
 	return (0);
 }
 

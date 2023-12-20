@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 15:02:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:54:40 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	exp_init(t_mini *sh)
 {
+	if (sh->exp)
+		exp_clean(&sh->exp);
 	sh->exp = malloc(sizeof(t_exp));
 	if (!sh->exp)
 		return (1);

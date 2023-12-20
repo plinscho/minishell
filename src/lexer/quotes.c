@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 16:05:02 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:26:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,14 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	//	printf("[TRIM] - %i\n", len); //erase
 		while (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
 		{
-			q = s[i + j];
 			flag *= -1;
-			j++;
+			q = s[i + j++];
 		}
 		m[i] = s[i + j];
 //		printf("[TRIM] m[i]: %c, q: %c, flag: %i, s[i+j]: %c\n", m[i], q, flag, s[i + j]); //erase
 	}
 	m[i] = '\0';
-//	s = ft_memdel(s);
+	s = ft_memdel(s);
 	return (m);
 }
 
