@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 20:28:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:08:58 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 		return (cont);
 	if (exp_init(sh))
 		return (ft_memdel(cont));
-	cont = expand_str(sh, cont, 1, -1);
+	cont = expand_str(sh, cont, 3, -1);
 	return (cont);
 }
 
@@ -41,7 +41,7 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 	while (cont[++i])
 	{
 	//	printf("[EXP STR] loop, str[i] -- %c\n", cont[i]); //erase
-		if (open_q(sh->exp, cont[i], type) || cont[i] != '$' || !cont[i + 1]) // add here a flag (in exp  struct) if there is an open '
+		if (open_q(sh->exp, cont[i], type) || cont[i] != '$' || !cont[i + 1])
 			sh->exp->new[++sh->exp->j] = cont[i];
 		else
 		{
@@ -64,6 +64,7 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 	if (type == 3)
 		sh->exp->cont = ft_memdel(sh->exp->cont);
 	return (sh->exp->new);
+//	return (ft_strdup(sh->exp->new));
 }
 
 t_lexer *read_word_exp(char *in, int *i, char q, int j)
