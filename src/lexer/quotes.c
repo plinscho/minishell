@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 16:28:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:05:02 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,23 @@ int		open_q(t_exp *exp, char c, int type)
 	}
 	else if (exp->fl && c == exp->q)
 		exp->fl = 0;
+	return (0);
+}
+
+int	exp_quotes(t_mini *sh, t_lexer **head, int *flag)
+{
+	if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) >= 0)
+	{
+		if (expand_word(sh, head))
+			return (1);
+	}
+	else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) < 0)
+	{
+		sh->lex_lst->cont = trim_quotes(sh->lex_lst->cont, ' ', ft_strlen(sh->lex_lst->cont), -1);
+		if (!sh->lex_lst->cont)
+			return (1);
+	}
+	else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
+		*flag = 1;
 	return (0);
 }

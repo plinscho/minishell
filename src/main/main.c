@@ -26,7 +26,7 @@ int	minishell(t_mini *sh)
 	if (lexer(sh, sh->input)) // it means that a malloc failed, my lex_clean cleaned input and list
 		return (1);	// we should clean the heredoc --> do it in the sh_clean
 //	print_lexer(sh); //erase
-	if (expanser(sh, sh->lex_lst))
+	if (expanser(sh, sh->lex_lst, 0))
     	return (1);
 //	printf("[MAIN] After expansion: %i\n", sh->exit); //erase
 	if (check_syntax(sh, sh->lex_lst))

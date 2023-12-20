@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 16:38:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:05:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		word_in_quotes(char *in, char *q, int j);
 char	*trim_quotes(char *s, char q, int len, int i);
 int		len_no_q(char *s, char q, int len, int i);
 int		open_q(t_exp *exp, char c, int type);
-
+int		exp_quotes(t_mini *sh, t_lexer **head, int *flag);
 
 /***** check_syntax.c - *****/
 int	    check_input(char *in); // checks if there is anything in the input

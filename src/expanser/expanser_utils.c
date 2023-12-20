@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 14:17:21 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:40:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_exp(char *cont, int type, int q)
 	int	i;
 
 	i = 0;
-	if (!cont || type == 2)
+	if (!cont || (type != 1 && type != 3))
 		return (-1);
 	while (cont[i] && cont[i + 1])
 	{

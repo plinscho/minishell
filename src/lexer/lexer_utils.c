@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:37:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:33:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lexer	*lex_new(char *content, int token)
 
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
-		return (NULL);
+		return (ft_memdel(content));
 	new_node -> cont = content;
 	new_node -> token = token;
 	new_node -> prev = NULL;
