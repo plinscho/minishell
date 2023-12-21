@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/20 16:15:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:18:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 	}
 //	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 //	print_lex_node(head); //erase
-	lex_insert(sh, head, lex);
+	lex_insert(sh, head, lex, sh->lex_lst);
 //	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
 //	print_lex_node(head); //erase
 //	printf("--------------- \n[EXP WORD] AFTER ALL in sh lex node: \n"); //erase
