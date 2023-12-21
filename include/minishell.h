@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 20:09:22 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:09:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,12 @@ void	sig_handler(int sig);
 //			--	--	ERRORS	--	--
 
 int		quotes_error(t_mini *sh);
-int		err_char(int token);
+int		err_char(t_mini *sh, int token);
 void	error_option(char *str1, char *str2);
 
 
 //void	syntax_error(t_mini *sh, char *seq);
-int		serror(char *s);
+//int		serror(char *s);
 int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
 int		err_exit(t_mini *sh, char *name, char *message, int err);
 //###########################################################################################

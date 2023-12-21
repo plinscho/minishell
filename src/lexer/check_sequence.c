@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:22:21 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 18:22:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:12:02 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		no_cmd(char *seq)
 	return (1);
 }
 
-int syntax_handler(t_lexer *head, int *pipes, int *redirs)
+/*int syntax_handler(t_lexer *head, int *pipes, int *redirs)
 {
     int prev_token = -1;
     while (head)
@@ -80,43 +80,29 @@ int syntax_handler(t_lexer *head, int *pipes, int *redirs)
     if (prev_token == 3 || prev_token == 4 || prev_token == 5)
         return (err_char(prev_token));
     return (0);
-}
+}*/
 
 
-int check_syntax(t_mini *sh, t_lexer *lexer)
+int check_syntax(t_mini *sh, t_lexer *current, int prev_token)
 {
-    t_lexer *current = lexer;
-    int prev_token = -1;
-
-	if (!lexer)
-		return (1);
 	if (current->token == 8)
-	{
-		sh->exit = 258;
-		return (err_char(current->token));
-	}
+		return (err_char(sh, current->token));
     while (current != NULL)
     {
-        if (current->token != 0) // Ignore space tokens
+        if (current->token != 0)
         {
-            if (current->token >= 4 && current->token <= 8) // If the token is a pipe or redirection operator
+            if (current->token >= 4 && current->token <= 8)
             {
-                if ((prev_token >= 4 && prev_token < 8) || (prev_token == 8 && current->token == 8)) // If the previous token was also a pipe or redirection operator
-                {
-                    sh->exit = 258;
-                    return (err_char(current->token)); // Return an error
-                }
+                if ((prev_token >= 4 && prev_token < 8) || (prev_token == 8 && current->token == 8))
+                    return (err_char(sh, current->token));
             }
             prev_token = current->token;
         }
         current = current->next;
     }
-    if (prev_token >= 4 && prev_token <= 9) // If the last token was a pipe or redirection operator
-    {
-        sh->exit = 258;
-        return (err_char(prev_token)); // Return an error
-    }
-    return 0; // No syntax errors found
+    if (prev_token >= 4 && prev_token <= 9)
+        return (err_char(sh, prev_token));
+    return 0;
 }
 /*
 

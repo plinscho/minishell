@@ -29,7 +29,7 @@ int	minishell(t_mini *sh)
 	if (expanser(sh, sh->lex_lst, 0))
     	return (1);
 //	printf("[MAIN] After expansion: %i\n", sh->exit); //erase
-	if (check_syntax(sh, sh->lex_lst))
+	if (!sh->lex_lst || check_syntax(sh, sh->lex_lst, -1))
 		return (1);
 //	printf("--------------------\n"); //erase	
 //	if (trim_quotes(sh, sh->lex_lst))

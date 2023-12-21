@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:58:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/20 16:05:23 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:12:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jp
 //int		w_syntax(t_mini *sh);
 //void	check_sequence(t_mini *sh, char *seq);
 int		no_cmd(char *seq);
-int		syntax_handler(t_lexer *head, int *pipes, int *redirs);
-int		check_syntax(t_mini *sh, t_lexer *head);
+//int		syntax_handler(t_lexer *head, int *pipes, int *redirs);
+int		check_syntax(t_mini *sh, t_lexer *current, int prev_token);
 char 	int_to_char(int num); //converts int into char
 int		ft_isspace(int c); // Detects if "c" is a space char.
 /***************************************************/
