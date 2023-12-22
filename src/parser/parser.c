@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 21:56:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:00:53 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,6 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 	t_pipe	*new;
 
 	new = NULL;
-	if (!lex)
-		return (1);
 	while (sh->lex_lst)
 	{
 		new = malloc(sizeof(t_pipe));
@@ -163,10 +161,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 	//		printf("[PARSER] new pipe_lst->cmd: %p\n", (sh)->pipe_lst->cmd); //erase
 //			printf("check: %i\n", check); //erase
 			if (check)
-			{
-//				printf("[check 0] lex: %s\n", (sh)->lex_lst->cont); //erase
 				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
-			}
 		}
 		if (sh->lex_lst)
 			sh->lex_lst = sh->lex_lst->next;

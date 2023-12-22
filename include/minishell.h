@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/21 19:09:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:01:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_mini
 //	char	**envp; //the original, using for debugging
 	int		exit;		//exit status
 	int		pipes; 		//How many pipes are there
+	int		check;
 	t_exec	*exe;		//another struct with the variables i use in execution 
 	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
 	int		power_on;

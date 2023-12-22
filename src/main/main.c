@@ -36,7 +36,7 @@ int	minishell(t_mini *sh)
 //		return (1);
 //	printf("after check syntax: %s\n", "4"); //erase
 //	print_lexer(sh);
-	if (parser(sh, sh->lex_lst, sh->hd_lst, 0))
+	if (!sh->lex_lst || parser(sh, sh->lex_lst, sh->hd_lst, 0))
 		return (1); //we should clean all - I do it in the parser + we should write an error message function 
 //	printf("[MAIN] After parsing: %i\n", sh->exit); //erase
 //	print_parser(sh->pipe_lst);
