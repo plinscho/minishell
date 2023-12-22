@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:19:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:11:10 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	fd_new = malloc(sizeof(t_fd));
 	if (!fd_new)
 		return (1);
+	fd_add(&(new->fd_lst), fd_new);
 	if ((lex->token > 3 && lex->token < 6) || lex->token == 7)
 		check = fd_init(fd_new, sh, -2);
 	else if (lex->token == 6)
@@ -115,7 +116,6 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	}
 	if (check)
 		return (1);
-	fd_add(&(new->fd_lst), fd_new);
 	return (0);
 }
 
