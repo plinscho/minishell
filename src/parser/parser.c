@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:04:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:07:33 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,8 @@ In every node it prses a double array of commands and a list of all file descrip
 To create the pipe nodes it iterates the heredoc list and the lexer list, so it saves the head of the lists 
 in the beginning to restore the initial position in sh at the end (or in case of a mistake).
 */
-int	parser(t_mini *sh, t_lexer *lex, t_fd *hd)
+int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 {
-	t_pipe	*new;
-
-	new = NULL;
 	while (sh->lex_lst)
 	{
 		new = malloc(sizeof(t_pipe));
@@ -143,9 +140,6 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd)
 //		printf("[PARSER]before add: %p\n", sh->pipe_lst); //erase
 		pipe_add(sh, new);
 //		printf("[PARSER]after add: %p\n", sh->pipe_lst); //erase
-	// 	return (0); //erase
-//		if (sh->lex_lst)
-//			printf("[PARSER] lex: %s\n", sh->lex_lst->cont); //erase
 		while (sh->lex_lst && sh->lex_lst->token != 8)
 		{
 //			printf("[PARSER] not 8, lex token: %i\n", sh->lex_lst->token); //erase
@@ -155,11 +149,8 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd)
 				sh->check = parse_cmd(new, sh->lex_lst, sh);
 			else
 				sh->lex_lst = sh->lex_lst->next;
-//			if (sh->lex_lst)
-//				printf("[PARSER] lex1: %s\n", sh->lex_lst->cont); //erase
 //			printf("[PARSER] new lex2: %p\n", sh->lex_lst); //erase
 	//		printf("[PARSER] new pipe_lst->cmd: %p\n", (sh)->pipe_lst->cmd); //erase
-//			printf("check: %i\n", check); //erase
 			if (sh->check)
 				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
 		}
