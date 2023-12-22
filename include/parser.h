@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/22 16:06:30 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:09:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_pipe
 	int		in_fd; 
 	int		out_fd;
 	int		builtin;
-//	struct s_pipe	*prev;
 	struct s_pipe	*next;
 }	t_pipe;
 

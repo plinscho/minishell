@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/15 19:08:02 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:09:18 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	pipe_init(t_pipe *pip)
 	pip->fd_lst = NULL;
 	pip->in_fd = -2;
 	pip->out_fd = -2;
-//	pip->builtin = 0;
+	pip->builtin = 0;
 	pip->next = NULL;
 }
 

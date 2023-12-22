@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/19 20:15:56 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:44:02 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_heredoc(t_mini *sh, char *in, int i)
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
 		new->str = keyword_hd(new, in, &i, ' ');
+//	printf("[HD] key word: %s\n", new->str); //erase
 		if (!new->str)
 			return (err_break(sh, "heredoc", NULL, 12));
 		new->fd = save_hd(sh, new->str, NULL, new->type);
@@ -90,11 +91,13 @@ char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 	int		j;
 
 	j = 0;
-	while (in[j] && in[j + 1] && in[j + 1] != ' ' && in[j + 1] != '\'' && \
-	in[j + 1] != '\"' && check_chr(in[j + 1]))
+	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && \
+	check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
 		j++;
 //	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
-	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
+	if (check_chr(in[0]) == 2)
+		j = word_in_quotes(in, &q, -1);
+	while (in[j] && in[j + 1] && check_chr(in[j + 1]) == 2)
 		j = word_in_quotes(in, &q, j);
 	cont = ft_substr(in, 0, j + 1);
 //	printf("[HEREDOC] before trim keyword: %s$\n", cont); //erase

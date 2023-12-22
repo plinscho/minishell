@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:07:33 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:19:52 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	int		check;
 	
 	fd_new = NULL;
-	fd_new = malloc(sizeof(t_fd));
 	check = 0;
+	fd_new = malloc(sizeof(t_fd));
 	if (!fd_new)
 		return (1);
 	if ((lex->token > 3 && lex->token < 6) || lex->token == 7)
@@ -145,7 +145,8 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 //			printf("[PARSER] not 8, lex token: %i\n", sh->lex_lst->token); //erase
 			if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
 				sh->check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
-			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && !new->cmd)
+			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && \
+			!new->cmd)
 				sh->check = parse_cmd(new, sh->lex_lst, sh);
 			else
 				sh->lex_lst = sh->lex_lst->next;

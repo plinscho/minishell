@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/19 16:44:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:52:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 	if (p->builtin)
 		exit(exec_builtin(sh, p));
 	check_access(sh, p->cmd, p);
-//	printf("\n[CHILD] after check access: %s\n", p->path); //erase
+//	printf("\n[CHILD]after check access: %s\n", p->path); //erase
 	ft_redir(sh, p);
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);

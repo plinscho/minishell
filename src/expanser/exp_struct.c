@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 16:59:35 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:52:23 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	if (sh->lex_lst->token == 1 && check_exp(cont, sh->lex_lst->token, -1) < 0)
 		return (trim_quotes(cont, ' ', ft_strlen(cont), -1));
 	else if (new->type == 6 || check_exp(cont, sh->lex_lst->token, -1) < 0)
-		return (ft_strdup(cont));
+		return (cont);
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	if (exp_init(sh))
@@ -99,7 +99,6 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	if (sh->lex_lst->token == 1)
 		return (trim_quotes(str, ' ', ft_strlen(str), -1));
 //	cont = ft_memdel(cont);
-//	trim_quotes!!!
 	return (str);
 }
 
