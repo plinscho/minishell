@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/22 16:03:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:17:35 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	sh_clean(t_mini *sh)
 This function restores the initial position of all the lists clean all of 
 them after iteration 
 */
-t_mini	*sh_restore(t_mini **sh, t_lexer *lex, t_fd *hd)
+t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd)
 {
 //	printf("\n[SH RESTORE] ---- entered\n"); //erase
 	if (lex)

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:14:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:16:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 	{
 		new = malloc(sizeof(t_pipe));
 		if (!new)
-			return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
+			return (err_break(sh_re(&sh, lex, hd), "malloc", NULL, 12));
 //		printf("[PARSER]lex 1 -- content: %s, type; %i\n", sh->lex_lst->cont, sh->lex_lst->token); //erase
 //		printf("[PARSER]You entered: %i\n", check); //erase
 		pipe_init(new);
@@ -150,11 +150,11 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 //			printf("[PARSER] new lex2: %p\n", sh->lex_lst); //erase
 	//		printf("[PARSER] new pipe_lst->cmd: %p\n", (sh)->pipe_lst->cmd); //erase
 			if (sh->check)
-				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
+				return (err_break(sh_re(&sh, lex, hd), "malloc", NULL, 12));
 		}
 		if (sh->lex_lst)
 			sh->lex_lst = sh->lex_lst->next;
 	}
-	sh_restore(&sh, lex, hd);
+	sh_re(&sh, lex, hd);
 	return (0);
 }

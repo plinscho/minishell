@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/21 19:18:36 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:16:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,12 @@ int	expanser(t_mini *sh, t_lexer *head, int flag)
 	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
 			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 3, -1);
 			if (!sh->lex_lst->cont)
-				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
+				return (err_break(sh_re(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		else if (!flag)
 		{
 			if (exp_quotes(sh, &head, &flag))
-				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
+				return (err_break(sh_re(&sh, head, NULL), "malloc", NULL, 12));
 		}
 		if (sh->lex_lst && sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && flag)
 			flag = 0;
@@ -168,7 +168,7 @@ int	expanser(t_mini *sh, t_lexer *head, int flag)
 			sh->lex_lst = sh->lex_lst->next;
 	}
 //	printf("[EXPANSE] before next: \n"); //erase
-	sh_restore(&sh, head, NULL);
+	sh_re(&sh, head, NULL);
 //	printf("[EXPANSE] leaving, pointer to head: %p\n", head); //erase
 	return (0);
 }
