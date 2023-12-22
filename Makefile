@@ -6,7 +6,7 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/20 15:03:14 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/22 15:52:13 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ LEXER = src/lexer/lexer \
 		src/lexer/fd_utils \
 		src/lexer/check_syntax \
 		src/lexer/utils \
-		src/lexer/check_sequence
 
 EXPANSER = src/expanser/expanser src/expanser/expanser_utils src/expanser/exp_struct 
 EXECUTOR = src/executor/executor src/executor/exec_utils
