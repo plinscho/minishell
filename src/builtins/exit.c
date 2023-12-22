@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 18:59:25 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:12:07 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		p_exit_err(char *str_error, int option)
 {
 	if (option == 1)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str_error, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		return (255);
@@ -49,6 +49,8 @@ int		check_exit(char *str)
 	int		i;
 
 	i = 0;
+	if ((str[i] == '-' || str[i] == '+') && str[i + 1] && ft_isdigit(str[i + 1]))
+		i++;
 	while (str[i])	
 	{
 		if (ft_isdigit(str[i]))
