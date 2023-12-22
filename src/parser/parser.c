@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:00:53 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:04:34 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ In every node it prses a double array of commands and a list of all file descrip
 To create the pipe nodes it iterates the heredoc list and the lexer list, so it saves the head of the lists 
 in the beginning to restore the initial position in sh at the end (or in case of a mistake).
 */
-int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
+int	parser(t_mini *sh, t_lexer *lex, t_fd *hd)
 {
 	t_pipe	*new;
 
@@ -150,9 +150,9 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 		{
 //			printf("[PARSER] not 8, lex token: %i\n", sh->lex_lst->token); //erase
 			if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
-				check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
+				sh->check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
 			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && !new->cmd)
-				check = parse_cmd(new, sh->lex_lst, sh);
+				sh->check = parse_cmd(new, sh->lex_lst, sh);
 			else
 				sh->lex_lst = sh->lex_lst->next;
 //			if (sh->lex_lst)
@@ -160,7 +160,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 //			printf("[PARSER] new lex2: %p\n", sh->lex_lst); //erase
 	//		printf("[PARSER] new pipe_lst->cmd: %p\n", (sh)->pipe_lst->cmd); //erase
 //			printf("check: %i\n", check); //erase
-			if (check)
+			if (sh->check)
 				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
 		}
 		if (sh->lex_lst)

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/19 19:46:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:03:04 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->paths = NULL;
 	sh->exit = 0;
 	sh->pipes = 0;
+	sh->check = 0;
 	sh->exe = NULL;
 	sh->env	= NULL;
 //	sh->envp = env; // for debugging only
@@ -75,6 +76,7 @@ void	sh_clean(t_mini *sh)
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	sh->pipes = 0;
+	sh->check = 0;
 }
 
 /* 
@@ -96,6 +98,7 @@ int	sh_loop_init(t_mini *sh)
 {
 //	printf("\n[LOOP INIT] path: %s\n", ft_get_value(sh, "PATH")); //erase
 	sh->pipes = 0;
+	sh->check = 0;
 	if (ft_get_value(sh, "PATH"))
 	{
 		sh->paths = ft_split(ft_get_value(sh, "PATH"), ':');

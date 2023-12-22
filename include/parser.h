@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 16:37:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:03:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_fd
 //			--	--	PARSER	--	--
 
 /***** parser.c - the updated main with sh struct and  *****/
-int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check); // cleans all and returns 1 if malloc failed
+int		parser(t_mini *sh, t_lexer *lex, t_fd *hd); // cleans all and returns 1 if malloc failed
 int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 2 cases: < || > || >> and heredoc
 int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
 int		count_cmd(t_lexer *temp); // counts words in a command
