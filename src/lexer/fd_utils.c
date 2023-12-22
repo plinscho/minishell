@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:21:03 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:31:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	fd_init(t_fd *new, t_mini *sh, int fd)
 	sh->lex_lst = sh->lex_lst->next;
 	while (sh->lex_lst && sh->lex_lst->token == 0)
 		sh->lex_lst = sh->lex_lst->next;
-	if (!sh->lex_lst) // en realidad es un caso de error de syntax
+	if (!sh->lex_lst)
 		return (1);
 //	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
 	sh->lex_lst->cont = exp_file(sh, sh->lex_lst->cont, new);
@@ -82,7 +82,7 @@ int	fd_init(t_fd *new, t_mini *sh, int fd)
 //	printf("[FD_INIT] new str: %s, exp flag: %i\n", new->str, new->exp); //erase
 	new->fd = fd;
 	new->next = NULL;
-	if (sh->lex_lst) // en realidad es un error de syntax este if
+	if (sh->lex_lst)
 		sh->lex_lst = sh->lex_lst->next;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:19:22 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/21 19:05:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:19:58 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@ int		quotes_error(t_mini *sh)
 	sh->exit = 258;
 	return (1);
 }
-
-/*void	syntax_error(t_mini *sh, char *seq)
-{
-	(void)sh;
-	printf("minishell: syntax error near unexpected token '%s'\n", seq);
-	return ;
-}
-*/
-
-/*
-# define TRUNC 4		>
-# define PIPE 5			|
-# define INPUT 6		<
-*/
 
 int	err_char(t_mini *sh, int token)
 {
@@ -52,13 +38,6 @@ int	err_char(t_mini *sh, int token)
 	return (1);	
 }
 
-/*int	serror(char *s)
-{
-	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
-	ft_putstr_fd(s, 2);
-	ft_putstr_fd("\n", 2);
-	return (2);
-}*/
 
 /* This one should only be used in the child processes because it exits the process. 
 It is a first sketch. We need to change all the structure now of exiting the 

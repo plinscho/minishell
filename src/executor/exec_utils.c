@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:52:26 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:31:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		ft_check_open(p, fd1, prev);
 		if (fd1->exp == 1)
-		{
-	//		printf("[OPEN] flag is 1\n"); // erase
 			err_exit(sh, fd1->str, "ambiguous redirect", 1);
-		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (!fd1->str || *fd1->str == '\0')
@@ -72,7 +69,8 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 
 void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
 {
-	if (p->in_fd >= 0 && (cur->type == 6 || cur->type == 9 || cur->type == 4) && prev != 6)
+	if (p->in_fd >= 0 && (cur->type == 6 || cur->type == 9 || cur->type == 4)\
+	 && prev != 6)
 	{
 		close(p->in_fd);
 		p->in_fd = -2;
@@ -94,7 +92,7 @@ void	check_access(t_mini *sh, char **cmd, t_pipe *p)
 		if (access(cmd[0], F_OK) == 0)
 		{
 			if (access(cmd[0], X_OK) != 0)
-				err_exit(sh, cmd[0], "permission denied", 126); // here should be return
+				err_exit(sh, cmd[0], "permission denied", 126);
 			p->path = cmd[0];
 		}
 		else
@@ -106,14 +104,11 @@ void	check_access(t_mini *sh, char **cmd, t_pipe *p)
 
 void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *pipe)
 {
-//	char	*p;
 	int		i;
 
 	i = 0;
-//	print_arr(paths);
 	if (!paths)
 		err_exit(sh, cmd, "command not found", 127);
-//	pipe->path = NULL;
 	while (paths[i])
 	{
 	//	printf("\n[CHECK PATHS] i: %i, path: %s\n", i, paths[i]); //erase

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 16:26:08 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:20:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	word_in_quotes(char *in, char *q, int j)
 	j++;
 	while (in[j] && in[j] != *q)
 		j++;
-//	if (in[j])
-//		j++;
 //	printf("[IN QUOTES] IN quotes before: input - %s, j -- %i\n", in + j, j); //erase
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && check_chr(in[j + 1]) != 2)
 		j++;

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 16:52:11 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:23:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,10 @@ void	ft_redir(t_mini *sh, t_pipe *p)
 		p->out_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, AFTER dup out\n", p->cmd[0]); //erase
 	}
-	/*else if (!flag)
-	{
-//		printf("\n[REDIR] PIPE: %s, if there is pipe BEFORE dup out fd: %i\n", p->cmd[0], fd[1]); //erase
-		if (dup2(sh->exe->fdp[1], STDOUT_FILENO) < 0)
-			err_exit(sh, "dup2", NULL, 1);
-		close(sh->exe->fdp[1]);
-		sh->exe->fdp[1] = -2;
-	}*/
 }
 
 void	child_process(t_mini *sh, t_pipe *p, int flag)
 {
-//	char	*the_path;
-
-//	the_path = NULL;
 //	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
 	if (!flag)
 	{
@@ -57,8 +46,6 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 		sh->exe->fdp[0] = -2;
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
-//	if (p->in_fd >= 0)
-//		ft_putendl_fd(cmd[i], output);
 	ft_open(sh, p, p->fd_lst, -1);
 //	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, p->builtin); //erase
 //	if (sh->pipe_lst->builtin)
@@ -80,7 +67,6 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 
 int	last_child(t_mini *sh, t_pipe *p)
 {
-//	print_parser(p);
 	p->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)
@@ -109,8 +95,6 @@ j = -1
 */
 int	executor(t_mini *sh, t_pipe *p, int i, int j)
 {
-//	int	fd[2];
-	
 //	printf("\n[EXEC] PIPES: %i\n", sh->pipes); //erase
 	while (++i < sh->pipes)
 	{
