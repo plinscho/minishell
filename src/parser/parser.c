@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:11:10 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:14:51 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ int	count_cmd(t_lexer *temp)
 /*
 This function creates a double array of commands, using the tokens allocated in the lexer list.
 */
-int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
+int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh, int j)
 {
 	int	i;
-	int	j;
 
 	i = count_cmd(temp);
 //	printf("[P_CMD]token: %i\n", temp->token); //erase
@@ -67,14 +66,12 @@ int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 	if (!new->cmd)
 		return (1);
 //	temp = sh->lex_lst;
-	j = 0;
 	while (sh->lex_lst && sh->lex_lst->token < 4)
 	{
 		if (sh->lex_lst->token != 0)
 		{
-			new->cmd[j] = sh->lex_lst->cont;
+			new->cmd[j++] = sh->lex_lst->cont;
 //			printf("[P_CMD] cmd1 [%i]: %s, i - %i\n", j, sh->lex_lst->cont, i); //erase
-			j++;
 		}
 		sh->lex_lst = sh->lex_lst->next;
 	}
@@ -147,7 +144,7 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 				sh->check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
 			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && \
 			!new->cmd)
-				sh->check = parse_cmd(new, sh->lex_lst, sh);
+				sh->check = parse_cmd(new, sh->lex_lst, sh, 0);
 			else
 				sh->lex_lst = sh->lex_lst->next;
 //			printf("[PARSER] new lex2: %p\n", sh->lex_lst); //erase
