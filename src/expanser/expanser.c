@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:18:38 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/13 18:53:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:16:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*expand_hd(t_mini *sh, char *cont, int type)
 	if (check_exp(cont, 3, -1) < 0)
 		return (cont);
 	if (exp_init(sh))
-		return (0);
-	cont = expand_str(sh, cont, 1, -1);
+		return (ft_memdel(cont));
+	cont = expand_str(sh, cont, 3, -1);
 	return (cont);
 }
 
@@ -41,7 +41,7 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 	while (cont[++i])
 	{
 	//	printf("[EXP STR] loop, str[i] -- %c\n", cont[i]); //erase
-		if (open_q(sh->exp, cont[i], type) || cont[i] != '$' || !cont[i + 1]) // add here a flag (in exp  struct) if there is an open '
+		if (open_q(sh->exp, cont[i], type) || cont[i] != '$' || !cont[i + 1])
 			sh->exp->new[++sh->exp->j] = cont[i];
 		else
 		{
@@ -64,6 +64,7 @@ char	*expand_str(t_mini *sh, char *cont, int type, int i)
 	if (type == 3)
 		sh->exp->cont = ft_memdel(sh->exp->cont);
 	return (sh->exp->new);
+//	return (ft_strdup(sh->exp->new));
 }
 
 t_lexer *read_word_exp(char *in, int *i, char q, int j)
@@ -80,9 +81,6 @@ t_lexer *read_word_exp(char *in, int *i, char q, int j)
 	while (in[j] && in[j + 1] && (in[j + 1] == '\'' || in[j + 1] == '\"'))
 		j = word_in_quotes(in, &q, j);
 //	printf("[RW] After iteration: input - %c, j - %i\n", in[j], j); //erase
-//	if (q != ' ')
-//		(*i)++;
-//	cont = trim_quotes(ft_substr(in, 0, j + 1), ' ', ft_strlen(cont), -1);
 	cont = ft_substr(in, 0, j + 1);
 	if (cont)
 		cont = trim_quotes(cont, ' ', ft_strlen(cont), -1);
@@ -126,7 +124,7 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 	}
 //	printf("--------------- \n[EXP WORD] lex node: \n"); //erase
 //	print_lex_node(head); //erase
-	lex_insert(sh, head, lex);
+	lex_insert(sh, head, lex, sh->lex_lst);
 //	printf("--------------- \n[EXP WORD] after insert: \n"); //erase
 //	print_lex_node(head); //erase
 //	printf("--------------- \n[EXP WORD] AFTER ALL in sh lex node: \n"); //erase
@@ -134,67 +132,43 @@ int		expand_word(t_mini *sh, t_lexer **lex)
 //	printf("--------------- \n[EXP WORD] AFTER ALL free lex node: \n"); //erase
 //	print_lex_node(lex); //erase
 //	printf("1\n");
-//	lex_last(*lex)->next = old->next;
-//	old->next = NULL;
 	str = ft_memdel(str);
 //	printf("2\n");
-//	trim quotes here??? no, cause there are strings where no exp but quotes
-//	trim quotes in parser? expand filename in parser??
-//	return (lex_clean(&old));
 	return (0);
 }
 
 /*
 	Function designed to expand the $ into the command.
 */
-int	expanser(t_mini *sh, t_lexer *head)
+int	expanser(t_mini *sh, t_lexer *head, int flag)
 {
-	int	flag;
-
-	flag = 0;
 	if (exp_init(sh))
-		return (0);
+		return (1);
 	while (sh->lex_lst)
 	{
 	//	printf("\n --------------- \n[EXPANSE] start loop \n"); //erase
 	//	print_lex_node(sh->lex_lst); //erase
 	//	printf("[EXPANSE] cont: %i\n", check_exp(sh->lex_lst->cont, 1)); //erase
 	//	printf("[EXPANSE] get value $0: %s\n", ft_get_value(sh, "0")); //erase
-		if (sh->lex_lst->token == 3 && sh->lex_lst->cont && \
-		check_exp(sh->lex_lst->cont, 3, -1) != -1)
+		if (sh->lex_lst->token == 3 && check_exp(sh->lex_lst->cont, 3, -1) >= 0)
 		{
 	//		printf("[EXPANSE] BEFORE EXP STRING content: %s\n", sh->lex_lst->cont); //erase
 			sh->lex_lst->cont = expand_str(sh, sh->lex_lst->cont, 3, -1);
 			if (!sh->lex_lst->cont)
-				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
+				return (err_break(sh_re(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) >= 0 && !flag)
-		{	
-			if (expand_word(sh, &head))
-				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
-		}
-		else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) < 0 && !flag)
+		else if (!flag)
 		{
-			sh->lex_lst->cont = trim_quotes(sh->lex_lst->cont, ' ', ft_strlen(sh->lex_lst->cont), -1);
-			if (!sh->lex_lst->cont)
-				return (err_break(sh_restore(&sh, head, NULL), "malloc", NULL, 12));
+			if (exp_quotes(sh, &head, &flag))
+				return (err_break(sh_re(&sh, head, NULL), "malloc", NULL, 12));
 		}
-		else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
-			flag = 1;
 		if (sh->lex_lst && sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && flag)
 			flag = 0;
-	//	printf("\n --------------- \n[EXPANSE] lex node: \n"); //erase
-	//	printf("pointer: %p\n", sh->lex_lst);
-	//	print_lex_node(sh->lex_lst); //erase
 		if (sh->lex_lst)
-		{
-	//		printf("[EXPANSE] before next: \n"); //erase
 			sh->lex_lst = sh->lex_lst->next;
-		}
 	}
 //	printf("[EXPANSE] before next: \n"); //erase
-	sh_restore(&sh, head, NULL);
+	sh_re(&sh, head, NULL);
 //	printf("[EXPANSE] leaving, pointer to head: %p\n", head); //erase
-//	exit (1); //erase
 	return (0);
 }

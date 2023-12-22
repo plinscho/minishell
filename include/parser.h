@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 16:06:30 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:14:56 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_pipe
 	int		in_fd; 
 	int		out_fd;
 	int		builtin;
-//	struct s_pipe	*prev;
 	struct s_pipe	*next;
 }	t_pipe;
 
@@ -49,12 +48,12 @@ typedef struct s_fd
 //			--	--	PARSER	--	--
 
 /***** parser.c - the updated main with sh struct and  *****/
-int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check); // cleans all and returns 1 if malloc failed
+int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new); // cleans all and returns 1 if malloc failed
 int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 2 cases: < || > || >> and heredoc
-
-int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh); //I dont clean the lex here! 
+int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh, int j); //I dont clean the lex here! 
 int		count_cmd(t_lexer *temp); // counts words in a command
 t_lexer	*next_word(t_lexer *temp); // gets the pointer to the next word in the command
+/***************************************************/
 
 /***** parser_utils.c - the updated main with sh struct and  *****/
 void	pipe_init(t_pipe *pip);

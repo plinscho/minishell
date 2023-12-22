@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 19:44:01 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:31:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,53 @@ int	fd_init(t_fd *new, t_mini *sh, int fd)
 	sh->lex_lst = sh->lex_lst->next;
 	while (sh->lex_lst && sh->lex_lst->token == 0)
 		sh->lex_lst = sh->lex_lst->next;
-	if (!sh->lex_lst) // en realidad es un caso de error de syntax
-		return (0);
-//	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
-	new->str = exp_file(sh, sh->lex_lst->cont, new);
-//	printf("[FD_INIT] new str: %s, exp flag: %i\n", new->str, new->exp); //erase
-	if (!new->str)
+	if (!sh->lex_lst)
 		return (1);
+//	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
+	sh->lex_lst->cont = exp_file(sh, sh->lex_lst->cont, new);
+	if (!sh->lex_lst->cont)
+		return (1);
+	new->str = sh->lex_lst->cont;
+//	printf("[FD_INIT] new str: %s, exp flag: %i\n", new->str, new->exp); //erase
 	new->fd = fd;
 	new->next = NULL;
-	if (sh->lex_lst) // en realidad es un error de syntax este if
+	if (sh->lex_lst)
 		sh->lex_lst = sh->lex_lst->next;
+	return (0);
+}
+
+/*
+prev = -1
+*/
+int	ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
+{
+	while (fd1)
+	{
+	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i, exp flag: %i\n", p->cmd, fd1->str, fd1->fd, fd1->exp); //erase
+	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
+		ft_check_open(p, fd1, prev);
+		if (fd1->exp == 1)
+		{
+	//		printf("[OPEN] flag is 1\n"); // erase
+			return (err_break(sh, fd1->str, "ambiguous redirect", 1));
+		}
+		if (fd1->type == 6 || fd1->type == 9)
+			p->in_fd = fd1->fd;
+		else if (!fd1->str || *fd1->str == '\0')
+			return (err_break(sh, "", "No such file or directory", 1));
+		else if (fd1->type == 4)
+			p->in_fd = open(fd1->str, O_RDONLY);
+		else if (fd1->type == 5)
+			p->out_fd = open(fd1->str, O_TRUNC | O_CREAT | O_RDWR, 0666);
+		else if (fd1->type == 7)
+			p->out_fd = open(fd1->str, O_APPEND | O_CREAT | O_RDWR, 0666);
+		if (p->in_fd < 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
+			return (err_break(sh, fd1->str, NULL, 1));
+		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
+			return (err_break(sh, fd1->str, NULL, 1));
+	//	printf("[OPEN] PIPE %s -- fd after open in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
+		prev = fd1->type;
+		fd1 = fd1->next;
+	}
 	return (0);
 }

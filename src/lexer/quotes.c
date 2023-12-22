@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:34:25 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 18:56:34 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:20:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	word_in_quotes(char *in, char *q, int j)
 	j++;
 	while (in[j] && in[j] != *q)
 		j++;
-//	if (in[j])
-//		j++;
 //	printf("[IN QUOTES] IN quotes before: input - %s, j -- %i\n", in + j, j); //erase
 	while (in[j] && in[j + 1] && in[j + 1] != ' ' && check_chr(in[j + 1]) != 2)
 		j++;
@@ -42,7 +40,7 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	int		flag;
 	int		j;
 
-	if (!s || !len)
+	if (!s || !len || (!ft_strchr(s, '\'') && !ft_strchr(s, '\"')))
 		return (s);
 	len = len_no_q(s, q, len, -1);
 //	printf("[TRIM] len - %i\n", len); //erase
@@ -56,15 +54,14 @@ char		*trim_quotes(char *s, char q, int len, int i)
 	//	printf("[TRIM] - %i\n", len); //erase
 		while (check_chr(s[i + j]) == 2 && (flag > 0 || (flag < 0 && s[i + j] == q)))
 		{
-			q = s[i + j];
 			flag *= -1;
-			j++;
+			q = s[i + j++];
 		}
 		m[i] = s[i + j];
 //		printf("[TRIM] m[i]: %c, q: %c, flag: %i, s[i+j]: %c\n", m[i], q, flag, s[i + j]); //erase
 	}
 	m[i] = '\0';
-//	s = ft_memdel(s);
+	s = ft_memdel(s);
 	return (m);
 }
 
@@ -104,5 +101,23 @@ int		open_q(t_exp *exp, char c, int type)
 	}
 	else if (exp->fl && c == exp->q)
 		exp->fl = 0;
+	return (0);
+}
+
+int	exp_quotes(t_mini *sh, t_lexer **head, int *flag)
+{
+	if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) >= 0)
+	{
+		if (expand_word(sh, head))
+			return (1);
+	}
+	else if (sh->lex_lst->token == 1 && check_exp(sh->lex_lst->cont, 1, -1) < 0)
+	{
+		sh->lex_lst->cont = trim_quotes(sh->lex_lst->cont, ' ', ft_strlen(sh->lex_lst->cont), -1);
+		if (!sh->lex_lst->cont)
+			return (1);
+	}
+	else if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
+		*flag = 1;
 	return (0);
 }

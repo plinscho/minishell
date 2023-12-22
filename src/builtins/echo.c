@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 21:29:01 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:47:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,16 @@ int		ft_echo(t_mini *sh, t_pipe *p)
 	output = p->out_fd;
 	if (output < 0)
 		output = 1;
+//	printf("\n[ECHO] enteres: %s, output: %i\n", p->cmd[0], output); //erase
     if (num_args(cmd) > 1)
     {
         while (cmd[i] && parse_nl(cmd[i]))
 			i++;
 		while (cmd[i])
         {
-            ft_putendl_fd(cmd[i], output);
-            if (cmd[i + 1] && cmd[i][0] != '\0')
+ //           printf("\n[ECHO] i: %i, cmd[i]: %s\n", i, cmd[i]); //erase
+			ft_putendl_fd(cmd[i], output);
+            if (cmd[i + 1])
                 ft_putstr_fd(" ", output);
             i++;
         }
@@ -86,7 +88,7 @@ int		ft_echo(t_mini *sh, t_pipe *p)
   if (has_n)
         ft_putstr_fd("\n", output);
   if (sh->pipes)
-		err_exit(sh, NULL, NULL, 0);
+		err_break(sh, NULL, NULL, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 21:25:51 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:23:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,10 @@ void	ft_redir(t_mini *sh, t_pipe *p)
 		p->out_fd = -2;
 //		printf("\n[REDIR] PIPE: %s, AFTER dup out\n", p->cmd[0]); //erase
 	}
-	/*else if (!flag)
-	{
-//		printf("\n[REDIR] PIPE: %s, if there is pipe BEFORE dup out fd: %i\n", p->cmd[0], fd[1]); //erase
-		if (dup2(sh->exe->fdp[1], STDOUT_FILENO) < 0)
-			err_exit(sh, "dup2", NULL, 1);
-		close(sh->exe->fdp[1]);
-		sh->exe->fdp[1] = -2;
-	}*/
 }
 
 void	child_process(t_mini *sh, t_pipe *p, int flag)
 {
-	char	*the_path;
-
-	the_path = NULL;
 //	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
 	if (!flag)
 	{
@@ -57,10 +46,8 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 		sh->exe->fdp[0] = -2;
 	}
 //	printf("[CHILD] PIPE %p -- fd before open, in: %i, out - %i\n", p->cmd, p->out_fd, p->out_fd); //erase
-//	if (p->in_fd >= 0)
-//		ft_putendl_fd(cmd[i], output);
 	ft_open(sh, p, p->fd_lst, -1);
-//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, sh->pipe_lst->builtin); //erase
+//	printf("[CHILD] PIPE %s -- fd after open, in: %i, out: %i, flag built: %i\n", p->cmd[0], p->in_fd, p->out_fd, p->builtin); //erase
 //	if (sh->pipe_lst->builtin)
 //		exit(exec_builtin(sh, p));
 //	printf("\n[CHILD] Not command: %p\n", p->cmd); //erase
@@ -68,19 +55,18 @@ void	child_process(t_mini *sh, t_pipe *p, int flag)
 //		ft_exit_exe(sh, NULL, NULL, 0); // do not 
 	if (p->builtin)
 		exit(exec_builtin(sh, p));
-	check_access(sh, p->cmd, &the_path);
-//	printf("\n[CHILD] after check access: %s\n", the_path); //erase
+	check_access(sh, p->cmd, p);
+//	printf("\n[CHILD]after check access: %s\n", p->path); //erase
 	ft_redir(sh, p);
 //	ft_putstr_fd("after redir -- ", 2);
 //	ft_putstr_fd(p->cmd[0], 2);
 //	ft_putstr_fd(" \n", 2);
-	if (execve(the_path, p->cmd, sh->env) == -1)
+	if (execve(p->path, p->cmd, sh->env) == -1)
 		err_exit(sh, "execve", NULL, 14);
 }
 
 int	last_child(t_mini *sh, t_pipe *p)
 {
-//	print_parser(p);
 	p->builtin = check_builtin(p->cmd);
 //	printf("\n[LAST CHILD] NEW PIPE: %s\n", p->cmd[0]); //erase
 	if (!sh->pipes && sh->pipe_lst->builtin)
@@ -109,8 +95,6 @@ j = -1
 */
 int	executor(t_mini *sh, t_pipe *p, int i, int j)
 {
-//	int	fd[2];
-	
 //	printf("\n[EXEC] PIPES: %i\n", sh->pipes); //erase
 	while (++i < sh->pipes)
 	{
@@ -143,21 +127,23 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 
 int	exec_builtin(t_mini *sh, t_pipe *p)
 {	
-	if (!sh->pipes)
-		ft_open(sh, p, p->fd_lst, -1);
-	if (sh->pipe_lst->builtin == 1)
+	if (!sh->pipes && ft_open_built(sh, p, p->fd_lst, -1))
+		return (sh->exit);
+	if (p->builtin == 1)
 		return (ft_echo(sh, p));
-	if (sh->pipe_lst->builtin == 2)
+	if (p->builtin == 2)
 		return (ft_cd(sh, p));
-	if (sh->pipe_lst->builtin == 3)
+	if (p->builtin == 3)
 		return (ft_pwd(sh, p));
-	if (sh->pipe_lst->builtin == 4)
+	if (p->builtin == 4)
 		return (ft_export(sh, p));
-	if (sh->pipe_lst->builtin == 5)
+	if (p->builtin == 5)
 		return (ft_unset(sh, p));
-	if (sh->pipe_lst->builtin == 6)
+	if (p->builtin == 6 && sh->paths)
 		return (ft_env(sh, p));
-	if (sh->pipe_lst->builtin == 7)
+	else if (p->builtin == 6 && !sh->paths)
+		err_break(sh, p->cmd[0], "command not found", 127);
+	if (p->builtin == 7)
 		return (ft_exit(sh)); 
 	return (sh->exit);
 }

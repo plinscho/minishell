@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:50:15 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:40:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_exp(char *cont, int type, int q)
 	int	i;
 
 	i = 0;
-	if (!cont || type == 2)
+	if (!cont || (type != 1 && type != 3))
 		return (-1);
 	while (cont[i] && cont[i + 1])
 	{
@@ -76,7 +76,7 @@ int	new_len(t_mini *sh, char *cont, int type)
 	return (len);
 }
 
-char *get_var(char *cont)
+char	*get_var(char *cont)
 {
 	int	len;
 	char	*new;
@@ -87,6 +87,8 @@ char *get_var(char *cont)
 	if (check_chr(cont[len]) == 3)
 	{
 		new = malloc(2);
+		if (!new)
+			return (NULL);
 		new[0] = cont[0];
 		new[1] = '\0';
 		return (new);

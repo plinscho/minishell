@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:20:05 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/13 16:50:18 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:48:27 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_exp
 } t_exp;
 
 /**********   expanser.c -  ***********/
-int		expanser(t_mini *sh, t_lexer *lex);
+int		expanser(t_mini *sh, t_lexer *lex, int flag);
 char	*expand_str(t_mini *sh, char *cont, int type, int i);
 int		expand_word(t_mini *sh, t_lexer **lex);
 t_lexer *read_word_exp(char *in, int *i, char q, int j); 

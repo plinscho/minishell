@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:26:04 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/09 21:56:43 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:16:22 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ int	count_cmd(t_lexer *temp)
 /*
 This function creates a double array of commands, using the tokens allocated in the lexer list.
 */
-int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
+int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh, int j)
 {
 	int	i;
-	int	j;
 
 	i = count_cmd(temp);
 //	printf("[P_CMD]token: %i\n", temp->token); //erase
@@ -67,14 +66,12 @@ int	parse_cmd(t_pipe *new, t_lexer *temp, t_mini *sh)
 	if (!new->cmd)
 		return (1);
 //	temp = sh->lex_lst;
-	j = 0;
 	while (sh->lex_lst && sh->lex_lst->token < 4)
 	{
 		if (sh->lex_lst->token != 0)
 		{
-			new->cmd[j] = sh->lex_lst->cont;
+			new->cmd[j++] = sh->lex_lst->cont;
 //			printf("[P_CMD] cmd1 [%i]: %s, i - %i\n", j, sh->lex_lst->cont, i); //erase
-			j++;
 		}
 		sh->lex_lst = sh->lex_lst->next;
 	}
@@ -102,10 +99,11 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	int		check;
 	
 	fd_new = NULL;
-	fd_new = malloc(sizeof(t_fd));
 	check = 0;
+	fd_new = malloc(sizeof(t_fd));
 	if (!fd_new)
 		return (1);
+	fd_add(&(new->fd_lst), fd_new);
 	if ((lex->token > 3 && lex->token < 6) || lex->token == 7)
 		check = fd_init(fd_new, sh, -2);
 	else if (lex->token == 6)
@@ -115,7 +113,6 @@ int	parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh)
 	}
 	if (check)
 		return (1);
-	fd_add(&(new->fd_lst), fd_new);
 	return (0);
 }
 
@@ -126,18 +123,13 @@ In every node it prses a double array of commands and a list of all file descrip
 To create the pipe nodes it iterates the heredoc list and the lexer list, so it saves the head of the lists 
 in the beginning to restore the initial position in sh at the end (or in case of a mistake).
 */
-int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
+int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new)
 {
-	t_pipe	*new;
-
-	new = NULL;
-	if (!lex)
-		return (1);
 	while (sh->lex_lst)
 	{
 		new = malloc(sizeof(t_pipe));
 		if (!new)
-			return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
+			return (err_break(sh_re(&sh, lex, hd), "malloc", NULL, 12));
 //		printf("[PARSER]lex 1 -- content: %s, type; %i\n", sh->lex_lst->cont, sh->lex_lst->token); //erase
 //		printf("[PARSER]You entered: %i\n", check); //erase
 		pipe_init(new);
@@ -145,32 +137,24 @@ int	parser(t_mini *sh, t_lexer *lex, t_fd *hd, int check)
 //		printf("[PARSER]before add: %p\n", sh->pipe_lst); //erase
 		pipe_add(sh, new);
 //		printf("[PARSER]after add: %p\n", sh->pipe_lst); //erase
-	// 	return (0); //erase
-//		if (sh->lex_lst)
-//			printf("[PARSER] lex: %s\n", sh->lex_lst->cont); //erase
 		while (sh->lex_lst && sh->lex_lst->token != 8)
 		{
 //			printf("[PARSER] not 8, lex token: %i\n", sh->lex_lst->token); //erase
 			if (sh->lex_lst->token > 3 && sh->lex_lst->token < 8)
-				check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
-			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && !new->cmd)
-				check = parse_cmd(new, sh->lex_lst, sh);
+				sh->check = parse_redir(new, sh->lex_lst, sh->hd_lst, sh);
+			else if (sh->lex_lst->token > 0 && sh->lex_lst->token < 4 && \
+			!new->cmd)
+				sh->check = parse_cmd(new, sh->lex_lst, sh, 0);
 			else
 				sh->lex_lst = sh->lex_lst->next;
-//			if (sh->lex_lst)
-//				printf("[PARSER] lex1: %s\n", sh->lex_lst->cont); //erase
 //			printf("[PARSER] new lex2: %p\n", sh->lex_lst); //erase
 	//		printf("[PARSER] new pipe_lst->cmd: %p\n", (sh)->pipe_lst->cmd); //erase
-//			printf("check: %i\n", check); //erase
-			if (check)
-			{
-//				printf("[check 0] lex: %s\n", (sh)->lex_lst->cont); //erase
-				return (err_break(sh_restore(&sh, lex, hd), "malloc", NULL, 12));
-			}
+			if (sh->check)
+				return (err_break(sh_re(&sh, lex, hd), "malloc", NULL, 12));
 		}
 		if (sh->lex_lst)
 			sh->lex_lst = sh->lex_lst->next;
 	}
-	sh_restore(&sh, lex, hd);
+	sh_re(&sh, lex, hd);
 	return (0);
 }

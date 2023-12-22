@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/14 21:24:44 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:31:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		ft_check_open(p, fd1, prev);
 		if (fd1->exp == 1)
-		{
-	//		printf("[OPEN] flag is 1\n"); // erase
 			err_exit(sh, fd1->str, "ambiguous redirect", 1);
-		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (!fd1->str || *fd1->str == '\0')
@@ -72,7 +69,8 @@ void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 
 void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
 {
-	if (p->in_fd >= 0 && (cur->type == 6 || cur->type == 9 || cur->type == 4) && prev != 6)
+	if (p->in_fd >= 0 && (cur->type == 6 || cur->type == 9 || cur->type == 4)\
+	 && prev != 6)
 	{
 		close(p->in_fd);
 		p->in_fd = -2;
@@ -85,7 +83,7 @@ void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
 	}
 }
 
-void	check_access(t_mini *sh, char **cmd, char **path)
+void	check_access(t_mini *sh, char **cmd, t_pipe *p)
 {
 	if (!cmd || !(*cmd) || !(**cmd))
 		err_exit(sh, cmd[0], "command not found", 127);
@@ -94,38 +92,41 @@ void	check_access(t_mini *sh, char **cmd, char **path)
 		if (access(cmd[0], F_OK) == 0)
 		{
 			if (access(cmd[0], X_OK) != 0)
-				err_exit(sh, cmd[0], "permission denied", 126); // here should be return
-			*path = cmd[0];
+				err_exit(sh, cmd[0], "permission denied", 126);
+			p->path = cmd[0];
 		}
 		else
-			err_exit(sh, cmd[0], "command not found", 127);
+			err_exit(sh, cmd[0], "No such file or directory", 127);
 	}
 	else
-		*path = check_paths(sh->paths, cmd[0], sh);
+		check_paths(sh->paths, cmd[0], sh, p);
 }
 
-char	*check_paths(char **paths, char *cmd, t_mini *sh)
+void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *pipe)
 {
-	char	*p;
 	int		i;
 
-	i = -1;
-//	print_arr(sh->paths);
-	while (paths[++i])
+	i = 0;
+	if (!paths)
+		err_exit(sh, cmd, "command not found", 127);
+	while (paths[i])
 	{
-		p = ft_smart_join(paths[i], "/", cmd);
-//		printf("\n[CHECK PATHS] p: %s\n", p); //erase
-		if (!p)
+	//	printf("\n[CHECK PATHS] i: %i, path: %s\n", i, paths[i]); //erase
+		pipe->path = ft_smart_join(paths[i], "/", cmd);
+	//	printf("\n[CHECK PATHS] p: %s\n", pipe->path); //erase
+		if (!pipe->path)
 			err_exit(sh, "malloc", NULL, 12);
-		if (access(p, F_OK) == 0)
+		if (access(pipe->path, F_OK) == 0)
 		{
-			if (access(p, X_OK) != 0)
+			if (access(pipe->path, X_OK) != 0)
 				err_exit(sh, cmd, "permission denied", 126);
 			else
-				return (p);
+				return ;
 		}
-		p = ft_memdel(p);
+	//	printf("\n[CHECK PATHS] p before delete: %p, str: %s\n", pipe->path, pipe->path); //erase
+		pipe->path = ft_memdel(pipe->path);
+	//	printf("\n[CHECK PATHS] p after delete: %p\n", pipe->path); //erase
+		i++;
 	}
 	err_exit(sh, cmd, "command not found", 127);
-	return (NULL);
 }

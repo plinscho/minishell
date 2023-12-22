@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:01:15 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:37:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:19:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lexer	*lex_new(char *content, int token)
 
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
-		return (NULL);
+		return (ft_memdel(content));
 	new_node -> cont = content;
 	new_node -> token = token;
 	new_node -> prev = NULL;
@@ -83,11 +83,8 @@ t_lexer	*lex_last(t_lexer *lst)
 	return (lst);
 }
 
-void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
+void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp)
 {
-	t_lexer	*temp;
-
-	temp = sh->lex_lst;
 //	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
 	if (!new)
 	{
@@ -99,7 +96,6 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 		if (temp->next)
 			temp->next->prev = temp->prev;
 	//	printf("[LEX INSERT] BEFORE *lst ptr: %p, sh-lst: %p, new: %p\n", *lst, sh->lex_lst, new);	
-	//	sh->lex_lst = temp->next;
 	//	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
 		if (temp->cont)
 			temp -> cont = ft_memdel(temp -> cont);
@@ -116,41 +112,5 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex)
 	if (temp -> cont)
 		temp -> cont = ft_memdel(temp -> cont);
 	temp = ft_memdel(temp);
-//	sh->lex_lst = new;
 //	printf("[LEX INSERT] *lst ptr: %p, sh-lst: %p\n", *lst, sh->lex_lst);
-//	if (temp -> cont)
-//		temp -> cont = ft_memdel(temp -> cont);
-//	temp = ft_memdel(temp);
 }
-
-/*int	trim_quotes(t_mini *sh, t_lexer *temp)
-{
-	while (temp)
-	{
-		if (temp->token == 1)
-		{
-			temp->cont = word_no_q(temp->cont, '\'');
-			if (!temp->cont)
-				return (err_break(sh, "malloc", NULL, 12));
-			temp->cont = word_no_q(temp->cont, '\"');
-			if (!temp->cont)
-				return (err_break(sh, "malloc", NULL, 12));
-		}
-		temp = temp->next;
-	}
-	return (0);
-}
-
-char	*word_no_q(char *in, char q)
-{
-	char	*cont;
-
-	if (ft_strchr(in, q))
-		cont = ft_substr_quotes(in, q, ft_strlen(in), -1);
-	else
-		return (in);
-	in = ft_memdel(in);
-	if (!cont)
-		return (NULL);
-	return (cont);
-}*/

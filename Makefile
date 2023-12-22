@@ -6,7 +6,7 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/13 16:42:53 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/22 15:55:54 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDE = include/minishell.h \
 			include/executor.h
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/
+CFLAGS = -Wall -Wextra -Werror -MMD -g -I include/ #-fsanitize=address
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap
@@ -38,7 +38,6 @@ LEXER = src/lexer/lexer \
 		src/lexer/fd_utils \
 		src/lexer/check_syntax \
 		src/lexer/utils \
-		src/lexer/check_sequence
 
 EXPANSER = src/expanser/expanser src/expanser/expanser_utils src/expanser/exp_struct 
 EXECUTOR = src/executor/executor src/executor/exec_utils
@@ -85,8 +84,6 @@ make_lib:
 $(F_OBJ)%.o: src/%.c Makefile
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-#vpath %.c src/main/:src/parser/:src/env/:src/builtins/:src/executor/:src/expanser/:src/lexer/:src/signals/:src/errors/
 
 $(NAME): $(OBJ) ./$(LIBFT) 
 	@mkdir -p $(@D)

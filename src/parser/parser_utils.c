@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:41:40 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/11/30 14:30:17 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:09:18 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ This function initializes the pipe list.
 void	pipe_init(t_pipe *pip)
 {
 	pip->cmd = NULL;
-//	pip->paths = NULL;
+	pip->path = NULL;
 	pip->fd_lst = NULL;
 	pip->in_fd = -2;
 	pip->out_fd = -2;
-//	pip->builtin = 0;
+	pip->builtin = 0;
 	pip->next = NULL;
 }
 
@@ -66,6 +66,8 @@ int	pipe_clean(t_pipe **lst)
 //		printf("[PIPE CLEAN] before cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
 		if ((*lst)->cmd)
 			(*lst)->cmd = arr_clean((*lst)->cmd, 1);
+		if ((*lst)->path)
+			(*lst)->path = ft_memdel((*lst)->path);
 //		printf("[PIPE CLEAN] after cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
 		//check if i neet to close in and out fd here
 		free(*lst);
