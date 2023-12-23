@@ -1,15 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/23 15:13:16 by plinscho          #+#    #+#             */
+/*   Updated: 2023/12/23 15:13:16 by plinscho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
 
-#define ERR_MLC	-2
-#define ERR_KEY	-1
-#define	NOTHING	0
-#define UPDATE	1
-#define ADD		2
+void	print_env_fd(t_env *tmp, int output)
+{
+	ft_putstr_fd("=", output);
+	ft_putstr_fd("\"", output);
+	ft_putstr_fd(tmp->env_val, output);
+	ft_putstr_fd("\"", output);
+	ft_putstr_fd("\n", output);
+}
 
-int		print_export(t_env *eprint, t_pipe *p)
+int	print_export(t_env *eprint, t_pipe *p)
 {
 	t_env	*tmp;
 	int		output;
@@ -26,13 +41,7 @@ int		print_export(t_env *eprint, t_pipe *p)
 		ft_putstr_fd("declare -x ", output);
 		ft_putstr_fd(tmp->env_key, output);
 		if (tmp->env_val)
-		{
-			ft_putstr_fd("=", output);
-			ft_putstr_fd("\"", output);
-			ft_putstr_fd(tmp->env_val, output);
-			ft_putstr_fd("\"", output);
-			ft_putstr_fd("\n", output);
-		}
+			print_env_fd(tmp, output);
 		else
 			ft_putstr_fd("\n", output);
 		tmp = tmp->next;
@@ -65,7 +74,7 @@ char	*find_in_env_variables(t_mini *sh, char *variable_name)
 t_env	*ft_getkey_node(char *new_key, t_env *list)
 {
 	t_env	*head;
-	
+
 	head = list;
 	while (list->next)
 	{
@@ -75,10 +84,9 @@ t_env	*ft_getkey_node(char *new_key, t_env *list)
 	}
 	list = head;
 	return (NULL);
-
 }
 
-int		export_option(const char *name)
+int	export_option(const char *name)
 {
 	int	i;
 

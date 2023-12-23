@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:43:15 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 18:30:55 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:22:55 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ void	unset_var(t_mini *sh, char *var)
 	unset_free(node);
 }
 
-int		ft_unset(t_mini *sh, t_pipe *p)
+int	ft_unset(t_mini *sh, t_pipe *p)
 {
 	char	**args;
-//	char	**new_env;
 	int		i;
 
 	(void)p;
