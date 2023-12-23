@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/22 17:28:19 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:14:33 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ typedef struct s_mini
 int		ft_env(t_mini *sh, t_pipe *p);		// Ready
 int		ft_export(t_mini *sh, t_pipe *p);	// Ready
 int		ft_pwd(t_mini *sh, t_pipe *p);		// Ready
-int		ft_exit(t_mini *sh);	// Ready | check exit value
-int		ft_cd(t_mini *sh, t_pipe *p);		// Ready | Leaks!!
-int		ft_unset(t_mini *sh, t_pipe *p);	// Reeady
-int		ft_echo(t_mini *sh, t_pipe *p);
-
+int		ft_exit(t_mini *sh);				// Ready
+int		ft_cd(t_mini *sh, t_pipe *p);		// Ready
+int		ft_unset(t_mini *sh, t_pipe *p);	// Ready
+int		ft_echo(t_mini *sh, t_pipe *p);		// Ready
 
 //###########################################################################################
 

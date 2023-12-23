@@ -71,21 +71,6 @@ char	*find_in_env_variables(t_mini *sh, char *variable_name)
 	return (NULL);
 }
 
-t_env	*ft_getkey_node(char *new_key, t_env *list)
-{
-	t_env	*head;
-
-	head = list;
-	while (list->next)
-	{
-		if (ft_strcmp(new_key, list->env_key) == 0)
-			return (list);
-		list = list->next;
-	}
-	list = head;
-	return (NULL);
-}
-
 int	export_option(const char *name)
 {
 	int	i;
