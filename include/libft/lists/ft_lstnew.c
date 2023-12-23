@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:53:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/10/31 18:25:52 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:31:32 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ t_list	*ft_lstnew(void *content)
 	new_list -> next = NULL;
 	return (new_list);
 }
-
