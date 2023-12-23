@@ -11,7 +11,7 @@ int	minishell(t_mini *sh)
 {
 	if (sh_loop_init(sh))
 		return (1);
-	sh->input = readline("kebab$> ");
+	sh->input = readline("\nkebab$> ");
 	if (!sh->input)
 		return (ft_exit(sh));
 	add_history(sh->input);
