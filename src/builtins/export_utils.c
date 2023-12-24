@@ -84,7 +84,9 @@ int	export_option(const char *name)
 		{
 			if ((name[i] == '+' || name[i] == '=') && name[i + 1] != '\0')
 				return (0);
-			if (name[i] == ' ' || name[i] == '%')
+			if (name[i] == ' ' || name[i] == '%' || name[i] == '/')
+				return (0);
+			if (name[i] != '+' && name[i] != '=')
 				return (0);
 		}
 		i++;

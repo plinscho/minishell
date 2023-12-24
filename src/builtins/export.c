@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/24 17:30:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:50:43 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 	}
 }
 
-int	error_option(char *str1, char *str2)
+int	error_option(char *str1, char *str2, char **vc)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str1, 2);
 	ft_putstr_fd("=", 2);
 	ft_putstr_fd(str2, 2);
 	ft_putstr_fd("\': not a valid identifier\n", 2);
+	vc = arr_clean(vc, 0);
 	return (1);
 }
 
@@ -58,7 +59,7 @@ int	handle_args(t_mini *sh, char *arg)
 
 	vc = ft_split(arg, '=');
 	if (!export_option(vc[0]))
-		error_option(vc[0], vc[1]);
+		return (error_option(vc[0], vc[1], vc));
 	else
 	{
 		if (ft_strchr(vc[0], '+'))
@@ -73,7 +74,7 @@ int	handle_args(t_mini *sh, char *arg)
 			add_or_update_env(sh, vc[0], vc[1]);
 	}
 	vc = arr_clean(vc, 0);
-	return (1);
+	return (0);
 }
 
 int	ft_export(t_mini *sh, t_pipe *p)
@@ -92,7 +93,10 @@ int	ft_export(t_mini *sh, t_pipe *p)
 		return (print_export(tmp_env, p));
 	while (t_cmd[i] != NULL)
 	{
-		err = handle_args(sh, t_cmd[i]);
+		if (!err)
+			err = handle_args(sh, t_cmd[i]);
+		else
+			handle_args(sh, t_cmd[i]);
 		i++;
 	}
 	if (sh->env)
