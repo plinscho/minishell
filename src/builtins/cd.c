@@ -6,19 +6,15 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:46:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 14:16:01 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-//#include <linux/limits.h>
+#include <limits.h>
 #include <unistd.h>
-/*
-	This builtin needs 2 thing, the OLDPWD and the actual PWD from
-	env. 
-*/
 
-void		print_error(char **args)
+void	print_error(char **args)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	if (args[2])
@@ -32,7 +28,7 @@ void		print_error(char **args)
 	}
 }
 
-int		update_oldpwd(t_mini *sh)
+int	update_oldpwd(t_mini *sh)
 {
 	char	cwd[PATH_MAX];
 
@@ -43,7 +39,7 @@ int		update_oldpwd(t_mini *sh)
 	return (0);
 }
 
-int		go_to_path(int option, t_mini *sh)
+int	go_to_path(int option, t_mini *sh)
 {
 	int		ret;
 	char	*env_path;
@@ -68,16 +64,14 @@ int		go_to_path(int option, t_mini *sh)
 		update_oldpwd(sh);
 	}
 	ret = chdir(env_path);
-//	env_path = ft_memdel(env_path);
 	return (ret);
 }
 
-int		ft_cd(t_mini *sh, t_pipe *p)
+int	ft_cd(t_mini *sh, t_pipe *p)
 {
 	char	**args;
 	int		cd_ret;
 
-//	print_parser(p);
 	(void)p;
 	args = p->cmd;
 	if (!args[1] || args[1][0] == '~')

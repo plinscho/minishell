@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
+#    By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/22 15:55:54 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/23 17:09:28 by plinscho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ ERRORS = src/errors/errors
 
 ENV = src/env/env \
 		src/env/env_list \
-		src/env/free_env \
+		src/env/env_free \
 		src/env/env_utils \
 		src/env/env_sort
 

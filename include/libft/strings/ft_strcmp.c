@@ -6,7 +6,7 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:09:08 by plinscho          #+#    #+#             */
-/*   Updated: 2023/11/03 22:09:23 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:28:17 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
+	if (!s1 || !s2)
+		return (-1);
 	i = 0;
 	while (s1[i] == s2[i])
 	{

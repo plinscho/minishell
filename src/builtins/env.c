@@ -6,19 +6,19 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:13 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/19 19:57:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 14:46:33 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		ft_env(t_mini *sh, t_pipe *p)
+int	ft_env(t_mini *sh, t_pipe *p)
 {
 	t_env	*tmp;
-	int output;
-	
+	int		output;
+
 	output = p->out_fd;
-	if (output < 0 )
+	if (output < 0)
 		output = 1;
 	if (sh && sh->env_lst)
 	{

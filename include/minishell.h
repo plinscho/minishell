@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/22 18:19:22 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:34:58 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # include <readline/history.h>
 # include <string.h>
 
-//	0. STRUCTS:
 typedef struct s_envlst	t_env;
 typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
@@ -51,7 +50,7 @@ typedef struct s_mini
 	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
-//	char	**envp; //the original, using for debugging
+//	char	**envp;		//the original, using for debugging
 	int		exit;		//exit status
 	int		pipes; 		//How many pipes are there
 	int		check;
@@ -60,28 +59,22 @@ typedef struct s_mini
 	int		power_on;
 }	t_mini;
 
-//###########################################################################################
 
 //	BUILTINS !
 
 int		ft_env(t_mini *sh, t_pipe *p);		// Ready
 int		ft_export(t_mini *sh, t_pipe *p);	// Ready
 int		ft_pwd(t_mini *sh, t_pipe *p);		// Ready
-int		ft_exit(t_mini *sh);	// Ready | check exit value
-int		ft_cd(t_mini *sh, t_pipe *p);		// Ready | Leaks!!
-int		ft_unset(t_mini *sh, t_pipe *p);	// Reeady
-int		ft_echo(t_mini *sh, t_pipe *p);
-
-
-//###########################################################################################
+int		ft_exit(t_mini *sh);				// Ready
+int		ft_cd(t_mini *sh, t_pipe *p);		// Ready
+int		ft_unset(t_mini *sh, t_pipe *p);	// Ready
+int		ft_echo(t_mini *sh, t_pipe *p);		// Ready
 
 //			--	--	MAIN	--	--
-/***** main.c  *********************************/
 int		minishell(t_mini *sh);
 
 /***** initialize.c - initializing and cleaning sh!!! *****/
 int		sh_init(t_mini *sh, char **env);
-//void	sh_del(t_mini *sh);	// This is only used when exiting  the shell, we dont want to free the env between readlines
 void	sh_clean(t_mini *sh);
 t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
 int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
@@ -90,31 +83,23 @@ int		allocate_exe(t_mini *sh); //allocates a variables struct for execution
 
 //			--	--	HERE_DOC	--	--
 
-/***** heredoc.c - after checking unclosed quotes *****/
+/***** after checking unclosed quotes *****/
 int		ft_heredoc(t_mini *sh, char *in, int i);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
 int		save_hd(t_mini *sh, char *key, char *str, int type);
 int		hd_close(int fd[]);
-/*************************************************/
+
 
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
 int		fd_init(t_fd *new, t_mini *sh, int fd);
 int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
-/*************************************************/
-
-
-//###########################################################################################
 
 //			--	--	SIGNALS	--	--
-
 void	signals(void);
 void	sig_handler(int sig);
-
-//###########################################################################################
-
 
 //			--	--	ERRORS	--	--
 
@@ -122,11 +107,9 @@ int		quotes_error(t_mini *sh);
 int		err_char(t_mini *sh, int token);
 int	error_option(char *str1, char *str2);
 
-
 //void	syntax_error(t_mini *sh, char *seq);
 //int		serror(char *s);
 int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
 int		err_exit(t_mini *sh, char *name, char *message, int err);
-//###########################################################################################
 
 #endif

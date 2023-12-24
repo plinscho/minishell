@@ -6,70 +6,93 @@
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/09 19:47:14 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:25:13 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-/*
-static t_env	*last_env(t_env *env)
-{
-	if (env == NULL)
-		return (NULL);
-	while (env->next != NULL)
-		env = env->next;
-	return (env);
-}
-*/
 
-
-void	add_env_to_list(t_mini *sh, t_env *new_env)
+t_env	*ft_getkey_node(char *new_key, t_env *list)
 {
 	t_env	*head;
-	t_env	*tmp;
 
-	head = sh->env_lst;
-	tmp = sh->env_lst;
-	if (new_env == NULL)
-		return ;
-	if (head == NULL)
+	head = list;
+	while (list->next)
 	{
-		sh->env_lst = new_env;
-		return ;
+		if (ft_strcmp(new_key, list->env_key) == 0)
+			return (list);
+		list = list->next;
 	}
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new_env;
-//	sh->env_lst = head;
+	list = head;
+	return (NULL);
 }
 
-// option 1 is for complete variables (with value)
-size_t	env_variables(t_env *head, int option)
+int	env_val_update(t_env *head, char *key, char *n_value)
 {
-	t_env	*tmp = NULL;
-	size_t	env_cases;
-	
+	t_env	*tmp;
+	size_t	len;
+
 	tmp = head;
-	env_cases = 0;
-	if (option == 1)
+	len = ft_strlen(key);
+	while (tmp != NULL)
 	{
-		while (tmp)
+		if (ft_strncmp(tmp->env_key, key, len) == 0 \
+			&& len == ft_strlen(tmp->env_key))
 		{
-			env_cases++;
-			tmp = tmp->next;
+			tmp->env_val = ft_strdup(n_value);
+			if (!tmp->env_val)
+				return (1);
+			return (0);
 		}
-		return (env_cases);	
+		tmp = tmp->next;
 	}
-	else if (option == 2)
+	return (1);
+}
+
+int	env_add_last(t_mini *sh, char *name, char *value, int has_value)
+{
+	t_env	*new_env;
+
+	new_env = malloc(sizeof(t_env));
+	if (!new_env)
+		return (1);
+	new_env->env_key = ft_strdup(name);
+	if (has_value)
+		new_env->env_val = ft_strdup(value);
+	new_env->next = NULL;
+	if (!new_env->env_key || (has_value && !new_env->env_val))
 	{
-		while (tmp->next)
-		{
-			if (tmp->env_val)
-				env_cases++;
-			tmp = tmp->next;
-		}
-		return (env_cases);	
+		unset_free(new_env);
+		return (1);
 	}
-	else
-		return (0);
+	add_env_to_list(sh, new_env);
+	return (0);
+}
+
+int	add_or_update_env(t_mini *sh, char *name, char *value)
+{
+	t_env	*env;
+	int		has_val;
+
+	has_val = 1;
+	if (value == NULL)
+		has_val = 0;
+	env = sh->env_lst;
+	while (env != NULL)
+	{
+		if (ft_strncmp(env->env_key, name, ft_strlen(name)) == 0
+			&& ft_strlen(env->env_key) == ft_strlen(name))
+		{
+			if (env->env_val)
+				free(env->env_val);
+			env->env_val = ft_strdup(value);
+			if (!env->env_val)
+				return (err_break(sh, "malloc", NULL, 12));
+			return (0);
+		}
+		env = env->next;
+	}
+	if (env_add_last(sh, name, value, has_val))
+		return (err_break(sh, "malloc", NULL, 12));
+	return (0);
 }

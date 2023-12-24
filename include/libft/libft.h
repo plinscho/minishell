@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:14:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/22 18:52:44 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:34:45 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_gnl
 {
 	char			*str_buff;
 	struct s_gnl	*next;
-}t_line;
+}	t_line;
 
 char	*get_next_line(int fd);
 void	create_list(t_line **list, int fd);
@@ -109,7 +109,7 @@ typedef struct s_print
 	char		specifier;
 	int			total_len;
 
-}t_print;
+}	t_print;
 
 t_print	*ft_initialize_tab(t_print *tab);
 

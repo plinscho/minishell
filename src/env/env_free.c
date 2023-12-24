@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env.c                                         :+:      :+:    :+:   */
+/*   env_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/14 19:39:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:23:43 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		free_env_lst(t_env *head)
+int	free_env_lst(t_env *head)
 {
-	t_env	*e_tmp = NULL;
-	t_env	*prev_node = NULL;
+	t_env	*e_tmp;
+	t_env	*prev_node;
 
 	e_tmp = head;
 	while (e_tmp)
@@ -31,29 +31,12 @@ int		free_env_lst(t_env *head)
 	}
 	return (1);
 }
-/*
-void	free_env_chr(t_mini *sh)
-{
-	char			**env_tmp = NULL;
-	unsigned int	i;
 
-	env_tmp = sh->env;
-	i = 0;
-	while (env_tmp[i])
-	{
-		ft_memdel(env_tmp[i]);
-		i++;
-	}
-	ft_memdel(env_tmp);
-}
-*/
 void	free_env(t_mini *sh)
 {
 	if (sh->exe)
 		free(sh->exe);
 	if (sh->env != NULL)
 		sh->env = arr_clean(sh->env, 0);
-//	printf("Cleaned char **\n");
 	free_env_lst(sh->env_lst);
-//	printf("Cleaned list\n");
 }
