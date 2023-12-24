@@ -41,13 +41,14 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 	}
 }
 
-void	error_option(char *str1, char *str2)
+int	error_option(char *str1, char *str2)
 {
 	ft_putstr_fd("minishell: export: \'", 2);
 	ft_putstr_fd(str1, 2);
 	ft_putstr_fd("=", 2);
 	ft_putstr_fd(str2, 2);
 	ft_putstr_fd("\': not a valid identifier\n", 2);
+	return (1);
 }
 
 int	handle_args(t_mini *sh, char *arg)
@@ -72,7 +73,7 @@ int	handle_args(t_mini *sh, char *arg)
 			add_or_update_env(sh, vc[0], vc[1]);
 	}
 	vc = arr_clean(vc, 0);
-	return (0);
+	return (err);
 }
 
 int	ft_export(t_mini *sh, t_pipe *p)

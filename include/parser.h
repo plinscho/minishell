@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:49 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/22 17:14:56 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:03:02 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_pipe
 {
 	char	**cmd;
 	char	*path;
-	t_fd	*fd_lst; // the list names of all the files and file descriptors
+	t_fd	*fd_lst;
 	int		in_fd; 
 	int		out_fd;
 	int		builtin;
@@ -36,10 +36,10 @@ typedef struct s_pipe
 /* a list with all the files names with redirections */
 typedef struct s_fd
 {
-	int		fd;		// file descriptor
-	int		type;	// 4 - infile, 5 - outfile, 6 - here_doc, 7 - outfile append
-	int		exp;	// flag, if there is an ambiguos redirect
-	char	*str;	// keyword in heredoc, or the filename
+	int		fd;
+	int		type;
+	int		exp;
+	char	*str;
 	struct s_fd	*next;
 }	t_fd;
 
@@ -48,11 +48,11 @@ typedef struct s_fd
 //			--	--	PARSER	--	--
 
 /***** parser.c - the updated main with sh struct and  *****/
-int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new); // cleans all and returns 1 if malloc failed
-int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh); //we have 2 cases: < || > || >> and heredoc
-int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh, int j); //I dont clean the lex here! 
-int		count_cmd(t_lexer *temp); // counts words in a command
-t_lexer	*next_word(t_lexer *temp); // gets the pointer to the next word in the command
+int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new);
+int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh);
+int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh, int j);
+int		count_cmd(t_lexer *temp);
+t_lexer	*next_word(t_lexer *temp);
 /***************************************************/
 
 /***** parser_utils.c - the updated main with sh struct and  *****/

@@ -38,6 +38,7 @@ size_t	ft_strlen(const char *s); //ok
 int		ft_tolower(int c); // ok
 int		ft_toupper(int c); // ok
 int		ft_atoi(const char *str);
+int		ft_atoi_minish(const char *str);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n); //ok
 int		ft_strcmp(const char *s1, const char *s2);

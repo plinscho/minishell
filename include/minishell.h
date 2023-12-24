@@ -105,7 +105,7 @@ void	sig_handler(int sig);
 
 int		quotes_error(t_mini *sh);
 int		err_char(t_mini *sh, int token);
-void	error_option(char *str1, char *str2);
+int	error_option(char *str1, char *str2);
 
 //void	syntax_error(t_mini *sh, char *seq);
 //int		serror(char *s);
