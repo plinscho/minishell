@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 15:10:28 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:10:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	p_exit_err(char *str_error, int option)
 {
 	if (option == 1)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str_error, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		return (255);

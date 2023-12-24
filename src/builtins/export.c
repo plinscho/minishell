@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 15:21:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:05:50 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	handle_args(t_mini *sh, char *arg)
 			add_or_update_env(sh, vc[0], vc[1]);
 	}
 	vc = arr_clean(vc, 0);
-	return (err);
+	return (1);
 }
 
 int	ft_export(t_mini *sh, t_pipe *p)
