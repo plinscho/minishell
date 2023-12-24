@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 17:25:13 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:18:05 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	add_or_update_env(t_mini *sh, char *name, char *value)
 			if (env->env_val)
 				free(env->env_val);
 			env->env_val = ft_strdup(value);
-			if (!env->env_val)
+			if (!env->env_val && value)
 				return (err_break(sh, "malloc", NULL, 12));
 			return (0);
 		}

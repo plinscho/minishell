@@ -82,7 +82,7 @@ int	export_option(const char *name)
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			if ((name[i] == '+' || name[i] == '=') && name[i + 1] != '\0')
+			if (name[i] == '+' && name[i + 1] != '\0')
 				return (0);
 			if (name[i] == ' ' || name[i] == '%' || name[i] == '/')
 				return (0);

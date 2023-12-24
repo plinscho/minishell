@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/24 17:50:43 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:18:30 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 	char	*old_value;
 	char	*env_value;
 
+	
 	env_value = find_in_env_variables(sh, key);
 	if (!env_value)
 		return ((void)add_or_update_env(sh, key, value));
@@ -58,6 +59,7 @@ int	handle_args(t_mini *sh, char *arg)
 	char	*key;
 
 	vc = ft_split(arg, '=');
+//	printf("[EXPORT] Entered handle args: %i\n", 2); //erase
 	if (!export_option(vc[0]))
 		return (error_option(vc[0], vc[1], vc));
 	else
@@ -73,6 +75,7 @@ int	handle_args(t_mini *sh, char *arg)
 		else
 			add_or_update_env(sh, vc[0], vc[1]);
 	}
+//	printf("[EXPORT] before arr clean: %i\n", 2); //erase
 	vc = arr_clean(vc, 0);
 	return (0);
 }
@@ -86,11 +89,13 @@ int	ft_export(t_mini *sh, t_pipe *p)
 
 	(void)p;
 	err = 0;
+//	printf("[EXPORT] Entered EXPORT: %i\n", err); //erase
 	tmp_env = sh->env_lst;
 	t_cmd = sh->pipe_lst->cmd;
 	i = 1;
 	if (!t_cmd[1])
 		return (print_export(tmp_env, p));
+//	printf("[EXPORT] After pri nt EXPORT: %i\n", err); //erase
 	while (t_cmd[i] != NULL)
 	{
 		if (!err)
@@ -99,6 +104,7 @@ int	ft_export(t_mini *sh, t_pipe *p)
 			handle_args(sh, t_cmd[i]);
 		i++;
 	}
+//	printf("[EXPORT] Before env conv: %i\n", err); //erase
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
 	sh->env = env_converter(sh->env_lst);
