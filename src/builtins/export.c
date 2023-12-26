@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 15:21:31 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 18:40:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 	char	*old_value;
 	char	*env_value;
 
+	
 	env_value = find_in_env_variables(sh, key);
 	if (!env_value)
 		return ((void)add_or_update_env(sh, key, value));
@@ -41,13 +42,14 @@ void	export_plus_equal(t_mini *sh, char *key, char *value)
 	}
 }
 
-int	error_option(char *str1, char *str2)
+int	error_option(char *str1, char *str2, char **vc)
 {
-	ft_putstr_fd("minishell: export: \'", 2);
+	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str1, 2);
 	ft_putstr_fd("=", 2);
 	ft_putstr_fd(str2, 2);
 	ft_putstr_fd("\': not a valid identifier\n", 2);
+	vc = arr_clean(vc, 0);
 	return (1);
 }
 
@@ -57,10 +59,13 @@ int	handle_args(t_mini *sh, char *arg)
 	char	*key;
 
 	vc = ft_split(arg, '=');
+//	printf("[EXPORT Handle Args] Entered handle args, vc: %s\n", *vc); //erase
+//	print_arr(vc);	
 	if (!export_option(vc[0]))
-		error_option(vc[0], vc[1]);
+		return (error_option(vc[0], vc[1], vc));
 	else
 	{
+//		printf("[EXPORT Handle Args] Entered else, vc: %s\n", *vc); //erase
 		if (ft_strchr(vc[0], '+'))
 		{
 			key = ft_substr(vc[0], 0, ft_strchr(vc[0], '+') - vc[0]);
@@ -72,8 +77,9 @@ int	handle_args(t_mini *sh, char *arg)
 		else
 			add_or_update_env(sh, vc[0], vc[1]);
 	}
+//	printf("[EXPORT] before arr clean: %i\n", 2); //erase
 	vc = arr_clean(vc, 0);
-	return (err);
+	return (0);
 }
 
 int	ft_export(t_mini *sh, t_pipe *p)
@@ -83,18 +89,23 @@ int	ft_export(t_mini *sh, t_pipe *p)
 	int		err;
 	int		i;
 
-	(void)p;
 	err = 0;
+//	printf("[EXPORT] Entered EXPORT: %i\n", err); //erase
 	tmp_env = sh->env_lst;
-	t_cmd = sh->pipe_lst->cmd;
+	t_cmd = p->cmd;
 	i = 1;
 	if (!t_cmd[1])
 		return (print_export(tmp_env, p));
-	while (t_cmd[i] != NULL)
+//	printf("[EXPORT] After pri nt EXPORT: %i\n", err); //erase
+	while (t_cmd[i])
 	{
-		err = handle_args(sh, t_cmd[i]);
+		if (!err)
+			err = handle_args(sh, t_cmd[i]);
+		else
+			handle_args(sh, t_cmd[i]);
 		i++;
 	}
+//	printf("[EXPORT] Before env conv: %i\n", err); //erase
 	if (sh->env)
 		sh->env = arr_clean(sh->env, 0);
 	sh->env = env_converter(sh->env_lst);

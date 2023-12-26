@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:16 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 17:25:13 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 18:40:25 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	env_add_last(t_mini *sh, char *name, char *value, int has_value)
 	if (!new_env)
 		return (1);
 	new_env->env_key = ft_strdup(name);
-	if (has_value)
-		new_env->env_val = ft_strdup(value);
+	new_env->env_val = ft_strdup(value);
 	new_env->next = NULL;
 	if (!new_env->env_key || (has_value && !new_env->env_val))
 	{
@@ -78,6 +77,7 @@ int	add_or_update_env(t_mini *sh, char *name, char *value)
 	if (value == NULL)
 		has_val = 0;
 	env = sh->env_lst;
+//	printf("[ENV lST ADD OR UPDATE]: %s, %s\n", name, value); //erase
 	while (env != NULL)
 	{
 		if (ft_strncmp(env->env_key, name, ft_strlen(name)) == 0
@@ -86,7 +86,7 @@ int	add_or_update_env(t_mini *sh, char *name, char *value)
 			if (env->env_val)
 				free(env->env_val);
 			env->env_val = ft_strdup(value);
-			if (!env->env_val)
+			if (!env->env_val && value)
 				return (err_break(sh, "malloc", NULL, 12));
 			return (0);
 		}

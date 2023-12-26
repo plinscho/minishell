@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:01:32 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 18:32:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 15:40:37 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void	ft_check_open(t_pipe *p, t_fd *cur, int prev)
 
 void	check_access(t_mini *sh, char **cmd, t_pipe *p)
 {
-	if (!cmd || !(*cmd) || !(**cmd))
-		err_exit(sh, cmd[0], "command not found", 127);
+	if (!cmd || !(*cmd))
+		err_exit(sh, NULL, NULL, 0);
+	else if (!(**cmd))
+		err_exit(sh, *cmd, "command not found", 127);
 	if (ft_strchr(cmd[0], '/'))
 	{
 		if (access(cmd[0], F_OK) == 0)

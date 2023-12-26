@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/22 19:01:10 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:22:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ int	sh_init(t_mini *sh, char **env)
 //	sh->envp = env; // for debugging only
 	sh->power_on = 0;
 	signals();
-	first_env(sh, env);
+	if (env)
+		first_env(sh, env);
 //	if (first_env(sh, env))
  //   	return (err_break(sh, "malloc", NULL, 12));
 	sh->env = env_converter(sh->env_lst);
-///	if (!sh->env)
-//		return (err_break(sh, "malloc", NULL, 12));	
 	sh->power_on = 1;
 	return (0);
 }
@@ -108,6 +107,9 @@ int	sh_loop_init(t_mini *sh)
 	}
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
+//	if (sh->env)
+//		sh->env = arr_clean(sh->env, 0);
+//	sh->env = env_converter(sh->env_lst);
 	return (0);
 }
 

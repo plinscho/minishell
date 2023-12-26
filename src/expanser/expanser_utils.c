@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:16:12 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/20 15:40:36 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 18:58:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	new_len(t_mini *sh, char *cont, int type)
 	int	len;
 	int	i;
 	char	*new;
+	char	*val;
 	
 	len = ft_strlen(cont);
 	while (*cont)
@@ -68,7 +69,10 @@ int	new_len(t_mini *sh, char *cont, int type)
 	//	printf("[NEW LEN] new var -- %s\n", new); //erase
 		if (!new)
 			return (-1);
-		len = len - ft_strlen(new) - 1 + ft_strlen(ft_get_value(sh, new));
+		val = check_value(sh, new);
+		len = len - ft_strlen(new) - 1 + ft_strlen(val);
+		if (*new == '?')
+			val = ft_memdel(val);
 	//	printf("[NEW LEN] cont[i] -- %c\n", cont[i]); //erase
 		cont = cont + i + 1;
 		new = ft_memdel(new);

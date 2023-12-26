@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:23:46 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 16:04:39 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	exec_builtin(t_mini *sh, t_pipe *p)
 	if (p->builtin == 6 && sh->paths)
 		return (ft_env(sh, p));
 	else if (p->builtin == 6 && !sh->paths)
-		err_break(sh, p->cmd[0], "command not found", 127);
+		err_break(sh, p->cmd[0], "No such file or directory", 127);
 	if (p->builtin == 7)
 		return (ft_exit(sh)); 
 	return (sh->exit);

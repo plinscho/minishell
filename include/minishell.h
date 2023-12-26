@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 17:34:58 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:45:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_mini
 	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
-//	char	**envp;		//the original, using for debugging
 	int		exit;		//exit status
 	int		pipes; 		//How many pipes are there
 	int		check;
@@ -105,7 +104,7 @@ void	sig_handler(int sig);
 
 int		quotes_error(t_mini *sh);
 int		err_char(t_mini *sh, int token);
-int	error_option(char *str1, char *str2);
+int		error_option(char *str1, char *str2, char **vc);
 
 //void	syntax_error(t_mini *sh, char *seq);
 //int		serror(char *s);

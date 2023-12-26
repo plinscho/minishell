@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:16:33 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/05 16:21:45 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 17:57:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	if (!s)
+	if (!s || !*s)
 		return (0);
 	i = 0;
-	if (!s)
-		return (0);
-	while (*s++)
+	while (s[i])
 		i++;
 	return (i);
 }

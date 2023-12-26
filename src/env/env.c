@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 16:03:21 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 16:06:21 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_envfull(char *key, char *value)
 	if (!key)
 		return (NULL);
 	if (!value)
-		return (key);
+		return (ft_strdup(key));
 	key_len = ft_strlen(key);
 	val_len = ft_strlen(value);
 	env_full = (char *)malloc(key_len + val_len + 2);
@@ -79,7 +79,7 @@ char	**env_converter(t_env *env)
 
 	if (!env)
 		return (NULL);
-	grid = (char **)malloc((sizeof(char *) * (env_var(env, 2) + 1) + 1));
+	grid = (char **)malloc(sizeof(char *) * (env_var(env, 1) + 1)); // check all this
 	if (!grid)
 		return (NULL);
 	tmp = env;

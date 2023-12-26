@@ -75,19 +75,23 @@ int	export_option(const char *name)
 {
 	int	i;
 
+//	printf("[EXPORT OPTION] Entered option: %s\n", name); //erase
 	if (!name || (!ft_isalpha(name[0]) && name[0] != '_'))
 		return (0);
 	i = 1;
-	while (name[i] != '\0')
+	while (name[i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			if ((name[i] == '+' || name[i] == '=') && name[i + 1] != '\0')
+			if (name[i] == '+' && name[i + 1])
 				return (0);
-			if (name[i] == ' ' || name[i] == '%')
+			if (name[i] == ' ' || name[i] == '%' || name[i] == '/')
+				return (0);
+			if (name[i] != '+' && name[i] != '=')
 				return (0);
 		}
 		i++;
 	}
+//	printf("[EXPORT OPTION] Leaving option: %c\n", name[i]); //erase
 	return (1);
 }

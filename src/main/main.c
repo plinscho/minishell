@@ -32,8 +32,6 @@ int	minishell(t_mini *sh)
 	if (!sh->lex_lst || check_syntax(sh, sh->lex_lst, -1))
 		return (1);
 //	printf("--------------------\n"); //erase	
-//	if (trim_quotes(sh, sh->lex_lst))
-//		return (1);
 //	printf("after check syntax: %s\n", "4"); //erase
 //	print_lexer(sh);
 	if (!sh->lex_lst || parser(sh, sh->lex_lst, sh->hd_lst, NULL))

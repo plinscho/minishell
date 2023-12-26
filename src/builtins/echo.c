@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:54 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 14:45:00 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:22:36 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,18 @@ int	parse_nl(char *s)
 
 int	check_nl(char *str)
 {
+	int	i;
+
+	i = 1;
 	if (!str)
 		return (1);
-	else if (str[0] == '-' && str[1] == 'n')
-		return (0);
+	else if (str[0] == '-' && str[1] && str[1] == 'n')
+	{
+		while (str[i] && str[i] == 'n')
+			i++;
+		if (!str[i])
+			return (0);
+	}
 	return (1);
 }
 

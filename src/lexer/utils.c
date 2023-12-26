@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:33:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/24 19:43:12 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	**arr_clean(char **cmd, int flag)
 
 	i = 0;
 //	printf("[ARR CLEAN]You entered: arr - %p\n", *cmd); //erase
-	while (cmd && cmd[i] != NULL)
+	while (cmd && *cmd && cmd[i])
 	{
 //		printf("[ARR CLEAN] before cleaning: str - %p\n", cmd[i]); //erase
 		if (!flag) 
