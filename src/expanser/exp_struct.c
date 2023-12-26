@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:07:09 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 18:59:04 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	exp_start(t_mini *sh, char *cont, int type)
 	sh->exp->new = malloc(sh->exp->k + 1);
 	if (!sh->exp->new)
 		return (1);
+	sh->exp->alloc = 0;
 	sh->exp->k = -1;
 	sh->exp->j = -1;
 	sh->exp->fl = 0;

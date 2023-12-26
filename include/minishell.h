@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/24 17:39:26 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:45:11 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_mini
 	t_exp	*exp;		//Expantion struct
 	char	*input;		//what we receive by readline
 	char	**paths;
-//	char	**envp;		//the original, using for debugging
 	int		exit;		//exit status
 	int		pipes; 		//How many pipes are there
 	int		check;

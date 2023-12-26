@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:52:26 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/24 18:18:30 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/26 18:40:08 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int	handle_args(t_mini *sh, char *arg)
 	char	*key;
 
 	vc = ft_split(arg, '=');
-//	printf("[EXPORT] Entered handle args: %i\n", 2); //erase
+//	printf("[EXPORT Handle Args] Entered handle args, vc: %s\n", *vc); //erase
+//	print_arr(vc);	
 	if (!export_option(vc[0]))
 		return (error_option(vc[0], vc[1], vc));
 	else
 	{
+//		printf("[EXPORT Handle Args] Entered else, vc: %s\n", *vc); //erase
 		if (ft_strchr(vc[0], '+'))
 		{
 			key = ft_substr(vc[0], 0, ft_strchr(vc[0], '+') - vc[0]);
@@ -87,16 +89,15 @@ int	ft_export(t_mini *sh, t_pipe *p)
 	int		err;
 	int		i;
 
-	(void)p;
 	err = 0;
 //	printf("[EXPORT] Entered EXPORT: %i\n", err); //erase
 	tmp_env = sh->env_lst;
-	t_cmd = sh->pipe_lst->cmd;
+	t_cmd = p->cmd;
 	i = 1;
 	if (!t_cmd[1])
 		return (print_export(tmp_env, p));
 //	printf("[EXPORT] After pri nt EXPORT: %i\n", err); //erase
-	while (t_cmd[i] != NULL)
+	while (t_cmd[i])
 	{
 		if (!err)
 			err = handle_args(sh, t_cmd[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:41:20 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 14:16:01 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:37:05 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	print_error(char **args)
 		ft_putstr_fd("too many arguments\n", 2);
 	else
 	{
-		ft_putstr_fd(args[1], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
+		perror(args[1]);
+//		ft_putstr_fd("\n", 2);
 	}
 }
 
@@ -72,7 +70,7 @@ int	ft_cd(t_mini *sh, t_pipe *p)
 	char	**args;
 	int		cd_ret;
 
-	(void)p;
+	cd_ret = 0;
 	args = p->cmd;
 	if (!args[1] || args[1][0] == '~')
 		return (go_to_path(0, sh));
@@ -84,12 +82,13 @@ int	ft_cd(t_mini *sh, t_pipe *p)
 	else
 	{
 		update_oldpwd(sh);
-		cd_ret = chdir(args[1]);
+		if (args[1][0])
+			cd_ret = chdir(args[1]);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)
 			print_error(args);
-		add_or_update_env(sh, "PWD", args[1]);
+		add_or_update_env(sh, "PWD", getcwd(NULL, 0));
 	}
 	return (cd_ret);
 }

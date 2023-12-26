@@ -3,67 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 11:38:31 by plinscho          #+#    #+#             */
-/*   Updated: 2023/09/28 17:26:10 by plinscho         ###   ########.fr       */
+/*   Created: 2023/05/10 21:34:04 by nzhuzhle          #+#    #+#             */
+/*   Updated: 2023/12/26 18:43:51 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <stdio.h>
 
-static int	count_words(const char *str, char c)
+static char	**totalfree(char **arr, size_t n)
 {
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+static size_t	count(char const *s, char c)
+{
+	int		i;
 	size_t	count;
 
+	i = 0;
 	count = 0;
-	while (*str)
+	while (s[i])
 	{
-		while (*str == c)
-			str++;
-		if (*str)
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			count++;
-		while (*str && *str != c)
-			str++;
+		i++;
 	}
 	return (count);
 }
 
-static char	**free_grid(char **grid, size_t str_number)
+char	**ft_pop(char const *s, char c, char **arr, size_t n)
 {
-	while (str_number-- > 0)
+	size_t	i;
+	size_t	start;
+
+	i = 0;
+	while (s[i])
 	{
-		free(grid[str_number]);
+		if (s[i] != c && i == 0)
+			start = i;
+		else if (s[i] != c && i > 0 && s[i - 1] == c)
+			start = i;
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		{
+
+			arr[n] = ft_substr(s, start, (i - start + 1));
+			if (arr[n] == 0)
+				return (totalfree(arr, n));
+			n++;
+		}
+		i++;
 	}
-	free(grid);
-	return (NULL);
+	arr[n] = NULL;
+	return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	str_number;	
-	char	*start;
-	char	**str_grid;
+	char	**arr;
 
-	str_grid = ft_calloc(count_words(s, c) + 1, sizeof(char *));
-	if (!str_grid)
+	arr = (char **) malloc((count(s, c) + 1) * sizeof(char *));
+	if (arr == 0)
 		return (NULL);
-	str_number = 0;
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (*s)
-		{
-			start = (char *)s;
-			while (*s && *s != c)
-				s++;
-			str_grid[str_number] = ft_substr(start, 0, s - start);
-			if (!str_grid[str_number])
-				return (free_grid(str_grid, str_number));
-			str_number++;
-		}
-	}
-	str_grid[str_number] = NULL;
-	return (str_grid);
+	return (ft_pop(s, c, arr, 0));
 }
+
+/*int	main(void)
+{
+//	int			i;
+	char 		**res;
+	res = ft_split("tripouille", 0);
+//	printf("res[0]: %s\n", res[0]);
+//	printf("res[1]: %p", res[1]);
+	
+//	printf("%lu\n", count("tripouille", 0));	
+//	for (i = 0; i < 2; i++)
+//	{
+//	  	printf("%s\n", ft_split("tripouille", 0)[i]);
+//	}
+//	printf("%d\n", strcmp(ft_split("tripouille", 0)[0], "tripouille"));
+//	printf("%d\n", ft_split("tripouille", 0)[1] == NULL);
+//	printf("%p\n", ft_split("tripouille", 0)[1]);
+	return (0);
+}*/

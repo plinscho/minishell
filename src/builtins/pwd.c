@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:39:34 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/23 15:22:22 by plinscho         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:41:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	ft_pwd(t_mini *sh, t_pipe *p)
 	pwd = NULL;
 	pwd = getcwd(pwd, 0);
 	if (!pwd)
-		return (err_break(sh, "pwd", "PWD not found", 42));
+	{
+		ft_putstr_fd(ft_get_value(sh, "PWD"), output);
+	}
 	ft_putstr_fd(pwd, output);
 	ft_putstr_fd("\n", output);
 	free(pwd);
