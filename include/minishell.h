@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/26 19:45:11 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:45:28 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
+# include "readline/readline.h"
+# include "readline/history.h"
 # include "env.h"
 # include "lexer.h"
 # include "parser.h"
@@ -22,6 +24,7 @@
 
 # include <stdio.h>
 # include <limits.h>
+# include <dirent.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -30,9 +33,16 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+//# include <readline/readline.h>
+//# include <readline/history.h>
 # include <string.h>
+
+# define NORM		1
+// # define HEREDOC	2
+# define N_INTERACT	3
+
+// global
+int	g_sig_rec;
 
 typedef struct s_envlst	t_env;
 typedef struct s_lexer	t_lexer;
@@ -97,17 +107,18 @@ int		fd_init(t_fd *new, t_mini *sh, int fd);
 int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
 
 //			--	--	SIGNALS	--	--
+
 void	signals(void);
 void	sig_handler(int sig);
+void	norm_handler(int sig, siginfo_t *data, void *non_used_data);
+void	do_sigign(int signum);
+int		init_signals(int mode);
 
 //			--	--	ERRORS	--	--
 
 int		quotes_error(t_mini *sh);
 int		err_char(t_mini *sh, int token);
 int		error_option(char *str1, char *str2, char **vc);
-
-//void	syntax_error(t_mini *sh, char *seq);
-//int		serror(char *s);
 int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
 int		err_exit(t_mini *sh, char *name, char *message, int err);
 
