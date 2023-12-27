@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:34:20 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 18:12:33 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:20:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_heredoc(t_mini *sh, char *in, int i)
 		if (i <= 0)
 			return (0);
 		in = in + i;
+	//	printf("[HD] after finding hd: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
 			return (err_break(sh, "heredoc", NULL, 12));
@@ -42,6 +43,8 @@ int	ft_heredoc(t_mini *sh, char *in, int i)
 		new->fd = save_hd(sh, new->str, NULL, new->type);
 		if (new->fd < 0)
 			return (err_break(sh, "heredoc", NULL, -(new->fd)));
+	//	printf("[HD] the end: %s\n", in); //erase
+		i = 0;
 	}
 	return (0);
 }
@@ -91,9 +94,12 @@ char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 	int		j;
 
 	j = 0;
-	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && \
-	check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
+//	printf("[HEREDOC] in keyword: in: %s\n", in); //erase
+	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
+	{
+//		printf("[HEREDOC] in loop: in: %s\n", in + j); //erase
 		j++;
+	}
 //	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
 	if (check_chr(in[0]) == 2)
 		j = word_in_quotes(in, &q, -1);
@@ -131,7 +137,7 @@ int	save_hd(t_mini *sh, char *key, char *str, int type)
 	{
 		str = readline("> ");
 		if (!str)
-			return (hd_close(hd));
+			return (hd_close(hd, 0));
 		else if (!ft_strncmp(str, key, ft_longer(str, key)) && \
 				(ft_strncmp(str, "\n", 1)))
 			break ;
@@ -139,7 +145,7 @@ int	save_hd(t_mini *sh, char *key, char *str, int type)
 			break ;
 		str = expand_hd(sh, str, type);
 		if (!str)
-			return (hd_close(hd));
+			return (hd_close(hd, 1));
 		write(hd[1], str, ft_strlen(str));
 		write(hd[1], "\n", 1);
 		str = ft_memdel(str);
@@ -149,9 +155,13 @@ int	save_hd(t_mini *sh, char *key, char *str, int type)
 	return (hd[0]);
 }
 
-int	hd_close(int fd[])
+int	hd_close(int fd[], int flag)
 {
-	close(fd[0]);
 	close(fd[1]);
-	return (-12);
+	if (flag)
+	{
+		close(fd[0]);
+		return (-12);
+	}
+	return (fd[0]);
 }

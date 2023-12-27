@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/27 20:45:28 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:03:29 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		ft_heredoc(t_mini *sh, char *in, int i);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
 int		save_hd(t_mini *sh, char *key, char *str, int type);
-int		hd_close(int fd[]);
+int		hd_close(int fd[], int flag);
 
 
 /***** fd_utils.c - dealing with fd lists *****/
@@ -108,11 +108,10 @@ int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the
 
 //			--	--	SIGNALS	--	--
 
-void	signals(void);
-void	sig_handler(int sig);
 void	norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void	do_sigign(int signum);
 int		init_signals(int mode);
+void	exit_status(t_mini	*sh, int j);
 
 //			--	--	ERRORS	--	--
 

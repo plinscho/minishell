@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:32:18 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/27 19:58:33 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:03:16 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,24 @@ int	init_signals(int mode)
 	return (0);
 }
 
-/*void	sig_handler(int sig)
+void	exit_status(t_mini	*sh, int j)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	(void) sig;
-}*/
-
-/*void	sig_newline(int sig)
-{
-	if (sig == SIGQUIT)
+	while (++j <= sh->pipes)
 	{
-		g_last_signal = SIGQUIT;
-		ft_dprintf(2, "^\\Quit: %d\n", g_last_signal);
+		if (sh->exe->pid == wait(&sh->exe->stat))
+		{
+			if (WIFEXITED(sh->exe->stat))
+				sh->exit = WEXITSTATUS(sh->exe->stat);
+			else if (WIFSIGNALED(sh->exe->stat))
+			{
+				if (WTERMSIG(sh->exe->stat) == SIGINT)
+				{
+					printf("\n");
+					sh->exit = 130;
+				}
+				else if (WTERMSIG(sh->exe->stat) == SIGQUIT)
+					(1 && (sh->exit = 131) && (printf("Quit: 3\n")));
+			}
+		}
 	}
-	rl_on_new_line();
-}*/
-
-// SIGINT == ctrl + C
-// SIGQUIT == ctrl + D
-/*void	signals(void)
-{
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-}*/
+}

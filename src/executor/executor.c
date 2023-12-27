@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/27 20:47:27 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:04:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,24 +118,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 		p->in_fd = sh->exe->fdp[0];
 	}
 	last_child(sh, p);
-	while (++j <= sh->pipes)
-	{
-		if (sh->exe->pid == wait(&sh->exe->stat))
-		{
-			if (WIFEXITED(sh->exe->stat))
-				sh->exit = WEXITSTATUS(sh->exe->stat);
-			else if (WIFSIGNALED(sh->exe->stat))
-			{
-				if (WTERMSIG(sh->exe->stat) == SIGINT)
-				{
-					printf("\n");
-					sh->exit = 130;
-				}
-				else if (WTERMSIG(sh->exe->stat) == SIGQUIT)
-					(1 && (sh->exit = 131) && (printf("Quit: 3\n")));
-			}
-		}
-	}
+	exit_status(sh, j);
 	return (0);
 }
 
