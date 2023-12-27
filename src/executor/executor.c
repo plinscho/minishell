@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/26 16:04:39 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:04:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_redir(t_mini *sh, t_pipe *p)
 void	child_process(t_mini *sh, t_pipe *p, int flag)
 {
 //	printf("\n[CHILD] NEW PIPE: %p\n", p->cmd); //erase
+	init_signals(N_INTERACT);
 	if (!flag)
 	{
 //		printf("\n[CHILD] closing fd[0]: %i\n", sh->exe->fdp[0]); //erase
@@ -117,11 +118,7 @@ int	executor(t_mini *sh, t_pipe *p, int i, int j)
 		p->in_fd = sh->exe->fdp[0];
 	}
 	last_child(sh, p);
-	while (++j <= sh->pipes)
-	{
-		if (waitpid(-1, &sh->exe->stat, 0) == sh->exe->pid)
-			sh->exit = WEXITSTATUS(sh->exe->stat);
-	}
+	exit_status(sh, j);
 	return (0);
 }
 

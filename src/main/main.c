@@ -11,9 +11,15 @@ int	minishell(t_mini *sh)
 {
 	if (sh_loop_init(sh))
 		return (1);
+	init_signals(NORM);
+	do_sigign(SIGQUIT);
+	
 	sh->input = readline("kebab$> ");
 	if (!sh->input)
 		return (ft_exit(sh));
+	
+	do_sigign(SIGINT);
+
 	add_history(sh->input);
 	if (check_input(sh->input)) // It's not a mistake, just empty line
 		return (0);
@@ -51,6 +57,7 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 
+	g_sig_rec = 0;
 	sh_init(&sh, env);
 	while (sh.power_on)
 	{
@@ -58,6 +65,12 @@ int main(int argc, char **argv, char **env)
 //		printf("\n[MAIN] clean in main:\n------------%i----------\n", 2); //erase
 //		print_exp(sh.exp);
 		sh_clean(&sh);
+		if (g_sig_rec == 1)
+		{
+	//		printf("global:%i\n", g_sig_rec);
+			sh.exit = 1;
+			g_sig_rec = 0;
+		}
 	}
 	free_env(&sh);
 	return (sh.exit);

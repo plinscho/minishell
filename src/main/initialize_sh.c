@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/26 20:22:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:38:31 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	sh_init(t_mini *sh, char **env)
 	sh->env	= NULL;
 //	sh->envp = env; // for debugging only
 	sh->power_on = 0;
-	signals();
+//	signals();
 	if (env)
 		first_env(sh, env);
 //	if (first_env(sh, env))

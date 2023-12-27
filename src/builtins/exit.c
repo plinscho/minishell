@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/26 15:57:25 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:56:52 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ int	check_exit(char *str)
 	int		i;
 
 	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (!str[i])
+		return (p_exit_err(str, 1));
 	if ((str[i] == '-' || str[i] == '+') && str[i + 1] && ft_isdigit(str[i + 1]))
 		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else if (str[i] != '\0')
-			return (p_exit_err(str, 1));
-	}
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i])
+		return (p_exit_err(str, 1));
 	return (ft_atoi(str));
 }
 
@@ -79,7 +82,6 @@ int	ft_exit(t_mini *sh)
 		else
 			ex = check_exit(input);
 	}
-	if (ex != -1)
-		sh->power_on = 0;
+//	printf("exit\n");
 	return (ex);
 }
