@@ -6,11 +6,11 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:28:09 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/26 18:59:04 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:22:46 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/expanser.h"
+#include "../../include/minishell.h"
 
 int	exp_init(t_mini *sh)
 {
