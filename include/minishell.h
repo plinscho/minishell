@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:10:06 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/27 22:03:29 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:39:49 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 # include "libft/libft.h"
 # include "readline/readline.h"
 # include "readline/history.h"
-# include "env.h"
-# include "lexer.h"
-# include "parser.h"
-# include "expanser.h"
-# include "executor.h"
-
+# include <stddef.h>
 # include <stdio.h>
 # include <limits.h>
 # include <dirent.h>
@@ -33,15 +28,12 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
-//# include <readline/readline.h>
-//# include <readline/history.h>
 # include <string.h>
 
 # define NORM		1
-// # define HEREDOC	2
 # define N_INTERACT	3
 
-// global
+// global variable
 int	g_sig_rec;
 
 typedef struct s_envlst	t_env;
@@ -50,34 +42,92 @@ typedef struct s_pipe	t_pipe;
 typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
 typedef struct s_exp	t_exp;
+typedef struct s_mini	t_mini;
 
 typedef struct s_mini
 {
 	t_env	*env_lst;
 	t_lexer	*lex_lst;
-	t_pipe  *pipe_lst;	//What we have in every child, more structs inside.
-	t_fd	*hd_lst;	//Here_doc list. 
-	t_exp	*exp;		//Expantion struct
-	char	*input;		//what we receive by readline
+	t_pipe  *pipe_lst;
+	t_fd	*hd_lst;
+	t_exp	*exp;
+	char	*input;
 	char	**paths;
-	int		exit;		//exit status
-	int		pipes; 		//How many pipes are there
+	int		exit;
+	int		pipes;
 	int		check;
-	t_exec	*exe;		//another struct with the variables i use in execution 
-	char	**env;		//the env double array used by the execv. Each time "export" is called, rebuild it
+	t_exec	*exe;
+	char	**env;
 	int		power_on;
 }	t_mini;
 
+typedef struct s_envlst
+{
+	char				*env_key;
+	char				*env_val;
+	struct s_envlst		*next;
+	
+} t_env;
 
-//	BUILTINS !
+typedef struct s_lexer
+{
+    char    *cont;
+    int     token;
+    struct s_lexer  *prev;
+    struct s_lexer  *next;
+} t_lexer;
 
-int		ft_env(t_mini *sh, t_pipe *p);		// Ready
-int		ft_export(t_mini *sh, t_pipe *p);	// Ready
-int		ft_pwd(t_mini *sh, t_pipe *p);		// Ready
-int		ft_exit(t_mini *sh);				// Ready
-int		ft_cd(t_mini *sh, t_pipe *p);		// Ready
-int		ft_unset(t_mini *sh, t_pipe *p);	// Ready
-int		ft_echo(t_mini *sh, t_pipe *p);		// Ready
+typedef struct s_exp
+{
+	char	*cont;
+	char	*new;
+	char	*var;
+	char	*val;
+	int		alloc;
+	int		k;
+	int		j;
+	int		fl;
+	char	q;
+} t_exp;
+
+/* a list with commands for child processes */
+typedef struct s_pipe
+{
+	char	**cmd;
+	char	*path;
+	t_fd	*fd_lst;
+	int		in_fd; 
+	int		out_fd;
+	int		builtin;
+	struct s_pipe	*next;
+}	t_pipe;
+
+/* a list with all the files names with redirections */
+typedef struct s_fd
+{
+	int		fd;
+	int		type;
+	int		exp;
+	char	*str;
+	struct s_fd	*next;
+}	t_fd;
+
+typedef struct s_exec
+{
+	int		fdp[2];
+	int		pid;
+	int		stat;
+}	t_exec;
+
+//	BUILTINS
+
+int		ft_env(t_mini *sh, t_pipe *p);
+int		ft_export(t_mini *sh, t_pipe *p);
+int		ft_pwd(t_mini *sh, t_pipe *p);
+int		ft_exit(t_mini *sh);
+int		ft_cd(t_mini *sh, t_pipe *p);
+int		ft_unset(t_mini *sh, t_pipe *p);
+int		ft_echo(t_mini *sh, t_pipe *p);
 
 //			--	--	MAIN	--	--
 int		minishell(t_mini *sh);
@@ -90,21 +140,70 @@ int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a n
 int		allocate_exe(t_mini *sh); //allocates a variables struct for execution
 /*************************************************/
 
+
+//###########################################################################################
+
+//			--	--	LEXER	--	--
+
+/***** lexer.c - Main and the main lexer cases *****/
+int		lexer(t_mini *sh, char *input); //creates the lexer list with tokens
+t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
+t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
+t_lexer *read_word(char *in, int *i, char q, int j); 
+t_lexer *read_space(char *in, int *i);
+/***************************************************/
+
+/***** lexer_utils.c - dealing with lexer lists *****/
+int		lex_clean(t_lexer **lst); // cleans the list and the input
+t_lexer	*lex_new(char *content, int token); // creates a new node
+void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
+t_lexer	*lex_last(t_lexer *lst);
+void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp);
+/***************************************************/
+
+
+/***** quotes.c - dealing with quotes *****/
+int		word_in_quotes(char *in, char *q, int j);
+char	*trim_quotes(char *s, char q, int len, int i);
+int		len_no_q(char *s, char q, int len, int i);
+int		open_q(t_exp *exp, char c, int type);
+int		exp_quotes(t_mini *sh, t_lexer **head, int *flag);
+
+/***** check_syntax.c - checks the syntax *****/
+int	    check_input(char *in); // checks if there is anything in the input
+int		pre_quotes(char *line);
+int		check_syntax(t_mini *sh, t_lexer *current, int prev_token);
+char 	int_to_char(int num);
+int		ft_isspace(int c);
+/***************************************************/
+
+/***** utils.c - general utils *****/
+char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
+int		check_chr(char c);
+char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - frees all the strings in it, if flag=1 only equals them to NULL (they are not allocated)
+int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
+char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
+/***************************************************/
+
+//###########################################################################################
+
 //			--	--	HERE_DOC	--	--
 
-/***** after checking unclosed quotes *****/
+/***** heredoc.c - after checking unclosed quotes *****/
 int		ft_heredoc(t_mini *sh, char *in, int i);
 int		find_hd(char *in, int i);
 char	*keyword_hd(t_fd *new, char *in, int *i, char q);
 int		save_hd(t_mini *sh, char *key, char *str, int type);
 int		hd_close(int fd[], int flag);
-
+/*************************************************/
 
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
 void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
 int		fd_init(t_fd *new, t_mini *sh, int fd);
 int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
+/*************************************************/
+
 
 //			--	--	SIGNALS	--	--
 
@@ -112,6 +211,7 @@ void	norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void	do_sigign(int signum);
 int		init_signals(int mode);
 void	exit_status(t_mini	*sh, int j);
+/*************************************************/
 
 //			--	--	ERRORS	--	--
 
@@ -120,5 +220,113 @@ int		err_char(t_mini *sh, int token);
 int		error_option(char *str1, char *str2, char **vc);
 int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
 int		err_exit(t_mini *sh, char *name, char *message, int err);
+
+
+//###########################################################################################
+
+//			--	--	ENV	--	--
+
+int		first_env(t_mini *sh, char **env);
+void	add_env_to_list(t_mini *sh, t_env *new_env);
+char	**env_converter(t_env *env);
+size_t	env_var(t_env *head, int option);
+char	*ft_envfull(char *key, char *value);
+
+//			--	--	ENV_LIST	--	--
+
+t_env	*ft_getkey_node(char *new_key, t_env *list);
+int		add_or_update_env(t_mini *sh, char *name, char *value);
+int		env_add_last(t_mini *sh, char *name, char *value, int has_value);
+int		env_val_update(t_env *head, char *key, char *n_value);
+
+//			--	--	ENV_UTILS	--	--
+
+char	*ft_get_value(t_mini *sh, char *key);
+
+//			--	--	ENV_SORT	--	--
+
+void	sort_env(t_env *head);
+void	print_sort_print(t_env *env);
+
+//			--	--	ENV_FREE	--	--
+
+int		free_env_lst(t_env *head);
+void	free_env(t_mini *sh);
+
+//			--	--	EXPORT_UTILS	--	--
+int		export_option(const char *name);
+char	*find_in_env_variables(t_mini *sh, char *variable_name);
+int		print_export(t_env *eprint, t_pipe *p);
+
+//			--	--	UNSET	--	--
+void	unset_var(t_mini *sh, char *var);
+void	unset_free(t_env *env);
+
+
+//###########################################################################################
+
+//			--	--	EXPANSER	--	--
+
+/**********   expanser.c -  ***********/
+int		expanser(t_mini *sh, t_lexer *lex, int flag);
+char	*expand_str(t_mini *sh, char *cont, int type, int i);
+int		expand_word(t_mini *sh, t_lexer **lex);
+t_lexer *read_word_exp(char *in, int *i, char q, int j); 
+char	*expand_hd(t_mini *sh, char *cont, int type);
+/***************************************************/
+
+/**********   expanser_utils.c -  ******/
+int		check_exp(char *cont, int type, int q); // q is a flag used inside to count " quotes
+int		new_len(t_mini *sh, char *cont, int type);
+char 	*get_var(char *cont);
+char	*check_value(t_mini *sh, char *var);
+int		check_file_exp(char *str);
+/***************************************************/
+
+/**********   exp_struct.c -  ******/
+int		exp_init(t_mini *sh);
+void	exp_nano_clean(t_exp *exp);
+void	exp_clean(t_exp **exp);
+int		exp_start(t_mini *sh, char *cont, int type);
+char	*exp_file(t_mini *sh, char *cont, t_fd *new);
+/***************************************************/
+
+//###########################################################################################
+
+//			--	--	PARSER	--	--
+
+/***** parser.c - the updated main with sh struct and  *****/
+int		parser(t_mini *sh, t_lexer *lex, t_fd *hd, t_pipe *new);
+int		parse_redir(t_pipe *new, t_lexer *lex, t_fd *hd, t_mini *sh);
+int		parse_cmd(t_pipe *new, t_lexer *lex, t_mini *sh, int j);
+int		count_cmd(t_lexer *temp);
+t_lexer	*next_word(t_lexer *temp);
+/***************************************************/
+
+/***** parser_utils.c - the updated main with sh struct and  *****/
+void	pipe_init(t_pipe *pip);
+void	pipe_add(t_mini *sh, t_pipe *new);
+int		pipe_clean(t_pipe **lst);
+/***************************************************/
+
+//###########################################################################################
+
+//			--	--	EXECUTOR	--	--
+
+/***** executor.c - main execution processes *****/
+int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
+void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
+int		last_child(t_mini *sh, t_pipe *p); 
+void	ft_redir(t_mini *sh, t_pipe *p); // flag 0 if NOT last child, 1 if last one
+int		exec_builtin(t_mini *sh, t_pipe *p); //executes the needed builtin
+/*************************************************/
+
+/***** exec_utils.c - utils for execution processes *****/
+int		check_builtin(char **cmd); // checks if the cmd is a builtin
+void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
+void	ft_check_open(t_pipe *p, t_fd *cur, int prev); // check if the prev is open and closes it
+void	check_access(t_mini *sh, char **cmd, t_pipe *p);
+void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *p);
+/*********************************************************/
 
 #endif

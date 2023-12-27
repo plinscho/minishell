@@ -6,14 +6,11 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/27 20:45:50 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/27 22:39:30 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-INCLUDE = ./include/minishell.h ./include/env.h ./include/lexer.h \
-			./include/parser.h ./include/expanser.h ./include/executor.h
-			
 HEADER = ./include/minishell.h
 
 CC = cc
@@ -105,4 +102,3 @@ gitstat:
 re: fclean all
 
 .PHONY: all clean fclean re make_lib cleanrl
-# -include $(DEPS)

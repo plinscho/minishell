@@ -6,11 +6,10 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:41:18 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/27 22:04:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:23:24 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../include/executor.h"
 #include "../../include/minishell.h"
 
 void	ft_redir(t_mini *sh, t_pipe *p)

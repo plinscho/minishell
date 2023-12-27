@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 17:51:14 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/26 16:06:21 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:42:33 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,35 +140,3 @@ int	first_env(t_mini *sh, char **env)
 	return (0);
 }
 
-/*
-char	**env_converter(t_env *env)
-{
-	t_env			*tmp;
-	char			**grid;
-	size_t			nodes;
-	unsigned int	i;
-	
-	if (!env)
-		return (NULL);
-	nodes = env_var(env, 2);
-	grid = (char **)malloc((sizeof(char *) * (nodes + 1) + 1));
-	if (!grid)
-		return (NULL);
-	tmp = env;
-	i = 0;
-	while (tmp)
-	{
-		if (tmp->env_val != NULL)
-		{
-			grid[i] = ft_envfull(tmp->env_key, tmp->env_val);
-			if (!grid[i])
-				return (arr_clean(grid, 0));
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	if (i < nodes)
-		grid[i] = NULL;
-	return (grid);
-}
-*/

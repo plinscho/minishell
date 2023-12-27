@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 22:15:43 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/22 17:31:49 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:40:55 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,12 @@ void	fd_clean(t_fd **hd, int flag)
 	t_fd	*iter;
 
 	iter = *hd;
-//	printf("[FD CLEAN]You entered: NODE - %p\n", *hd); //erase
 	while (iter)
 	{
 		temp = iter;
 		iter = iter->next;
 		if (temp->str && flag)
 			temp->str = ft_memdel(temp->str);
-//		printf("[FD CLEAN]before close: NODE - %p, fd: %i\n", temp, temp->fd); //erase
 		if (temp->fd > 0 && flag)
 			close(temp->fd);
 		temp = ft_memdel(temp);
