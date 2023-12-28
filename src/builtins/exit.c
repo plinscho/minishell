@@ -6,12 +6,39 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/27 21:56:52 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:35:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <limits.h>
+/*
+long long int	ft_atol(char *str)
+{
+	long	i;
+	long 	number;
+	long	sign;
+
+	sign = 1;
+	i = 0;
+	number = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i++] == '-')
+			sign = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9' && number <= 2147483647)
+	{
+		number = (number * 10) + (str[i] - '0');
+		i++;
+	}
+	return ((number *= sign));
+}
+
+*/
 
 int	arg_count(char **grid)
 {
@@ -76,11 +103,13 @@ int	ft_exit(t_mini *sh)
 		ex = 255;
 		if (arg_count(sh->pipe_lst->cmd) > 2)
 			return (p_exit_err("minishell: exit: too many arguments\n", 2));
+		sh->power_on = 0;
 		input = sh->pipe_lst->cmd[1];
 		if (input[0] == '\0')
 			p_exit_err(input, 1);
 		else
 			ex = check_exit(input);
 	}
+//	printf("chao\n");
 	return (ex);
 }

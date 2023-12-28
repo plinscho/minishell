@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:14:45 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/26 16:14:30 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:13:57 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	ft_strlen(const char *s); //ok
 int		ft_tolower(int c); // ok
 int		ft_toupper(int c); // ok
 int		ft_atoi(const char *str);
-int		ft_atoi_minish(const char *str);
+long	ft_atoi_minish(const char *str);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n); //ok
 int		ft_strcmp(const char *s1, const char *s2);
