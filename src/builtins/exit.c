@@ -41,24 +41,24 @@ int	p_exit_err(char *str_error, int option)
 	}
 }
 
-int	check_exit(char *str)
+int	check_exit(char *s)
 {
 	int		i;
 
 	i = 0;
-	while (str[i] == ' ')
+	while (s[i] == ' ')
 		i++;
-	if (!str[i])
-		return (p_exit_err(str, 1));
-	if ((str[i] == '-' || str[i] == '+') && str[i + 1] && ft_isdigit(str[i + 1]))
+	if (!s[i])
+		return (p_exit_err(s, 1));
+	if ((s[i] == '-' || s[i] == '+') && s[i + 1] && ft_isdigit(s[i + 1]))
 		i++;
-	while (str[i] && ft_isdigit(str[i]))
+	while (s[i] && ft_isdigit(s[i]))
 		i++;
-	while (str[i] && str[i] == ' ')
+	while (s[i] && s[i] == ' ')
 		i++;
-	if (str[i])
-		return (p_exit_err(str, 1));
-	return (ft_atoi(str));
+	if (s[i])
+		return (p_exit_err(s, 1));
+	return (ft_atoi(s));
 }
 
 int	ft_exit(t_mini *sh)
@@ -82,6 +82,5 @@ int	ft_exit(t_mini *sh)
 		else
 			ex = check_exit(input);
 	}
-//	printf("exit\n");
 	return (ex);
 }

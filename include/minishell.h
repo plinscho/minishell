@@ -35,7 +35,7 @@
 
 // global variable
 int	g_sig_rec;
-
+/*
 typedef struct s_envlst	t_env;
 typedef struct s_lexer	t_lexer;
 typedef struct s_pipe	t_pipe;
@@ -43,39 +43,22 @@ typedef struct s_fd		t_fd;
 typedef struct s_exec	t_exec;
 typedef struct s_exp	t_exp;
 typedef struct s_mini	t_mini;
-
-typedef struct s_mini
-{
-	t_env	*env_lst;
-	t_lexer	*lex_lst;
-	t_pipe  *pipe_lst;
-	t_fd	*hd_lst;
-	t_exp	*exp;
-	char	*input;
-	char	**paths;
-	int		exit;
-	int		pipes;
-	int		check;
-	t_exec	*exe;
-	char	**env;
-	int		power_on;
-}	t_mini;
+*/
 
 typedef struct s_envlst
 {
 	char				*env_key;
 	char				*env_val;
 	struct s_envlst		*next;
-	
-} t_env;
+}	t_env;
 
 typedef struct s_lexer
 {
-    char    *cont;
-    int     token;
-    struct s_lexer  *prev;
-    struct s_lexer  *next;
-} t_lexer;
+	char			*cont;
+	int				token;
+	struct s_lexer	*prev;
+	struct s_lexer	*next;
+}	t_lexer;
 
 typedef struct s_exp
 {
@@ -88,29 +71,30 @@ typedef struct s_exp
 	int		j;
 	int		fl;
 	char	q;
-} t_exp;
+}	t_exp;
 
 /* a list with commands for child processes */
-typedef struct s_pipe
-{
-	char	**cmd;
-	char	*path;
-	t_fd	*fd_lst;
-	int		in_fd; 
-	int		out_fd;
-	int		builtin;
-	struct s_pipe	*next;
-}	t_pipe;
 
 /* a list with all the files names with redirections */
 typedef struct s_fd
 {
-	int		fd;
-	int		type;
-	int		exp;
-	char	*str;
+	int			fd;
+	int			type;
+	int			exp;
+	char		*str;
 	struct s_fd	*next;
 }	t_fd;
+
+typedef struct s_pipe
+{
+	char			**cmd;
+	char			*path;
+	t_fd			*fd_lst;
+	int				in_fd;
+	int				out_fd;
+	int				builtin;
+	struct s_pipe	*next;
+}	t_pipe;
 
 typedef struct s_exec
 {
@@ -118,6 +102,23 @@ typedef struct s_exec
 	int		pid;
 	int		stat;
 }	t_exec;
+
+typedef struct s_mini
+{
+	t_env	*env_lst;
+	t_lexer	*lex_lst;
+	t_pipe	*pipe_lst;
+	t_fd	*hd_lst;
+	t_exp	*exp;
+	char	*input;
+	char	**paths;
+	int		exit;
+	int		pipes;
+	int		check;
+	t_exec	*exe;
+	char	**env;
+	int		power_on;
+}	t_mini;
 
 //	BUILTINS
 
@@ -135,32 +136,27 @@ int		minishell(t_mini *sh);
 /***** initialize.c - initializing and cleaning sh!!! *****/
 int		sh_init(t_mini *sh, char **env);
 void	sh_clean(t_mini *sh);
-t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd); //This function restores the initial position of all the lists clean all of them after iteration
-int		sh_loop_init(t_mini *sh); // parses the path and the env each time when a new loop starts
-int		allocate_exe(t_mini *sh); //allocates a variables struct for execution
-/*************************************************/
-
-
-//###########################################################################################
+t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd);
+int		sh_loop_init(t_mini *sh);
+int		allocate_exe(t_mini *sh);
 
 //			--	--	LEXER	--	--
 
 /***** lexer.c - Main and the main lexer cases *****/
-int		lexer(t_mini *sh, char *input); //creates the lexer list with tokens
-t_lexer *read_redirection(char *in, t_mini *sh, int *i); //defines < > << >> <<< |
-t_lexer *read_in_quotes(char *in, int *i); // saves a string in quotes and a type of quotes
-t_lexer *read_word(char *in, int *i, char q, int j); 
-t_lexer *read_space(char *in, int *i);
+int		lexer(t_mini *sh, char *input);
+t_lexer	*read_redirection(char *in, t_mini *sh, int *i);
+t_lexer	*read_in_quotes(char *in, int *i);
+t_lexer	*read_word(char *in, int *i, char q, int j);
+t_lexer	*read_space(char *in, int *i);
 /***************************************************/
 
 /***** lexer_utils.c - dealing with lexer lists *****/
-int		lex_clean(t_lexer **lst); // cleans the list and the input
-t_lexer	*lex_new(char *content, int token); // creates a new node
-void	lex_add(t_lexer **lst, t_lexer *new); // adds a node to the list
+int		lex_clean(t_lexer **lst);
+t_lexer	*lex_new(char *content, int token);
+void	lex_add(t_lexer **lst, t_lexer *new);
 t_lexer	*lex_last(t_lexer *lst);
 void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp);
 /***************************************************/
-
 
 /***** quotes.c - dealing with quotes *****/
 int		word_in_quotes(char *in, char *q, int j);
@@ -170,22 +166,20 @@ int		open_q(t_exp *exp, char c, int type);
 int		exp_quotes(t_mini *sh, t_lexer **head, int *flag);
 
 /***** check_syntax.c - checks the syntax *****/
-int	    check_input(char *in); // checks if there is anything in the input
+int		check_input(char *in); // checks if there is anything in the input
 int		pre_quotes(char *line);
 int		check_syntax(t_mini *sh, t_lexer *current, int prev_token);
-char 	int_to_char(int num);
+char	int_to_char(int num);
 int		ft_isspace(int c);
 /***************************************************/
 
 /***** utils.c - general utils *****/
-char	*ft_substr_quotes(char *s, char q, int len, int i); //check if it trims slashes like bash
+char	*ft_substr_quotes(char *s, char q, int len, int i);
 int		check_chr(char c);
-char	**arr_clean(char **cmd, int flag); //frees a double array, if flag=0 - frees all the strings in it, if flag=1 only equals them to NULL (they are not allocated)
-int		ft_longer(char *str, char *key); // receives 2 strings and returns the lenth of the longer one
-char	*ft_smart_join(char *s1, char *s2, char *s3); // clean strjoin, that can jpoin 3 str
+char	**arr_clean(char **cmd, int flag);
+int		ft_longer(char *str, char *key);
+char	*ft_smart_join(char *s1, char *s2, char *s3);
 /***************************************************/
-
-//###########################################################################################
 
 //			--	--	HERE_DOC	--	--
 
@@ -199,11 +193,10 @@ int		hd_close(int fd[], int flag);
 
 /***** fd_utils.c - dealing with fd lists *****/
 void	fd_add(t_fd **lst, t_fd *new);
-void	fd_clean(t_fd **hd, int flag); // if flag=1 - hd, close fd, if flag=0 - pipe fd, dont close
+void	fd_clean(t_fd **hd, int flag);
 int		fd_init(t_fd *new, t_mini *sh, int fd);
-int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
+int		ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev);
 /*************************************************/
-
 
 //			--	--	SIGNALS	--	--
 
@@ -218,11 +211,8 @@ void	exit_status(t_mini	*sh, int j);
 int		quotes_error(t_mini *sh);
 int		err_char(t_mini *sh, int token);
 int		error_option(char *str1, char *str2, char **vc);
-int		err_break(t_mini *sh, char *name, char *message, int err); //This one should only be used in the parent process
+int		err_break(t_mini *sh, char *name, char *message, int err);
 int		err_exit(t_mini *sh, char *name, char *message, int err);
-
-
-//###########################################################################################
 
 //			--	--	ENV	--	--
 
@@ -262,23 +252,20 @@ int		print_export(t_env *eprint, t_pipe *p);
 void	unset_var(t_mini *sh, char *var);
 void	unset_free(t_env *env);
 
-
-//###########################################################################################
-
 //			--	--	EXPANSER	--	--
 
 /**********   expanser.c -  ***********/
 int		expanser(t_mini *sh, t_lexer *lex, int flag);
 char	*expand_str(t_mini *sh, char *cont, int type, int i);
 int		expand_word(t_mini *sh, t_lexer **lex);
-t_lexer *read_word_exp(char *in, int *i, char q, int j); 
+t_lexer	*read_word_exp(char *in, int *i, char q, int j);
 char	*expand_hd(t_mini *sh, char *cont, int type);
 /***************************************************/
 
 /**********   expanser_utils.c -  ******/
-int		check_exp(char *cont, int type, int q); // q is a flag used inside to count " quotes
+int		check_exp(char *cont, int type, int q);
 int		new_len(t_mini *sh, char *cont, int type);
-char 	*get_var(char *cont);
+char	*get_var(char *cont);
 char	*check_value(t_mini *sh, char *var);
 int		check_file_exp(char *str);
 /***************************************************/
@@ -290,8 +277,6 @@ void	exp_clean(t_exp **exp);
 int		exp_start(t_mini *sh, char *cont, int type);
 char	*exp_file(t_mini *sh, char *cont, t_fd *new);
 /***************************************************/
-
-//###########################################################################################
 
 //			--	--	PARSER	--	--
 
@@ -309,22 +294,20 @@ void	pipe_add(t_mini *sh, t_pipe *new);
 int		pipe_clean(t_pipe **lst);
 /***************************************************/
 
-//###########################################################################################
-
 //			--	--	EXECUTOR	--	--
 
 /***** executor.c - main execution processes *****/
-int		executor(t_mini *sh, t_pipe *p, int i, int j); // i = -1, j = -1
-void	child_process(t_mini *sh, t_pipe *p, int flag); // flag 0 if NOT last child, 1 if last one
-int		last_child(t_mini *sh, t_pipe *p); 
-void	ft_redir(t_mini *sh, t_pipe *p); // flag 0 if NOT last child, 1 if last one
-int		exec_builtin(t_mini *sh, t_pipe *p); //executes the needed builtin
+int		executor(t_mini *sh, t_pipe *p, int i, int j);
+void	child_process(t_mini *sh, t_pipe *p, int flag);
+int		last_child(t_mini *sh, t_pipe *p);
+void	ft_redir(t_mini *sh, t_pipe *p);
+int		exec_builtin(t_mini *sh, t_pipe *p);
 /*************************************************/
 
 /***** exec_utils.c - utils for execution processes *****/
-int		check_builtin(char **cmd); // checks if the cmd is a builtin
-void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev); // opens all the file descriptors
-void	ft_check_open(t_pipe *p, t_fd *cur, int prev); // check if the prev is open and closes it
+int		check_builtin(char **cmd);
+void	ft_open(t_mini *sh, t_pipe *p, t_fd *fd1, int prev);
+void	ft_check_open(t_pipe *p, t_fd *cur, int prev);
 void	check_access(t_mini *sh, char **cmd, t_pipe *p);
 void	check_paths(char **paths, char *cmd, t_mini *sh, t_pipe *p);
 /*********************************************************/
