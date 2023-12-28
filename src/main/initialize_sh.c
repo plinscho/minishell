@@ -41,7 +41,6 @@ This function cleans the sh struct ans makes it ready for the next input.
 */
 void	sh_clean(t_mini *sh)
 {
-//	printf("ENTERED clean\n"); //erase
 	if (sh->lex_lst)
 		lex_clean(&(sh->lex_lst));
 	if (sh->hd_lst)

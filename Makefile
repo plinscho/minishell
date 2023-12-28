@@ -14,6 +14,7 @@ NAME = minishell
 HEADER = ./include/minishell.h
 
 CC = cc
+
 CFLAGS = -Wall -Wextra -Werror -MMD -I ./include -g #-fsanitize=address
 
 LIBFT = include/libft/libft.a
