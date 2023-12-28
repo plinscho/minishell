@@ -3,42 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plinscho <plinscho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:42:48 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/28 16:35:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:54:04 by plinscho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <limits.h>
-/*
-long long int	ft_atol(char *str)
-{
-	long	i;
-	long 	number;
-	long	sign;
 
-	sign = 1;
-	i = 0;
-	number = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i++] == '-')
-			sign = -1;
-	}
-	while (str[i] >= '0' && str[i] <= '9' && number <= 2147483647)
-	{
-		number = (number * 10) + (str[i] - '0');
-		i++;
-	}
-	return ((number *= sign));
-}
-
-*/
+long long int	ft_atol_sh(char *str);
 
 int	arg_count(char **grid)
 {
@@ -85,13 +60,40 @@ int	check_exit(char *s)
 		i++;
 	if (s[i])
 		return (p_exit_err(s, 1));
-	return (ft_atoi(s));
+	return (ft_atol_sh(s));
+}
+
+long long int	ft_atol_sh(char *str)
+{
+	int			i;
+	int			sign;
+	long long 	number;
+
+	sign = 1;
+	i = 0;
+	number = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i++] == '-')
+			sign = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (number > INT_MAX || number < INT_MIN)
+			return (p_exit_err(str, 1));
+		number = (number * 10) + (str[i] - '0');
+		i++;
+	}
+	return ((number *= sign));
 }
 
 int	ft_exit(t_mini *sh)
 {
-	char	*input;
-	int		ex;
+	char		*input;
+	long long	ex;
 
 	if (sh->input == NULL || ft_strcmp(sh->input, "exit") == 0)
 	{
@@ -108,8 +110,9 @@ int	ft_exit(t_mini *sh)
 		if (input[0] == '\0')
 			p_exit_err(input, 1);
 		else
+		{
 			ex = check_exit(input);
+		}
 	}
-//	printf("chao\n");
 	return (ex);
 }
