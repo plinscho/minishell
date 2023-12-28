@@ -39,9 +39,9 @@ void	pipe_add(t_mini *sh, t_pipe *new)
 		return ;
 	}
 	temp = sh->pipe_lst;
-	while (temp -> next)
-		temp = temp -> next;
-	temp -> next = new;
+	while (temp->next)
+		temp = tem->next;
+	temp->next = new;
 }
 
 /*
@@ -51,25 +51,19 @@ int	pipe_clean(t_pipe **lst)
 {
 	t_pipe	*temp;
 
-//	printf("[PIPE CLEAN]You entered: PIPE - %p\n", *lst); //erase
 	while (*lst)
 	{
-		temp = (*lst) -> next;
-//		printf("[PIPE CLEAN] before hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
-		if ((*lst) -> fd_lst)
-			fd_clean(&((*lst) -> fd_lst), 0);
+		temp = (*lst)->next;
+		if ((*lst)->fd_lst)
+			fd_clean(&((*lst)->fd_lst), 0);
 		if ((*lst)->in_fd > 0)
 			close((*lst)->in_fd);
 		if ((*lst)->out_fd > 0)
 			close((*lst)->out_fd);
-//		printf("[PIPE CLEAN] after hd clean: hd - %p\n", (*lst) -> fd_lst); //erase
-//		printf("[PIPE CLEAN] before cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
 		if ((*lst)->cmd)
 			(*lst)->cmd = arr_clean((*lst)->cmd, 1);
 		if ((*lst)->path)
 			(*lst)->path = ft_memdel((*lst)->path);
-//		printf("[PIPE CLEAN] after cmd clean: cmd - %p\n", (*lst) -> cmd); //erase
-		//check if i neet to close in and out fd here
 		free(*lst);
 		*lst = NULL;
 		*lst = temp;
@@ -77,8 +71,3 @@ int	pipe_clean(t_pipe **lst)
 	lst = NULL;
 	return (1);
 }
-
-
-
-
-
