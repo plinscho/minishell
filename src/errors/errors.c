@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int		quotes_error(t_mini *sh)
+int	quotes_error(t_mini *sh)
 {
 	ft_putstr_fd("minishell: syntax error: Quotes not closed\n", 2);
 	sh->exit = 258;
@@ -35,19 +35,19 @@ int	err_char(t_mini *sh, int token)
 	else
 		ft_putendl_fd("newline\n", 2);
 	sh->exit = 258;
-	return (1);	
+	return (1);
 }
 
-
-/* This one should only be used in the child processes because it exits the process. 
+/* This one should only be used in the child processes because it exits process 
 It is a first sketch. We need to change all the structure now of exiting the 
 loop and cleaning the struct. */
-int	err_exit(t_mini *sh, char *name, char *message, int err)
-{
 	//	write(2, ": exit!!!\n", ft_strlen("exit!!!\n")); //erase
 //	printf("[ERR EXIT] name: %s,\n message: %s\n", name, message); //erase
 //	if (!sh->pipes && sh->pipe_lst->builtin && err == 1)
 //		return (err_break(sh, name, message, err));
+
+int	err_exit(t_mini *sh, char *name, char *message, int err)
+{
 	if (name || message)
 		ft_putstr_fd("minishell: ", 2);
 	if ((err == 1 && *name && !message) || err == 14 || err == 12)
@@ -86,5 +86,5 @@ int	err_break(t_mini *sh, char *name, char *message, int err)
 		ft_putstr_fd("\n", 2);
 	}
 	sh->exit = err;
-	return(err);
+	return (err);
 }

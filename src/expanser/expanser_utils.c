@@ -16,7 +16,7 @@
 If type = 1 - It's a word (token 1) 0
 if type = 3 - it's a string "" (token 3) 1
 if type = 2 - it's a string '' (token 3) - no expansion
-Q is always -1 in the beginning - its a flag to check if we are in the double quotes. 
+Q is always starting -1 - its a flag to check if we are in the double quotes. 
 q < 0 - no open quotes
 q > 1 - you are inside open quotes
 */
@@ -40,7 +40,7 @@ int	check_exp(char *cont, int type, int q)
 				break ;
 		}
 		else if (cont[i] == '$' && check_chr(cont[i + 1]) > 2)
-				break ;
+			break ;
 		i++;
 	}
 	if (!cont[i] || !cont[i + 1])
@@ -54,11 +54,11 @@ if type = 3 - it's a string "" (token 3) 1
 */
 int	new_len(t_mini *sh, char *cont, int type)
 {
-	int	len;
-	int	i;
+	int		len;
+	int		i;
 	char	*new;
 	char	*val;
-	
+
 	len = ft_strlen(cont);
 	while (*cont)
 	{
@@ -66,14 +66,12 @@ int	new_len(t_mini *sh, char *cont, int type)
 		if (i < 0)
 			break ;
 		new = get_var(&cont[i + 1]);
-	//	printf("[NEW LEN] new var -- %s\n", new); //erase
 		if (!new)
 			return (-1);
 		val = check_value(sh, new);
 		len = len - ft_strlen(new) - 1 + ft_strlen(val);
 		if (*new == '?')
 			val = ft_memdel(val);
-	//	printf("[NEW LEN] cont[i] -- %c\n", cont[i]); //erase
 		cont = cont + i + 1;
 		new = ft_memdel(new);
 	}
@@ -82,7 +80,7 @@ int	new_len(t_mini *sh, char *cont, int type)
 
 char	*get_var(char *cont)
 {
-	int	len;
+	int		len;
 	char	*new;
 
 	len = 0;
@@ -108,7 +106,6 @@ char	*get_var(char *cont)
 	new[len] = '\0';
 	return (new);
 }
-
 
 char	*check_value(t_mini *sh, char *var)
 {

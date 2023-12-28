@@ -19,7 +19,7 @@ int	exp_init(t_mini *sh)
 	sh->exp = malloc(sizeof(t_exp));
 	if (!sh->exp)
 		return (1);
-	sh->exp->cont = NULL; //??
+	sh->exp->cont = NULL;
 	sh->exp->new = NULL;
 	sh->exp->var = NULL;
 	sh->exp->val = NULL;
@@ -46,10 +46,6 @@ void	exp_clean(t_exp **exp)
 	exp_nano_clean(*exp);
 	(*exp)->cont = NULL;
 	(*exp)->new = NULL;
-//	if ((*exp)->cont)
-//		(*exp)->cont = ft_memdel((*exp)->cont);
-//	if ((*exp)->new)
-//		(*exp)->new = ft_memdel((*exp)->new);
 	*exp = ft_memdel(*exp);
 }
 
@@ -78,7 +74,6 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 {
 	char	*str;
 
-//	printf("[EXP  FILE] cont: %s -- check_exp: %i\n", cont, check_exp(cont, 0, -1)); //erase
 	if (sh->lex_lst->token == 1 && check_exp(cont, sh->lex_lst->token, -1) < 0)
 		return (trim_quotes(cont, ' ', ft_strlen(cont), -1));
 	else if (new->type == 6 || check_exp(cont, sh->lex_lst->token, -1) < 0)
@@ -90,7 +85,6 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	str = expand_str(sh, cont, sh->lex_lst->token, -1);
 	if (!str)
 		return (ft_memdel(cont));
-//	printf("[EXP  FILE] cont: %s -- new str: %s\n", cont, str); //erase
 	if (check_file_exp(str))
 	{
 		str = ft_memdel(str);
@@ -102,4 +96,3 @@ char	*exp_file(t_mini *sh, char *cont, t_fd *new)
 	cont = ft_memdel(cont);
 	return (str);
 }
-
