@@ -55,16 +55,15 @@ void	fd_clean(t_fd **hd, int flag)
 
 /* 
 This function initializes the file descriptor from parser node in 3 cases:
-1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of redirection, and then 
-the filename.
-2. if type is 0 and token is 6 - the fd is the open fd where the heredoc is stored, 
-lex->token is the type of redirection, and then the keyword. 
-3. if type is NOT 0 (then it's 4) - the fd is -2, 4 is the type of redirection, and lex->str is 
-the filename. 
+1. if type is 0 and token is NOT 6 - the fd is -2, lex->token is the type of
+redirection, and then the filename.
+2. if type is 0 and token is 6 - the fd is the open fd where the heredoc 
+is stored, lex->token is the type of redirection, and then the keyword. 
+3. if type is NOT 0 (then it's 4) - the fd is -2, 4 is the type of redirection,
+and lex->str is the filename. 
 */
 int	fd_init(t_fd *new, t_mini *sh, int fd)
 {
-//	printf("[FD_INIT]You entered, fd: %i\n", fd); //erase
 	new->exp = 0;
 	new->type = sh->lex_lst->token;
 	sh->lex_lst = sh->lex_lst->next;
@@ -72,12 +71,10 @@ int	fd_init(t_fd *new, t_mini *sh, int fd)
 		sh->lex_lst = sh->lex_lst->next;
 	if (!sh->lex_lst)
 		return (1);
-//	printf("[FD_INIT] new fd: %i -- type: %i\n", fd, type); //erase
 	sh->lex_lst->cont = exp_file(sh, sh->lex_lst->cont, new);
 	if (!sh->lex_lst->cont)
 		return (1);
 	new->str = sh->lex_lst->cont;
-//	printf("[FD_INIT] new str: %s, exp flag: %i\n", new->str, new->exp); //erase
 	new->fd = fd;
 	new->next = NULL;
 	if (sh->lex_lst)
@@ -92,14 +89,9 @@ int	ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 {
 	while (fd1)
 	{
-	//	printf("[OPEN] PIPE %p -- filename before open: %s, fd: %i, exp flag: %i\n", p->cmd, fd1->str, fd1->fd, fd1->exp); //erase
-	//	printf("[OPEN] PIPE %s -- before open: in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		ft_check_open(p, fd1, prev);
 		if (fd1->exp == 1)
-		{
-	//		printf("[OPEN] flag is 1\n"); // erase
 			return (err_break(sh, fd1->str, "ambiguous redirect", 1));
-		}
 		if (fd1->type == 6 || fd1->type == 9)
 			p->in_fd = fd1->fd;
 		else if (!fd1->str || *fd1->str == '\0')
@@ -110,11 +102,11 @@ int	ft_open_built(t_mini *sh, t_pipe *p, t_fd *fd1, int prev)
 			p->out_fd = open(fd1->str, O_TRUNC | O_CREAT | O_RDWR, 0666);
 		else if (fd1->type == 7)
 			p->out_fd = open(fd1->str, O_APPEND | O_CREAT | O_RDWR, 0666);
-		if (p->in_fd < 0 && (fd1->type == 6 || fd1->type == 9 || fd1->type == 4))
+		if (p->in_fd < 0 && (fd1->type == 6 || fd1->type == 9
+				|| fd1->type == 4))
 			return (err_break(sh, fd1->str, NULL, 1));
 		if (p->out_fd < 0 && (fd1->type == 5 || fd1->type == 7))
 			return (err_break(sh, fd1->str, NULL, 1));
-	//	printf("[OPEN] PIPE %s -- fd after open in: %i, out: %i\n", p->cmd[0], p->in_fd, p->out_fd); //erase
 		prev = fd1->type;
 		fd1 = fd1->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:51:53 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/28 15:06:59 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:45:00 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,19 @@ This function cleans the sh struct ans makes it ready for the next input.
 */
 void	sh_clean(t_mini *sh)
 {
-	clear_history();
 	if (sh->lex_lst)
 		lex_clean(&(sh->lex_lst));
 	if (sh->hd_lst)
 		fd_clean(&(sh->hd_lst), 1);
-	if (sh->input && *sh->input)
+	if (sh->input)
 		sh->input = ft_memdel(sh->input);
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
-	if (sh->paths && sh->paths[0] != NULL)
-	{
+	if (sh->paths)
 		sh->paths = arr_clean(sh->paths, 0);
-	}
 	if (sh->exe)
 		sh->exe = ft_memdel(sh->exe);
+//	printf("ENTERED clean\n"); //erase
 	if (sh->exp)
 		exp_clean(&sh->exp);
 	sh->pipes = 0;
@@ -77,6 +75,7 @@ t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
+//	printf("ENTERED LOOP INIT\n"); //erase
 	sh->pipes = 0;
 	sh->check = 0;
 	if (ft_get_value(sh, "PATH"))
@@ -85,6 +84,7 @@ int	sh_loop_init(t_mini *sh)
 		if (!sh->paths)
 			return (err_break(sh, "malloc", NULL, 12));
 	}
+//	printf("LOOP INIT\n"); //erase
 	if (allocate_exe(sh))
 		return (err_break(sh, "malloc", NULL, 12));
 	return (0);

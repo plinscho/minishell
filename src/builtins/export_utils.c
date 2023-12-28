@@ -75,7 +75,6 @@ int	export_option(const char *name)
 {
 	int	i;
 
-//	printf("[EXPORT OPTION] Entered option: %s\n", name); //erase
 	if (!name || (!ft_isalpha(name[0]) && name[0] != '_'))
 		return (0);
 	i = 1;
@@ -92,6 +91,5 @@ int	export_option(const char *name)
 		}
 		i++;
 	}
-//	printf("[EXPORT OPTION] Leaving option: %c\n", name[i]); //erase
 	return (1);
 }

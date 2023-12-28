@@ -19,14 +19,13 @@ int	lex_clean(t_lexer **lst)
 {
 	t_lexer	*temp;
 
-//	printf
 	while (*lst)
 	{
-		temp = (*lst) -> next;
-		if ((*lst) -> cont)
+		temp = (*lst)->next;
+		if ((*lst)->cont)
 		{
-			free((*lst) -> cont);
-			(*lst) -> cont = NULL;
+			free((*lst)->cont);
+			(*lst)->cont = NULL;
 		}
 		free(*lst);
 		*lst = NULL;
@@ -37,7 +36,8 @@ int	lex_clean(t_lexer **lst)
 }
 
 /*
-This function allocates a new lex node, fills it with the given content and a type of token.
+This function allocates a new lex node,
+fills it with the given content and a type of token.
 */
 t_lexer	*lex_new(char *content, int token)
 {
@@ -46,10 +46,10 @@ t_lexer	*lex_new(char *content, int token)
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (ft_memdel(content));
-	new_node -> cont = content;
-	new_node -> token = token;
-	new_node -> prev = NULL;
-	new_node -> next = NULL;
+	new_node->cont = content;
+	new_node->token = token;
+	new_node->prev = NULL;
+	new_node->next = NULL;
 	return (new_node);
 }
 
@@ -63,29 +63,28 @@ void	lex_add(t_lexer **lst, t_lexer *new)
 	if (!*lst)
 	{
 		*lst = new;
-		new -> prev = NULL;
+		new->prev = NULL;
 		return ;
 	}
 	temp = *lst;
-	while (temp -> next)
-		temp = temp -> next;
-	new -> prev = temp;
-	temp -> next = new;
+	while (temp->next)
+		temp = temp->next;
+	new->prev = temp;
+	temp->next = new;
 }
 
 t_lexer	*lex_last(t_lexer *lst)
 {
 	if (lst)
 	{
-		while (lst -> next)
-			lst = lst -> next;
+		while (lst->next)
+			lst = lst->next;
 	}
 	return (lst);
 }
 
 void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp)
 {
-//	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
 	if (!new)
 	{
 		sh->lex_lst = temp->next;
@@ -95,10 +94,8 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp)
 			*lex = temp->next;
 		if (temp->next)
 			temp->next->prev = temp->prev;
-	//	printf("[LEX INSERT] BEFORE *lst ptr: %p, sh-lst: %p, new: %p\n", *lst, sh->lex_lst, new);	
-	//	printf("[LEX INSERT] BEFORE temp ptr: %p, lst->cont: %s, sh-lst: %p, new: %p\n", temp, temp->cont, sh->lex_lst, new);
 		if (temp->cont)
-			temp -> cont = ft_memdel(temp -> cont);
+			temp->cont = ft_memdel(temp->cont);
 		temp = ft_memdel(temp);
 		return ;
 	}
@@ -109,8 +106,7 @@ void	lex_insert(t_mini *sh, t_lexer *new, t_lexer **lex, t_lexer *temp)
 		temp->prev->next = new;
 	else
 		*lex = new;
-	if (temp -> cont)
-		temp -> cont = ft_memdel(temp -> cont);
+	if (temp->cont)
+		temp->cont = ft_memdel(temp->cont);
 	temp = ft_memdel(temp);
-//	printf("[LEX INSERT] *lst ptr: %p, sh-lst: %p\n", *lst, sh->lex_lst);
 }

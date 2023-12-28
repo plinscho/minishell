@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:30:40 by plinscho          #+#    #+#             */
-/*   Updated: 2023/12/27 22:40:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:48:07 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,14 @@ int	free_env_lst(t_env *head)
 
 void	free_env(t_mini *sh)
 {
+//	printf("ENTERED FREE ENV\n"); //erase
+	clear_history();
 	if (sh->exe)
 		free(sh->exe);
 	if (sh->env != NULL)
 		sh->env = arr_clean(sh->env, 0);
 	free_env_lst(sh->env_lst);
+	sh->env_lst = NULL;
+//	printf("AFTER FREE ENV: %p, %p\n", sh->env, sh->env_lst); //erase
+//	system("leaks minishell"); //erase
 }

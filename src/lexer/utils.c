@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/24 19:43:12 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:41:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,32 @@ int	check_chr(char c)
 /* 
 This function receives an double array and a flag that means:
 1. flag=0 - all the strings in the array are allocated, so it frees them
-2. flag=1 - the strings in the array are NOT allocated, it only iquals them to null
+2. flag=1 - the strings in the array are NOT allocated, 
+			it only iquals them to null
 */
 char	**arr_clean(char **cmd, int flag)
 {
 	int		i;
 
 	i = 0;
-//	printf("[ARR CLEAN]You entered: arr - %p\n", *cmd); //erase
-	while (cmd && *cmd && cmd[i])
+//	printf("ENTERED ARR CLEAN\n"); //erase
+	if (!cmd)
+		return (NULL);
+	while (cmd && cmd[i])
 	{
-//		printf("[ARR CLEAN] before cleaning: str - %p\n", cmd[i]); //erase
-		if (!flag) 
+//		printf("ENTERED ARR CLEAN entrance cmd: %s\n", cmd[i]); //erase
+		if (!flag)
+		{
+//			printf("ENTERED ARR CLEAN !flag: %p\n", cmd[i]); //erase
 			cmd[i] = ft_memdel(cmd[i]);
+//			printf("ENTERED ARR CLEAN !flag after memdel: %p\n", cmd[i]); //erase
+		}
 		else
 			cmd[i] = NULL;
-//		printf("[ARR CLEAN] after cleaning: str - %p\n", cmd[i]); //erase
 		i++;
-//		printf("[ARR CLEAN] after i++: str - %p\n", cmd[i]); //erase
+//		printf("ENTERED ARR CLEAN end cmd: %s\n", cmd[i]); //erase
 	}
-	if (cmd)
-		free(cmd);
+	cmd = ft_memdel(cmd);
 	return (NULL);
 }
 
@@ -101,14 +106,12 @@ int	ft_longer(char *str, char *key)
 {
 	int	len;
 
-//	printf("in ft_longer: str - %zu, key - %zu\n", ft_strlen(str), ft_strlen(key)); //erase
 	if (ft_strlen(str) > ft_strlen(key))
 		len = ft_strlen(str);
 	else
 	{
 		len = ft_strlen(key);
 	}
-//	printf("in ft_longer: len -  %i\n", len); //erase
 	return (len);
 }
 
@@ -120,7 +123,6 @@ char	*ft_smart_join(char *s1, char *s2, char *s3)
 
 	i = -1;
 	j = 0;
-//	printf("[SMART JOIN] S1: %s, -- S2: %s, -- S3: %s\n", s1, s2, s3); //erase
 	if (!(s1 && s2 && s3))
 		return (0);
 	new = malloc(ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1);

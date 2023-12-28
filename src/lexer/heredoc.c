@@ -29,7 +29,6 @@ int	ft_heredoc(t_mini *sh, char *in, int i)
 		if (i <= 0)
 			return (0);
 		in = in + i;
-	//	printf("[HD] after finding hd: %s\n", in); //erase
 		new = malloc(sizeof(t_fd));
 		if (!new)
 			return (err_break(sh, "heredoc", NULL, 12));
@@ -37,13 +36,11 @@ int	ft_heredoc(t_mini *sh, char *in, int i)
 		new->type = 6;
 		fd_add(&(sh->hd_lst), new);
 		new->str = keyword_hd(new, in, &i, ' ');
-//	printf("[HD] key word: %s\n", new->str); //erase
 		if (!new->str)
 			return (err_break(sh, "heredoc", NULL, 12));
 		new->fd = save_hd(sh, new->str, NULL, new->type);
 		if (new->fd < 0)
 			return (err_break(sh, "heredoc", NULL, -(new->fd)));
-	//	printf("[HD] the end: %s\n", in); //erase
 		i = 0;
 	}
 	return (0);
@@ -62,7 +59,7 @@ int	find_hd(char *in, int i)
 	{
 		while (in[i] && in[i] != '<')
 			i++;
-		if (!in[i] || !in[i + 1] || !in[i + 2]) // not sure about this condition. do we have \0 or \n in the end?
+		if (!in[i] || !in[i + 1] || !in[i + 2])
 			return (-1);
 		if (in[i + 1] != '<')
 		{
@@ -86,7 +83,8 @@ int	find_hd(char *in, int i)
 This function parses and saves the keyword of the heredoc:
 all the valid characters that are not space, < OR > OR |,
 trims the quotes if finds them, 
-if any ' quotes are found changes the type of the node to 9 - for the expanser.
+if any ' quotes are found changes the type of the node to 9 - 
+for the expanser.
 */
 char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 {
@@ -94,25 +92,19 @@ char	*keyword_hd(t_fd *new, char *in, int *i, char q)
 	int		j;
 
 	j = 0;
-//	printf("[HEREDOC] in keyword: in: %s\n", in); //erase
-	while (in[j] && in[j + 1] && check_chr(in[0]) != 2 && check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
-	{
-//		printf("[HEREDOC] in loop: in: %s\n", in + j); //erase
+	while (in[j] && in[j + 1] && check_chr(in[0]) != 2
+		&& check_chr(in[j + 1]) != 2 && check_chr(in[j + 1]))
 		j++;
-	}
-//	printf("[HEREDOC] in keyword: stop letter: %c\n", in[j]); //erase
 	if (check_chr(in[0]) == 2)
 		j = word_in_quotes(in, &q, -1);
 	while (in[j] && in[j + 1] && check_chr(in[j + 1]) == 2)
 		j = word_in_quotes(in, &q, j);
 	cont = ft_substr(in, 0, j + 1);
-//	printf("[HEREDOC] before trim keyword: %s$\n", cont); //erase
 	if (cont)
 		cont = trim_quotes(cont, ' ', ft_strlen(cont), -1);
 	if (!cont)
 		return (NULL);
-//	printf("[HEREDOC] final keyword: %s$\n", cont); //erase
-	if (q == '\'' || q =='\"')
+	if (q == '\'' || q == '\"')
 		new->type = 9;
 	*i += j;
 	return (cont);

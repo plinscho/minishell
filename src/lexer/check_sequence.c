@@ -12,12 +12,12 @@
 
 #include "../../include/minishell.h"
 
-int		no_cmd(char *seq)
+int	no_cmd(char *seq)
 {
 	int	i;
 
 	i = 0;
-	while(seq[i])
+	while (seq[i])
 	{
 		if (!(ft_isspace(seq[i])))
 			return (0);
@@ -25,42 +25,35 @@ int		no_cmd(char *seq)
 	}
 	return (1);
 }
-
-int check_syntax(t_mini *sh, t_lexer *lexer)
+/*
+int	check_syntax(t_mini *sh, t_lexer *lexer)
 {
-    t_lexer *current = lexer;
-    int prev_token = -1;
+	t_lexer	*node;
+	int		prev_token;
 
-	if (current->token == 8)
+	prev_token = -1;
+	node = lexer;
+	if (node->token == 8)
+		return (err_char(node->token));
+	while (node != NULL)
 	{
-		sh->exit = 258;
-		return (err_char(current->token));
+		if (node->token != 0)
+		{
+			if ((node->token >= 4 && node->token <= 5) || node->token >= 7)
+			{
+				if (prev_token >= 4 && prev_token <= 9)
+					return (err_char(node->token));
+			}
+			prev_token = node->token;
+		}
+		node = node->next;
 	}
-    while (current != NULL)
-    {
-        if (current->token != 0) // Ignore space tokens
-        {
-            if ((current->token >= 4 && current->token <= 5) || current->token >= 7)// If the token is a pipe or redirection operator
-            {
-                if (prev_token >= 4 && prev_token <= 9) // If the previous token was also a pipe or redirection operator
-                {
-                    sh->exit = 258;
-                    return (err_char(current->token)); // Return an error
-                }
-            }
-            prev_token = current->token;
-        }
-        current = current->next;
-    }
-    if (prev_token >= 4 && prev_token <= 9) // If the last token was a pipe or redirection operator
-    {
-        sh->exit = 258;
-        return (err_char(prev_token)); // Return an error
-    }
-    return (0); // No syntax errors found
+	if (prev_token >= 4 && prev_token <= 9)
+		return (err_char(prev_token));
+	return (0);
 }
 
-int		ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	c = (unsigned char)c;
 	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
@@ -68,3 +61,4 @@ int		ft_isspace(int c)
 		return (1);
 	return (0);
 }
+*/

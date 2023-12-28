@@ -77,7 +77,6 @@ int	add_or_update_env(t_mini *sh, char *name, char *value)
 	if (value == NULL)
 		has_val = 0;
 	env = sh->env_lst;
-//	printf("[ENV lST ADD OR UPDATE]: %s, %s\n", name, value); //erase
 	while (env != NULL)
 	{
 		if (ft_strncmp(env->env_key, name, ft_strlen(name)) == 0

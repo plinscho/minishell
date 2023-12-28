@@ -22,7 +22,6 @@ void	print_error(char **args)
 	else
 	{
 		perror(args[1]);
-//		ft_putstr_fd("\n", 2);
 	}
 }
 

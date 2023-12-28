@@ -79,7 +79,7 @@ char	**env_converter(t_env *env)
 
 	if (!env)
 		return (NULL);
-	grid = (char **)malloc(sizeof(char *) * (env_var(env, 1) + 1)); // check all this
+	grid = (char **)malloc(sizeof(char *) * (env_var(env, 1) + 1));
 	if (!grid)
 		return (NULL);
 	tmp = env;
@@ -139,4 +139,3 @@ int	first_env(t_mini *sh, char **env)
 	}
 	return (0);
 }
-
