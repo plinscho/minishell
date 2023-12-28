@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/28 14:43:42 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:41:48 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,24 @@ char	**arr_clean(char **cmd, int flag)
 	int		i;
 
 	i = 0;
-	while (cmd && *cmd && cmd[i])
+//	printf("ENTERED ARR CLEAN\n"); //erase
+	if (!cmd)
+		return (NULL);
+	while (cmd && cmd[i])
 	{
+//		printf("ENTERED ARR CLEAN entrance cmd: %s\n", cmd[i]); //erase
 		if (!flag)
+		{
+//			printf("ENTERED ARR CLEAN !flag: %p\n", cmd[i]); //erase
 			cmd[i] = ft_memdel(cmd[i]);
+//			printf("ENTERED ARR CLEAN !flag after memdel: %p\n", cmd[i]); //erase
+		}
 		else
 			cmd[i] = NULL;
 		i++;
+//		printf("ENTERED ARR CLEAN end cmd: %s\n", cmd[i]); //erase
 	}
-	if (cmd)
-		cmd = ft_memdel(cmd[i]);
+	cmd = ft_memdel(cmd);
 	return (NULL);
 }
 
