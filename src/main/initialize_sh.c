@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:51:53 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/27 22:53:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:06:59 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ This function cleans the sh struct ans makes it ready for the next input.
 */
 void	sh_clean(t_mini *sh)
 {
+	clear_history();
 	if (sh->lex_lst)
 		lex_clean(&(sh->lex_lst));
 	if (sh->hd_lst)
@@ -50,7 +51,9 @@ void	sh_clean(t_mini *sh)
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
 	if (sh->paths && sh->paths[0] != NULL)
+	{
 		sh->paths = arr_clean(sh->paths, 0);
+	}
 	if (sh->exe)
 		sh->exe = ft_memdel(sh->exe);
 	if (sh->exp)
