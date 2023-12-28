@@ -40,7 +40,7 @@ void	pipe_add(t_mini *sh, t_pipe *new)
 	}
 	temp = sh->pipe_lst;
 	while (temp->next)
-		temp = tem->next;
+		temp = temp->next;
 	temp->next = new;
 }
 

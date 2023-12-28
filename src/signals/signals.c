@@ -67,7 +67,10 @@ void	exit_status(t_mini	*sh, int j)
 					sh->exit = 130;
 				}
 				else if (WTERMSIG(sh->exe->stat) == SIGQUIT)
-					(1 && (sh->exit = 131) && (printf("Quit: 3\n")));
+				{
+					sh->exit = 131;
+					printf("Quit: 3\n");
+				}
 			}
 		}
 	}

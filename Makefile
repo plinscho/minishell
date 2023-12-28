@@ -27,7 +27,7 @@ MAKE_RLINE = make -C include/readline --no-print-directory
 
 MAIN = src/main/main src/main/initialize_sh 
 
-PARSER = src/parser/parser src/parser/parser_utils src/parser/printer
+PARSER = src/parser/parser src/parser/parser_utils
 
 LEXER = src/lexer/lexer src/lexer/lexer_utils src/lexer/quotes \
 		src/lexer/heredoc src/lexer/fd_utils src/lexer/check_syntax \
