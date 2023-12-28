@@ -57,7 +57,6 @@ char	**ft_pop(char const *s, char c, char **arr, size_t n)
 			start = i;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 		{
-
 			arr[n] = ft_substr(s, start, (i - start + 1));
 			if (arr[n] == 0)
 				return (totalfree(arr, n));
