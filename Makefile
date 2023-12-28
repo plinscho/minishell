@@ -6,7 +6,7 @@
 #    By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 21:22:24 by nzhuzhle          #+#    #+#              #
-#    Updated: 2023/12/27 22:39:30 by nzhuzhle         ###   ########.fr        #
+#    Updated: 2023/12/28 14:24:35 by nzhuzhle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 HEADER = ./include/minishell.h
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -I ./include -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -I ./include -g #-fsanitize=address
 
 LIBFT = include/libft/libft.a
 RDL = -L${HOME}/.brew/opt/readline/lib -lreadline -lhistory -ltermcap

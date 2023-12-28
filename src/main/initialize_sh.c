@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:51:53 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/27 22:53:13 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 14:44:18 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ This function cleans the sh struct ans makes it ready for the next input.
 */
 void	sh_clean(t_mini *sh)
 {
+	printf("ENTERED clean\n");
 	if (sh->lex_lst)
 		lex_clean(&(sh->lex_lst));
 	if (sh->hd_lst)
@@ -49,7 +50,7 @@ void	sh_clean(t_mini *sh)
 		sh->input = ft_memdel(sh->input);
 	if (sh->pipe_lst)
 		pipe_clean(&(sh->pipe_lst));
-	if (sh->paths && sh->paths[0] != NULL)
+	if (sh->paths)
 		sh->paths = arr_clean(sh->paths, 0);
 	if (sh->exe)
 		sh->exe = ft_memdel(sh->exe);
@@ -74,6 +75,7 @@ t_mini	*sh_re(t_mini **sh, t_lexer *lex, t_fd *hd)
 
 int	sh_loop_init(t_mini *sh)
 {
+	printf("ENTERED LOOP INIT\n");
 	sh->pipes = 0;
 	sh->check = 0;
 	if (ft_get_value(sh, "PATH"))

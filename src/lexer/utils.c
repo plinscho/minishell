@@ -6,7 +6,7 @@
 /*   By: nzhuzhle <nzhuzhle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:49:55 by nzhuzhle          #+#    #+#             */
-/*   Updated: 2023/12/24 19:43:12 by nzhuzhle         ###   ########.fr       */
+/*   Updated: 2023/12/28 14:43:42 by nzhuzhle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**arr_clean(char **cmd, int flag)
 		i++;
 	}
 	if (cmd)
-		free(cmd);
+		cmd = ft_memdel(cmd[i]);
 	return (NULL);
 }
 
