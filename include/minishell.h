@@ -34,7 +34,7 @@
 # define N_INTERACT	3
 
 // global variable
-int	g_sig_rec;
+extern int	g_sig_rec;
 /*
 typedef struct s_envlst	t_env;
 typedef struct s_lexer	t_lexer;

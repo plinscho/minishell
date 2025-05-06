@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+int g_sig_rec = 0;
+
 /*
 	This fucntion works as a collider of the shell parts.
 	We can manage the lexer, parser, env, etc from here.
