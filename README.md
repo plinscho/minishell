@@ -5,7 +5,7 @@ Usage:
 make
 ```
 
-You need to have Makefile installed and a compiler like gcc or clang for running the C code.
+You need to have Makefile installed and a compiler like gcc or clang.
 
 
 
